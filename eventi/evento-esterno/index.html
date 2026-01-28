@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Evento Esterno — Eventi Badiani</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../../assets/badiani-common.css" />
+  <style>
+    /* Page-specific styles for Evento Esterno */
+    :root{
+      --badiani-cyan:#5B9AAD;
+      --badiani-green:#6F7C4A;
+    }
+
+    .hero{
+      background:var(--badiani-blue);
+      padding:60px 20px;
+      text-align:center;
+      color:#fff;
+    }
+    .hero h1{
+      font-size:clamp(32px, 4.5vw, 54px);
+      color:#fff;
+      margin-bottom:16px;
+    }
+    .hero p{
+      font-size:clamp(16px, 1.8vw, 22px);
+      max-width:700px;
+      margin:0 auto;
+      opacity:0.95;
+    }
+
+    .section{
+      padding:clamp(48px, 8vw, 90px) clamp(16px, 4vw, 80px);
+      max-width:1400px;
+      margin:0 auto;
+    }
+    .section-title{
+      font-size:clamp(24px, 3vw, 38px);
+      text-align:center;
+      margin-bottom:50px;
+    }
+
+    .options-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(340px, 1fr));
+      gap:32px;
+      margin-bottom:60px;
+    }
+    .option-card{
+      background:var(--surface);
+      border-radius:25px;
+      overflow:hidden;
+      box-shadow:0 15px 50px rgba(0,0,0,0.15);
+      transition:transform 0.4s ease, box-shadow 0.4s ease;
+      cursor:pointer;
+      display:flex;
+      flex-direction:column;
+    }
+    .option-card:hover{
+      transform:translateY(-12px);
+      box-shadow:0 25px 70px rgba(0,0,0,0.25);
+    }
+    .option-card.coolbox .option-header{ background:linear-gradient(135deg, var(--badiani-blue), #2a4ab0); }
+    .option-card.carretto .option-header{ background:linear-gradient(135deg, var(--badiani-pink), #ff7ab7); }
+    .option-card.vetrina .option-header{ background:linear-gradient(135deg, var(--badiani-green), #7f8c5a); }
+
+    .option-header{
+      padding:40px 30px;
+      text-align:center;
+      color:#fff;
+    }
+    .option-name{
+      font-size:clamp(28px, 3vw, 36px);
+      letter-spacing:1px;
+      margin-bottom:8px;
+    }
+    .option-subtitle{
+      font-size:16px;
+      opacity:0.9;
+    }
+    .option-body{
+      padding:35px 30px;
+      flex:1;
+      display:flex;
+      flex-direction:column;
+    }
+    .option-desc{
+      font-size:16px;
+      color:#6a6b6e;
+      margin-bottom:24px;
+      line-height:1.7;
+    }
+    .option-features{
+      list-style:none;
+      padding:0;
+      margin-bottom:auto;
+    }
+    .option-features li{
+      font-size:15px;
+      padding:10px 0;
+      border-bottom:1px solid rgba(30,57,141,0.08);
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      line-height:1.5;
+    }
+    .option-features li::before{
+      content:"✓";
+      color:var(--badiani-pink);
+      font-size:18px;
+      font-weight:700;
+      flex-shrink:0;
+    }
+    .option-features strong{
+      color:var(--badiani-blue);
+      font-weight:600;
+    }
+
+    /* MODAL */
+    .modal-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.75);
+      z-index:9999;
+      display:none;
+      opacity:0;
+      transition:opacity 0.4s ease;
+      overflow-y:auto;
+      padding:40px 20px;
+    }
+    .modal-overlay.active{
+      display:flex;
+      opacity:1;
+      align-items:flex-start;
+      justify-content:center;
+    }
+    .modal-content{
+      background:var(--surface);
+      border-radius:25px;
+      max-width:900px;
+      width:100%;
+      position:relative;
+      margin:auto;
+      box-shadow:0 30px 80px rgba(0,0,0,0.3);
+      transform:translateY(50px);
+      transition:transform 0.4s ease;
+    }
+    .modal-overlay.active .modal-content{
+      transform:translateY(0);
+    }
+    .modal-close{
+      position:absolute;
+      top:20px;
+      right:20px;
+      background:rgba(255,255,255,0.15);
+      border:none;
+      color:#fff;
+      font-size:32px;
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      cursor:pointer;
+      transition:background 0.3s;
+      z-index:10;
+    }
+    .modal-close:hover{
+      background:var(--badiani-pink);
+    }
+    .modal-header{
+      padding:50px 40px 30px;
+      text-align:center;
+    }
+    .modal-title{
+      font-size:clamp(28px, 3.5vw, 42px);
+      color:#fff;
+      margin-bottom:10px;
+    }
+    .modal-subtitle{
+      font-size:clamp(16px, 1.8vw, 20px);
+      color:rgba(255,255,255,0.9);
+    }
+    .modal-body{
+      padding:0 40px 40px;
+    }
+    .modal-section{
+      margin-bottom:30px;
+    }
+    .modal-section h4{
+      font-size:18px;
+      color:var(--badiani-blue);
+      margin-bottom:12px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+    .modal-section ul{
+      list-style:none;
+      padding:0;
+    }
+    .modal-section li{
+      padding:8px 0;
+      padding-left:22px;
+      position:relative;
+      font-size:15px;
+      line-height:1.6;
+    }
+    .modal-section li::before{
+      content:"•";
+      position:absolute;
+      left:0;
+      color:var(--badiani-pink);
+      font-weight:700;
+    }
+    .modal-section p{
+      font-size:15px;
+      line-height:1.7;
+      color:#6a6b6e;
+    }
+
+    /* TERMINI */
+    .terms{
+      background:rgba(30,57,141,0.04);
+      padding:30px;
+      border-radius:20px;
+      margin-top:40px;
+    }
+    .terms h3{
+      font-size:20px;
+      margin-bottom:16px;
+    }
+    .terms ul{
+      list-style:none;
+      padding:0;
+    }
+    .terms li{
+      font-size:14px;
+      padding:6px 0;
+      padding-left:20px;
+      position:relative;
+    }
+    .terms li::before{
+      content:"→";
+      position:absolute;
+      left:0;
+      color:var(--badiani-blue);
+    }
+
+    /* CONTACT */
+    .contact-footer{
+      background:var(--badiani-blue);
+      padding:40px 30px;
+      text-align:center;
+      color:#fff;
+    }
+    .contact-footer h3{
+      color:#fff;
+      font-size:24px;
+      margin-bottom:12px;
+    }
+    .contact-footer a{
+      color:var(--badiani-pink);
+      text-decoration:none;
+      font-size:20px;
+      font-weight:600;
+      letter-spacing:1px;
+    }
+    .contact-footer a:hover{
+      text-decoration:underline;
+    }
+
+    @media(max-width:768px){
+      .options-grid{
+        grid-template-columns:1fr;
+      }
+      .modal-header, .modal-body{
+        padding-left:24px;
+        padding-right:24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar__logo">
+      <img src="../../assets/extracted/f473fa4a48ae6948929084c736e84f6274322e2d.webp" alt="Badiani 1932" />
+    </div>
+    <nav class="topbar__nav">
+      <a href="../../">Home</a>
+      <a href="../">Eventi</a>
+      <a href="../../b2b/">B2B</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Evento Esterno</h1>
+    <p>Porta Badiani al tuo evento con soluzioni mobili eleganti e versatili</p>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Soluzioni Disponibili</h2>
+
+    <div class="options-grid">
+      <!-- COOL BOX -->
+      <article class="option-card coolbox" onclick="openModal('coolbox')" tabindex="0" aria-label="Cool Box">
+        <div class="option-header">
+          <h3 class="option-name">COOL BOX</h3>
+          <p class="option-subtitle">Pratico e versatile</p>
+        </div>
+        <div class="option-body">
+          <p class="option-desc">Ideale per eventi su piccola scala, da 40 a 90 persone (dipende dallo spazio per stoccare), max 2 gusti.</p>
+          <ul class="option-features">
+            <li><strong>Capacità:</strong> 40-90 pax (max 2 gusti)</li>
+            <li><strong>Prezzo gelato:</strong> Da concordare in fase d'ordine</li>
+            <li><strong>Servizio:</strong> 1 operatore (da definire in base al tempo)</li>
+            <li><strong>Trasporto:</strong> Da definire in base alla distanza</li>
+            <li><strong>Personalizzazione:</strong> Minimo 14 giorni preavviso</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- CARRETTO E BICICLETTA -->
+      <article class="option-card carretto" onclick="openModal('carretto')" tabindex="0" aria-label="Carretto e Bicicletta">
+        <div class="option-header">
+          <h3 class="option-name">CARRETTO E BICICLETTA</h3>
+          <p class="option-subtitle">Ideale per eventi casual e all'aperto</p>
+        </div>
+        <div class="option-body">
+          <p class="option-desc">Soluzione iconica e mobile per portare il gelato Badiani direttamente al tuo evento outdoor.</p>
+          <ul class="option-features">
+            <li><strong>0-50 pax:</strong> €1.000,00 + 10% (€900)</li>
+            <li><strong>50-70 pax:</strong> €1.200,00 + 10%</li>
+            <li><strong>70-100 pax:</strong> €1.400,00 + 10% (€1500)</li>
+            <li><strong>Include:</strong> 2h servizio con 1 operatore</li>
+            <li><strong>Extra time:</strong> €100,00/h + IVA 10%</li>
+            <li><strong>Trasporto:</strong> Entro 100km €250,00 + IVA</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- VETRINA GELATO -->
+      <article class="option-card vetrina" onclick="openModal('vetrina')" tabindex="0" aria-label="Vetrina Gelato">
+        <div class="option-header">
+          <h3 class="option-name">VETRINA GELATO</h3>
+          <p class="option-subtitle">Soluzione istituzionale ed elegante</p>
+        </div>
+        <div class="option-body">
+          <p class="option-desc">Perfetta per eventi aziendali, conferenze e occasioni formali che richiedono un servizio professionale.</p>
+          <ul class="option-features">
+            <li><strong>0-50 pax:</strong> €1.000,00 + 10% (€900)</li>
+            <li><strong>50-70 pax:</strong> €1.200,00 + 10%</li>
+            <li><strong>70-100 pax:</strong> €1.400,00 + 10% (€1500)</li>
+            <li><strong>Include:</strong> 2h servizio con 1 operatore</li>
+            <li><strong>Extra time:</strong> €100,00/h + IVA 10%</li>
+            <li><strong>Trasporto:</strong> Entro 100km €250,00 + IVA</li>
+          </ul>
+        </div>
+      </article>
+    </div>
+
+    <!-- TERMINI E CONDIZIONI -->
+    <div class="terms">
+      <h3>Termini e Condizioni Evento Esterno</h3>
+      <ul>
+        <li><strong>Acconto:</strong> 50% al momento della conferma tramite bonifico</li>
+        <li><strong>Saldo:</strong> Entro il giorno dell'evento tramite bonifico</li>
+        <li><strong>Preavviso:</strong> Da definire</li>
+        <li><strong>Personalizzazione:</strong> Costi da concordare previa richiesta con un minimo di preavviso di almeno 14 giorni</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTACT FOOTER -->
+  <footer class="contact-footer">
+    <h3>Richiedi Informazioni</h3>
+    <a href="mailto:eventi@badiani1932.com">eventi@badiani1932.com</a>
+  </footer>
+
+  <!-- MODAL COOL BOX -->
+  <div class="modal-overlay" id="modalCoolbox" onclick="closeModal('coolbox')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal('coolbox')" aria-label="Chiudi">&times;</button>
+      <div class="option-header coolbox">
+        <h2 class="modal-title">COOL BOX</h2>
+        <p class="modal-subtitle">Pratico e versatile</p>
+      </div>
+      <div class="modal-body">
+        <div class="modal-section">
+          <h4>Descrizione</h4>
+          <p>Pratico e versatile, ideale per eventi su piccola scala, da 40pax a 90pax (dipende se c'è spazio per stoccare), max 2 gusti.</p>
+        </div>
+        <div class="modal-section">
+          <h4>Costo Servizio</h4>
+          <ul>
+            <li>Prezzo del Gelato (prezzo da concordare in fase d'ordine)</li>
+            <li>Costo servizio 1 operatore - da definire in base al tempo</li>
+            <li>Trasporto da definire in base alla distanza</li>
+            <li>Costi di personalizzazione da concordare previa richiesta con un minimo di preavviso di almeno 14 giorni</li>
+          </ul>
+        </div>
+        <div class="modal-section">
+          <h4>Gallery</h4>
+          <p style="font-size:14px;color:#90949a;">Allegare foto esempio di eventi passati</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL CARRETTO -->
+  <div class="modal-overlay" id="modalCarretto" onclick="closeModal('carretto')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal('carretto')" aria-label="Chiudi">&times;</button>
+      <div class="option-header carretto">
+        <h2 class="modal-title">CARRETTO E BICICLETTA</h2>
+        <p class="modal-subtitle">Ideale per eventi casual e all'aperto</p>
+      </div>
+      <div class="modal-body">
+        <div class="modal-section">
+          <h4>Costo Servizio</h4>
+          <ul>
+            <li>0 - 50 pax: gelato, cono/ coppetta €1.000,00 + 10% (€900)</li>
+            <li>50 - 70 pax: gelato, cono/ coppetta €1.200,00 + 10%</li>
+            <li>70 - 100 pax: gelato, cono/ coppetta €1.400,00 + 10% (€1500)</li>
+          </ul>
+        </div>
+        <div class="modal-section">
+          <h4>Incluso</h4>
+          <ul>
+            <li>Include 2h di servizio con 1 operatore</li>
+            <li>Extra time €100,00/h + iva al 10%</li>
+          </ul>
+        </div>
+        <div class="modal-section">
+          <h4>Trasporto e Personalizzazione</h4>
+          <ul>
+            <li>Trasporto per veicolo entro i 100 km €250,00 + iva</li>
+            <li>Costi di personalizzazione da concordare previa richiesta con un minimo di preavviso di almeno 14 giorni (da definire)</li>
+          </ul>
+        </div>
+        <div class="modal-section">
+          <h4>Gallery</h4>
+          <p style="font-size:14px;color:#90949a;">Allegare foto esempio di eventi passati</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL VETRINA -->
+  <div class="modal-overlay" id="modalVetrina" onclick="closeModal('vetrina')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal('vetrina')" aria-label="Chiudi">&times;</button>
+      <div class="option-header vetrina">
+        <h2 class="modal-title">VETRINA GELATO</h2>
+        <p class="modal-subtitle">Soluzione istituzionale, elegante, per eventi aziendali</p>
+      </div>
+      <div class="modal-body">
+        <div class="modal-section">
+          <h4>Costo Servizio</h4>
+          <ul>
+            <li>0 - 50 pax: gelato, cono/ coppetta €1.000,00 + 10% (€900)</li>
+            <li>50 - 70 pax: gelato, cono/ coppetta €1.200,00 + 10%</li>
+            <li>70 - 100 pax: gelato, cono/ coppetta €1.400,00 + 10% (€1500)</li>
+          </ul>
+        </div>
+        <div class="modal-section">
+          <h4>Incluso</h4>
+          <ul>
+            <li>Include 2h di servizio con 1 operatore</li>
+            <li>Extra time €100,00/h + iva al 10%</li>
+          </ul>
+        </div>
+        <div class="modal-section">
+          <h4>Trasporto e Personalizzazione</h4>
+          <ul>
+            <li>Trasporto per veicolo entro i 100 km €250,00 + iva</li>
+            <li>Costi di personalizzazione da concordare previa richiesta con un minimo di preavviso di almeno 14 giorni (da definire)</li>
+          </ul>
+        </div>
+        <div class="modal-section">
+          <h4>Gallery</h4>
+          <p style="font-size:14px;color:#90949a;">Allegare foto esempio di eventi passati</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModal(type) {
+      const modal = document.getElementById('modal' + type.charAt(0).toUpperCase() + type.slice(1));
+      if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeModal(type) {
+      const modal = document.getElementById('modal' + type.charAt(0).toUpperCase() + type.slice(1));
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay').forEach(m => {
+          m.classList.remove('active');
+        });
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Keyboard navigation
+    document.querySelectorAll('.option-card').forEach(card => {
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.click();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

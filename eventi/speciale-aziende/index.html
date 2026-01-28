@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Speciale Aziende — Eventi Badiani</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../../assets/badiani-common.css" />
+  <style>
+    /* Page-specific styles for Speciale Aziende */
+
+    .hero{
+      background:linear-gradient(135deg, var(--badiani-blue), #2a4ab0);
+      padding:80px 20px;
+      text-align:center;
+      color:#fff;
+    }
+    .hero h1{
+      font-size:clamp(32px, 4.5vw, 54px);
+      color:#fff;
+      margin-bottom:16px;
+    }
+    .hero .subtitle{
+      font-size:clamp(18px, 2.2vw, 28px);
+      margin-bottom:24px;
+      opacity:0.95;
+    }
+    .hero p{
+      font-size:clamp(16px, 1.6vw, 20px);
+      max-width:800px;
+      margin:0 auto;
+      line-height:1.8;
+      opacity:0.9;
+    }
+
+    .section{
+      padding:clamp(48px, 8vw, 90px) clamp(16px, 4vw, 80px);
+      max-width:1400px;
+      margin:0 auto;
+    }
+    .section-title{
+      font-size:clamp(24px, 3vw, 38px);
+      margin-bottom:16px;
+      text-align:center;
+    }
+    .section-intro{
+      font-size:clamp(16px, 1.6vw, 20px);
+      text-align:center;
+      max-width:900px;
+      margin:0 auto 50px;
+      color:#6a6b6e;
+      line-height:1.8;
+    }
+
+    .features-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+      gap:32px;
+      margin-bottom:60px;
+    }
+    .feature-card{
+      background:var(--surface);
+      padding:40px 30px;
+      border-radius:20px;
+      box-shadow:0 12px 30px rgba(0,0,0,0.1);
+      transition:transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .feature-card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 18px 40px rgba(240,103,166,0.2);
+    }
+    .feature-icon{
+      width:60px;
+      height:60px;
+      background:linear-gradient(135deg, var(--badiani-pink), #ff7ab7);
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:28px;
+      margin-bottom:20px;
+    }
+    .feature-title{
+      font-size:20px;
+      margin-bottom:12px;
+    }
+    .feature-desc{
+      font-size:15px;
+      color:#6a6b6e;
+      line-height:1.7;
+    }
+
+    .use-cases{
+      background:rgba(30,57,141,0.04);
+      padding:50px 40px;
+      border-radius:25px;
+      margin-bottom:60px;
+    }
+    .use-cases h3{
+      font-size:clamp(22px, 2.5vw, 32px);
+      margin-bottom:24px;
+      text-align:center;
+    }
+    .use-cases-list{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+      gap:16px;
+      list-style:none;
+      padding:0;
+    }
+    .use-cases-list li{
+      background:var(--surface);
+      padding:20px 24px;
+      border-radius:12px;
+      font-size:16px;
+      font-weight:500;
+      color:var(--badiani-blue);
+      box-shadow:0 4px 12px rgba(0,0,0,0.06);
+      transition:transform 0.3s;
+    }
+    .use-cases-list li:hover{
+      transform:translateY(-3px);
+    }
+    .use-cases-list li::before{
+      content:"✓";
+      color:var(--badiani-pink);
+      font-weight:700;
+      margin-right:10px;
+    }
+
+    .gallery-note{
+      text-align:center;
+      padding:40px 20px;
+      background:rgba(240,103,166,0.08);
+      border-radius:20px;
+      font-size:14px;
+      color:#90949a;
+      font-style:italic;
+    }
+
+    /* CONTACT */
+    .contact-footer{
+      background:var(--badiani-blue);
+      padding:50px 30px;
+      text-align:center;
+      color:#fff;
+    }
+    .contact-footer h3{
+      color:#fff;
+      font-size:clamp(24px, 2.8vw, 36px);
+      margin-bottom:16px;
+    }
+    .contact-footer p{
+      font-size:clamp(16px, 1.6vw, 20px);
+      margin-bottom:20px;
+      opacity:0.95;
+    }
+    .contact-footer a{
+      color:var(--badiani-pink);
+      text-decoration:none;
+      font-size:clamp(18px, 2vw, 24px);
+      font-weight:600;
+      letter-spacing:1px;
+    }
+    .contact-footer a:hover{
+      text-decoration:underline;
+    }
+
+    @media(max-width:768px){
+      .features-grid{
+        grid-template-columns:1fr;
+      }
+      .use-cases-list{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar__logo">
+      <img src="../../assets/extracted/f473fa4a48ae6948929084c736e84f6274322e2d.webp" alt="Badiani 1932" />
+    </div>
+    <nav class="topbar__nav">
+      <a href="../../">Home</a>
+      <a href="../">Eventi</a>
+      <a href="../../b2b/">B2B</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Crea il tuo evento aziendale su misura</h1>
+    <p class="subtitle">Crea un evento unico, pensato intorno al tuo brand</p>
+    <p>Ogni azienda ha un'identità diversa. Per questo realizziamo eventi personalizzati, studiati su misura in base alle tue esigenze, al contesto e al tipo di pubblico.</p>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Cosa possiamo personalizzare</h2>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🍦</div>
+        <h3 class="feature-title">Tipologia di servizio gelato</h3>
+        <p class="feature-desc">Scegli tra cool box, carretto, vetrina o soluzioni custom per il tuo evento.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🎨</div>
+        <h3 class="feature-title">Selezione dei gusti</h3>
+        <p class="feature-desc">Possibilità di avere gusti personalizzati e/o su richiesta, creati appositamente per il tuo brand.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">✨</div>
+        <h3 class="feature-title">Allestimento dell'evento</h3>
+        <p class="feature-desc">Allestimenti personalizzati che riflettono l'identità e i valori della tua azienda.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🏷️</div>
+        <h3 class="feature-title">Branding personalizzato</h3>
+        <p class="feature-desc">Integrazione del tuo logo e brand identity su packaging, postazioni e materiali.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">💡</div>
+        <h3 class="feature-title">Concept creativo</h3>
+        <p class="feature-desc">Sviluppiamo concept creativi in linea con il tuo brand e gli obiettivi dell'evento.</p>
+      </div>
+    </div>
+
+    <div class="use-cases">
+      <h3>Ideale per</h3>
+      <ul class="use-cases-list">
+        <li>Eventi aziendali</li>
+        <li>Inaugurazioni</li>
+        <li>Attivazioni in store</li>
+        <li>Conferenze e press day</li>
+        <li>Eventi corporate e team building</li>
+      </ul>
+    </div>
+
+    <div class="gallery-note">
+      📸 Allegare foto esempio di eventi passati (es: Steve Madden e Menarini)
+    </div>
+  </section>
+
+  <footer class="contact-footer">
+    <h3>Parliamo del tuo progetto</h3>
+    <p>Contattaci per creare insieme un'esperienza unica per la tua azienda</p>
+    <a href="mailto:eventi@badiani1932.com">eventi@badiani1932.com</a>
+  </footer>
+
+  <script>
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
