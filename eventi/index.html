@@ -40,6 +40,43 @@
     .event-card__title{ font-size:clamp(18px, 2vw, 24px); text-transform:uppercase; letter-spacing:1px; }
     .event-card__desc{ font-size:14px; color:rgba(255,255,255,0.88); }
 
+    .van-lead{ font-size:clamp(15px, 1.3vw, 18px); color:#6a6b6e; margin-bottom:22px; }
+    .van-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:26px; }
+    .van-card{
+      background:#fff;
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:0 16px 40px rgba(0,0,0,0.12);
+      display:flex;
+      flex-direction:column;
+      transition:transform 0.4s ease, box-shadow 0.4s ease;
+      text-decoration:none;
+      color:inherit;
+    }
+    .van-card:hover{ transform:translateY(-10px); box-shadow:0 24px 60px rgba(30,57,141,0.18); }
+    .van-card__media{
+      position:relative;
+      width:100%;
+      height:0;
+      padding-top:100%;
+      overflow:hidden;
+      background:linear-gradient(135deg, #f5f5f5, #fff);
+    }
+    .van-card__media img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      object-position:center center;
+      transition:transform 0.45s ease, filter 0.28s ease;
+      filter:brightness(1.03);
+    }
+    .van-card:hover .van-card__media img{ transform:scale(1.1); filter:brightness(1.06); }
+    .van-card__body{ padding:24px; text-align:center; display:grid; gap:10px; }
+    .van-card__title{ font-size:18px; letter-spacing:1px; text-transform:uppercase; color:var(--badiani-blue); }
+    .van-card__desc{ font-size:14px; color:#6a6b6e; line-height:1.6; }
+
     .tag{ font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--badiani-pink); font-weight:600; }
     .pill{ background:#f5f6f8; border-radius:16px; padding:10px 14px; font-size:14px; }
     .list{ padding-left:18px; display:grid; gap:8px; font-size:15px; color:#6a6b6e; }
@@ -83,6 +120,130 @@
     .privacy-row{ display:flex; align-items:flex-start; gap:10px; font-size:12px; color:#6a6b6e; }
     .privacy-row input{ margin-top:3px; }
 
+    /* CORPORATE HIGHLIGHT */
+    .corporate-highlight{
+      position:relative;
+      margin:70px 0 80px;
+      padding:clamp(36px, 5vw, 70px);
+      border-radius:32px;
+      background:radial-gradient(circle at 20% 20%, rgba(30,57,141,0.16), transparent 42%),
+                 radial-gradient(circle at 80% 0%, rgba(88,89,91,0.18), transparent 48%),
+                 linear-gradient(135deg, #f5f6f8, #ffffff 55%, #f1f3f6);
+      box-shadow:0 26px 80px rgba(30,57,141,0.16);
+      overflow:hidden;
+      border:1px solid rgba(30,57,141,0.08);
+      isolation:isolate;
+    }
+    .corporate-highlight::before,
+    .corporate-highlight::after{
+      content:"";
+      position:absolute;
+      inset:-120px;
+      background:conic-gradient(from 180deg at 50% 50%, rgba(88,89,91,0.16), rgba(30,57,141,0.16), rgba(88,89,91,0.12), rgba(30,57,141,0.14));
+      opacity:0.25;
+      animation:spinGlow 18s linear infinite;
+      z-index:0;
+    }
+    .corporate-highlight::after{
+      inset:-180px;
+      opacity:0.18;
+      animation-direction:reverse;
+    }
+    .corporate-inner{ position:relative; z-index:2; display:grid; gap:28px; }
+    .corporate-header{ display:grid; gap:14px; max-width:860px; }
+    .corporate-header .section-title{ margin:0; font-size:clamp(24px, 3vw, 36px); }
+    .corporate-pill-row{ display:flex; flex-wrap:wrap; gap:10px; }
+    .corporate-pill{
+      background:#ffffff;
+      border-radius:999px;
+      padding:8px 16px;
+      font-size:12px;
+      letter-spacing:1.8px;
+      text-transform:uppercase;
+      color:var(--badiani-blue);
+      box-shadow:0 8px 22px rgba(30,57,141,0.12);
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+    }
+    .corporate-pill::before{
+      content:"✦";
+      color:var(--badiani-blue);
+      font-size:12px;
+    }
+    .corporate-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:18px; }
+    .corporate-card{
+      background:#fff;
+      border-radius:20px;
+      padding:22px;
+      box-shadow:0 16px 40px rgba(0,0,0,0.08);
+      border:1px solid rgba(30,57,141,0.08);
+      position:relative;
+      overflow:hidden;
+      transition:transform 0.4s ease, box-shadow 0.4s ease;
+    }
+    .corporate-card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(120deg, rgba(30,57,141,0.12), transparent 60%);
+      opacity:0;
+      transition:opacity 0.4s ease;
+    }
+    .corporate-card:hover{
+      transform:translateY(-8px);
+      box-shadow:0 24px 50px rgba(30,57,141,0.15);
+    }
+    .corporate-card:hover::after{ opacity:1; }
+    .corporate-card h3{ margin-bottom:12px; font-size:15px; text-transform:uppercase; letter-spacing:1.4px; color:var(--badiani-blue); }
+    .corporate-card .list{ padding-left:18px; margin:0; }
+    .corporate-gallery{ display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:18px; }
+    .corporate-gallery .gallery-card{ transform:translateY(20px); opacity:0; transition:transform 0.6s ease, opacity 0.6s ease; }
+    .corporate-highlight.is-visible .corporate-gallery .gallery-card{ transform:translateY(0); opacity:1; }
+    .corporate-highlight.is-visible .corporate-gallery .gallery-card:nth-child(2){ transition-delay:0.15s; }
+    .corporate-cta{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:14px;
+      padding:18px 22px;
+      border-radius:18px;
+      background:linear-gradient(135deg, rgba(30,57,141,0.12), rgba(88,89,91,0.08));
+      border:1px solid rgba(30,57,141,0.12);
+      box-shadow:0 14px 30px rgba(30,57,141,0.1);
+    }
+    .corporate-cta strong{ color:var(--badiani-blue); text-transform:uppercase; letter-spacing:1px; }
+
+    .corporate-expand{
+      cursor:pointer;
+      transition:transform 0.35s ease, box-shadow 0.35s ease;
+    }
+    .corporate-expand.is-expanded{
+      transform:scale(1.04);
+      box-shadow:0 24px 60px rgba(30,57,141,0.18);
+      z-index:3;
+      position:relative;
+    }
+    .corporate-expand.is-expanded .list{
+      font-size:16px;
+      line-height:1.7;
+    }
+
+    @keyframes spinGlow{
+      from{ transform:rotate(0deg); }
+      to{ transform:rotate(360deg); }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .corporate-highlight::before,
+      .corporate-highlight::after,
+      .corporate-card,
+      .corporate-gallery .gallery-card{
+        animation:none !important;
+        transition:none !important;
+      }
+    }
+
     @media(max-width:768px){
       .hero{ padding:30px; }
     }
@@ -118,65 +279,87 @@
     <section data-i18n-attr="aria-label:eventi.types.label">
       <span class="tag" data-i18n="eventi.types.tag">Tipologie</span>
       <h2 class="section-title" data-i18n="eventi.types.title">Eventi</h2>
-      <div class="event-grid">
-        <a class="event-card" href="./saletta-privata-tosinghi/" data-i18n-attr="aria-label:eventi.tosinghi.aria">
-          <img src="../assets/extracted/a7a56600066a6e356fdf55d5683807c4328d597b.webp" data-i18n-attr="alt:eventi.tosinghi.alt" />
-          <div class="event-card__overlay">
-            <h3 class="event-card__title" data-i18n="eventi.tosinghi.title">Saletta privata Tosinghi</h3>
-            <p class="event-card__desc" data-i18n="eventi.tosinghi.desc">Il tuo party nella nostra saletta privata con pacchetti su misura.</p>
+      <div class="van-grid">
+        <a class="van-card" href="./saletta-privata-tosinghi/" data-i18n-attr="aria-label:eventi.tosinghi.aria">
+          <div class="van-card__media">
+            <img src="../assets/extracted/Tosinghi.png" data-i18n-attr="alt:eventi.tosinghi.alt" />
+          </div>
+          <div class="van-card__body">
+            <h3 class="van-card__title" data-i18n="eventi.tosinghi.title">Saletta privata Tosinghi</h3>
+            <p class="van-card__desc" data-i18n="eventi.tosinghi.desc">Il tuo party nella nostra saletta privata con pacchetti su misura.</p>
           </div>
         </a>
-        <a class="event-card" href="./evento-esterno/" data-i18n-attr="aria-label:eventi.external.aria">
-          <img src="../assets/extracted/5a21d37ff7aad42e4cbf72325d7f2285026d0fda.webp" data-i18n-attr="alt:eventi.external.alt" />
-          <div class="event-card__overlay">
-            <h3 class="event-card__title" data-i18n="eventi.external.title">Evento esterno</h3>
-            <p class="event-card__desc" data-i18n="eventi.external.desc">Soluzioni mobili per portare Badiani ovunque: cool box, carretto, vetrina.</p>
+        <a class="van-card" href="./evento-esterno/" data-i18n-attr="aria-label:eventi.external.aria">
+          <div class="van-card__media">
+            <img src="../assets/extracted/5a21d37ff7aad42e4cbf72325d7f2285026d0fda.webp" data-i18n-attr="alt:eventi.external.alt" />
+          </div>
+          <div class="van-card__body">
+            <h3 class="van-card__title" data-i18n="eventi.external.title">Evento esterno</h3>
+            <p class="van-card__desc" data-i18n="eventi.external.desc">Soluzioni mobili per portare Badiani ovunque: cool box, carretto, vetrina.</p>
+          </div>
+        </a>
+        <a class="van-card" href="#contatti" data-i18n-attr="aria-label:eventi.van.aria">
+          <div class="van-card__media">
+            <img src="../assets/extracted/gelatovan.png" alt="Gelato Van" data-i18n-attr="alt:eventi.van.card1.alt" />
+          </div>
+          <div class="van-card__body">
+            <h3 class="van-card__title" data-i18n="eventi.van.card1.title">Gelato Van</h3>
+            <p class="van-card__desc" data-i18n="eventi.van.card1.desc">Van brandizzato con servizio gelato completo e staff dedicato.</p>
           </div>
         </a>
       </div>
     </section>
 
-    <section data-i18n-attr="aria-label:eventi.van.label">
-      <h2 class="section-title" data-i18n="eventi.van.title">GELATO VAN</h2>
-      <div class="coming-soon" data-i18n="eventi.van.status">COMING SOON</div>
-    </section>
-
-    <section data-i18n-attr="aria-label:eventi.corporate.label">
-      <h2 class="section-title" data-i18n="eventi.corporate.title">CREA IL TUO EVENTO AZIENDALE SU MISURA</h2>
-      <p data-i18n="eventi.corporate.intro1">Crea un evento unico, pensato intorno al tuo brand</p>
-      <p data-i18n="eventi.corporate.intro2">Ogni azienda ha un'identità diversa. Per questo realizziamo eventi personalizzati, studiati su misura in base alle tue esigenze, al contesto e al tipo di pubblico.</p>
-
-      <div class="dual-list" style="margin-top:24px;">
-        <div>
-          <h3 class="tag" data-i18n="eventi.corporate.custom.title">Cosa possiamo personalizzare</h3>
-          <ul class="list">
-            <li data-i18n="eventi.corporate.custom.item1">Tipologia di servizio gelato</li>
-            <li data-i18n="eventi.corporate.custom.item2">Selezione dei gusti (possibilità di avere gusti personalizzati e/o su richiesta)</li>
-            <li data-i18n="eventi.corporate.custom.item3">Allestimento dell'evento</li>
-            <li data-i18n="eventi.corporate.custom.item4">Branding personalizzato</li>
-            <li data-i18n="eventi.corporate.custom.item5">Concept creativo in linea con il tuo brand</li>
-          </ul>
+    <section class="corporate-highlight" data-i18n-attr="aria-label:eventi.corporate.label">
+      <div class="corporate-inner">
+        <div class="corporate-header">
+          <span class="tag" data-i18n="eventi.corporate.label">Speciale aziende</span>
+          <h2 class="section-title" data-i18n="eventi.corporate.title">CREA IL TUO EVENTO AZIENDALE SU MISURA</h2>
+          <p data-i18n="eventi.corporate.intro1">Crea un evento unico, pensato intorno al tuo brand</p>
+          <p data-i18n="eventi.corporate.intro2">Ogni azienda ha un'identità diversa. Per questo realizziamo eventi personalizzati, studiati su misura in base alle tue esigenze, al contesto e al tipo di pubblico.</p>
+          <div class="corporate-pill-row">
+            <span class="corporate-pill" data-i18n="eventi.corporate.custom.title">Cosa possiamo personalizzare</span>
+            <span class="corporate-pill" data-i18n="eventi.corporate.ideal.title">Ideale per</span>
+          </div>
         </div>
-        <div>
-          <h3 class="tag" data-i18n="eventi.corporate.ideal.title">Ideale per</h3>
-          <ul class="list">
-            <li data-i18n="eventi.corporate.ideal.item1">Eventi aziendali</li>
-            <li data-i18n="eventi.corporate.ideal.item2">Inaugurazioni</li>
-            <li data-i18n="eventi.corporate.ideal.item3">Attivazioni in store</li>
-            <li data-i18n="eventi.corporate.ideal.item4">Conferenze e press day</li>
-            <li data-i18n="eventi.corporate.ideal.item5">Eventi corporate e team building</li>
-          </ul>
-        </div>
-      </div>
 
-      <div class="gallery-grid" style="margin-top:24px;">
-        <div class="gallery-card">
-          <img src="./foto%20eventi/Event/Steve%20Madden%20MICAM/STEVE1.JPG" alt="Steve Madden" />
-          <span>Steve Madden</span>
+        <div class="corporate-grid">
+          <div class="corporate-card corporate-expand" role="button" tabindex="0" data-expand="corporate-card">
+            <h3 data-i18n="eventi.corporate.custom.title">Cosa possiamo personalizzare</h3>
+            <ul class="list">
+              <li data-i18n="eventi.corporate.custom.item1">Tipologia di servizio gelato</li>
+              <li data-i18n="eventi.corporate.custom.item2">Selezione dei gusti (possibilità di avere gusti personalizzati e/o su richiesta)</li>
+              <li data-i18n="eventi.corporate.custom.item3">Allestimento dell'evento</li>
+              <li data-i18n="eventi.corporate.custom.item4">Branding personalizzato</li>
+              <li data-i18n="eventi.corporate.custom.item5">Concept creativo in linea con il tuo brand</li>
+            </ul>
+          </div>
+          <div class="corporate-card corporate-expand" role="button" tabindex="0" data-expand="corporate-card">
+            <h3 data-i18n="eventi.corporate.ideal.title">Ideale per</h3>
+            <ul class="list">
+              <li data-i18n="eventi.corporate.ideal.item1">Eventi aziendali</li>
+              <li data-i18n="eventi.corporate.ideal.item2">Inaugurazioni</li>
+              <li data-i18n="eventi.corporate.ideal.item3">Attivazioni in store</li>
+              <li data-i18n="eventi.corporate.ideal.item4">Conferenze e press day</li>
+              <li data-i18n="eventi.corporate.ideal.item5">Eventi corporate e team building</li>
+            </ul>
+          </div>
         </div>
-        <div class="gallery-card">
-          <img src="../assets/extracted/1b2a5cc62945aea094a8e00e488dd08378eef958.webp" alt="Menarini" />
-          <span>Menarini</span>
+
+        <div class="corporate-cta corporate-expand" role="button" tabindex="0" data-expand="corporate-cta">
+          <strong data-i18n="eventi.corporate.intro1">Crea un evento unico, pensato intorno al tuo brand</strong>
+          <span class="pill" data-i18n="eventi.corporate.intro2">Ogni azienda ha un'identità diversa. Per questo realizziamo eventi personalizzati, studiati su misura in base alle tue esigenze, al contesto e al tipo di pubblico.</span>
+        </div>
+
+        <div class="corporate-gallery">
+          <div class="gallery-card">
+            <img src="./foto%20eventi/Event/Steve%20Madden%20MICAM/STEVE1.JPG" alt="Steve Madden" />
+            <span>Steve Madden</span>
+          </div>
+          <div class="gallery-card">
+            <img src="../assets/extracted/1b2a5cc62945aea094a8e00e488dd08378eef958.webp" alt="Menarini" />
+            <span>Menarini</span>
+          </div>
         </div>
       </div>
     </section>
@@ -260,9 +443,19 @@
           'eventi.external.alt': 'Evento esterno',
           'eventi.external.title': 'Evento esterno',
           'eventi.external.desc': 'Soluzioni mobili per portare Badiani ovunque: cool box, carretto, vetrina.',
+          'eventi.van.aria': 'Vai alla sezione Gelato Van',
           'eventi.van.label': 'Gelato van',
           'eventi.van.title': 'GELATO VAN',
-          'eventi.van.status': 'COMING SOON',
+          'eventi.van.lead': 'Un gelato truck iconico per eventi, brand activation e team experience.',
+          'eventi.van.card1.title': 'Gelato Van',
+          'eventi.van.card1.desc': 'Van brandizzato con servizio gelato completo e staff dedicato.',
+          'eventi.van.card1.alt': 'Gelato Van',
+          'eventi.van.card2.title': 'Brand Activation',
+          'eventi.van.card2.desc': 'Personalizzazione grafica, menù e storytelling su misura.',
+          'eventi.van.card2.alt': 'Brand activation',
+          'eventi.van.card3.title': 'Catering Itinerante',
+          'eventi.van.card3.desc': 'Soluzione mobile per flussi elevati e location outdoor.',
+          'eventi.van.card3.alt': 'Catering itinerante',
           'eventi.corporate.label': 'Speciale aziende',
           'eventi.corporate.title': 'CREA IL TUO EVENTO AZIENDALE SU MISURA',
           'eventi.corporate.intro1': 'Crea un evento unico, pensato intorno al tuo brand',
@@ -320,9 +513,19 @@
           'eventi.external.alt': 'External Event',
           'eventi.external.title': 'External Event',
           'eventi.external.desc': 'Mobile solutions to bring Badiani everywhere: cool box, cart, display.',
+          'eventi.van.aria': 'Go to Gelato Van section',
           'eventi.van.label': 'Gelato van',
           'eventi.van.title': 'GELATO VAN',
-          'eventi.van.status': 'COMING SOON',
+          'eventi.van.lead': 'An iconic gelato truck for events, brand activations and team experiences.',
+          'eventi.van.card1.title': 'Gelato Van',
+          'eventi.van.card1.desc': 'Branded van with full gelato service and dedicated staff.',
+          'eventi.van.card1.alt': 'Gelato Van',
+          'eventi.van.card2.title': 'Brand Activation',
+          'eventi.van.card2.desc': 'Custom graphics, menu and storytelling tailored to your brand.',
+          'eventi.van.card2.alt': 'Brand activation',
+          'eventi.van.card3.title': 'Mobile Catering',
+          'eventi.van.card3.desc': 'A mobile solution for large crowds and outdoor venues.',
+          'eventi.van.card3.alt': 'Mobile catering',
           'eventi.corporate.label': 'Corporate special',
           'eventi.corporate.title': 'CREATE YOUR TAILORED CORPORATE EVENT',
           'eventi.corporate.intro1': 'Create a unique event, designed around your brand',
@@ -380,9 +583,19 @@
           'eventi.external.alt': 'Événement Externe',
           'eventi.external.title': 'Événement Externe',
           'eventi.external.desc': 'Solutions mobiles pour amener Badiani partout : cool box, chariot, vitrine.',
+          'eventi.van.aria': 'Aller à la section Gelato Van',
           'eventi.van.label': 'Van à gelato',
           'eventi.van.title': 'VAN À GELATO',
-          'eventi.van.status': 'BIENTÔT DISPONIBLE',
+          'eventi.van.lead': 'Un gelato truck iconique pour événements, brand activation et team experience.',
+          'eventi.van.card1.title': 'Gelato Van',
+          'eventi.van.card1.desc': 'Van brandisé avec service gelato complet et staff dédié.',
+          'eventi.van.card1.alt': 'Gelato Van',
+          'eventi.van.card2.title': 'Brand Activation',
+          'eventi.van.card2.desc': 'Personnalisation graphique, menu et storytelling sur mesure.',
+          'eventi.van.card2.alt': 'Brand activation',
+          'eventi.van.card3.title': 'Catering Itinérant',
+          'eventi.van.card3.desc': 'Solution mobile pour grands flux et lieux outdoor.',
+          'eventi.van.card3.alt': 'Catering itinérant',
           'eventi.corporate.label': 'Spécial entreprises',
           'eventi.corporate.title': 'CRÉEZ VOTRE ÉVÉNEMENT D\'ENTREPRISE SUR MESURE',
           'eventi.corporate.intro1': 'Créez un événement unique, pensé autour de votre marque',
@@ -440,9 +653,19 @@
           'eventi.external.alt': 'Evento Externo',
           'eventi.external.title': 'Evento Externo',
           'eventi.external.desc': 'Soluciones móviles para llevar Badiani a cualquier lugar: cool box, carrito, vitrina.',
+          'eventi.van.aria': 'Ir a la sección Gelato Van',
           'eventi.van.label': 'Furgoneta de helado',
           'eventi.van.title': 'FURGONETA DE HELADO',
-          'eventi.van.status': 'PRÓXIMAMENTE',
+          'eventi.van.lead': 'Un gelato truck icónico para eventos, activaciones de marca y team experience.',
+          'eventi.van.card1.title': 'Gelato Van',
+          'eventi.van.card1.desc': 'Furgoneta con marca y servicio completo de gelato con staff dedicado.',
+          'eventi.van.card1.alt': 'Gelato Van',
+          'eventi.van.card2.title': 'Brand Activation',
+          'eventi.van.card2.desc': 'Personalización gráfica, menú y storytelling a medida.',
+          'eventi.van.card2.alt': 'Brand activation',
+          'eventi.van.card3.title': 'Catering Itinerante',
+          'eventi.van.card3.desc': 'Solución móvil para grandes flujos y ubicaciones outdoor.',
+          'eventi.van.card3.alt': 'Catering itinerante',
           'eventi.corporate.label': 'Especial empresas',
           'eventi.corporate.title': 'CREA TU EVENTO CORPORATIVO A MEDIDA',
           'eventi.corporate.intro1': 'Crea un evento único, pensado en torno a tu marca',
@@ -543,6 +766,41 @@
       }
 
       applyTranslations();
+    })();
+  </script>
+
+  <script>
+    // Corporate highlight interactions
+    (function(){
+      const section = document.querySelector('.corporate-highlight');
+      if (!section) return;
+
+      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) section.classList.add('is-visible');
+        });
+      }, { threshold: 0.3 });
+
+      observer.observe(section);
+
+      function toggleExpand(target){
+        if (!target) return;
+        const isExpanded = target.classList.contains('is-expanded');
+        section.querySelectorAll('.corporate-expand.is-expanded').forEach(el => el.classList.remove('is-expanded'));
+        if (!isExpanded) target.classList.add('is-expanded');
+      }
+
+      section.querySelectorAll('[data-expand]').forEach(el => {
+        el.addEventListener('click', () => toggleExpand(el));
+        el.addEventListener('keydown', (event) => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            toggleExpand(el);
+          }
+        });
+      });
     })();
   </script>
 </body>
