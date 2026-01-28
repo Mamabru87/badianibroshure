@@ -41,7 +41,7 @@
     .event-card__desc{ font-size:14px; color:rgba(255,255,255,0.88); }
 
     .van-lead{ font-size:clamp(15px, 1.3vw, 18px); color:#6a6b6e; margin-bottom:22px; }
-    .van-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:26px; }
+    .van-grid{ display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:26px; }
     .van-card{
       background:#fff;
       border-radius:24px;
@@ -266,6 +266,16 @@
       .van-card__title{
         font-size:clamp(16px, 4.6vw, 20px);
       }
+      .van-grid{ gap:10px; }
+      .van-card__body{ padding:16px; }
+      .van-card__desc{ font-size:12px; }
+    }
+
+    @media(max-width:600px){
+      .van-grid{ gap:8px; }
+      .van-card__body{ padding:12px; }
+      .van-card__title{ font-size:clamp(14px, 4.2vw, 18px); }
+      .van-card__desc{ font-size:11px; }
     }
   </style>
 </head>
