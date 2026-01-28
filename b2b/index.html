@@ -1,0 +1,2001 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    @font-face {
+      font-family: 'SuperGroteskB';
+       src: url('../fonts/SuperGroteskB-CdMed.woff2') format('woff2'),
+         url('../fonts/SuperGroteskB-CdMed.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'SuperGroteskA';
+       src: url('../fonts/SuperGroteskA-Rg[7511].woff2') format('woff2'),
+         url('../fonts/SuperGroteskA-Rg[7511].woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    :root{
+      --badiani-blue:#1e398d;
+      --badiani-pink:#f067a6;
+      --badiani-gray:#58595b;
+      --bg-light:#f8f8f8;
+      --surface:#ffffff;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth; -webkit-text-size-adjust:100%; text-size-adjust:100%;}
+    body, html{
+      font-family: 'SuperGroteskA', 'SuperGroteskB', sans-serif;
+      font-weight:400;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      background:var(--bg-light);
+      color:var(--badiani-gray);
+      line-height:1.6;
+    }
+    h1, h2, h3{
+      font-family: 'SuperGroteskB', 'SuperGroteskA', sans-serif;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:0.6px;
+      color:var(--badiani-blue);
+    }
+
+    .topbar{
+      background:var(--badiani-blue);
+      height:64px;
+      height:calc(64px + env(safe-area-inset-top));
+      height:calc(64px + constant(safe-area-inset-top));
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 clamp(16px, 4vw, 80px);
+      padding-top:env(safe-area-inset-top);
+      padding-top:constant(safe-area-inset-top);
+    }
+    .topbar__logo{ display:flex; align-items:center; }
+    .topbar__logo img{ height:32px; width:auto; filter: invert(1) grayscale(1) brightness(200%); mix-blend-mode: screen; }
+    .topbar__lang{ display:flex; align-items:center; }
+    .topbar__select{
+      appearance:none;
+      border:1px solid rgba(255,255,255,0.35);
+      background:rgba(255,255,255,0.08);
+      color:#fff;
+      font-size:12px;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      padding:6px 12px;
+      border-radius:18px;
+      font-family: inherit;
+    }
+
+    .page-shell{ padding:48px clamp(16px, 4vw, 80px) 80px; }
+    .top-bar{ display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:32px; }
+    .back-link{ text-decoration:none; color:var(--badiani-blue); font-weight:600; letter-spacing:1px; text-transform:uppercase; font-size:12px; }
+
+    .hero{ background:var(--surface); border-radius:28px; padding:40px; box-shadow:0 18px 40px rgba(0,0,0,0.08); margin-bottom:48px; }
+    .hero h1{ font-size:clamp(28px, 3.6vw, 46px); margin-bottom:12px; }
+    .hero p{ font-size:clamp(16px, 1.5vw, 20px); color:#6a6b6e; max-width:780px; }
+
+    .section-title{ font-size:clamp(20px, 2.4vw, 30px); margin:40px 0 18px; }
+
+    .category-grid{ display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:24px; }
+    .category-card{
+      background:var(--surface);
+      border-radius:16px;
+      padding:18px 20px;
+      border:1px solid rgba(30,57,141,0.12);
+      box-shadow:0 8px 18px rgba(0,0,0,0.06);
+      cursor:pointer;
+      touch-action:manipulation;
+      transition:transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      gap:10px;
+      aspect-ratio:4 / 3;
+      min-height:180px;
+      overflow:hidden;
+    }
+    .category-card.b2b-card--gelato,
+    .category-card.b2b-card--torte,
+    .category-card.b2b-card--vasche,
+    .category-card.b2b-card--pezziduri,
+    .category-card.b2b-card--coppette,
+    .category-card.b2b-card--barattoli,
+    .category-card.b2b-card--cono,
+    .category-card.b2b-card--semifreddi,
+    .category-card.b2b-card--cialde,
+    .category-card.b2b-card--contenitori{
+      position:relative;
+      background-image:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.5)), url('../pdf_extracted/gelato.png');
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      color:#fff;
+      border-color:rgba(255,255,255,0.2);
+      overflow:hidden;
+    }
+    .category-card.b2b-card--torte{
+      background-image:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.5)), url('../pdf_extracted/torte.png');
+    }
+    .category-card.b2b-card--vasche{
+      background-image:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.5)), url('../pdf_extracted/vasche.png');
+    }
+    .category-card.b2b-card--pezziduri{
+      background-image:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.5)), url('../pdf_extracted/pezziduri.png');
+    }
+    .category-card.b2b-card--coppette{
+      background-image:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.5)), url('../pdf_extracted/coppette.png');
+    }
+    .category-card.b2b-card--barattoli{
+      background-image:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.5)), url('../pdf_extracted/group-barattoli.webp');
+    }
+    .category-card.b2b-card--cono{
+      background-image:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.5)), url('../pdf_extracted/gelati%20tenda.png');
+    }
+    .category-card.b2b-card--semifreddi{
+      background-image:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.5)), url('../pdf_extracted/semifreddi.png');
+    }
+    .category-card.b2b-card--cialde{
+      background-image:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.5)), url('../pdf_extracted/wafer-pulsante.png');
+    }
+    .category-card.b2b-card--contenitori{
+      background-image:linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.5)), url('../pdf_extracted/contenitori.png');
+    }
+    .category-card.b2b-card--gelato::before,
+    .category-card.b2b-card--torte::before,
+    .category-card.b2b-card--vasche::before,
+    .category-card.b2b-card--pezziduri::before,
+    .category-card.b2b-card--coppette::before,
+    .category-card.b2b-card--barattoli::before,
+    .category-card.b2b-card--cono::before,
+    .category-card.b2b-card--semifreddi::before,
+    .category-card.b2b-card--cialde::before,
+    .category-card.b2b-card--contenitori::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(0,0,0,0.1), rgba(0,0,0,0.55));
+      pointer-events:none;
+    }
+    .category-card.b2b-card--gelato > *,
+    .category-card.b2b-card--torte > *,
+    .category-card.b2b-card--vasche > *,
+    .category-card.b2b-card--pezziduri > *,
+    .category-card.b2b-card--coppette > *,
+    .category-card.b2b-card--barattoli > *,
+    .category-card.b2b-card--cono > *,
+    .category-card.b2b-card--semifreddi > *,
+    .category-card.b2b-card--cialde > *,
+    .category-card.b2b-card--contenitori > *{
+      position:relative;
+      z-index:1;
+    }
+    .category-card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 12px 24px rgba(0,0,0,0.08);
+      border-color:rgba(30,57,141,0.22);
+    }
+    .category-card:focus-visible{
+      outline:2px solid rgba(30,57,141,0.6);
+      outline-offset:3px;
+    }
+    .category-title{ font-size:16px; letter-spacing:0.6px; }
+    .category-desc{
+      color:#6a6b6e;
+      font-size:13px;
+      line-height:1.45;
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+    }
+    .category-card.b2b-card--gelato .category-title,
+    .category-card.b2b-card--torte .category-title,
+    .category-card.b2b-card--vasche .category-title,
+    .category-card.b2b-card--pezziduri .category-title,
+    .category-card.b2b-card--coppette .category-title,
+    .category-card.b2b-card--barattoli .category-title,
+    .category-card.b2b-card--cono .category-title,
+    .category-card.b2b-card--semifreddi .category-title,
+    .category-card.b2b-card--cialde .category-title,
+    .category-card.b2b-card--contenitori .category-title{
+      color:#fff;
+      background:rgba(0,0,0,0.45);
+      padding:6px 10px;
+      border-radius:999px;
+      align-self:flex-start;
+    }
+    .category-card.b2b-card--gelato .category-desc,
+    .category-card.b2b-card--torte .category-desc,
+    .category-card.b2b-card--vasche .category-desc,
+    .category-card.b2b-card--pezziduri .category-desc,
+    .category-card.b2b-card--coppette .category-desc,
+    .category-card.b2b-card--barattoli .category-desc,
+    .category-card.b2b-card--cono .category-desc,
+    .category-card.b2b-card--semifreddi .category-desc,
+    .category-card.b2b-card--cialde .category-desc,
+    .category-card.b2b-card--contenitori .category-desc{
+      color:rgba(255,255,255,0.88);
+    }
+
+    .future-slots{ display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:12px; }
+    .slot{ background:#f5f6f8; border-radius:14px; padding:12px; font-size:13px; color:#7a7c81; text-transform:uppercase; letter-spacing:1px; }
+
+    .list{ padding-left:18px; display:grid; gap:8px; font-size:15px; color:#6a6b6e; }
+    .pill-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:12px; }
+    .pill{ background:#f5f6f8; border-radius:16px; padding:14px 16px; font-size:14px; color:#6a6b6e; }
+    .stepper{ display:grid; grid-template-columns:repeat(5, minmax(0, 1fr)); gap:8px; }
+    .step{
+      background:var(--surface);
+      border-radius:16px;
+      padding:12px 10px;
+      border:1px solid rgba(30,57,141,0.12);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      gap:8px;
+      text-align:center;
+      position:relative;
+    }
+    .step::after{
+      content:"";
+      position:absolute;
+      top:20%;
+      right:-4px;
+      width:1px;
+      height:60%;
+      background:rgba(30,57,141,0.12);
+    }
+    .step:last-child::after{ display:none; }
+    .step-num{ width:32px; height:32px; border-radius:50%; background:var(--badiani-blue); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:600; font-size:13px; }
+    .cta-block{ background:var(--surface); border-radius:22px; padding:26px; border:2px solid rgba(30,57,141,0.1); box-shadow:0 14px 30px rgba(0,0,0,0.08); }
+    .cta-block p{ color:#6a6b6e; margin-top:8px; }
+    .cta-button{ display:inline-flex; margin-top:16px; padding:12px 28px; border-radius:30px; background:var(--badiani-blue); color:#fff; text-decoration:none; font-size:13px; text-transform:uppercase; letter-spacing:2px; font-weight:600; }
+
+    .modal-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.35);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      padding-top:calc(24px + env(safe-area-inset-top));
+      padding-bottom:calc(24px + env(safe-area-inset-bottom));
+      padding-left:calc(24px + env(safe-area-inset-left));
+      padding-right:calc(24px + env(safe-area-inset-right));
+      padding-top:calc(24px + constant(safe-area-inset-top));
+      padding-bottom:calc(24px + constant(safe-area-inset-bottom));
+      padding-left:calc(24px + constant(safe-area-inset-left));
+      padding-right:calc(24px + constant(safe-area-inset-right));
+      z-index:2000;
+    }
+    .modal-overlay.is-open{ display:flex; }
+    .modal{
+      background:var(--surface);
+      width:min(1280px, 96vw);
+      max-height:85vh;
+      border-radius:20px;
+      box-shadow:0 24px 60px rgba(0,0,0,0.2);
+      display:flex;
+      flex-direction:column;
+      overflow:hidden;
+    }
+    .modal__header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:22px 28px;
+      border-bottom:1px solid rgba(30,57,141,0.08);
+    }
+    .modal__title{ font-size:18px; letter-spacing:1px; text-transform:uppercase; color:var(--badiani-blue); }
+    .modal__close{
+      border:none;
+      background:transparent;
+      font-size:18px;
+      cursor:pointer;
+      color:var(--badiani-blue);
+    }
+    .modal__body{ padding:0; overflow:hidden; display:grid; grid-template-columns:220px 1fr; min-height:0; }
+    .modal__sidebar{
+      border-right:1px solid rgba(30,57,141,0.08);
+      background:#fafbfc;
+      padding:18px;
+      overflow:auto;
+      -webkit-overflow-scrolling:touch;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+    }
+    .modal__nav{
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .modal__nav button{
+      text-align:left;
+      padding:8px 10px;
+      border-radius:10px;
+      border:1px solid transparent;
+      background:transparent;
+      font-size:12px;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      color:#4a4f57;
+      cursor:pointer;
+    }
+    .modal__nav button.is-active{
+      background:#fff;
+      border-color:rgba(30,57,141,0.18);
+      color:var(--badiani-blue);
+      font-weight:600;
+    }
+    .modal__content{
+      padding:24px 28px 28px;
+      overflow:auto;
+      -webkit-overflow-scrolling:touch;
+      display:grid;
+      gap:24px;
+    }
+    .modal__select{
+      display:none;
+      width:100%;
+      margin-bottom:12px;
+      padding:8px 10px;
+      border-radius:10px;
+      border:1px solid rgba(30,57,141,0.18);
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      color:#4a4f57;
+      background:#fff;
+      font-family:inherit;
+    }
+    .modal__section h4{ font-size:14px; text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; color:var(--badiani-blue); }
+    .modal__section p,
+    .modal__section li{ font-size:14px; color:#6a6b6e; }
+    .modal__grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:12px; }
+    .modal__card{ background:#f5f6f8; border-radius:14px; padding:12px; }
+    .modal__cta{ display:flex; justify-content:flex-end; }
+    .modal__cta .cta-button{ background:transparent; color:var(--badiani-blue); border:1px solid rgba(30,57,141,0.2); }
+
+    .gelato-showcase{ display:none; gap:20px; }
+    .gelato-showcase.is-active{ display:grid; }
+    .gelato-header{ display:grid; gap:6px; }
+    .gelato-header h4{ font-size:16px; text-transform:uppercase; letter-spacing:1px; color:var(--badiani-blue); }
+    .gelato-header p{ font-size:14px; color:#6a6b6e; }
+    .gelato-controls{ display:flex; flex-wrap:wrap; gap:14px; }
+    .gelato-control{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      min-width:180px;
+      flex:1;
+    }
+    .gelato-control label{ font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#90949a; }
+    .gelato-control select,
+    .gelato-control input{
+      border:1px solid rgba(30,57,141,0.18);
+      border-radius:12px;
+      padding:10px 12px;
+      font-size:13px;
+      font-family:inherit;
+      color:#4a4f57;
+      background:#fff;
+    }
+    .gelato-body{
+      display:grid;
+      grid-template-columns:minmax(0, 1fr);
+      gap:24px;
+      min-height:0;
+    }
+    .gelato-grid{
+      display:grid;
+      grid-template-columns:repeat(4, minmax(0, 1fr));
+      gap:16px;
+      align-content:start;
+      grid-auto-flow:dense;
+    }
+    .gelato-card{
+      border:none;
+      background:#fff;
+      border-radius:14px;
+      overflow:hidden;
+      box-shadow:0 10px 22px rgba(0,0,0,0.08);
+      cursor:pointer;
+      text-align:left;
+      padding:0;
+      display:flex;
+      flex-direction:column;
+      transition:transform 0.18s ease, box-shadow 0.18s ease, outline-color 0.18s ease;
+    }
+    .gelato-card img{
+      width:100%;
+      aspect-ratio:1 / 1;
+      object-fit:cover;
+      display:block;
+    }
+    .gelato-card span{
+      font-size:12px;
+      letter-spacing:0.5px;
+      padding:8px 10px;
+      color:#4a4f57;
+      background:#fafbfc;
+    }
+    .gelato-card:focus-visible{
+      outline:2px solid rgba(30,57,141,0.6);
+      outline-offset:2px;
+    }
+    .gelato-card:hover{ transform:translateY(-2px); box-shadow:0 16px 28px rgba(0,0,0,0.12); }
+    .gelato-card.is-selected{ outline:2px solid rgba(30,57,141,0.4); outline-offset:2px; }
+    .gelato-card.is-expanded{
+      grid-column:span 2;
+      grid-row:span 2;
+    }
+    .gelato-card__content{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:12px;
+      padding:12px;
+    }
+    .gelato-card__media{
+      width:100%;
+      overflow:hidden;
+      display:block;
+      background:#f0f1f3;
+    }
+    .gelato-card__media img{
+      width:100%;
+      height:100%;
+      aspect-ratio:1 / 1;
+      object-fit:cover;
+      display:block;
+    }
+    .gelato-card.is-expanded .gelato-card__media img{
+      aspect-ratio:4 / 3;
+    }
+    .gelato-card__details{
+      display:grid;
+      gap:10px;
+      padding:12px;
+      opacity:0;
+      transform:translateY(6px);
+      transition:opacity 0.18s ease, transform 0.18s ease;
+    }
+    .gelato-card.is-expanded .gelato-card__details{
+      opacity:1;
+      transform:translateY(0);
+    }
+    .gelato-card__details .gelato-section-title{ margin-bottom:4px; }
+    .gelato-card__details .gelato-list{ font-size:12px; color:#5b5f66; }
+    .gelato-card__details .gelato-flags{ gap:6px; }
+    .gelato-card__details .gelato-flag{ padding:6px 8px; }
+    .gelato-detail{
+      background:#fff;
+      border-radius:16px;
+      border:1px solid rgba(30,57,141,0.12);
+      padding:18px;
+      display:grid;
+      gap:14px;
+      overflow:auto;
+      -webkit-overflow-scrolling:touch;
+      max-height:none;
+      opacity:0;
+      transform:translateY(8px);
+      pointer-events:none;
+      transition:opacity 0.2s ease, transform 0.2s ease;
+    }
+    .gelato-detail.is-open{
+      opacity:1;
+      transform:translateY(0);
+      pointer-events:auto;
+    }
+    .gelato-detail__header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .gelato-detail__close{
+      border:none;
+      background:#f0f1f3;
+      color:#4a4f57;
+      padding:6px 10px;
+      border-radius:999px;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      cursor:pointer;
+    }
+    .gelato-detail.is-collapsed{
+      opacity:0;
+      transform:translateY(8px);
+      pointer-events:none;
+      height:0;
+      padding:0;
+      border:none;
+    }
+    .gelato-detail img{
+      width:100%;
+      border-radius:12px;
+      aspect-ratio:4 / 3;
+      object-fit:cover;
+      display:block;
+      background:#f0f1f3;
+    }
+    .gelato-section-title{ font-size:12px; text-transform:uppercase; letter-spacing:1px; color:#90949a; }
+    .gelato-list{ display:grid; gap:6px; font-size:13px; color:#4a4f57; }
+    .gelato-flags{ display:grid; gap:8px; }
+    .gelato-flag{
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      padding:8px 10px;
+      border-radius:12px;
+      background:#f5f6f8;
+      font-size:12px;
+      color:#4a4f57;
+    }
+    .gelato-empty{ font-size:13px; color:#6a6b6e; text-align:center; padding:12px; }
+
+    @media(max-width:840px){
+      .modal__body{ grid-template-columns:200px 1fr; }
+    }
+    @media(max-width:720px){
+      .modal{ width:100%; height:100%; max-height:100%; border-radius:0; }
+      .gelato-card.is-expanded{ grid-column:span 2; grid-row:span 2; }
+      .modal__body{ grid-template-columns:1fr; }
+      .modal__sidebar{ border-right:none; border-bottom:1px solid rgba(30,57,141,0.08); }
+      .modal__nav{ display:none; }
+      .gelato-detail,
+      .gelato-card__details{ transition:none; }
+    }
+
+    @media(max-width:1200px){
+      .gelato-grid{ grid-template-columns:repeat(4, minmax(0, 1fr)); }
+    }
+    @media(max-width:1024px){
+      .gelato-grid{ grid-template-columns:repeat(3, minmax(0, 1fr)); }
+      .modal__content{ padding:20px 22px 24px; }
+    }
+    @media(max-width:768px){
+      .gelato-grid{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+      .gelato-detail{ position:relative; opacity:1; transform:none; pointer-events:auto; }
+      .gelato-detail.is-collapsed{ height:auto; padding:16px; border:1px solid rgba(30,57,141,0.12); }
+    }
+    @media(prefers-reduced-motion:reduce){
+      .gelato-card,
+      .gelato-detail{ transition:none; }
+    }
+
+    .notice{ margin-top:10px; font-size:13px; color:#9aa0a6; }
+
+    @media(max-width:1024px){
+      .category-grid{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+    }
+    @media(max-width:980px){
+      .stepper{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+      .step::after{ display:none; }
+    }
+    @media(max-width:640px){
+      .category-grid{ grid-template-columns:1fr; }
+      .stepper{ grid-template-columns:1fr; }
+    }
+    @media(max-width:768px){
+      .hero{ padding:30px; }
+      .top-bar{ flex-direction:column; align-items:flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar" data-i18n-attr="aria-label:topbar.label">
+    <div class="topbar__logo">
+      <img src="../assets/extracted/f473fa4a48ae6948929084c736e84f6274322e2d.webp" data-i18n-attr="alt:brand.alt" alt="" />
+    </div>
+    <div class="topbar__lang">
+      <select class="topbar__select" id="langSelect" data-i18n-attr="aria-label:lang.label">
+        <option value="it" data-i18n="lang.it"></option>
+        <option value="en" data-i18n="lang.en"></option>
+        <option value="es" data-i18n="lang.es"></option>
+        <option value="fr" data-i18n="lang.fr"></option>
+      </select>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <div class="top-bar">
+      <a class="back-link" href="../" data-i18n="b2b.back"></a>
+      <span class="category-tag" data-i18n="b2b.tag"></span>
+    </div>
+
+    <section class="hero" data-i18n-attr="aria-label:b2b.hero.label">
+      <h1 data-i18n="b2b.hero.title"></h1>
+      <p data-i18n="b2b.hero.subtitle"></p>
+      <p data-i18n="b2b.hero.note"></p>
+    </section>
+
+    <section data-i18n-attr="aria-label:b2b.target.label">
+      <h2 class="section-title" data-i18n="b2b.target.title"></h2>
+      <ul class="list">
+        <li data-i18n="b2b.target.item1"></li>
+        <li data-i18n="b2b.target.item2"></li>
+        <li data-i18n="b2b.target.item3"></li>
+        <li data-i18n="b2b.target.item4"></li>
+        <li data-i18n="b2b.target.item5"></li>
+        <li data-i18n="b2b.target.item6"></li>
+      </ul>
+    </section>
+
+    <section data-i18n-attr="aria-label:b2b.areas.label">
+      <h2 class="section-title" data-i18n="b2b.areas.title"></h2>
+      <div class="category-grid">
+        <article class="category-card b2b-card--gelato" data-category="GELATO" role="button" tabindex="0" aria-haspopup="dialog">
+          <h3 class="category-title" data-i18n="b2b.categories.GELATO"></h3>
+          <p class="category-desc" data-i18n-html="b2b.categories.desc"></p>
+        </article>
+        <article class="category-card b2b-card--vasche" data-category="VASCHE" role="button" tabindex="0" aria-haspopup="dialog">
+          <h3 class="category-title" data-i18n="b2b.categories.VASCHE"></h3>
+          <p class="category-desc" data-i18n-html="b2b.categories.desc"></p>
+        </article>
+        <article class="category-card b2b-card--pezziduri" data-category="PEZZI DURI" role="button" tabindex="0" aria-haspopup="dialog">
+          <h3 class="category-title" data-i18n="b2b.categories.PEZZI_DURI"></h3>
+          <p class="category-desc" data-i18n-html="b2b.categories.desc"></p>
+        </article>
+        <article class="category-card b2b-card--torte" data-category="TORTE" role="button" tabindex="0" aria-haspopup="dialog">
+          <h3 class="category-title" data-i18n="b2b.categories.TORTE"></h3>
+          <p class="category-desc" data-i18n-html="b2b.categories.desc"></p>
+        </article>
+        <article class="category-card b2b-card--semifreddi" data-category="SEMIFREDDI" role="button" tabindex="0" aria-haspopup="dialog">
+          <h3 class="category-title" data-i18n="b2b.categories.SEMIFREDDI"></h3>
+          <p class="category-desc" data-i18n-html="b2b.categories.desc"></p>
+        </article>
+        <article class="category-card b2b-card--barattoli" data-category="BARATTOLI" role="button" tabindex="0" aria-haspopup="dialog">
+          <h3 class="category-title" data-i18n="b2b.categories.BARATTOLI"></h3>
+          <p class="category-desc" data-i18n-html="b2b.categories.desc"></p>
+        </article>
+        <article class="category-card b2b-card--coppette" data-category="COPPETTE" role="button" tabindex="0" aria-haspopup="dialog">
+          <h3 class="category-title" data-i18n="b2b.categories.COPPETTE"></h3>
+          <p class="category-desc" data-i18n-html="b2b.categories.desc"></p>
+        </article>
+        <article class="category-card b2b-card--cono" data-category="CONO" role="button" tabindex="0" aria-haspopup="dialog">
+          <h3 class="category-title" data-i18n="b2b.categories.CONO"></h3>
+          <p class="category-desc" data-i18n-html="b2b.categories.desc"></p>
+        </article>
+        <article class="category-card" data-category="PALETTINE" role="button" tabindex="0" aria-haspopup="dialog">
+          <h3 class="category-title" data-i18n="b2b.categories.PALETTINE"></h3>
+          <p class="category-desc" data-i18n-html="b2b.categories.desc"></p>
+        </article>
+        <article class="category-card b2b-card--cialde" data-category="CIALDE" role="button" tabindex="0" aria-haspopup="dialog">
+          <h3 class="category-title" data-i18n="b2b.categories.CIALDE"></h3>
+          <p class="category-desc" data-i18n-html="b2b.categories.desc"></p>
+        </article>
+        <article class="category-card" data-category="TOVAGLIOLI" role="button" tabindex="0" aria-haspopup="dialog">
+          <h3 class="category-title" data-i18n="b2b.categories.TOVAGLIOLI"></h3>
+          <p class="category-desc" data-i18n-html="b2b.categories.desc"></p>
+        </article>
+        <article class="category-card b2b-card--contenitori" data-category="CONTENITORI" role="button" tabindex="0" aria-haspopup="dialog">
+          <h3 class="category-title" data-i18n="b2b.categories.CONTENITORI"></h3>
+          <p class="category-desc" data-i18n-html="b2b.categories.desc"></p>
+        </article>
+      </div>
+    </section>
+
+    <section data-i18n-attr="aria-label:b2b.experiences.label">
+      <h2 class="section-title" data-i18n="b2b.experiences.title"></h2>
+      <div class="pill-grid">
+        <div class="pill" data-i18n="b2b.experiences.item1"></div>
+        <div class="pill" data-i18n="b2b.experiences.item2"></div>
+        <div class="pill" data-i18n="b2b.experiences.item3"></div>
+      </div>
+    </section>
+
+    <section data-i18n-attr="aria-label:b2b.steps.label">
+      <h2 class="section-title" data-i18n="b2b.steps.title"></h2>
+      <div class="stepper">
+        <div class="step"><span class="step-num">1</span><span data-i18n="b2b.steps.item1"></span></div>
+        <div class="step"><span class="step-num">2</span><span data-i18n="b2b.steps.item2"></span></div>
+        <div class="step"><span class="step-num">3</span><span data-i18n="b2b.steps.item3"></span></div>
+        <div class="step"><span class="step-num">4</span><span data-i18n="b2b.steps.item4"></span></div>
+        <div class="step"><span class="step-num">5</span><span data-i18n="b2b.steps.item5"></span></div>
+      </div>
+    </section>
+
+    <section data-i18n-attr="aria-label:b2b.cta.label">
+      <h2 class="section-title" data-i18n="b2b.cta.title"></h2>
+      <div class="cta-block">
+        <a class="cta-button" href="#" data-i18n="b2b.cta.button"></a>
+        <p data-i18n="b2b.cta.note"></p>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-overlay" id="categoryModal" role="dialog" aria-modal="true" aria-labelledby="categoryModalTitle">
+    <div class="modal">
+      <div class="modal__header">
+        <h3 class="modal__title" id="categoryModalTitle" data-i18n="b2b.modal.titleDefault"></h3>
+        <button class="modal__close" type="button" data-i18n-attr="aria-label:b2b.modal.close">✕</button>
+      </div>
+      <div class="modal__body">
+        <aside class="modal__sidebar">
+          <select class="modal__select" id="categorySelect" data-i18n-attr="aria-label:b2b.modal.select"></select>
+          <nav class="modal__nav" id="categoryNav" data-i18n-attr="aria-label:b2b.modal.nav"></nav>
+        </aside>
+        <div class="modal__content" id="categoryContent">
+          <div class="gelato-showcase" id="gelatoShowcase">
+            <div class="gelato-header">
+                <h4 data-gelato-i18n="vetrinaGelato.title"></h4>
+                <p data-gelato-i18n="vetrinaGelato.subtitle"></p>
+              </div>
+              <div class="gelato-controls">
+                <div class="gelato-control">
+                  <label for="gelatoSeason" data-gelato-i18n="vetrinaGelato.filterSeason"></label>
+                  <select id="gelatoSeason">
+                    <option value="tutti" data-gelato-i18n="vetrinaGelato.filterAll"></option>
+                    <option value="primavera" data-gelato-i18n="seasons.primavera"></option>
+                    <option value="estate" data-gelato-i18n="seasons.estate"></option>
+                    <option value="autunno" data-gelato-i18n="seasons.autunno"></option>
+                    <option value="inverno" data-gelato-i18n="seasons.inverno"></option>
+                  </select>
+                </div>
+                <div class="gelato-control">
+                  <label for="gelatoSearch" data-gelato-i18n="common.search"></label>
+                  <input id="gelatoSearch" type="search" data-gelato-i18n-attr="placeholder:vetrinaGelato.searchPlaceholder" />
+                </div>
+              </div>
+            <div class="gelato-body">
+              <div>
+                <div class="gelato-section-title" data-gelato-i18n="vetrinaGelato.gridTitle"></div>
+                <div class="gelato-grid" id="gelatoGrid"></div>
+              </div>
+              <div class="gelato-detail is-collapsed" id="gelatoDetail">
+                <div class="gelato-empty" data-gelato-i18n="vetrinaGelato.selectFlavorHint"></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="b2bDefaultContent">
+            <div class="modal__section">
+              <h4 data-i18n="b2b.modal.overview.title"></h4>
+              <p data-i18n="b2b.modal.overview.text"></p>
+            </div>
+            <div class="modal__section">
+              <h4 data-i18n="b2b.modal.includes.title"></h4>
+              <ul class="list">
+                <li data-i18n="b2b.modal.includes.item1"></li>
+                <li data-i18n="b2b.modal.includes.item2"></li>
+                <li data-i18n="b2b.modal.includes.item3"></li>
+              </ul>
+            </div>
+            <div class="modal__section">
+              <h4 data-i18n="b2b.modal.audience.title"></h4>
+              <ul class="list">
+                <li data-i18n="b2b.modal.audience.item1"></li>
+                <li data-i18n="b2b.modal.audience.item2"></li>
+                <li data-i18n="b2b.modal.audience.item3"></li>
+              </ul>
+            </div>
+            <div class="modal__section">
+              <h4 data-i18n="b2b.modal.custom.title"></h4>
+              <p data-i18n="b2b.modal.custom.text"></p>
+            </div>
+            <div class="modal__section">
+              <h4 data-i18n="b2b.modal.ops.title"></h4>
+              <div class="modal__grid">
+                <div class="modal__card">
+                  <strong data-i18n="b2b.modal.ops.where.label"></strong>
+                  <p data-i18n="b2b.modal.ops.where.text"></p>
+                </div>
+                <div class="modal__card">
+                  <strong data-i18n="b2b.modal.ops.when.label"></strong>
+                  <p data-i18n="b2b.modal.ops.when.text"></p>
+                </div>
+                <div class="modal__card">
+                  <strong data-i18n="b2b.modal.ops.min.label"></strong>
+                  <p data-i18n="b2b.modal.ops.min.text"></p>
+                </div>
+                <div class="modal__card">
+                  <strong data-i18n="b2b.modal.ops.notes.label"></strong>
+                  <p data-i18n="b2b.modal.ops.notes.text"></p>
+                </div>
+              </div>
+            </div>
+            <div class="modal__cta">
+              <a class="cta-button" href="#" data-i18n="b2b.modal.cta"></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    import { gelatoFlavors } from "../data/gelatoFlavors.js";
+    import { initI18n, t as tGelato, setLanguage as setGelatoLanguage } from "../src/i18n/i18n.js";
+
+    (function(){
+      const SUPPORTED = ['it','en','fr','es'];
+      const DEFAULT_LANG = 'it';
+      const STORAGE_KEY = 'badianiLang';
+
+      const STRINGS = {
+        it: {
+          'meta.title': 'Badiani 1932 — B2B',
+          'brand.alt': 'Badiani 1932',
+          'topbar.label': 'Barra brand',
+          'lang.label': 'Selettore lingua',
+          'lang.it': 'IT',
+          'lang.en': 'EN',
+          'lang.fr': 'FR',
+          'lang.es': 'ES',
+          'b2b.back': '← Torna alla home',
+          'b2b.tag': 'Percorso B2B',
+          'b2b.hero.label': 'Hero B2B',
+          'b2b.hero.title': 'Soluzioni B2B per aziende, hotel e professionisti',
+          'b2b.hero.subtitle': 'Esperienze, prodotti e servizi pensati per il mondo business, hospitality e corporate',
+          'b2b.hero.note': 'Progetti personalizzabili · Collaborazioni su misura · Supporto dedicato',
+          'b2b.target.label': 'A chi è dedicato',
+          'b2b.target.title': 'A chi è dedicato',
+          'b2b.target.item1': 'Aziende e corporate',
+          'b2b.target.item2': 'Hotel e strutture ricettive',
+          'b2b.target.item3': 'Tour operator e agenzie',
+          'b2b.target.item4': 'Event planner',
+          'b2b.target.item5': 'Brand e partner commerciali',
+          'b2b.target.item6': 'Location private e spazi eventi',
+          'b2b.areas.label': 'Aree B2B',
+          'b2b.areas.title': 'Aree B2B',
+          'b2b.categories.desc': 'Contenuto in preparazione.<br>Questa sezione verrà arricchita con informazioni dedicate.',
+          'b2b.categories.GELATO': 'GELATO',
+          'b2b.categories.VASCHE': 'VASCHE',
+          'b2b.categories.PEZZI_DURI': 'PEZZI DURI',
+          'b2b.categories.TORTE': 'TORTE',
+          'b2b.categories.SEMIFREDDI': 'SEMIFREDDI',
+          'b2b.categories.BARATTOLI': 'BARATTOLI',
+          'b2b.categories.COPPETTE': 'COPPETTE',
+          'b2b.categories.CONO': 'CONO',
+          'b2b.categories.PALETTINE': 'PALETTINE',
+          'b2b.categories.CIALDE': 'CIALDE',
+          'b2b.categories.TOVAGLIOLI': 'TOVAGLIOLI',
+          'b2b.categories.CONTENITORI': 'CONTENITORI',
+          'b2b.experiences.label': 'Esperienze B2B',
+          'b2b.experiences.title': 'Esperienze B2B',
+          'b2b.experiences.item1': 'Eventi B2B in saletta riservata (con o senza mantecatori)',
+          'b2b.experiences.item2': 'Collaborazioni con hotel e tour operator',
+          'b2b.experiences.item3': 'Esperienze di laboratorio in giornate dedicate',
+          'b2b.steps.label': 'Come funziona',
+          'b2b.steps.title': 'Come funziona',
+          'b2b.steps.item1': 'Contatto',
+          'b2b.steps.item2': 'Analisi',
+          'b2b.steps.item3': 'Proposta',
+          'b2b.steps.item4': 'Conferma',
+          'b2b.steps.item5': 'Esperienza',
+          'b2b.cta.label': 'CTA finale',
+          'b2b.cta.title': 'Richiedi informazioni',
+          'b2b.cta.button': 'Richiedi informazioni B2B',
+          'b2b.cta.note': 'Ogni progetto viene costruito su misura in base al contesto e agli obiettivi',
+          'b2b.modal.titleDefault': 'Categoria',
+          'b2b.modal.close': 'Chiudi',
+          'b2b.modal.select': 'Seleziona categoria',
+          'b2b.modal.nav': 'Categorie B2B',
+          'b2b.modal.overview.title': 'Panoramica',
+          'b2b.modal.overview.text': 'Testo placeholder descrittivo.',
+          'b2b.modal.includes.title': 'Cosa include',
+          'b2b.modal.includes.item1': 'Placeholder voce',
+          'b2b.modal.includes.item2': 'Placeholder voce',
+          'b2b.modal.includes.item3': 'Placeholder voce',
+          'b2b.modal.audience.title': 'A chi è rivolto',
+          'b2b.modal.audience.item1': 'Placeholder elenco',
+          'b2b.modal.audience.item2': 'Placeholder elenco',
+          'b2b.modal.audience.item3': 'Placeholder elenco',
+          'b2b.modal.custom.title': 'Personalizzazione',
+          'b2b.modal.custom.text': 'Testo placeholder su soluzioni su misura.',
+          'b2b.modal.ops.title': 'Info operative',
+          'b2b.modal.ops.where.label': 'Dove',
+          'b2b.modal.ops.where.text': 'Placeholder',
+          'b2b.modal.ops.when.label': 'Quando',
+          'b2b.modal.ops.when.text': 'Placeholder',
+          'b2b.modal.ops.min.label': 'Numero minimo persone',
+          'b2b.modal.ops.min.text': 'Placeholder',
+          'b2b.modal.ops.notes.label': 'Note operative',
+          'b2b.modal.ops.notes.text': 'Placeholder',
+          'b2b.modal.cta': 'Richiedi informazioni',
+          'gelato.showcase.title': 'Vetrina Gelato',
+          'gelato.showcase.subtitle': 'Scopri la selezione di gusti e filtra per stagione o nome.',
+          'gelato.filters.season.label': 'Stagione',
+          'gelato.filters.season.all': 'Tutti',
+          'gelato.filters.season.spring': 'Primavera',
+          'gelato.filters.season.summer': 'Estate',
+          'gelato.filters.season.autumn': 'Autunno',
+          'gelato.filters.season.winter': 'Inverno',
+          'gelato.filters.search.label': 'Cerca gusto',
+          'gelato.filters.search.placeholder': 'Cerca per nome...',
+          'gelato.detail.empty': 'Seleziona un gusto per vedere i dettagli.',
+          'gelato.detail.ingredients': 'Ingredienti',
+          'gelato.detail.allergens': 'Allergeni',
+          'gelato.detail.seasons': 'Disponibilità',
+          'gelato.detail.flags': 'Parametri',
+          'gelato.detail.none': 'Nessuno',
+          'gelato.flags.vegan': 'Vegano',
+          'gelato.flags.glutenFree': 'Senza glutine',
+          'gelato.flags.lactoseFree': 'Senza lattosio',
+          'gelato.flags.containsEggs': 'Contiene uova',
+          'gelato.flags.containsNuts': 'Contiene frutta a guscio',
+          'gelato.flags.containsAlcohol': 'Contiene alcool',
+          'gelato.flags.yes': 'Sì',
+          'gelato.flags.no': 'No',
+          'gelato.seasons.tutti': 'Tutto l’anno',
+          'gelato.seasons.primavera': 'Primavera',
+          'gelato.seasons.estate': 'Estate',
+          'gelato.seasons.fine-estate': 'Fine estate',
+          'gelato.seasons.autunno': 'Autunno',
+          'gelato.seasons.inverno': 'Inverno',
+          'gelato.empty': 'Nessun gusto trovato',
+          'gelato.flavors.fior-di-latte': 'Fior di latte',
+          'gelato.flavors.stracciatella': 'Stracciatella',
+          'gelato.flavors.cioccolato-fondente': 'Cioccolato fondente',
+          'gelato.flavors.nocciola': 'Nocciola',
+          'gelato.flavors.pistacchio': 'Pistacchio',
+          'gelato.flavors.mandorla': 'Mandorla',
+          'gelato.flavors.crema': 'Crema',
+          'gelato.flavors.vaniglia': 'Vaniglia',
+          'gelato.flavors.caffe': 'Caffè',
+          'gelato.flavors.tiramisu': 'Tiramisù',
+          'gelato.flavors.caramello-salato': 'Caramello salato',
+          'gelato.flavors.gianduia': 'Gianduia',
+          'gelato.flavors.bacio': 'Bacio',
+          'gelato.flavors.menta': 'Menta',
+          'gelato.flavors.menta-cioccolato': 'Menta e cioccolato',
+          'gelato.flavors.amarena': 'Amarena',
+          'gelato.flavors.yogurt': 'Yogurt',
+          'gelato.flavors.limone': 'Limone (sorbetto)',
+          'gelato.flavors.fragola': 'Fragola (sorbetto)',
+          'gelato.flavors.lampone': 'Lampone (sorbetto)',
+          'gelato.flavors.frutti-di-bosco': 'Frutti di bosco (sorbetto)',
+          'gelato.flavors.mango': 'Mango (sorbetto)',
+          'gelato.flavors.passion-fruit': 'Frutto della passione (sorbetto)',
+          'gelato.flavors.cocco': 'Cocco',
+          'gelato.flavors.banana': 'Banana',
+          'gelato.flavors.rum-uvetta': 'Rum e uvetta',
+          'gelato.flavors.zabaione': 'Zabaione',
+          'gelato.flavors.liquirizia': 'Liquirizia',
+          'gelato.flavors.cannella': 'Cannella',
+          'gelato.flavors.arancia': 'Arancia (sorbetto)',
+          'gelato.flavors.mandarino': 'Mandarino (sorbetto)',
+          'gelato.flavors.pistacchio-salato': 'Pistacchio salato',
+          'gelato.flavors.ricotta-pera': 'Ricotta e pera',
+          'gelato.flavors.panna': 'Panna',
+          'gelato.flavors.biscotto': 'Biscotto',
+          'gelato.flavors.cheesecake-frutti-rossi': 'Cheesecake ai frutti rossi',
+          'gelato.flavors.pesca': 'Pesca (sorbetto)',
+          'gelato.flavors.albicocca': 'Albicocca (sorbetto)',
+          'gelato.flavors.fico': 'Fico',
+          'gelato.flavors.ananas': 'Ananas (sorbetto)',
+          'gelato.flavors.sesamo': 'Sesamo',
+          'gelato.ingredients.latte': 'Latte',
+          'gelato.ingredients.panna': 'Panna',
+          'gelato.ingredients.zucchero': 'Zucchero',
+          'gelato.ingredients.cioccolato': 'Cioccolato',
+          'gelato.ingredients.cacao': 'Cacao',
+          'gelato.ingredients.nocciole': 'Nocciole',
+          'gelato.ingredients.pistacchio': 'Pistacchio',
+          'gelato.ingredients.mandorle': 'Mandorle',
+          'gelato.ingredients.tuorlo': 'Tuorlo',
+          'gelato.ingredients.vaniglia': 'Vaniglia',
+          'gelato.ingredients.caffe': 'Caffè',
+          'gelato.ingredients.mascarpone': 'Mascarpone (placeholder)',
+          'gelato.ingredients.caramello': 'Caramello',
+          'gelato.ingredients.sale': 'Sale',
+          'gelato.ingredients.menta': 'Menta',
+          'gelato.ingredients.amarena': 'Amarena',
+          'gelato.ingredients.yogurt': 'Yogurt',
+          'gelato.ingredients.acqua': 'Acqua',
+          'gelato.ingredients.limone': 'Limone',
+          'gelato.ingredients.fragola': 'Fragola',
+          'gelato.ingredients.lampone': 'Lampone',
+          'gelato.ingredients.frutti-di-bosco': 'Frutti di bosco',
+          'gelato.ingredients.mango': 'Mango',
+          'gelato.ingredients.frutto-passione': 'Frutto della passione',
+          'gelato.ingredients.cocco': 'Cocco',
+          'gelato.ingredients.banana': 'Banana',
+          'gelato.ingredients.uvetta': 'Uvetta',
+          'gelato.ingredients.rum': 'Rum (placeholder)',
+          'gelato.ingredients.vino': 'Vino (placeholder)',
+          'gelato.ingredients.liquirizia': 'Liquirizia',
+          'gelato.ingredients.cannella': 'Cannella',
+          'gelato.ingredients.arancia': 'Arancia',
+          'gelato.ingredients.mandarino': 'Mandarino',
+          'gelato.ingredients.ricotta': 'Ricotta (placeholder)',
+          'gelato.ingredients.pera': 'Pera',
+          'gelato.ingredients.biscotto': 'Biscotto (placeholder)',
+          'gelato.ingredients.base-cheesecake': 'Base cheesecake (placeholder)',
+          'gelato.ingredients.pesca': 'Pesca',
+          'gelato.ingredients.albicocca': 'Albicocca',
+          'gelato.ingredients.fico': 'Fico',
+          'gelato.ingredients.ananas': 'Ananas',
+          'gelato.ingredients.sesamo': 'Sesamo',
+          'gelato.ingredients.base-latte-acqua': 'Latte o acqua (base)',
+          'gelato.allergens.latte': 'Latte',
+          'gelato.allergens.uova': 'Uova',
+          'gelato.allergens.frutta-guscio': 'Frutta a guscio',
+          'gelato.allergens.glutine': 'Glutine',
+          'gelato.allergens.sesamo': 'Sesamo'
+        },
+        en: {
+          'meta.title': 'Badiani 1932 — B2B',
+          'brand.alt': 'Badiani 1932',
+          'topbar.label': 'Brand bar',
+          'lang.label': 'Language selector',
+          'lang.it': 'IT',
+          'lang.en': 'EN',
+          'lang.fr': 'FR',
+          'lang.es': 'ES',
+          'b2b.back': '← Back to home',
+          'b2b.tag': 'B2B path',
+          'b2b.hero.label': 'B2B hero',
+          'b2b.hero.title': 'B2B solutions for companies, hotels, and professionals',
+          'b2b.hero.subtitle': 'Experiences, products and services designed for business, hospitality and corporate worlds',
+          'b2b.hero.note': 'Customizable projects · Tailor-made collaborations · Dedicated support',
+          'b2b.target.label': 'Who it is for',
+          'b2b.target.title': 'Who it is for',
+          'b2b.target.item1': 'Companies and corporate',
+          'b2b.target.item2': 'Hotels and hospitality venues',
+          'b2b.target.item3': 'Tour operators and agencies',
+          'b2b.target.item4': 'Event planners',
+          'b2b.target.item5': 'Brands and commercial partners',
+          'b2b.target.item6': 'Private locations and event spaces',
+          'b2b.areas.label': 'B2B areas',
+          'b2b.areas.title': 'B2B areas',
+          'b2b.categories.desc': 'Content in progress.<br>This section will be enriched with dedicated information.',
+          'b2b.categories.GELATO': 'GELATO',
+          'b2b.categories.VASCHE': 'TUBS',
+          'b2b.categories.PEZZI_DURI': 'HARD ITEMS',
+          'b2b.categories.TORTE': 'CAKES',
+          'b2b.categories.SEMIFREDDI': 'SEMIFREDDI',
+          'b2b.categories.BARATTOLI': 'JARS',
+          'b2b.categories.COPPETTE': 'CUPS',
+          'b2b.categories.CONO': 'CONE',
+          'b2b.categories.PALETTINE': 'STICKS',
+          'b2b.categories.CIALDE': 'WAFERS',
+          'b2b.categories.TOVAGLIOLI': 'NAPKINS',
+          'b2b.categories.CONTENITORI': 'CONTAINERS',
+          'b2b.experiences.label': 'B2B experiences',
+          'b2b.experiences.title': 'B2B experiences',
+          'b2b.experiences.item1': 'B2B events in a reserved lounge (with or without gelato batch freezers)',
+          'b2b.experiences.item2': 'Collaborations with hotels and tour operators',
+          'b2b.experiences.item3': 'Lab experiences on dedicated days',
+          'b2b.steps.label': 'How it works',
+          'b2b.steps.title': 'How it works',
+          'b2b.steps.item1': 'Contact',
+          'b2b.steps.item2': 'Analysis',
+          'b2b.steps.item3': 'Proposal',
+          'b2b.steps.item4': 'Confirmation',
+          'b2b.steps.item5': 'Experience',
+          'b2b.cta.label': 'Final CTA',
+          'b2b.cta.title': 'Request information',
+          'b2b.cta.button': 'Request B2B information',
+          'b2b.cta.note': 'Each project is tailored to the context and objectives',
+          'b2b.modal.titleDefault': 'Category',
+          'b2b.modal.close': 'Close',
+          'b2b.modal.select': 'Select category',
+          'b2b.modal.nav': 'B2B categories',
+          'b2b.modal.overview.title': 'Overview',
+          'b2b.modal.overview.text': 'Descriptive placeholder text.',
+          'b2b.modal.includes.title': 'What’s included',
+          'b2b.modal.includes.item1': 'Placeholder item',
+          'b2b.modal.includes.item2': 'Placeholder item',
+          'b2b.modal.includes.item3': 'Placeholder item',
+          'b2b.modal.audience.title': 'Who it’s for',
+          'b2b.modal.audience.item1': 'Placeholder list',
+          'b2b.modal.audience.item2': 'Placeholder list',
+          'b2b.modal.audience.item3': 'Placeholder list',
+          'b2b.modal.custom.title': 'Customization',
+          'b2b.modal.custom.text': 'Placeholder text about tailored solutions.',
+          'b2b.modal.ops.title': 'Operational info',
+          'b2b.modal.ops.where.label': 'Where',
+          'b2b.modal.ops.where.text': 'Placeholder',
+          'b2b.modal.ops.when.label': 'When',
+          'b2b.modal.ops.when.text': 'Placeholder',
+          'b2b.modal.ops.min.label': 'Minimum number of people',
+          'b2b.modal.ops.min.text': 'Placeholder',
+          'b2b.modal.ops.notes.label': 'Operational notes',
+          'b2b.modal.ops.notes.text': 'Placeholder',
+          'b2b.modal.cta': 'Request information',
+          'gelato.showcase.title': 'Gelato Showcase',
+          'gelato.showcase.subtitle': 'Explore flavors and filter by season or name.',
+          'gelato.filters.season.label': 'Season',
+          'gelato.filters.season.all': 'All',
+          'gelato.filters.season.spring': 'Spring',
+          'gelato.filters.season.summer': 'Summer',
+          'gelato.filters.season.autumn': 'Autumn',
+          'gelato.filters.season.winter': 'Winter',
+          'gelato.filters.search.label': 'Search flavor',
+          'gelato.filters.search.placeholder': 'Search by name...',
+          'gelato.detail.empty': 'Select a flavor to see details.',
+          'gelato.detail.ingredients': 'Ingredients',
+          'gelato.detail.allergens': 'Allergens',
+          'gelato.detail.seasons': 'Availability',
+          'gelato.detail.flags': 'Parameters',
+          'gelato.detail.none': 'None',
+          'gelato.flags.vegan': 'Vegan',
+          'gelato.flags.glutenFree': 'Gluten-free',
+          'gelato.flags.lactoseFree': 'Lactose-free',
+          'gelato.flags.containsEggs': 'Contains eggs',
+          'gelato.flags.containsNuts': 'Contains nuts',
+          'gelato.flags.containsAlcohol': 'Contains alcohol',
+          'gelato.flags.yes': 'Yes',
+          'gelato.flags.no': 'No',
+          'gelato.seasons.tutti': 'All year',
+          'gelato.seasons.primavera': 'Spring',
+          'gelato.seasons.estate': 'Summer',
+          'gelato.seasons.fine-estate': 'Late summer',
+          'gelato.seasons.autunno': 'Autumn',
+          'gelato.seasons.inverno': 'Winter',
+          'gelato.empty': 'No flavors found',
+          'gelato.flavors.fior-di-latte': 'Fior di latte',
+          'gelato.flavors.stracciatella': 'Stracciatella',
+          'gelato.flavors.cioccolato-fondente': 'Dark chocolate',
+          'gelato.flavors.nocciola': 'Hazelnut',
+          'gelato.flavors.pistacchio': 'Pistachio',
+          'gelato.flavors.mandorla': 'Almond',
+          'gelato.flavors.crema': 'Custard',
+          'gelato.flavors.vaniglia': 'Vanilla',
+          'gelato.flavors.caffe': 'Coffee',
+          'gelato.flavors.tiramisu': 'Tiramisu',
+          'gelato.flavors.caramello-salato': 'Salted caramel',
+          'gelato.flavors.gianduia': 'Gianduia',
+          'gelato.flavors.bacio': 'Bacio',
+          'gelato.flavors.menta': 'Mint',
+          'gelato.flavors.menta-cioccolato': 'Mint & chocolate',
+          'gelato.flavors.amarena': 'Amarena',
+          'gelato.flavors.yogurt': 'Yogurt',
+          'gelato.flavors.limone': 'Lemon (sorbet)',
+          'gelato.flavors.fragola': 'Strawberry (sorbet)',
+          'gelato.flavors.lampone': 'Raspberry (sorbet)',
+          'gelato.flavors.frutti-di-bosco': 'Mixed berries (sorbet)',
+          'gelato.flavors.mango': 'Mango (sorbet)',
+          'gelato.flavors.passion-fruit': 'Passion fruit (sorbet)',
+          'gelato.flavors.cocco': 'Coconut',
+          'gelato.flavors.banana': 'Banana',
+          'gelato.flavors.rum-uvetta': 'Rum & raisin',
+          'gelato.flavors.zabaione': 'Zabaglione',
+          'gelato.flavors.liquirizia': 'Licorice',
+          'gelato.flavors.cannella': 'Cinnamon',
+          'gelato.flavors.arancia': 'Orange (sorbet)',
+          'gelato.flavors.mandarino': 'Mandarin (sorbet)',
+          'gelato.flavors.pistacchio-salato': 'Salted pistachio',
+          'gelato.flavors.ricotta-pera': 'Ricotta & pear',
+          'gelato.flavors.panna': 'Cream',
+          'gelato.flavors.biscotto': 'Cookie',
+          'gelato.flavors.cheesecake-frutti-rossi': 'Red berries cheesecake',
+          'gelato.flavors.pesca': 'Peach (sorbet)',
+          'gelato.flavors.albicocca': 'Apricot (sorbet)',
+          'gelato.flavors.fico': 'Fig',
+          'gelato.flavors.ananas': 'Pineapple (sorbet)',
+          'gelato.flavors.sesamo': 'Sesame',
+          'gelato.ingredients.latte': 'Milk',
+          'gelato.ingredients.panna': 'Cream',
+          'gelato.ingredients.zucchero': 'Sugar',
+          'gelato.ingredients.cioccolato': 'Chocolate',
+          'gelato.ingredients.cacao': 'Cocoa',
+          'gelato.ingredients.nocciole': 'Hazelnuts',
+          'gelato.ingredients.pistacchio': 'Pistachio',
+          'gelato.ingredients.mandorle': 'Almonds',
+          'gelato.ingredients.tuorlo': 'Egg yolk',
+          'gelato.ingredients.vaniglia': 'Vanilla',
+          'gelato.ingredients.caffe': 'Coffee',
+          'gelato.ingredients.mascarpone': 'Mascarpone (placeholder)',
+          'gelato.ingredients.caramello': 'Caramel',
+          'gelato.ingredients.sale': 'Salt',
+          'gelato.ingredients.menta': 'Mint',
+          'gelato.ingredients.amarena': 'Sour cherry',
+          'gelato.ingredients.yogurt': 'Yogurt',
+          'gelato.ingredients.acqua': 'Water',
+          'gelato.ingredients.limone': 'Lemon',
+          'gelato.ingredients.fragola': 'Strawberry',
+          'gelato.ingredients.lampone': 'Raspberry',
+          'gelato.ingredients.frutti-di-bosco': 'Mixed berries',
+          'gelato.ingredients.mango': 'Mango',
+          'gelato.ingredients.frutto-passione': 'Passion fruit',
+          'gelato.ingredients.cocco': 'Coconut',
+          'gelato.ingredients.banana': 'Banana',
+          'gelato.ingredients.uvetta': 'Raisins',
+          'gelato.ingredients.rum': 'Rum (placeholder)',
+          'gelato.ingredients.vino': 'Wine (placeholder)',
+          'gelato.ingredients.liquirizia': 'Licorice',
+          'gelato.ingredients.cannella': 'Cinnamon',
+          'gelato.ingredients.arancia': 'Orange',
+          'gelato.ingredients.mandarino': 'Mandarin',
+          'gelato.ingredients.ricotta': 'Ricotta (placeholder)',
+          'gelato.ingredients.pera': 'Pear',
+          'gelato.ingredients.biscotto': 'Cookie (placeholder)',
+          'gelato.ingredients.base-cheesecake': 'Cheesecake base (placeholder)',
+          'gelato.ingredients.pesca': 'Peach',
+          'gelato.ingredients.albicocca': 'Apricot',
+          'gelato.ingredients.fico': 'Fig',
+          'gelato.ingredients.ananas': 'Pineapple',
+          'gelato.ingredients.sesamo': 'Sesame',
+          'gelato.ingredients.base-latte-acqua': 'Milk or water base',
+          'gelato.allergens.latte': 'Milk',
+          'gelato.allergens.uova': 'Eggs',
+          'gelato.allergens.frutta-guscio': 'Tree nuts',
+          'gelato.allergens.glutine': 'Gluten',
+          'gelato.allergens.sesamo': 'Sesame'
+        },
+        fr: {
+          'meta.title': 'Badiani 1932 — B2B',
+          'brand.alt': 'Badiani 1932',
+          'topbar.label': 'Barre de marque',
+          'lang.label': 'Sélecteur de langue',
+          'lang.it': 'IT',
+          'lang.en': 'EN',
+          'lang.fr': 'FR',
+          'lang.es': 'ES',
+          'b2b.back': '← Retour à l’accueil',
+          'b2b.tag': 'Parcours B2B',
+          'b2b.hero.label': 'Hero B2B',
+          'b2b.hero.title': 'Solutions B2B pour entreprises, hôtels et professionnels',
+          'b2b.hero.subtitle': 'Expériences, produits et services pensés pour le business, l’hospitalité et le corporate',
+          'b2b.hero.note': 'Projets personnalisables · Collaborations sur mesure · Support dédié',
+          'b2b.target.label': 'À qui c’est dédié',
+          'b2b.target.title': 'À qui c’est dédié',
+          'b2b.target.item1': 'Entreprises et corporate',
+          'b2b.target.item2': 'Hôtels et structures d’accueil',
+          'b2b.target.item3': 'Tours opérateurs et agences',
+          'b2b.target.item4': 'Event planners',
+          'b2b.target.item5': 'Marques et partenaires commerciaux',
+          'b2b.target.item6': 'Lieux privés et espaces événementiels',
+          'b2b.areas.label': 'Zones B2B',
+          'b2b.areas.title': 'Zones B2B',
+          'b2b.categories.desc': 'Contenu en préparation.<br>Cette section sera enrichie avec des informations dédiées.',
+          'b2b.categories.GELATO': 'GELATO',
+          'b2b.categories.VASCHE': 'BACS',
+          'b2b.categories.PEZZI_DURI': 'PIÈCES DURES',
+          'b2b.categories.TORTE': 'GÂTEAUX',
+          'b2b.categories.SEMIFREDDI': 'SEMIFREDDI',
+          'b2b.categories.BARATTOLI': 'BOCAUX',
+          'b2b.categories.COPPETTE': 'COUPES',
+          'b2b.categories.CONO': 'CORNÉTS',
+          'b2b.categories.PALETTINE': 'BÂTONNETS',
+          'b2b.categories.CIALDE': 'GAUFRETTES',
+          'b2b.categories.TOVAGLIOLI': 'SERVIETTES',
+          'b2b.categories.CONTENITORI': 'CONTENANTS',
+          'b2b.experiences.label': 'Expériences B2B',
+          'b2b.experiences.title': 'Expériences B2B',
+          'b2b.experiences.item1': 'Événements B2B en salle réservée (avec ou sans turbines)',
+          'b2b.experiences.item2': 'Collaborations avec hôtels et tours opérateurs',
+          'b2b.experiences.item3': 'Expériences de laboratoire lors de journées dédiées',
+          'b2b.steps.label': 'Comment ça marche',
+          'b2b.steps.title': 'Comment ça marche',
+          'b2b.steps.item1': 'Contact',
+          'b2b.steps.item2': 'Analyse',
+          'b2b.steps.item3': 'Proposition',
+          'b2b.steps.item4': 'Confirmation',
+          'b2b.steps.item5': 'Expérience',
+          'b2b.cta.label': 'CTA final',
+          'b2b.cta.title': 'Demander des informations',
+          'b2b.cta.button': 'Demander des informations B2B',
+          'b2b.cta.note': 'Chaque projet est construit sur mesure selon le contexte et les objectifs',
+          'b2b.modal.titleDefault': 'Catégorie',
+          'b2b.modal.close': 'Fermer',
+          'b2b.modal.select': 'Sélectionner une catégorie',
+          'b2b.modal.nav': 'Catégories B2B',
+          'b2b.modal.overview.title': 'Aperçu',
+          'b2b.modal.overview.text': 'Texte descriptif fictif.',
+          'b2b.modal.includes.title': 'Ce qui est inclus',
+          'b2b.modal.includes.item1': 'Élément fictif',
+          'b2b.modal.includes.item2': 'Élément fictif',
+          'b2b.modal.includes.item3': 'Élément fictif',
+          'b2b.modal.audience.title': 'Pour qui',
+          'b2b.modal.audience.item1': 'Liste fictive',
+          'b2b.modal.audience.item2': 'Liste fictive',
+          'b2b.modal.audience.item3': 'Liste fictive',
+          'b2b.modal.custom.title': 'Personnalisation',
+          'b2b.modal.custom.text': 'Texte fictif sur des solutions sur mesure.',
+          'b2b.modal.ops.title': 'Infos opérationnelles',
+          'b2b.modal.ops.where.label': 'Où',
+          'b2b.modal.ops.where.text': 'Placeholder',
+          'b2b.modal.ops.when.label': 'Quand',
+          'b2b.modal.ops.when.text': 'Placeholder',
+          'b2b.modal.ops.min.label': 'Nombre minimum de personnes',
+          'b2b.modal.ops.min.text': 'Placeholder',
+          'b2b.modal.ops.notes.label': 'Notes opérationnelles',
+          'b2b.modal.ops.notes.text': 'Placeholder',
+          'b2b.modal.cta': 'Demander des informations',
+          'gelato.showcase.title': 'Vitrine Gelato',
+          'gelato.showcase.subtitle': 'Découvrez les parfums et filtrez par saison ou par nom.',
+          'gelato.filters.season.label': 'Saison',
+          'gelato.filters.season.all': 'Tous',
+          'gelato.filters.season.spring': 'Printemps',
+          'gelato.filters.season.summer': 'Été',
+          'gelato.filters.season.autumn': 'Automne',
+          'gelato.filters.season.winter': 'Hiver',
+          'gelato.filters.search.label': 'Rechercher un parfum',
+          'gelato.filters.search.placeholder': 'Rechercher par nom...',
+          'gelato.detail.empty': 'Sélectionnez un parfum pour voir les détails.',
+          'gelato.detail.ingredients': 'Ingrédients',
+          'gelato.detail.allergens': 'Allergènes',
+          'gelato.detail.seasons': 'Disponibilité',
+          'gelato.detail.flags': 'Paramètres',
+          'gelato.detail.none': 'Aucun',
+          'gelato.flags.vegan': 'Vegan',
+          'gelato.flags.glutenFree': 'Sans gluten',
+          'gelato.flags.lactoseFree': 'Sans lactose',
+          'gelato.flags.containsEggs': 'Contient des œufs',
+          'gelato.flags.containsNuts': 'Contient des fruits à coque',
+          'gelato.flags.containsAlcohol': 'Contient de l’alcool',
+          'gelato.flags.yes': 'Oui',
+          'gelato.flags.no': 'Non',
+          'gelato.seasons.tutti': 'Toute l’année',
+          'gelato.seasons.primavera': 'Printemps',
+          'gelato.seasons.estate': 'Été',
+          'gelato.seasons.fine-estate': 'Fin d’été',
+          'gelato.seasons.autunno': 'Automne',
+          'gelato.seasons.inverno': 'Hiver',
+          'gelato.empty': 'Aucun parfum trouvé',
+          'gelato.flavors.fior-di-latte': 'Fior di latte',
+          'gelato.flavors.stracciatella': 'Stracciatella',
+          'gelato.flavors.cioccolato-fondente': 'Chocolat noir',
+          'gelato.flavors.nocciola': 'Noisette',
+          'gelato.flavors.pistacchio': 'Pistache',
+          'gelato.flavors.mandorla': 'Amande',
+          'gelato.flavors.crema': 'Crème',
+          'gelato.flavors.vaniglia': 'Vanille',
+          'gelato.flavors.caffe': 'Café',
+          'gelato.flavors.tiramisu': 'Tiramisu',
+          'gelato.flavors.caramello-salato': 'Caramel salé',
+          'gelato.flavors.gianduia': 'Gianduia',
+          'gelato.flavors.bacio': 'Bacio',
+          'gelato.flavors.menta': 'Menthe',
+          'gelato.flavors.menta-cioccolato': 'Menthe & chocolat',
+          'gelato.flavors.amarena': 'Amarena',
+          'gelato.flavors.yogurt': 'Yaourt',
+          'gelato.flavors.limone': 'Citron (sorbet)',
+          'gelato.flavors.fragola': 'Fraise (sorbet)',
+          'gelato.flavors.lampone': 'Framboise (sorbet)',
+          'gelato.flavors.frutti-di-bosco': 'Fruits rouges (sorbet)',
+          'gelato.flavors.mango': 'Mangue (sorbet)',
+          'gelato.flavors.passion-fruit': 'Fruit de la passion (sorbet)',
+          'gelato.flavors.cocco': 'Noix de coco',
+          'gelato.flavors.banana': 'Banane',
+          'gelato.flavors.rum-uvetta': 'Rhum et raisins',
+          'gelato.flavors.zabaione': 'Zabaione',
+          'gelato.flavors.liquirizia': 'Réglisse',
+          'gelato.flavors.cannella': 'Cannelle',
+          'gelato.flavors.arancia': 'Orange (sorbet)',
+          'gelato.flavors.mandarino': 'Mandarine (sorbet)',
+          'gelato.flavors.pistacchio-salato': 'Pistache salée',
+          'gelato.flavors.ricotta-pera': 'Ricotta et poire',
+          'gelato.flavors.panna': 'Crème',
+          'gelato.flavors.biscotto': 'Biscuit',
+          'gelato.flavors.cheesecake-frutti-rossi': 'Cheesecake aux fruits rouges',
+          'gelato.flavors.pesca': 'Pêche (sorbet)',
+          'gelato.flavors.albicocca': 'Abricot (sorbet)',
+          'gelato.flavors.fico': 'Figue',
+          'gelato.flavors.ananas': 'Ananas (sorbet)',
+          'gelato.flavors.sesamo': 'Sésame',
+          'gelato.ingredients.latte': 'Lait',
+          'gelato.ingredients.panna': 'Crème',
+          'gelato.ingredients.zucchero': 'Sucre',
+          'gelato.ingredients.cioccolato': 'Chocolat',
+          'gelato.ingredients.cacao': 'Cacao',
+          'gelato.ingredients.nocciole': 'Noisettes',
+          'gelato.ingredients.pistacchio': 'Pistache',
+          'gelato.ingredients.mandorle': 'Amandes',
+          'gelato.ingredients.tuorlo': 'Jaune d’œuf',
+          'gelato.ingredients.vaniglia': 'Vanille',
+          'gelato.ingredients.caffe': 'Café',
+          'gelato.ingredients.mascarpone': 'Mascarpone (placeholder)',
+          'gelato.ingredients.caramello': 'Caramel',
+          'gelato.ingredients.sale': 'Sel',
+          'gelato.ingredients.menta': 'Menthe',
+          'gelato.ingredients.amarena': 'Amarena',
+          'gelato.ingredients.yogurt': 'Yaourt',
+          'gelato.ingredients.acqua': 'Eau',
+          'gelato.ingredients.limone': 'Citron',
+          'gelato.ingredients.fragola': 'Fraise',
+          'gelato.ingredients.lampone': 'Framboise',
+          'gelato.ingredients.frutti-di-bosco': 'Fruits rouges',
+          'gelato.ingredients.mango': 'Mangue',
+          'gelato.ingredients.frutto-passione': 'Fruit de la passion',
+          'gelato.ingredients.cocco': 'Noix de coco',
+          'gelato.ingredients.banana': 'Banane',
+          'gelato.ingredients.uvetta': 'Raisins secs',
+          'gelato.ingredients.rum': 'Rhum (placeholder)',
+          'gelato.ingredients.vino': 'Vin (placeholder)',
+          'gelato.ingredients.liquirizia': 'Réglisse',
+          'gelato.ingredients.cannella': 'Cannelle',
+          'gelato.ingredients.arancia': 'Orange',
+          'gelato.ingredients.mandarino': 'Mandarine',
+          'gelato.ingredients.ricotta': 'Ricotta (placeholder)',
+          'gelato.ingredients.pera': 'Poire',
+          'gelato.ingredients.biscotto': 'Biscuit (placeholder)',
+          'gelato.ingredients.base-cheesecake': 'Base cheesecake (placeholder)',
+          'gelato.ingredients.pesca': 'Pêche',
+          'gelato.ingredients.albicocca': 'Abricot',
+          'gelato.ingredients.fico': 'Figue',
+          'gelato.ingredients.ananas': 'Ananas',
+          'gelato.ingredients.sesamo': 'Sésame',
+          'gelato.ingredients.base-latte-acqua': 'Lait ou eau (base)',
+          'gelato.allergens.latte': 'Lait',
+          'gelato.allergens.uova': 'Œufs',
+          'gelato.allergens.frutta-guscio': 'Fruits à coque',
+          'gelato.allergens.glutine': 'Gluten',
+          'gelato.allergens.sesamo': 'Sésame'
+        },
+        es: {
+          'meta.title': 'Badiani 1932 — B2B',
+          'brand.alt': 'Badiani 1932',
+          'topbar.label': 'Barra de marca',
+          'lang.label': 'Selector de idioma',
+          'lang.it': 'IT',
+          'lang.en': 'EN',
+          'lang.fr': 'FR',
+          'lang.es': 'ES',
+          'b2b.back': '← Volver al inicio',
+          'b2b.tag': 'Ruta B2B',
+          'b2b.hero.label': 'Hero B2B',
+          'b2b.hero.title': 'Soluciones B2B para empresas, hoteles y profesionales',
+          'b2b.hero.subtitle': 'Experiencias, productos y servicios pensados para el mundo business, hospitality y corporate',
+          'b2b.hero.note': 'Proyectos personalizables · Colaboraciones a medida · Soporte dedicado',
+          'b2b.target.label': 'A quién va dirigido',
+          'b2b.target.title': 'A quién va dirigido',
+          'b2b.target.item1': 'Empresas y corporate',
+          'b2b.target.item2': 'Hoteles y estructuras de acogida',
+          'b2b.target.item3': 'Turoperadores y agencias',
+          'b2b.target.item4': 'Event planners',
+          'b2b.target.item5': 'Marcas y socios comerciales',
+          'b2b.target.item6': 'Ubicaciones privadas y espacios para eventos',
+          'b2b.areas.label': 'Áreas B2B',
+          'b2b.areas.title': 'Áreas B2B',
+          'b2b.categories.desc': 'Contenido en preparación.<br>Esta sección se enriquecerá con información dedicada.',
+          'b2b.categories.GELATO': 'GELATO',
+          'b2b.categories.VASCHE': 'CUBAS',
+          'b2b.categories.PEZZI_DURI': 'PIEZAS DURAS',
+          'b2b.categories.TORTE': 'TARTAS',
+          'b2b.categories.SEMIFREDDI': 'SEMIFREDDI',
+          'b2b.categories.BARATTOLI': 'TARROS',
+          'b2b.categories.COPPETTE': 'COPAS',
+          'b2b.categories.CONO': 'CONO',
+          'b2b.categories.PALETTINE': 'PALETAS',
+          'b2b.categories.CIALDE': 'OBLEAS',
+          'b2b.categories.TOVAGLIOLI': 'SERVILLETAS',
+          'b2b.categories.CONTENITORI': 'CONTENEDORES',
+          'b2b.experiences.label': 'Experiencias B2B',
+          'b2b.experiences.title': 'Experiencias B2B',
+          'b2b.experiences.item1': 'Eventos B2B en sala reservada (con o sin mantecadoras)',
+          'b2b.experiences.item2': 'Colaboraciones con hoteles y turoperadores',
+          'b2b.experiences.item3': 'Experiencias de laboratorio en jornadas dedicadas',
+          'b2b.steps.label': 'Cómo funciona',
+          'b2b.steps.title': 'Cómo funciona',
+          'b2b.steps.item1': 'Contacto',
+          'b2b.steps.item2': 'Análisis',
+          'b2b.steps.item3': 'Propuesta',
+          'b2b.steps.item4': 'Confirmación',
+          'b2b.steps.item5': 'Experiencia',
+          'b2b.cta.label': 'CTA final',
+          'b2b.cta.title': 'Solicitar información',
+          'b2b.cta.button': 'Solicitar información B2B',
+          'b2b.cta.note': 'Cada proyecto se construye a medida según el contexto y los objetivos',
+          'b2b.modal.titleDefault': 'Categoría',
+          'b2b.modal.close': 'Cerrar',
+          'b2b.modal.select': 'Seleccionar categoría',
+          'b2b.modal.nav': 'Categorías B2B',
+          'b2b.modal.overview.title': 'Panorámica',
+          'b2b.modal.overview.text': 'Texto descriptivo de ejemplo.',
+          'b2b.modal.includes.title': 'Qué incluye',
+          'b2b.modal.includes.item1': 'Elemento de ejemplo',
+          'b2b.modal.includes.item2': 'Elemento de ejemplo',
+          'b2b.modal.includes.item3': 'Elemento de ejemplo',
+          'b2b.modal.audience.title': 'A quién va dirigido',
+          'b2b.modal.audience.item1': 'Lista de ejemplo',
+          'b2b.modal.audience.item2': 'Lista de ejemplo',
+          'b2b.modal.audience.item3': 'Lista de ejemplo',
+          'b2b.modal.custom.title': 'Personalización',
+          'b2b.modal.custom.text': 'Texto de ejemplo sobre soluciones a medida.',
+          'b2b.modal.ops.title': 'Info operativa',
+          'b2b.modal.ops.where.label': 'Dónde',
+          'b2b.modal.ops.where.text': 'Placeholder',
+          'b2b.modal.ops.when.label': 'Cuándo',
+          'b2b.modal.ops.when.text': 'Placeholder',
+          'b2b.modal.ops.min.label': 'Número mínimo de personas',
+          'b2b.modal.ops.min.text': 'Placeholder',
+          'b2b.modal.ops.notes.label': 'Notas operativas',
+          'b2b.modal.ops.notes.text': 'Placeholder',
+          'b2b.modal.cta': 'Solicitar información',
+          'gelato.showcase.title': 'Vitrina Gelato',
+          'gelato.showcase.subtitle': 'Explora los sabores y filtra por temporada o nombre.',
+          'gelato.filters.season.label': 'Temporada',
+          'gelato.filters.season.all': 'Todos',
+          'gelato.filters.season.spring': 'Primavera',
+          'gelato.filters.season.summer': 'Verano',
+          'gelato.filters.season.autumn': 'Otoño',
+          'gelato.filters.season.winter': 'Invierno',
+          'gelato.filters.search.label': 'Buscar sabor',
+          'gelato.filters.search.placeholder': 'Buscar por nombre...',
+          'gelato.detail.empty': 'Selecciona un sabor para ver los detalles.',
+          'gelato.detail.ingredients': 'Ingredientes',
+          'gelato.detail.allergens': 'Alérgenos',
+          'gelato.detail.seasons': 'Disponibilidad',
+          'gelato.detail.flags': 'Parámetros',
+          'gelato.detail.none': 'Ninguno',
+          'gelato.flags.vegan': 'Vegano',
+          'gelato.flags.glutenFree': 'Sin gluten',
+          'gelato.flags.lactoseFree': 'Sin lactosa',
+          'gelato.flags.containsEggs': 'Contiene huevos',
+          'gelato.flags.containsNuts': 'Contiene frutos secos',
+          'gelato.flags.containsAlcohol': 'Contiene alcohol',
+          'gelato.flags.yes': 'Sí',
+          'gelato.flags.no': 'No',
+          'gelato.seasons.tutti': 'Todo el año',
+          'gelato.seasons.primavera': 'Primavera',
+          'gelato.seasons.estate': 'Verano',
+          'gelato.seasons.fine-estate': 'Finales de verano',
+          'gelato.seasons.autunno': 'Otoño',
+          'gelato.seasons.inverno': 'Invierno',
+          'gelato.empty': 'No se encontraron sabores',
+          'gelato.flavors.fior-di-latte': 'Fior di latte',
+          'gelato.flavors.stracciatella': 'Stracciatella',
+          'gelato.flavors.cioccolato-fondente': 'Chocolate negro',
+          'gelato.flavors.nocciola': 'Avellana',
+          'gelato.flavors.pistacchio': 'Pistacho',
+          'gelato.flavors.mandorla': 'Almendra',
+          'gelato.flavors.crema': 'Crema',
+          'gelato.flavors.vaniglia': 'Vainilla',
+          'gelato.flavors.caffe': 'Café',
+          'gelato.flavors.tiramisu': 'Tiramisú',
+          'gelato.flavors.caramello-salato': 'Caramelo salado',
+          'gelato.flavors.gianduia': 'Gianduia',
+          'gelato.flavors.bacio': 'Bacio',
+          'gelato.flavors.menta': 'Menta',
+          'gelato.flavors.menta-cioccolato': 'Menta y chocolate',
+          'gelato.flavors.amarena': 'Amarena',
+          'gelato.flavors.yogurt': 'Yogur',
+          'gelato.flavors.limone': 'Limón (sorbete)',
+          'gelato.flavors.fragola': 'Fresa (sorbete)',
+          'gelato.flavors.lampone': 'Frambuesa (sorbete)',
+          'gelato.flavors.frutti-di-bosco': 'Frutos del bosque (sorbete)',
+          'gelato.flavors.mango': 'Mango (sorbete)',
+          'gelato.flavors.passion-fruit': 'Maracuyá (sorbete)',
+          'gelato.flavors.cocco': 'Coco',
+          'gelato.flavors.banana': 'Banana',
+          'gelato.flavors.rum-uvetta': 'Ron y pasas',
+          'gelato.flavors.zabaione': 'Zabaione',
+          'gelato.flavors.liquirizia': 'Regaliz',
+          'gelato.flavors.cannella': 'Canela',
+          'gelato.flavors.arancia': 'Naranja (sorbete)',
+          'gelato.flavors.mandarino': 'Mandarina (sorbete)',
+          'gelato.flavors.pistacchio-salato': 'Pistacho salado',
+          'gelato.flavors.ricotta-pera': 'Ricotta y pera',
+          'gelato.flavors.panna': 'Nata',
+          'gelato.flavors.biscotto': 'Galleta',
+          'gelato.flavors.cheesecake-frutti-rossi': 'Cheesecake de frutos rojos',
+          'gelato.flavors.pesca': 'Melocotón (sorbete)',
+          'gelato.flavors.albicocca': 'Albaricoque (sorbete)',
+          'gelato.flavors.fico': 'Higo',
+          'gelato.flavors.ananas': 'Piña (sorbete)',
+          'gelato.flavors.sesamo': 'Sésamo',
+          'gelato.ingredients.latte': 'Leche',
+          'gelato.ingredients.panna': 'Nata',
+          'gelato.ingredients.zucchero': 'Azúcar',
+          'gelato.ingredients.cioccolato': 'Chocolate',
+          'gelato.ingredients.cacao': 'Cacao',
+          'gelato.ingredients.nocciole': 'Avellanas',
+          'gelato.ingredients.pistacchio': 'Pistacho',
+          'gelato.ingredients.mandorle': 'Almendras',
+          'gelato.ingredients.tuorlo': 'Yema de huevo',
+          'gelato.ingredients.vaniglia': 'Vainilla',
+          'gelato.ingredients.caffe': 'Café',
+          'gelato.ingredients.mascarpone': 'Mascarpone (placeholder)',
+          'gelato.ingredients.caramello': 'Caramelo',
+          'gelato.ingredients.sale': 'Sal',
+          'gelato.ingredients.menta': 'Menta',
+          'gelato.ingredients.amarena': 'Amarena',
+          'gelato.ingredients.yogurt': 'Yogur',
+          'gelato.ingredients.acqua': 'Agua',
+          'gelato.ingredients.limone': 'Limón',
+          'gelato.ingredients.fragola': 'Fresa',
+          'gelato.ingredients.lampone': 'Frambuesa',
+          'gelato.ingredients.frutti-di-bosco': 'Frutos del bosque',
+          'gelato.ingredients.mango': 'Mango',
+          'gelato.ingredients.frutto-passione': 'Maracuyá',
+          'gelato.ingredients.cocco': 'Coco',
+          'gelato.ingredients.banana': 'Banana',
+          'gelato.ingredients.uvetta': 'Pasas',
+          'gelato.ingredients.rum': 'Ron (placeholder)',
+          'gelato.ingredients.vino': 'Vino (placeholder)',
+          'gelato.ingredients.liquirizia': 'Regaliz',
+          'gelato.ingredients.cannella': 'Canela',
+          'gelato.ingredients.arancia': 'Naranja',
+          'gelato.ingredients.mandarino': 'Mandarina',
+          'gelato.ingredients.ricotta': 'Ricotta (placeholder)',
+          'gelato.ingredients.pera': 'Pera',
+          'gelato.ingredients.biscotto': 'Galleta (placeholder)',
+          'gelato.ingredients.base-cheesecake': 'Base de cheesecake (placeholder)',
+          'gelato.ingredients.pesca': 'Melocotón',
+          'gelato.ingredients.albicocca': 'Albaricoque',
+          'gelato.ingredients.fico': 'Higo',
+          'gelato.ingredients.ananas': 'Piña',
+          'gelato.ingredients.sesamo': 'Sésamo',
+          'gelato.ingredients.base-latte-acqua': 'Leche o agua (base)',
+          'gelato.allergens.latte': 'Leche',
+          'gelato.allergens.uova': 'Huevos',
+          'gelato.allergens.frutta-guscio': 'Frutos secos',
+          'gelato.allergens.glutine': 'Gluten',
+          'gelato.allergens.sesamo': 'Sésamo'
+        }
+      };
+
+      function normalizeLang(lang){
+        if(!lang) return DEFAULT_LANG;
+        const base = String(lang).toLowerCase().split('-')[0];
+        return SUPPORTED.includes(base) ? base : DEFAULT_LANG;
+      }
+
+      function getInitialLang(){
+        try{
+          const params = new URLSearchParams(window.location.search || '');
+          const q = params.get('lang');
+          if(q) return normalizeLang(q);
+        }catch{}
+        try{
+          const saved = localStorage.getItem(STORAGE_KEY);
+          if(saved) return normalizeLang(saved);
+        }catch{}
+        return normalizeLang(navigator.language || DEFAULT_LANG);
+      }
+
+      let currentLang = getInitialLang();
+
+      function t(key){
+        const dict = STRINGS[currentLang] || STRINGS[DEFAULT_LANG];
+        return dict && dict[key] ? dict[key] : '';
+      }
+
+      const modal = document.getElementById('categoryModal');
+      const title = document.getElementById('categoryModalTitle');
+      const closeBtn = modal.querySelector('.modal__close');
+      const cards = document.querySelectorAll('.category-card[data-category]');
+      const nav = document.getElementById('categoryNav');
+      const select = document.getElementById('categorySelect');
+      const gelatoShowcase = document.getElementById('gelatoShowcase');
+      const gelatoGrid = document.getElementById('gelatoGrid');
+      const gelatoDetail = document.getElementById('gelatoDetail');
+      const gelatoSeason = document.getElementById('gelatoSeason');
+      const gelatoSearch = document.getElementById('gelatoSearch');
+      const defaultContent = document.getElementById('b2bDefaultContent');
+      let activeGelatoId = '';
+      let expandedFlavorId = '';
+
+      const categories = Array.from(cards).map((card) => card.getAttribute('data-category'));
+      let activeCategory = categories[0] || '';
+
+      function categoryLabel(name){
+        if(!name) return t('b2b.modal.titleDefault');
+        const key = `b2b.categories.${name.replace(/\s+/g, '_')}`;
+        return t(key) || name;
+      }
+
+      function seasonLabel(season){
+        return tGelato(`seasons.${season}`) || season;
+      }
+
+      function matchesSeason(flavor, season){
+        if(season === 'tutti') return true;
+        if(flavor.seasons.includes(season)) return true;
+        return false;
+      }
+
+      function renderGelatoDetail(flavor){
+        if(!gelatoDetail) return;
+        if(!flavor){
+          gelatoDetail.innerHTML = `<div class=\"gelato-empty\">${tGelato('vetrinaGelato.selectFlavorHint')}</div>`;
+          gelatoDetail.classList.add('is-collapsed');
+          gelatoDetail.classList.remove('is-open');
+          return;
+        }
+
+        const ingredients = tGelato('flavorDetail.placeholderIngredients');
+        const allergens = tGelato('flavorDetail.placeholderAllergens');
+        const seasons = flavor.seasons.map((season) => seasonLabel(season)).join(', ');
+        const flags = [
+          ['flags.vegan', flavor.flags.vegan],
+          ['flags.glutenFree', flavor.flags.glutenFree],
+          ['flags.lactoseFree', flavor.flags.lactoseFree],
+          ['flags.containsEggs', flavor.flags.containsEggs],
+          ['flags.containsNuts', flavor.flags.containsNuts],
+          ['flags.containsAlcohol', flavor.flags.containsAlcohol]
+        ];
+
+        gelatoDetail.innerHTML = `
+          <div class=\"gelato-detail__header\">
+            <div class=\"gelato-section-title\">${tGelato('flavorDetail.title')}</div>
+            <button class=\"gelato-detail__close\" type=\"button\">${tGelato('common.close')}</button>
+          </div>
+          <h4>${tGelato(flavor.nameKey)}</h4>
+          <div>
+            <div class=\"gelato-section-title\">${tGelato('flavorDetail.ingredients')}</div>
+            <div class="gelato-list">${ingredients}</div>
+          </div>
+          <div>
+            <div class=\"gelato-section-title\">${tGelato('flavorDetail.allergens')}</div>
+            <div class="gelato-list">${allergens}</div>
+          </div>
+          <div>
+            <div class=\"gelato-section-title\">${tGelato('flavorDetail.availability')}</div>
+            <div class="gelato-list">${seasons}</div>
+          </div>
+          <div>
+            <div class=\"gelato-section-title\">${tGelato('flavorDetail.parameters')}</div>
+            <div class="gelato-flags">
+              ${flags.map(([label, value]) => `
+                <div class="gelato-flag">
+                  <span>${tGelato(label)}</span>
+                  <strong>${value ? '✓' : '—'}</strong>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+          <div>
+            <div class=\"gelato-section-title\">${tGelato('flavorDetail.notes')}</div>
+            <div class="gelato-list">${tGelato('flavorDetail.placeholderNotes')}</div>
+          </div>
+          <div>
+            <a class=\"cta-button\" href=\"#\">${tGelato('common.requestInfo')}</a>
+          </div>
+        `;
+
+        gelatoDetail.classList.remove('is-collapsed');
+        gelatoDetail.classList.add('is-open');
+
+        const closeBtn = gelatoDetail.querySelector('.gelato-detail__close');
+        if(closeBtn){
+          closeBtn.addEventListener('click', () => {
+            gelatoDetail.classList.add('is-collapsed');
+            gelatoDetail.classList.remove('is-open');
+          });
+        }
+      }
+
+      function renderGelatoGrid(){
+        if(!gelatoGrid) return;
+        const season = gelatoSeason ? gelatoSeason.value : 'tutti';
+        const query = gelatoSearch ? gelatoSearch.value.trim().toLowerCase() : '';
+        const filtered = gelatoFlavors.filter((flavor) => {
+          const name = tGelato(flavor.nameKey).toLowerCase();
+          const matchSeason = matchesSeason(flavor, season);
+          const matchQuery = !query || name.includes(query);
+          return matchSeason && matchQuery;
+        });
+
+        if(!filtered.length){
+          gelatoGrid.innerHTML = `<div class=\"gelato-empty\">${tGelato('common.noResults')}</div>`;
+          expandedFlavorId = '';
+          return;
+        }
+
+        gelatoGrid.innerHTML = '';
+        filtered.forEach((flavor) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          const isExpanded = expandedFlavorId === flavor.id;
+          btn.className = `gelato-card${isExpanded ? ' is-expanded is-selected' : ''}`;
+          btn.dataset.flavorId = flavor.id;
+          btn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+          const flavorName = tGelato(flavor.nameKey);
+          const mediaBlock = `
+            <div class=\"gelato-card__media\">
+              <img src=\"${flavor.image}\" alt=\"${flavorName}\" loading=\"lazy\" decoding=\"async\" />
+            </div>
+            <span>${flavorName}</span>
+          `;
+
+          if(isExpanded){
+            const seasons = flavor.seasons.map((season) => seasonLabel(season)).join(', ');
+            const flags = [
+              ['flags.vegan', flavor.flags.vegan],
+              ['flags.glutenFree', flavor.flags.glutenFree],
+              ['flags.lactoseFree', flavor.flags.lactoseFree],
+              ['flags.containsEggs', flavor.flags.containsEggs],
+              ['flags.containsNuts', flavor.flags.containsNuts],
+              ['flags.containsAlcohol', flavor.flags.containsAlcohol]
+            ];
+            btn.innerHTML = `
+              ${mediaBlock}
+              <div class=\"gelato-card__details\">
+                <div>
+                  <div class=\"gelato-section-title\">${tGelato('flavorDetail.ingredients')}</div>
+                  <div class=\"gelato-list\">${tGelato('flavorDetail.placeholderIngredients')}</div>
+                </div>
+                <div>
+                  <div class=\"gelato-section-title\">${tGelato('flavorDetail.allergens')}</div>
+                  <div class=\"gelato-list\">${tGelato('flavorDetail.placeholderAllergens')}</div>
+                </div>
+                <div>
+                  <div class=\"gelato-section-title\">${tGelato('flavorDetail.availability')}</div>
+                  <div class=\"gelato-list\">${seasons}</div>
+                </div>
+                <div>
+                  <div class=\"gelato-section-title\">${tGelato('flavorDetail.parameters')}</div>
+                  <div class=\"gelato-flags\">
+                    ${flags.map(([label, value]) => `
+                      <div class=\"gelato-flag\">
+                        <span>${tGelato(label)}</span>
+                        <strong>${value ? '✓' : '—'}</strong>
+                      </div>
+                    `).join('')}
+                  </div>
+                </div>
+              </div>
+            `;
+          }else{
+            btn.innerHTML = mediaBlock;
+          }
+          btn.addEventListener('click', () => {
+            expandedFlavorId = expandedFlavorId === flavor.id ? '' : flavor.id;
+            renderGelatoGrid();
+            if(expandedFlavorId){
+              const target = gelatoGrid.querySelector(`[data-flavor-id=\"${expandedFlavorId}\"]`);
+              if(target){
+                target.scrollIntoView({ block: 'nearest' });
+              }
+            }
+          });
+          gelatoGrid.appendChild(btn);
+        });
+      }
+
+      function renderCategoryNav(){
+        if(!nav || !select) return;
+        nav.innerHTML = '';
+        select.innerHTML = '';
+        categories.forEach((name) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.dataset.category = name;
+          btn.textContent = categoryLabel(name);
+          btn.addEventListener('click', () => setActiveCategory(name));
+          nav.appendChild(btn);
+
+          const opt = document.createElement('option');
+          opt.value = name;
+          opt.textContent = categoryLabel(name);
+          select.appendChild(opt);
+        });
+      }
+
+      function setActiveCategory(name){
+        activeCategory = name || categories[0];
+        title.textContent = categoryLabel(activeCategory);
+        nav.querySelectorAll('button').forEach((btn) => {
+          btn.classList.toggle('is-active', btn.dataset.category === activeCategory);
+        });
+        if(select.value !== activeCategory){
+          select.value = activeCategory;
+        }
+
+        const isGelato = activeCategory === 'GELATO';
+        if(gelatoShowcase) gelatoShowcase.classList.toggle('is-active', isGelato);
+        if(defaultContent) defaultContent.style.display = isGelato ? 'none' : '';
+        if(isGelato){
+          renderGelatoGrid();
+        }
+      }
+
+      function openModal(name){
+        setActiveCategory(name || categories[0]);
+        modal.classList.add('is-open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal(){
+        modal.classList.remove('is-open');
+        document.body.style.overflow = '';
+      }
+
+      select.addEventListener('change', (e) => setActiveCategory(e.target.value));
+
+      cards.forEach((card) => {
+        const name = card.getAttribute('data-category') || card.textContent.trim();
+        card.addEventListener('click', () => openModal(name));
+        card.addEventListener('keydown', (e) => {
+          if(e.key === 'Enter' || e.key === ' '){
+            e.preventDefault();
+            openModal(name);
+          }
+        });
+      });
+
+      closeBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => {
+        if(e.target === modal) closeModal();
+      });
+      document.addEventListener('keydown', (e) => {
+        if(e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+      });
+
+      function applyGelatoTranslations(){
+        document.querySelectorAll('[data-gelato-i18n]').forEach((el) => {
+          const key = el.getAttribute('data-gelato-i18n');
+          if(!key) return;
+          el.textContent = tGelato(key);
+        });
+
+        document.querySelectorAll('[data-gelato-i18n-attr]').forEach((el) => {
+          const raw = el.getAttribute('data-gelato-i18n-attr') || '';
+          raw.split(',').forEach((pair) => {
+            const [attr, key] = pair.split(':').map((s) => s.trim());
+            if(attr && key) el.setAttribute(attr, tGelato(key));
+          });
+        });
+      }
+
+      function applyTranslations(){
+        document.documentElement.setAttribute('lang', currentLang);
+        document.title = t('meta.title');
+
+        document.querySelectorAll('[data-i18n]').forEach((el) => {
+          const key = el.getAttribute('data-i18n');
+          if(!key) return;
+          el.textContent = t(key);
+        });
+
+        document.querySelectorAll('[data-i18n-html]').forEach((el) => {
+          const key = el.getAttribute('data-i18n-html');
+          if(!key) return;
+          el.innerHTML = t(key);
+        });
+
+        document.querySelectorAll('[data-i18n-attr]').forEach((el) => {
+          const raw = el.getAttribute('data-i18n-attr') || '';
+          raw.split(',').forEach((pair) => {
+            const [attr, key] = pair.split(':').map((s) => s.trim());
+            if(attr && key) el.setAttribute(attr, t(key));
+          });
+        });
+
+        renderCategoryNav();
+        setActiveCategory(activeCategory);
+        applyGelatoTranslations();
+        renderGelatoGrid();
+      }
+
+      function setLang(lang){
+        const next = normalizeLang(lang);
+        if(next === currentLang) return;
+        currentLang = next;
+        try{ localStorage.setItem(STORAGE_KEY, currentLang); }catch{}
+        setGelatoLanguage(currentLang);
+        applyTranslations();
+      }
+
+      const langSelect = document.getElementById('langSelect');
+      if(langSelect){
+        langSelect.value = currentLang;
+        langSelect.addEventListener('change', (e) => setLang(e.target.value));
+      }
+
+      if(gelatoSeason){
+        gelatoSeason.addEventListener('change', renderGelatoGrid);
+      }
+      if(gelatoSearch){
+        gelatoSearch.addEventListener('input', renderGelatoGrid);
+      }
+
+      renderCategoryNav();
+      initI18n().then(() => {
+        setGelatoLanguage(currentLang);
+        applyGelatoTranslations();
+        renderGelatoGrid();
+      });
+      applyTranslations();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,2325 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Eventi — Badiani 1932</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    @font-face {
+      font-family: 'SuperGroteskB';
+       src: url('../fonts/SuperGroteskB-CdMed.woff2') format('woff2'),
+         url('../fonts/SuperGroteskB-CdMed.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'SuperGroteskA';
+       src: url('../fonts/SuperGroteskA-Rg[7511].woff2') format('woff2'),
+         url('../fonts/SuperGroteskA-Rg[7511].woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    :root{
+      --badiani-blue:#1e398d;
+      --badiani-pink:#f067a6;
+      --badiani-gray:#58595b;
+      --bg-light:#f8f8f8;
+      --surface:#ffffff;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth; -webkit-text-size-adjust:100%; text-size-adjust:100%;}
+    body, html{
+      font-family: 'SuperGroteskA', 'SuperGroteskB', sans-serif;
+      font-weight:400;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      background:var(--bg-light);
+      color:var(--badiani-gray);
+      line-height:1.6;
+    }
+    h1, h2, h3{
+      font-family: 'SuperGroteskB', 'SuperGroteskA', sans-serif;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:0.6px;
+      color:var(--badiani-blue);
+    }
+
+    .topbar{
+      background:var(--badiani-blue);
+      height:64px;
+      height:calc(64px + env(safe-area-inset-top));
+      height:calc(64px + constant(safe-area-inset-top));
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 clamp(16px, 4vw, 80px);
+      padding-top:env(safe-area-inset-top);
+      padding-top:constant(safe-area-inset-top);
+    }
+    .topbar__logo{ display:flex; align-items:center; }
+    .topbar__logo img{ height:32px; width:auto; filter: invert(1) grayscale(1) brightness(200%); mix-blend-mode: screen; }
+    .topbar__nav{ display:flex; align-items:center; gap:12px; }
+    .topbar__nav a{
+      color:#fff;
+      text-decoration:none;
+      font-size:12px;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      padding:6px 14px;
+      border-radius:20px;
+      border:1px solid rgba(255,255,255,0.25);
+    }
+
+    .page-shell{ padding:48px clamp(16px, 4vw, 80px) 80px; }
+    .hero{ background:var(--surface); border-radius:28px; padding:40px; box-shadow:0 18px 40px rgba(0,0,0,0.08); margin-bottom:48px; }
+    .hero h1{ font-size:clamp(28px, 3.6vw, 46px); margin-bottom:12px; }
+    .hero p{ font-size:clamp(16px, 1.5vw, 20px); color:#6a6b6e; max-width:780px; }
+
+    .section-title{ font-size:clamp(20px, 2.4vw, 30px); margin:40px 0 18px; }
+
+    .event-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px; }
+    .event-card{
+      position:relative;
+      border-radius:24px;
+      overflow:hidden;
+      min-height:260px;
+      box-shadow:0 16px 36px rgba(0,0,0,0.12);
+      text-decoration:none;
+      color:#fff;
+      display:flex;
+      align-items:flex-end;
+    }
+    .event-card img{ width:100%; height:100%; object-fit:cover; position:absolute; inset:0; }
+    .event-card__overlay{
+      position:relative;
+      z-index:1;
+      width:100%;
+      padding:24px;
+      background:linear-gradient(to top, rgba(30,57,141,0.9) 0%, rgba(30,57,141,0.4) 60%, transparent 100%);
+      display:grid;
+      gap:8px;
+    }
+    .event-card__title{ font-size:clamp(18px, 2vw, 24px); text-transform:uppercase; letter-spacing:1px; }
+    .event-card__desc{ font-size:14px; color:rgba(255,255,255,0.88); }
+
+    .tag{ font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--badiani-pink); font-weight:600; }
+    .pill{ background:#f5f6f8; border-radius:16px; padding:10px 14px; font-size:14px; }
+    .list{ padding-left:18px; display:grid; gap:8px; font-size:15px; color:#6a6b6e; }
+    .dual-list{ display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:18px; }
+    .gallery-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:14px; }
+    .gallery-card{ background:#fff; border-radius:18px; overflow:hidden; box-shadow:0 10px 24px rgba(0,0,0,0.08); }
+    .gallery-card img{ width:100%; aspect-ratio:4 / 3; object-fit:cover; display:block; }
+    .gallery-card span{ display:block; padding:10px 12px; font-size:13px; text-transform:uppercase; letter-spacing:1px; color:var(--badiani-blue); }
+
+    .coming-soon{ display:inline-flex; align-items:center; gap:10px; background:var(--badiani-pink); color:#fff; padding:10px 18px; border-radius:999px; text-transform:uppercase; letter-spacing:2px; font-size:12px; font-weight:600; }
+
+    .contact-block{ background:var(--surface); border-radius:24px; padding:32px; box-shadow:0 16px 36px rgba(0,0,0,0.1); }
+    .contact-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px; }
+    .contact-grid label{ font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#90949a; }
+    .contact-grid input,
+    .contact-grid select,
+    .contact-grid textarea{
+      width:100%;
+      border:1px solid rgba(30,57,141,0.18);
+      border-radius:12px;
+      padding:10px 12px;
+      font-family:inherit;
+      font-size:13px;
+      background:#fff;
+      color:#4a4f57;
+    }
+    .contact-grid textarea{ min-height:120px; resize:vertical; }
+    .contact-actions{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-top:16px; }
+    .contact-actions button{
+      border:none;
+      background:var(--badiani-blue);
+      color:#fff;
+      padding:12px 26px;
+      border-radius:999px;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      cursor:pointer;
+    }
+    .contact-note{ font-size:12px; color:#9aa0a6; }
+    .privacy-row{ display:flex; align-items:flex-start; gap:10px; font-size:12px; color:#6a6b6e; }
+    .privacy-row input{ margin-top:3px; }
+
+    @media(max-width:768px){
+      .hero{ padding:30px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar" aria-label="Barra brand">
+    <div class="topbar__logo">
+      <img src="../assets/extracted/f473fa4a48ae6948929084c736e84f6274322e2d.webp" alt="Badiani 1932" />
+    </div>
+    <nav class="topbar__nav" aria-label="Navigazione principale">
+      <a href="../">Home</a>
+      <a href="../b2b/">B2B</a>
+    </nav>
+  </header>
+
+  <main class="page-shell">
+    <section class="hero" aria-label="Eventi Badiani">
+      <h1>Eventi Badiani</h1>
+      <p>Seleziona la tipologia di evento per scoprire i dettagli e richiedere un preventivo personalizzato.</p>
+    </section>
+
+    <section aria-label="Tipologie eventi">
+      <span class="tag">Tipologie</span>
+      <h2 class="section-title">Eventi</h2>
+      <div class="event-grid">
+        <a class="event-card" href="./saletta-privata-tosinghi/" aria-label="Vai alla pagina Saletta privata Tosinghi">
+          <img src="../assets/extracted/a7a56600066a6e356fdf55d5683807c4328d597b.webp" alt="Saletta privata Tosinghi" />
+          <div class="event-card__overlay">
+            <h3 class="event-card__title">Saletta privata Tosinghi</h3>
+            <p class="event-card__desc">Il tuo party nella nostra saletta privata con pacchetti su misura.</p>
+          </div>
+        </a>
+        <a class="event-card" href="./evento-esterno/" aria-label="Vai alla pagina Evento esterno">
+          <img src="../assets/extracted/5a21d37ff7aad42e4cbf72325d7f2285026d0fda.webp" alt="Evento esterno" />
+          <div class="event-card__overlay">
+            <h3 class="event-card__title">Evento esterno</h3>
+            <p class="event-card__desc">Soluzioni mobili per portare Badiani ovunque: cool box, carretto, vetrina.</p>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section aria-label="Gelato van">
+      <h2 class="section-title">GELATO VAN</h2>
+      <div class="coming-soon">COMING SOON</div>
+    </section>
+
+    <section aria-label="Speciale aziende">
+      <h2 class="section-title">CREA IL TUO EVENTO AZIENDALE SU MISURA</h2>
+      <p>Crea un evento unico, pensato intorno al tuo brand</p>
+      <p>Ogni azienda ha un’identità diversa. Per questo realizziamo eventi personalizzati, studiati su misura in base alle tue esigenze, al contesto e al tipo di pubblico.</p>
+
+      <div class="dual-list" style="margin-top:24px;">
+        <div>
+          <h3 class="tag">Cosa possiamo personalizzare</h3>
+          <ul class="list">
+            <li>Tipologia di servizio gelato</li>
+            <li>Selezione dei gusti (possibilità di avere gusti personalizzati e/o su richiesta)</li>
+            <li>Allestimento dell’evento</li>
+            <li>Branding personalizzato</li>
+            <li>Concept creativo in linea con il tuo brand</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="tag">Ideale per</h3>
+          <ul class="list">
+            <li>Eventi aziendali</li>
+            <li>Inaugurazioni</li>
+            <li>Attivazioni in store</li>
+            <li>Conferenze e press day</li>
+            <li>Eventi corporate e team building</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="gallery-grid" style="margin-top:24px;">
+        <div class="gallery-card">
+          <img src="./foto%20eventi/Event/Steve%20Madden%20MICAM/STEVE1.JPG" alt="Steve Madden" />
+          <span>Steve Madden</span>
+        </div>
+        <div class="gallery-card">
+          <img src="../assets/extracted/1b2a5cc62945aea094a8e00e488dd08378eef958.webp" alt="Menarini" />
+          <span>Menarini</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="contatti" aria-label="Contatti eventi">
+      <h2 class="section-title">Contatti</h2>
+      <div class="contact-block">
+        <form action="mailto:eventi@badiani1932.com" method="post" enctype="text/plain">
+          <div class="contact-grid">
+            <div>
+              <label for="tipoRichiesta">Tipo richiesta</label>
+              <select id="tipoRichiesta" name="tipoRichiesta" aria-label="Tipo richiesta">
+                <option>Evento</option>
+                <option>B2B</option>
+              </select>
+            </div>
+            <div>
+              <label for="nome">Nome</label>
+              <input id="nome" name="nome" type="text" autocomplete="name" required />
+            </div>
+            <div>
+              <label for="azienda">Azienda</label>
+              <input id="azienda" name="azienda" type="text" autocomplete="organization" />
+            </div>
+            <div>
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" autocomplete="email" required />
+            </div>
+            <div>
+              <label for="telefono">Telefono</label>
+              <input id="telefono" name="telefono" type="tel" autocomplete="tel" />
+            </div>
+            <div style="grid-column:1/-1;">
+              <label for="messaggio">Messaggio</label>
+              <textarea id="messaggio" name="messaggio" required></textarea>
+            </div>
+          </div>
+          <div class="contact-actions">
+            <label class="privacy-row">
+              <input type="checkbox" required aria-label="Accetta privacy" />
+              <span>Ho letto e accetto la privacy policy. TODO: integrare link privacy.</span>
+            </label>
+            <button type="submit" aria-label="Invia richiesta">Invia richiesta</button>
+          </div>
+          <p class="contact-note">TODO: integrare backend per invio form. Email eventi: eventi@badiani1932.com</p>
+        </form>
+      </div>
+    </section>
+  </main>
+</body>
+</html><!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    @font-face {
+      font-family: 'SuperGroteskB';
+       src: url('../fonts/SuperGroteskB-CdMed.woff2') format('woff2'),
+         url('../fonts/SuperGroteskB-CdMed.woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'SuperGroteskA';
+       src: url('../fonts/SuperGroteskA-Rg[7511].woff2') format('woff2'),
+         url('../fonts/SuperGroteskA-Rg[7511].woff') format('woff');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
+    :root{
+      --badiani-blue:#1e398d;
+      --badiani-pink:#f067a6;
+      --badiani-gray:#58595b;
+      --bg-light:#f8f8f8;
+      --surface:#ffffff;
+    }
+    *{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth; -webkit-text-size-adjust:100%; text-size-adjust:100%;}
+    body, html{
+      font-family: 'SuperGroteskA', 'SuperGroteskB', sans-serif;
+      font-weight:400;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      background:var(--bg-light);
+      color:var(--badiani-gray);
+      line-height:1.6;
+    }
+    h1, h2, h3{
+      font-family: 'SuperGroteskB', 'SuperGroteskA', sans-serif;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:0.6px;
+      color:var(--badiani-blue);
+    }
+
+    .topbar{
+      background:var(--badiani-blue);
+      height:64px;
+      height:calc(64px + env(safe-area-inset-top));
+      height:calc(64px + constant(safe-area-inset-top));
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:0 clamp(16px, 4vw, 80px);
+      padding-top:env(safe-area-inset-top);
+      padding-top:constant(safe-area-inset-top);
+    }
+    .topbar__logo{ display:flex; align-items:center; }
+    .topbar__logo img{ height:32px; width:auto; filter: invert(1) grayscale(1) brightness(200%); mix-blend-mode: screen; }
+    .topbar__lang{ display:flex; align-items:center; }
+    .topbar__select{
+      appearance:none;
+      border:1px solid rgba(255,255,255,0.35);
+      background:rgba(255,255,255,0.08);
+      color:#fff;
+      font-size:12px;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      padding:6px 12px;
+      border-radius:18px;
+      font-family: inherit;
+    }
+
+    .page-shell{ padding:48px clamp(16px, 4vw, 80px) 80px; }
+    .top-bar{ display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:32px; }
+    .back-link{ text-decoration:none; color:var(--badiani-blue); font-weight:600; letter-spacing:1px; text-transform:uppercase; font-size:12px; }
+
+    /* Dynamic Hero */
+    .hero{
+      position:relative;
+      border-radius:28px;
+      padding:60px 40px;
+      margin-bottom:48px;
+      overflow:hidden;
+      min-height:280px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      transition:background-color 0.24s ease;
+    }
+    .hero__bg{
+      position:absolute;
+      inset:0;
+      background-size:cover;
+      background-position:center;
+      opacity:0;
+      transition:opacity 0.24s ease;
+      z-index:0;
+    }
+    .hero__bg::after{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(135deg, rgba(30,57,141,0.85) 0%, rgba(30,57,141,0.6) 100%);
+    }
+    .hero__bg.is-active{ opacity:1; }
+    .hero__content{
+      position:relative;
+      z-index:1;
+    }
+    .hero h1{
+      font-size:clamp(28px, 3.6vw, 46px);
+      margin-bottom:12px;
+      color:var(--badiani-blue);
+      transition:color 0.24s ease;
+    }
+    .hero p{
+      font-size:clamp(16px, 1.5vw, 20px);
+      color:#6a6b6e;
+      max-width:780px;
+      transition:color 0.24s ease;
+    }
+    /* Hero state: none (neutral) */
+    .hero[data-state="none"]{
+      background:linear-gradient(135deg, #f0f2f7 0%, #e8ecf4 100%);
+      box-shadow:0 18px 40px rgba(0,0,0,0.08);
+    }
+    /* Hero state: indoor/outdoor (with image) */
+    .hero[data-state="indoor"],
+    .hero[data-state="outdoor"]{
+      background:transparent;
+      box-shadow:0 20px 50px rgba(30,57,141,0.25);
+    }
+    .hero[data-state="indoor"] h1,
+    .hero[data-state="outdoor"] h1{ color:#fff; }
+    .hero[data-state="indoor"] p,
+    .hero[data-state="outdoor"] p{ color:rgba(255,255,255,0.9); }
+    .hero__hint{
+      margin-top:20px;
+      font-size:14px;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:1.5px;
+      color:var(--badiani-pink);
+      opacity:0;
+      transform:translateY(8px);
+      transition:opacity 0.24s ease, transform 0.24s ease;
+    }
+    .hero[data-state="none"] .hero__hint{
+      opacity:1;
+      transform:translateY(0);
+    }
+    @media(prefers-reduced-motion:reduce){
+      .hero,
+      .hero__bg,
+      .hero h1,
+      .hero p,
+      .hero__hint{ transition:none; }
+    }
+
+    .section-title{ font-size:clamp(20px, 2.4vw, 30px); margin-bottom:18px; }
+
+    /* Package Cards (IN SALA) */
+    .packages-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:24px;
+      margin-bottom:32px;
+    }
+    .package-card{
+      background:var(--surface);
+      border-radius:24px;
+      padding:28px 24px;
+      border:2px solid rgba(30,57,141,0.08);
+      box-shadow:0 12px 32px rgba(0,0,0,0.08);
+      cursor:pointer;
+      transition:transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+      display:flex;
+      flex-direction:column;
+      position:relative;
+    }
+    .package-card:hover{
+      transform:translateY(-6px);
+      box-shadow:0 18px 44px rgba(30,57,141,0.18);
+      border-color:var(--badiani-blue);
+    }
+    .package-card__header{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:12px;
+    }
+    .package-card__title{
+      font-size:18px;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:0.8px;
+      color:var(--badiani-blue);
+      margin:0;
+      line-height:1.3;
+    }
+    .package-card__badge{
+      background:linear-gradient(135deg, var(--badiani-pink), #ff7ab7);
+      color:#fff;
+      font-size:10px;
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      padding:4px 10px;
+      border-radius:12px;
+      white-space:nowrap;
+    }
+    .package-card__price{
+      font-size:15px;
+      font-weight:600;
+      color:var(--badiani-pink);
+      margin-bottom:16px;
+    }
+    .package-card__quick{
+      margin-bottom:16px;
+    }
+    .package-card__quick ul{
+      list-style:none;
+      padding:0;
+      margin:0;
+      font-size:13px;
+      color:var(--badiani-gray);
+      line-height:1.6;
+    }
+    .package-card__quick li{
+      padding:6px 0;
+      position:relative;
+      margin-bottom:0;
+      border-bottom:1px solid rgba(30,57,141,0.06);
+    }
+    .package-card__quick li:last-child{
+      border-bottom:none;
+    }
+    .package-card__cta{
+      margin-top:auto;
+      padding-top:16px;
+      border-top:1px solid rgba(30,57,141,0.08);
+    }
+    .package-card__btn{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      background:linear-gradient(135deg, var(--badiani-blue), #2a4ab0);
+      color:#fff;
+      font-size:12px;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:1.2px;
+      padding:12px 20px;
+      border-radius:24px;
+      text-decoration:none;
+      border:none;
+      cursor:pointer;
+      transition:all 0.3s ease;
+      box-shadow:0 4px 16px rgba(30,57,141,0.25);
+    }
+    .package-card__btn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 8px 24px rgba(30,57,141,0.35);
+    }
+    @media(max-width:992px){
+      .packages-grid{ grid-template-columns:repeat(2, 1fr); }
+    }
+    @media(max-width:640px){
+      .packages-grid{ grid-template-columns:1fr; }
+      .package-card{ padding:22px 20px; }
+    }
+    @media(prefers-reduced-motion:reduce){
+      .package-card{ transition:none; }
+      .package-card__quick{ transition:none; }
+      .package-card__toggle::after{ transition:none; }
+      .package-card__btn{ transition:none; }
+    }
+
+    .accordion{ display:grid; gap:16px; }
+    .accordion details{
+      background:var(--surface);
+      border-radius:20px;
+      padding:18px 22px;
+      border:2px solid rgba(30,57,141,0.08);
+      box-shadow:0 12px 26px rgba(0,0,0,0.06);
+    }
+    .accordion summary{
+      list-style:none;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      color:var(--badiani-blue);
+      font-size:16px;
+    }
+    .accordion summary::marker{ display:none; }
+    .accordion .tag{ color:var(--badiani-pink); font-size:11px; letter-spacing:2px; text-transform:uppercase; }
+    .accordion .content{ margin-top:16px; display:grid; gap:14px; font-size:15px; color:#6a6b6e; }
+    .meta{ display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:12px; }
+    .meta-card{ background:#f5f6f8; border-radius:14px; padding:12px; }
+    .meta-title{ font-size:11px; text-transform:uppercase; letter-spacing:2px; color:#90949a; margin-bottom:6px; }
+    .meta-value{ font-weight:600; color:var(--badiani-blue); }
+
+    .list{ padding-left:18px; display:grid; gap:6px; }
+
+    .gallery-block{ display:grid; gap:12px; }
+    .gallery-title{ font-size:14px; text-transform:uppercase; letter-spacing:1px; color:var(--badiani-blue); }
+    .gallery-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(120px, 1fr)); gap:10px; }
+    .thumb{
+      border:none;
+      padding:0;
+      background:transparent;
+      border-radius:14px;
+      overflow:hidden;
+      cursor:pointer;
+      display:block;
+      box-shadow:0 8px 18px rgba(0,0,0,0.08);
+    }
+    .thumb img{ width:100%; height:100%; aspect-ratio:4 / 3; object-fit:cover; display:block; }
+
+    .lightbox{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.72);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      z-index:3000;
+      padding:24px;
+      padding-top:calc(24px + env(safe-area-inset-top));
+      padding-bottom:calc(24px + env(safe-area-inset-bottom));
+      padding-left:calc(24px + env(safe-area-inset-left));
+      padding-right:calc(24px + env(safe-area-inset-right));
+      padding-top:calc(24px + constant(safe-area-inset-top));
+      padding-bottom:calc(24px + constant(safe-area-inset-bottom));
+      padding-left:calc(24px + constant(safe-area-inset-left));
+      padding-right:calc(24px + constant(safe-area-inset-right));
+    }
+    .lightbox.is-open{ display:flex; }
+    .lightbox__content{
+      position:relative;
+      width:min(1100px, 96vw);
+      height:min(86vh, 800px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .lightbox__figure{
+      width:100%;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .lightbox__figure img{
+      max-width:100%;
+      max-height:100%;
+      width:auto;
+      height:auto;
+      object-fit:contain;
+      border-radius:16px;
+      box-shadow:0 20px 40px rgba(0,0,0,0.35);
+      background:#111;
+    }
+    .lightbox__close,
+    .lightbox__nav{
+      position:absolute;
+      border:none;
+      background:rgba(255,255,255,0.12);
+      color:#fff;
+      width:44px;
+      height:44px;
+      border-radius:999px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:26px;
+      cursor:pointer;
+      backdrop-filter:blur(6px);
+    }
+    .lightbox__close{ top:0; right:0; }
+    .lightbox__nav.lightbox__prev{ left:-6px; }
+    .lightbox__nav.lightbox__next{ right:-6px; }
+    .lightbox__nav:disabled{ opacity:0.4; cursor:default; }
+    .sr-only{
+      position:absolute;
+      width:1px;
+      height:1px;
+      padding:0;
+      margin:-1px;
+      overflow:hidden;
+      clip:rect(0,0,0,0);
+      white-space:nowrap;
+      border:0;
+    }
+
+    /* Tab Navigation */
+    .events-tabs{ margin-bottom:32px; }
+    .events-tabs__nav{
+      display:flex;
+      gap:8px;
+      border-bottom:2px solid rgba(30,57,141,0.12);
+      margin-bottom:24px;
+    }
+    .events-tabs__btn{
+      appearance:none;
+      border:none;
+      background:transparent;
+      font-family:inherit;
+      font-size:14px;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:1.5px;
+      color:var(--badiani-gray);
+      padding:14px 24px;
+      cursor:pointer;
+      position:relative;
+      transition:color 0.25s ease;
+    }
+    .events-tabs__btn::after{
+      content:'';
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:-2px;
+      height:3px;
+      background:var(--badiani-blue);
+      border-radius:3px 3px 0 0;
+      transform:scaleX(0);
+      transition:transform 0.25s ease;
+    }
+    .events-tabs__btn:hover{ color:var(--badiani-blue); }
+    .events-tabs__btn.is-active{ color:var(--badiani-blue); }
+    .events-tabs__btn.is-active::after{ transform:scaleX(1); }
+    .events-tabs__panel{ display:none; animation:tabFadeIn 0.35s ease; }
+    .events-tabs__panel.is-active{ display:block; }
+    @keyframes tabFadeIn{
+      from{ opacity:0; transform:translateY(12px); }
+      to{ opacity:1; transform:translateY(0); }
+    }
+    @media(prefers-reduced-motion:reduce){
+      .events-tabs__panel{ animation:none; }
+      .events-tabs__btn::after{ transition:none; }
+    }
+
+    /* Outdoor Cards */
+    .outdoor-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));
+      gap:24px;
+    }
+    .outdoor-card{
+      position:relative;
+      border-radius:24px;
+      overflow:hidden;
+      aspect-ratio:4/3;
+      box-shadow:0 16px 36px rgba(0,0,0,0.12);
+      cursor:pointer;
+      text-decoration:none;
+      display:block;
+    }
+    .outdoor-card__img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform 0.4s ease;
+    }
+    .outdoor-card:hover .outdoor-card__img{ transform:scale(1.05); }
+    .outdoor-card__overlay{
+      position:absolute;
+      inset:0;
+      background:linear-gradient(to top, rgba(30,57,141,0.85) 0%, rgba(30,57,141,0.25) 50%, transparent 100%);
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      padding:24px;
+    }
+    .outdoor-card__title{
+      color:#fff;
+      font-size:clamp(18px, 2vw, 24px);
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      margin-bottom:6px;
+    }
+    .outdoor-card__desc{
+      color:rgba(255,255,255,0.85);
+      font-size:14px;
+      line-height:1.5;
+    }
+    .outdoor-intro{
+      margin-bottom:32px;
+    }
+    .outdoor-intro h2{
+      font-size:clamp(22px, 2.6vw, 32px);
+      margin-bottom:12px;
+    }
+    .outdoor-intro p{
+      font-size:clamp(15px, 1.4vw, 18px);
+      color:#6a6b6e;
+      max-width:680px;
+    }
+
+    /* Specs Overlay (from inspiration) */
+    .specs-overlay{ position:fixed; top:0;left:0; width:100%; height:100%; z-index:9999; display:none; opacity:0; transition:opacity 0.5s ease; overflow:hidden; }
+    .specs-overlay.is-active{ display:block; opacity:1; }
+    .specs-overlay-bg{ position:fixed; top:0;left:0; width:100%; height:100%; background:rgba(0,0,0,0.95); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px); }
+    .specs-overlay-content{ position:relative; z-index:2; display:flex; flex-direction:row; align-items:center; justify-content:center; width:100%; max-width:1150px; height:100vh; margin:0 auto; gap:30px; padding:25px; }
+    .specs-overlay-image{
+      width:50%;
+      max-width:550px;
+      aspect-ratio:4/3;
+      overflow:hidden;
+      border-radius:12px;
+      animation:specsSlideLeft 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow:0 10px 35px rgba(240,103,166,0.4);
+      background:linear-gradient(135deg, #f5f5f5, #fff);
+      flex-shrink:0;
+      position:relative;
+    }
+    .specs-overlay-image img{
+      position:absolute;
+      top:0;
+      left:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      filter:brightness(1.05);
+    }
+    @keyframes specsSlideLeft{ from{transform:translateX(-50px);opacity:0;} to{transform:translateX(0);opacity:1;} }
+    .specs-panel-fullscreen{
+      width:55%;
+      max-width:650px;
+      max-height:70vh;
+      overflow-y:auto;
+      background:linear-gradient(135deg, #fff 0%, #f8f8f8 100%);
+      border-radius:12px;
+      padding:25px;
+      box-shadow:0 10px 40px rgba(0,0,0,0.6);
+      animation:specsSlideRight 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s both;
+      flex-shrink:0;
+    }
+    @keyframes specsSlideRight{ from{transform:translateX(50px);opacity:0;} to{transform:translateX(0);opacity:1;} }
+    .specs-panel-title{ font-size:20px; letter-spacing:1px; text-transform:uppercase; color:var(--badiani-blue); margin-bottom:18px; padding-bottom:10px; border-bottom:3px solid var(--badiani-pink); font-weight:700; }
+    .specs-panel-desc{ font-size:15px; color:var(--badiani-gray); line-height:1.6; margin-bottom:20px; }
+    .specs-grid{ display:grid; grid-template-columns:repeat(2, 1fr); gap:12px; margin-bottom:20px; }
+    .spec-card{ background:#fff; padding:15px; border-radius:10px; border-left:4px solid var(--badiani-pink); box-shadow:0 2px 8px rgba(0,0,0,0.08); transition:all 0.3s ease; }
+    .spec-card:nth-child(odd){ border-left-color:var(--badiani-blue); }
+    .spec-card:nth-child(even){ border-left-color:var(--badiani-pink); }
+    .spec-card:hover{ transform:translateY(-2px); box-shadow:0 4px 12px rgba(240,103,166,0.15); }
+    .spec-label{ font-size:12px; text-transform:uppercase; letter-spacing:0.5px; color:var(--badiani-pink); font-weight:700; margin-bottom:6px; display:block; }
+    .spec-card:nth-child(odd) .spec-label{ color:var(--badiani-blue); }
+    .spec-card:nth-child(even) .spec-label{ color:var(--badiani-pink); }
+    .spec-value{ font-size:14px; font-weight:500; color:var(--badiani-gray); line-height:1.4; }
+    .spec-card--highlight{ grid-column:1/-1; background:linear-gradient(135deg, var(--badiani-blue), #2a4eb3); border-left:none; border-radius:12px; }
+    .spec-card--highlight .spec-label{ color:rgba(255,255,255,0.8); }
+    .spec-card--highlight .spec-value{ color:#fff; font-size:16px; font-weight:700; }
+    .specs-cta{
+      display:inline-block;
+      background:linear-gradient(135deg, var(--badiani-pink), #ff7ab7);
+      color:#fff;
+      font-size:13px;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:1.5px;
+      padding:14px 28px;
+      border-radius:30px;
+      text-decoration:none;
+      box-shadow:0 5px 20px rgba(240,103,166,0.4);
+      transition:all 0.3s ease;
+    }
+    .specs-cta:hover{ transform:translateY(-2px); box-shadow:0 8px 28px rgba(240,103,166,0.5); }
+    .specs-close-btn{
+      --close-icon-size:22px;
+      --close-icon-stroke:3px;
+      position:fixed;
+      top:18px;
+      right:18px;
+      width:55px;
+      height:55px;
+      background:linear-gradient(135deg, var(--badiani-pink), #ff7ab7);
+      border:none;
+      border-radius:50%;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      z-index:10;
+      box-shadow:0 5px 20px rgba(240,103,166,0.5);
+      padding:0;
+      line-height:0;
+      font-size:0;
+      color:transparent;
+      appearance:none;
+      -webkit-appearance:none;
+      transform-origin:center;
+      transition:transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+    }
+    .specs-close-btn::before,
+    .specs-close-btn::after{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:50%;
+      width:var(--close-icon-size);
+      height:var(--close-icon-stroke);
+      background:#fff;
+      border-radius:999px;
+      transform-origin:center;
+    }
+    .specs-close-btn::before{ transform:translate(-50%, -50%) rotate(45deg); }
+    .specs-close-btn::after{ transform:translate(-50%, -50%) rotate(-45deg); }
+    .specs-close-btn:hover{ background:linear-gradient(135deg, var(--badiani-blue), #2a4ab0); transform:rotate(90deg) scale(1.1); box-shadow:0 8px 28px rgba(30,57,141,0.6); }
+    @media(prefers-reduced-motion:reduce){
+      .specs-overlay{ transition:none; }
+      .specs-overlay-image{ animation:none; }
+      .specs-panel-fullscreen{ animation:none; }
+      .specs-close-btn{ transition:none; }
+    }
+
+    @media(max-width:768px){
+      .hero{ padding:30px; }
+      .top-bar{ flex-direction:column; align-items:flex-start; }
+      .gallery-grid{ grid-template-columns:repeat(auto-fit, minmax(100px, 1fr)); }
+      .lightbox__content{ width:100%; height:100%; }
+      .lightbox__figure img{ border-radius:0; }
+      .lightbox__nav.lightbox__prev{ left:8px; }
+      .lightbox__nav.lightbox__next{ right:8px; }
+      .lightbox__close{ top:8px; right:8px; }
+      .events-tabs__btn{ padding:12px 16px; font-size:12px; }
+      .outdoor-grid{ grid-template-columns:1fr; }
+      /* Specs overlay responsive */
+      .specs-overlay-content{ flex-direction:column; padding:15px; height:100vh; overflow-y:auto; }
+      .specs-overlay-image{ width:85vw; max-width:300px; max-height:35vh; aspect-ratio:4/3; }
+      .specs-panel-fullscreen{ width:90vw; max-width:none; max-height:none; }
+      .specs-grid{ grid-template-columns:1fr; }
+      .specs-close-btn{ top:12px; right:12px; width:48px; height:48px; }
+    }
+
+    /* Package Modal (full content) */
+    .package-modal-content{
+      position:relative;
+      z-index:2;
+      width:100%;
+      max-width:700px;
+      height:100vh;
+      margin:0 auto;
+      padding:60px 25px 25px;
+      display:flex;
+      flex-direction:column;
+    }
+    .package-modal-scroll{
+      background:linear-gradient(135deg, #fff 0%, #f8f8f8 100%);
+      border-radius:16px;
+      padding:30px;
+      box-shadow:0 10px 50px rgba(0,0,0,0.6);
+      overflow-y:auto;
+      max-height:calc(100vh - 100px);
+      animation:specsSlideRight 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+    .package-modal-desc{
+      font-size:15px;
+      color:var(--badiani-gray);
+      line-height:1.6;
+      margin-bottom:20px;
+    }
+    .package-modal-list{
+      list-style:none;
+      padding:0;
+      margin:0 0 24px 0;
+    }
+    .package-modal-list li{
+      padding:12px 16px;
+      background:#fff;
+      border-radius:10px;
+      border-left:4px solid var(--badiani-pink);
+      margin-bottom:10px;
+      font-size:14px;
+      color:var(--badiani-gray);
+      box-shadow:0 2px 6px rgba(0,0,0,0.06);
+    }
+    .package-modal-list li:nth-child(odd){ border-left-color:var(--badiani-blue); }
+    .package-modal-list li:nth-child(even){ border-left-color:var(--badiani-pink); }
+    .package-modal-meta{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:12px;
+      margin-bottom:24px;
+    }
+    .package-modal-meta .meta-card{
+      background:linear-gradient(135deg, var(--badiani-blue), #2a4eb3);
+      padding:16px;
+      border-radius:12px;
+      text-align:center;
+    }
+    .package-modal-meta .meta-title{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+      color:rgba(255,255,255,0.8);
+      margin-bottom:6px;
+    }
+    .package-modal-meta .meta-value{
+      font-size:15px;
+      font-weight:700;
+      color:#fff;
+    }
+    .package-modal-galleries{
+      margin-bottom:24px;
+    }
+    .package-modal-galleries .gallery-block{
+      margin-bottom:20px;
+    }
+    .package-modal-galleries .gallery-title{
+      font-size:14px;
+      font-weight:600;
+      color:var(--badiani-blue);
+      margin-bottom:12px;
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+    }
+    .package-modal-galleries .gallery-grid{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:10px;
+    }
+    .package-modal-galleries .thumb{
+      aspect-ratio:4/3;
+      border-radius:8px;
+      overflow:hidden;
+      cursor:pointer;
+      border:none;
+      padding:0;
+      background:none;
+    }
+    .package-modal-galleries .thumb img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform 0.3s ease;
+    }
+    .package-modal-galleries .thumb:hover img{
+      transform:scale(1.05);
+    }
+    @media(max-width:640px){
+      .package-modal-content{ padding:50px 15px 15px; }
+      .package-modal-scroll{ padding:20px; max-height:calc(100vh - 70px); }
+      .package-modal-meta{ grid-template-columns:1fr; }
+      .package-modal-galleries .gallery-grid{ grid-template-columns:repeat(3, 1fr); gap:6px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar" data-i18n-attr="aria-label:topbar.label">
+    <div class="topbar__logo">
+      <img src="../assets/extracted/f473fa4a48ae6948929084c736e84f6274322e2d.webp" data-i18n-attr="alt:brand.alt" alt="" />
+    </div>
+    <div class="topbar__lang">
+      <select class="topbar__select" id="langSelect" data-i18n-attr="aria-label:lang.label">
+        <option value="it" data-i18n="lang.it"></option>
+        <option value="en" data-i18n="lang.en"></option>
+        <option value="es" data-i18n="lang.es"></option>
+        <option value="fr" data-i18n="lang.fr"></option>
+      </select>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <div class="top-bar">
+      <a class="back-link" href="../" data-i18n="eventi.back"></a>
+      <span class="tag" data-i18n="eventi.tag"></span>
+    </div>
+
+    <section class="hero" data-state="none" data-i18n-attr="aria-label:eventi.hero.label">
+      <!-- Background layers -->
+      <div class="hero__bg" data-bg="indoor" style="background-image:url('../assets/extracted/a7a56600066a6e356fdf55d5683807c4328d597b.webp')"></div>
+      <div class="hero__bg" data-bg="outdoor" style="background-image:url('../assets/extracted/5a21d37ff7aad42e4cbf72325d7f2285026d0fda.webp')"></div>
+      <!-- Content -->
+      <div class="hero__content">
+        <h1 id="heroTitle"></h1>
+        <p id="heroSubtitle"></p>
+        <p id="heroNote"></p>
+        <p class="hero__hint" data-i18n="eventi.hero.hint"></p>
+      </div>
+    </section>
+
+    <!-- Tab Navigation -->
+    <div class="events-tabs">
+      <nav class="events-tabs__nav" role="tablist" aria-label="Eventi tipologia">
+        <button class="events-tabs__btn" role="tab" id="tab-indoor" aria-controls="panel-indoor" aria-selected="false" data-tab="indoor" data-i18n="eventi.tabs.indoor"></button>
+        <button class="events-tabs__btn" role="tab" id="tab-outdoor" aria-controls="panel-outdoor" aria-selected="false" data-tab="outdoor" data-i18n="eventi.tabs.outdoor"></button>
+      </nav>
+
+      <!-- Panel: In Sala -->
+      <div class="events-tabs__panel" role="tabpanel" id="panel-indoor" aria-labelledby="tab-indoor">
+        <section data-i18n-attr="aria-label:eventi.packages.label">
+          <h2 class="section-title" data-i18n="eventi.packages.title"></h2>
+          
+          <!-- Package Cards -->
+          <div class="packages-grid">
+            <!-- Silver Card -->
+            <article class="package-card" data-package="silver" onclick="openPackageModal('silver')" style="cursor:pointer;">
+              <div class="package-card__header">
+                <h3 class="package-card__title" data-i18n="eventi.packages.silver.title"></h3>
+              </div>
+              <p class="package-card__price" data-i18n="eventi.packages.silver.price"></p>
+              <div class="package-card__quick">
+                <ul>
+                  <li><span data-i18n="eventi.packages.silver.food"></span></li>
+                  <li><span data-i18n="eventi.packages.silver.drink"></span></li>
+                  <li><span data-i18n="eventi.packages.silver.duration"></span></li>
+                </ul>
+              </div>
+              <div class="package-card__cta">
+                <span class="package-card__btn" data-i18n="eventi.packages.viewDetails"></span>
+              </div>
+            </article>
+
+            <!-- Gold Card -->
+            <article class="package-card" data-package="gold" onclick="openPackageModal('gold')" style="cursor:pointer;">
+              <div class="package-card__header">
+                <h3 class="package-card__title" data-i18n="eventi.packages.gold.title"></h3>
+                <span class="package-card__badge" data-i18n="eventi.packages.popular"></span>
+              </div>
+              <p class="package-card__price" data-i18n="eventi.packages.gold.price"></p>
+              <div class="package-card__quick">
+                <ul>
+                  <li><span data-i18n="eventi.packages.gold.food"></span></li>
+                  <li><span data-i18n="eventi.packages.gold.drink"></span></li>
+                  <li><span data-i18n="eventi.packages.gold.duration"></span></li>
+                </ul>
+              </div>
+              <div class="package-card__cta">
+                <span class="package-card__btn" data-i18n="eventi.packages.viewDetails"></span>
+              </div>
+            </article>
+
+            <!-- Platinum Card -->
+            <article class="package-card" data-package="platinum" onclick="openPackageModal('platinum')" style="cursor:pointer;">
+              <div class="package-card__header">
+                <h3 class="package-card__title" data-i18n="eventi.packages.platinum.title"></h3>
+                <span class="package-card__badge" data-i18n="eventi.packages.premium"></span>
+              </div>
+              <p class="package-card__price" data-i18n="eventi.packages.platinum.price"></p>
+              <div class="package-card__quick">
+                <ul>
+                  <li><span data-i18n="eventi.packages.platinum.food"></span></li>
+                  <li><span data-i18n="eventi.packages.platinum.drink"></span></li>
+                  <li><span data-i18n="eventi.packages.platinum.duration"></span></li>
+                </ul>
+              </div>
+              <div class="package-card__cta">
+                <span class="package-card__btn" data-i18n="eventi.packages.viewDetails"></span>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section data-i18n-attr="aria-label:eventi.conditions.label" style="margin-top:32px;">
+          <h2 class="section-title" data-i18n="eventi.conditions.title"></h2>
+          <ul class="list">
+            <li data-i18n="eventi.conditions.item1"></li>
+            <li data-i18n="eventi.conditions.item2"></li>
+            <li data-i18n="eventi.conditions.item3"></li>
+            <li data-i18n="eventi.conditions.item4"></li>
+          </ul>
+        </section>
+      </div><!-- end panel-indoor -->
+
+      <!-- Panel: Esterni -->
+      <div class="events-tabs__panel" role="tabpanel" id="panel-outdoor" aria-labelledby="tab-outdoor">
+        <div class="outdoor-intro">
+          <h2 data-i18n="eventi.outdoor.title"></h2>
+          <p data-i18n="eventi.outdoor.subtitle"></p>
+        </div>
+        <div class="outdoor-grid">
+          <a class="outdoor-card" href="#" data-outdoor="carretto" onclick="openOutdoorSpecs('carretto'); return false;">
+            <img class="outdoor-card__img" src="../assets/extracted/a7a56600066a6e356fdf55d5683807c4328d597b.webp" alt="" loading="lazy" decoding="async" />
+            <div class="outdoor-card__overlay">
+              <h3 class="outdoor-card__title" data-i18n="eventi.outdoor.carretto.title"></h3>
+              <p class="outdoor-card__desc" data-i18n="eventi.outdoor.carretto.desc"></p>
+            </div>
+          </a>
+          <a class="outdoor-card" href="#" data-outdoor="coolbox" onclick="openOutdoorSpecs('coolbox'); return false;">
+            <img class="outdoor-card__img" src="../assets/extracted/5a21d37ff7aad42e4cbf72325d7f2285026d0fda.webp" alt="" loading="lazy" decoding="async" />
+            <div class="outdoor-card__overlay">
+              <h3 class="outdoor-card__title" data-i18n="eventi.outdoor.coolbox.title"></h3>
+              <p class="outdoor-card__desc" data-i18n="eventi.outdoor.coolbox.desc"></p>
+            </div>
+          </a>
+          <a class="outdoor-card" href="#" data-outdoor="vetrina" onclick="openOutdoorSpecs('vetrina'); return false;">
+            <img class="outdoor-card__img" src="../assets/extracted/1b2a5cc62945aea094a8e00e488dd08378eef958.webp" alt="" loading="lazy" decoding="async" />
+            <div class="outdoor-card__overlay">
+              <h3 class="outdoor-card__title" data-i18n="eventi.outdoor.vetrina.title"></h3>
+              <p class="outdoor-card__desc" data-i18n="eventi.outdoor.vetrina.desc"></p>
+            </div>
+          </a>
+        </div>
+      </div><!-- end panel-outdoor -->
+
+    </div><!-- end events-tabs -->
+  </main>
+
+  <!-- Specs Overlay Modal (inspiration pattern) -->
+  <div class="specs-overlay" id="specsOverlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="specs-overlay-bg"></div>
+    <button class="specs-close-btn" type="button" aria-label="Close"></button>
+    <div class="specs-overlay-content">
+      <div class="specs-overlay-image">
+        <img id="specsImage" src="" alt="" />
+      </div>
+      <div class="specs-panel-fullscreen">
+        <h3 class="specs-panel-title" id="specsTitle"></h3>
+        <p class="specs-panel-desc" id="specsDesc"></p>
+        <div class="specs-grid" id="specsGrid"></div>
+        <a class="specs-cta" href="mailto:eventi@badiani.it" id="specsCta" data-i18n="eventi.outdoor.modal.cta"></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Package Modal (full content with galleries) -->
+  <div class="specs-overlay" id="packageModal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="specs-overlay-bg"></div>
+    <button class="specs-close-btn" type="button" aria-label="Close" onclick="closePackageModal()"></button>
+    <div class="package-modal-content">
+      <div class="package-modal-scroll">
+        <h3 class="specs-panel-title" id="pkgModalTitle"></h3>
+        <p class="package-modal-desc" id="pkgModalDesc"></p>
+        <ul class="package-modal-list" id="pkgModalList"></ul>
+        <div class="package-modal-meta" id="pkgModalMeta"></div>
+        <div class="package-modal-galleries" id="pkgModalGalleries"></div>
+        <a class="specs-cta" href="mailto:eventi@badiani.it" id="pkgModalCta"></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-hidden="true" data-i18n-attr="aria-label:eventi.gallery.lightbox.label">
+    <div class="lightbox__content" role="document">
+      <button class="lightbox__close" type="button" data-close data-i18n-attr="aria-label:eventi.gallery.close">
+        <span aria-hidden="true">✕</span>
+        <span class="sr-only" data-i18n="eventi.gallery.close"></span>
+      </button>
+      <button class="lightbox__nav lightbox__prev" type="button" data-prev data-i18n-attr="aria-label:eventi.gallery.prev">
+        <span aria-hidden="true">‹</span>
+        <span class="sr-only" data-i18n="eventi.gallery.prev"></span>
+      </button>
+      <figure class="lightbox__figure">
+        <img id="lightboxImage" alt="" />
+      </figure>
+      <button class="lightbox__nav lightbox__next" type="button" data-next data-i18n-attr="aria-label:eventi.gallery.next">
+        <span aria-hidden="true">›</span>
+        <span class="sr-only" data-i18n="eventi.gallery.next"></span>
+      </button>
+    </div>
+  </div>
+
+  <script>
+    (function(){
+      const SUPPORTED = ['it','en','fr','es'];
+      const DEFAULT_LANG = 'it';
+      const STORAGE_KEY = 'badianiLang';
+
+      const STRINGS = {
+        it: {
+          'meta.title': 'Badiani 1932 — Eventi',
+          'brand.alt': 'Badiani 1932',
+          'topbar.label': 'Barra brand',
+          'lang.label': 'Selettore lingua',
+          'lang.it': 'IT',
+          'lang.en': 'EN',
+          'lang.fr': 'FR',
+          'lang.es': 'ES',
+          'eventi.back': '← Torna alla home',
+          'eventi.tag': 'Percorso Eventi',
+          'eventi.hero.label': 'Hero eventi',
+          'eventi.hero.none.title': 'Eventi',
+          'eventi.hero.none.subtitle': 'Scopri le nostre proposte per rendere unico il tuo evento con il gelato Badiani.',
+          'eventi.hero.none.note': '',
+          'eventi.hero.indoor.title': 'Eventi privati con saletta riservata',
+          'eventi.hero.indoor.subtitle': 'Esperienze su misura per lauree, compleanni, feste private ed eventi speciali',
+          'eventi.hero.indoor.note': 'Minimo 15 persone – massimo 35 persone sedute',
+          'eventi.hero.outdoor.title': 'Eventi esterni',
+          'eventi.hero.outdoor.subtitle': 'Porta il gelato Badiani direttamente al tuo evento con le nostre soluzioni mobili.',
+          'eventi.hero.outdoor.note': '',
+          'eventi.hero.hint': '↓ Scegli il tipo di evento',
+          'eventi.hero.title': 'Eventi privati con saletta riservata',
+          'eventi.hero.subtitle': 'Esperienze su misura per lauree, compleanni, feste private ed eventi speciali',
+          'eventi.hero.note': 'Minimo 15 persone – massimo 35 persone sedute',
+          'eventi.packages.label': 'Pacchetti eventi',
+          'eventi.packages.title': 'Pacchetti evento',
+          'eventi.packages.tag': 'Accordion',
+          'eventi.packages.silver.title': 'Pacchetto Silver',
+          'eventi.packages.silver.desc': 'Pacchetto base per eventi privati con selezione food & drink.',
+          'eventi.packages.silver.food': 'Food: pizzette, tramezzini, rustici, panettone gastronomico (pesce/carne/vegetariano)',
+          'eventi.packages.silver.drink': 'Drink: 2 cocktail alcolici, 1 analcolico, prosecco',
+          'eventi.packages.silver.confirm': 'Conferma: minimo 10 giorni prima',
+          'eventi.packages.silver.duration': 'Fino a 1h e 30 min',
+          'eventi.packages.silver.price': '€ 20,00 a persona (IVA inclusa)',
+          'eventi.packages.gold.title': 'Pacchetto Gold',
+          'eventi.packages.gold.desc': 'Pacchetto completo con finger food e proposta dolce dedicata.',
+          'eventi.packages.gold.food': 'Food: panettone gastronomico + 5 finger food + monoporzione dolce o coppetta Buontalenti',
+          'eventi.packages.gold.drink': 'Drink: 2 cocktail alcolici, 2 analcolici, Franciacorta',
+          'eventi.packages.gold.confirm': 'Conferma: minimo 10 giorni prima',
+          'eventi.packages.gold.duration': 'Fino a 2 ore',
+          'eventi.packages.gold.price': '€ 30,00 a persona (IVA inclusa)',
+          'eventi.packages.platinum.title': 'Pacchetto Platinum / Evento a tema',
+          'eventi.packages.platinum.desc': 'Pacchetto premium con personalizzazione e cocktail a tema.',
+          'eventi.packages.platinum.food': 'Food: 7 finger food + opzione gelato personalizzato o dolci cake designer',
+          'eventi.packages.platinum.drink': 'Drink: cocktail a tema + champagne',
+          'eventi.packages.platinum.confirm': 'Conferma: minimo 2 settimane prima',
+          'eventi.packages.platinum.duration': 'Fino a 2 ore',
+          'eventi.packages.platinum.price': 'A partire da € 40,00 a persona (IVA inclusa)',
+          'eventi.meta.duration.label': 'Durata',
+          'eventi.meta.price.label': 'Prezzo',
+          'eventi.gallery.event.title': 'Foto Evento',
+          'eventi.gallery.location.title': 'Foto Location',
+          'eventi.gallery.lightbox.label': 'Galleria fotografica',
+          'eventi.gallery.close': 'Chiudi',
+          'eventi.gallery.prev': 'Precedente',
+          'eventi.gallery.next': 'Successiva',
+          'eventi.gallery.silver.event1.alt': 'Evento Silver 1',
+          'eventi.gallery.silver.event2.alt': 'Evento Silver 2',
+          'eventi.gallery.silver.event3.alt': 'Evento Silver 3',
+          'eventi.gallery.silver.location1.alt': 'Location Silver 1',
+          'eventi.gallery.silver.location2.alt': 'Location Silver 2',
+          'eventi.gallery.silver.location3.alt': 'Location Silver 3',
+          'eventi.gallery.gold.event1.alt': 'Evento Gold 1',
+          'eventi.gallery.gold.event2.alt': 'Evento Gold 2',
+          'eventi.gallery.gold.event3.alt': 'Evento Gold 3',
+          'eventi.gallery.gold.location1.alt': 'Location Gold 1',
+          'eventi.gallery.gold.location2.alt': 'Location Gold 2',
+          'eventi.gallery.gold.location3.alt': 'Location Gold 3',
+          'eventi.gallery.platinum.event1.alt': 'Evento Platinum 1',
+          'eventi.gallery.platinum.event2.alt': 'Evento Platinum 2',
+          'eventi.gallery.platinum.event3.alt': 'Evento Platinum 3',
+          'eventi.gallery.platinum.location1.alt': 'Location Platinum 1',
+          'eventi.gallery.platinum.location2.alt': 'Location Platinum 2',
+          'eventi.gallery.platinum.location3.alt': 'Location Platinum 3',
+          'eventi.conditions.label': 'Condizioni evento',
+          'eventi.conditions.title': 'Condizioni',
+          'eventi.conditions.item1': 'Acconto 50% alla conferma',
+          'eventi.conditions.item2': 'Saldo entro il giorno dell\'evento',
+          'eventi.conditions.item3': 'Pagamento con bonifico',
+          'eventi.conditions.item4': 'Extra drink a prezzo pieno',
+          'eventi.tabs.indoor': 'In Sala',
+          'eventi.tabs.outdoor': 'Esterni',
+          'eventi.outdoor.title': 'Eventi Esterni',
+          'eventi.outdoor.subtitle': 'Porta il gelato Badiani direttamente al tuo evento con le nostre soluzioni mobili.',
+          'eventi.outdoor.carretto.title': 'Carretto Gelato',
+          'eventi.outdoor.carretto.desc': 'Il classico carretto per eventi all\'aperto e cerimonie.',
+          'eventi.outdoor.carretto.modalDesc': 'Il nostro iconico carretto porta l\'autentico gelato Badiani direttamente al tuo evento. Perfetto per matrimoni, feste in giardino e cerimonie all\'aperto.',
+          'eventi.outdoor.carretto.spec1.label': 'Capacità',
+          'eventi.outdoor.carretto.spec1.value': 'Fino a 6 gusti',
+          'eventi.outdoor.carretto.spec2.label': 'Servizio',
+          'eventi.outdoor.carretto.spec2.value': 'Operatore dedicato incluso',
+          'eventi.outdoor.carretto.spec3.label': 'Durata',
+          'eventi.outdoor.carretto.spec3.value': 'Da 2 a 4 ore',
+          'eventi.outdoor.carretto.spec4.label': 'Persone',
+          'eventi.outdoor.carretto.spec4.value': 'Da 50 a 200 ospiti',
+          'eventi.outdoor.coolbox.title': 'Cool Box',
+          'eventi.outdoor.coolbox.desc': 'Soluzione portatile per catering e location esclusive.',
+          'eventi.outdoor.coolbox.modalDesc': 'La Cool Box è la soluzione ideale per location esclusive e spazi dove il carretto non può arrivare. Design elegante e massima praticità.',
+          'eventi.outdoor.coolbox.spec1.label': 'Capacità',
+          'eventi.outdoor.coolbox.spec1.value': 'Fino a 4 gusti',
+          'eventi.outdoor.coolbox.spec2.label': 'Dimensioni',
+          'eventi.outdoor.coolbox.spec2.value': 'Compatta e trasportabile',
+          'eventi.outdoor.coolbox.spec3.label': 'Autonomia',
+          'eventi.outdoor.coolbox.spec3.value': 'Fino a 6 ore',
+          'eventi.outdoor.coolbox.spec4.label': 'Ideale per',
+          'eventi.outdoor.coolbox.spec4.value': 'Eventi aziendali, feste private',
+          'eventi.outdoor.vetrina.title': 'Vetrina Gelato',
+          'eventi.outdoor.vetrina.desc': 'Elegante vetrina refrigerata per eventi aziendali e ricevimenti.',
+          'eventi.outdoor.vetrina.modalDesc': 'La vetrina refrigerata professionale porta l\'esperienza della nostra gelateria direttamente nel tuo evento. Perfetta per ricevimenti di alto livello.',
+          'eventi.outdoor.vetrina.spec1.label': 'Capacità',
+          'eventi.outdoor.vetrina.spec1.value': 'Fino a 8 gusti',
+          'eventi.outdoor.vetrina.spec2.label': 'Stile',
+          'eventi.outdoor.vetrina.spec2.value': 'Design premium Badiani',
+          'eventi.outdoor.vetrina.spec3.label': 'Servizio',
+          'eventi.outdoor.vetrina.spec3.value': 'Staff dedicato incluso',
+          'eventi.outdoor.vetrina.spec4.label': 'Persone',
+          'eventi.outdoor.vetrina.spec4.value': 'Da 100 a 500 ospiti',
+          'eventi.outdoor.modal.cta': 'Richiedi informazioni',
+          'eventi.packages.viewDetails': 'Scopri di più',
+          'eventi.packages.popular': 'Più richiesto',
+          'eventi.packages.premium': 'Premium',
+          'eventi.packages.modal.cta': 'Richiedi informazioni'
+        },
+        en: {
+          'meta.title': 'Badiani 1932 — Events',
+          'brand.alt': 'Badiani 1932',
+          'topbar.label': 'Brand bar',
+          'lang.label': 'Language selector',
+          'lang.it': 'IT',
+          'lang.en': 'EN',
+          'lang.fr': 'FR',
+          'lang.es': 'ES',
+          'eventi.back': '← Back to home',
+          'eventi.tag': 'Events path',
+          'eventi.hero.label': 'Events hero',
+          'eventi.hero.none.title': 'Events',
+          'eventi.hero.none.subtitle': 'Discover our offerings to make your event unique with Badiani gelato.',
+          'eventi.hero.none.note': '',
+          'eventi.hero.indoor.title': 'Private events with reserved lounge',
+          'eventi.hero.indoor.subtitle': 'Tailor-made experiences for graduations, birthdays, private parties and special events',
+          'eventi.hero.indoor.note': 'Minimum 15 people – maximum 35 seated people',
+          'eventi.hero.outdoor.title': 'Outdoor events',
+          'eventi.hero.outdoor.subtitle': 'Bring Badiani gelato directly to your event with our mobile solutions.',
+          'eventi.hero.outdoor.note': '',
+          'eventi.hero.hint': '↓ Choose the type of event',
+          'eventi.hero.title': 'Private events with reserved lounge',
+          'eventi.hero.subtitle': 'Tailor-made experiences for graduations, birthdays, private parties and special events',
+          'eventi.hero.note': 'Minimum 15 people – maximum 35 seated people',
+          'eventi.packages.label': 'Event packages',
+          'eventi.packages.title': 'Event packages',
+          'eventi.packages.tag': 'Accordion',
+          'eventi.packages.silver.title': 'Silver package',
+          'eventi.packages.silver.desc': 'Base package for private events with a food & drink selection.',
+          'eventi.packages.silver.food': 'Food: mini pizzas, sandwiches, savory bites, savory panettone (fish/meat/vegetarian)',
+          'eventi.packages.silver.drink': 'Drink: 2 alcoholic cocktails, 1 non-alcoholic, prosecco',
+          'eventi.packages.silver.confirm': 'Confirmation: at least 10 days before',
+          'eventi.packages.silver.duration': 'Up to 1h 30 min',
+          'eventi.packages.silver.price': '€20.00 per person (VAT included)',
+          'eventi.packages.gold.title': 'Gold package',
+          'eventi.packages.gold.desc': 'Full package with finger food and a dedicated sweet option.',
+          'eventi.packages.gold.food': 'Food: savory panettone + 5 finger foods + sweet mini portion or Buontalenti cup',
+          'eventi.packages.gold.drink': 'Drink: 2 alcoholic cocktails, 2 non-alcoholic, Franciacorta',
+          'eventi.packages.gold.confirm': 'Confirmation: at least 10 days before',
+          'eventi.packages.gold.duration': 'Up to 2 hours',
+          'eventi.packages.gold.price': '€30.00 per person (VAT included)',
+          'eventi.packages.platinum.title': 'Platinum package / Themed event',
+          'eventi.packages.platinum.desc': 'Premium package with customization and themed cocktails.',
+          'eventi.packages.platinum.food': 'Food: 7 finger foods + personalized gelato option or cake designer desserts',
+          'eventi.packages.platinum.drink': 'Drink: themed cocktails + champagne',
+          'eventi.packages.platinum.confirm': 'Confirmation: at least 2 weeks before',
+          'eventi.packages.platinum.duration': 'Up to 2 hours',
+          'eventi.packages.platinum.price': 'From €40.00 per person (VAT included)',
+          'eventi.meta.duration.label': 'Duration',
+          'eventi.meta.price.label': 'Price',
+          'eventi.gallery.event.title': 'Event photos',
+          'eventi.gallery.location.title': 'Location photos',
+          'eventi.gallery.lightbox.label': 'Photo gallery',
+          'eventi.gallery.close': 'Close',
+          'eventi.gallery.prev': 'Previous',
+          'eventi.gallery.next': 'Next',
+          'eventi.gallery.silver.event1.alt': 'Silver event photo 1',
+          'eventi.gallery.silver.event2.alt': 'Silver event photo 2',
+          'eventi.gallery.silver.event3.alt': 'Silver event photo 3',
+          'eventi.gallery.silver.location1.alt': 'Silver location photo 1',
+          'eventi.gallery.silver.location2.alt': 'Silver location photo 2',
+          'eventi.gallery.silver.location3.alt': 'Silver location photo 3',
+          'eventi.gallery.gold.event1.alt': 'Gold event photo 1',
+          'eventi.gallery.gold.event2.alt': 'Gold event photo 2',
+          'eventi.gallery.gold.event3.alt': 'Gold event photo 3',
+          'eventi.gallery.gold.location1.alt': 'Gold location photo 1',
+          'eventi.gallery.gold.location2.alt': 'Gold location photo 2',
+          'eventi.gallery.gold.location3.alt': 'Gold location photo 3',
+          'eventi.gallery.platinum.event1.alt': 'Platinum event photo 1',
+          'eventi.gallery.platinum.event2.alt': 'Platinum event photo 2',
+          'eventi.gallery.platinum.event3.alt': 'Platinum event photo 3',
+          'eventi.gallery.platinum.location1.alt': 'Platinum location photo 1',
+          'eventi.gallery.platinum.location2.alt': 'Platinum location photo 2',
+          'eventi.gallery.platinum.location3.alt': 'Platinum location photo 3',
+          'eventi.conditions.label': 'Event conditions',
+          'eventi.conditions.title': 'Conditions',
+          'eventi.conditions.item1': '50% deposit upon confirmation',
+          'eventi.conditions.item2': 'Balance due by the day of the event',
+          'eventi.conditions.item3': 'Payment by bank transfer',
+          'eventi.conditions.item4': 'Extra drinks at full price',
+          'eventi.tabs.indoor': 'Indoor',
+          'eventi.tabs.outdoor': 'Outdoor',
+          'eventi.outdoor.title': 'Outdoor Events',
+          'eventi.outdoor.subtitle': 'Bring Badiani gelato directly to your event with our mobile solutions.',
+          'eventi.outdoor.carretto.title': 'Gelato Cart',
+          'eventi.outdoor.carretto.desc': 'The classic cart for outdoor events and ceremonies.',
+          'eventi.outdoor.carretto.modalDesc': 'Our iconic cart brings authentic Badiani gelato directly to your event. Perfect for weddings, garden parties, and outdoor ceremonies.',
+          'eventi.outdoor.carretto.spec1.label': 'Capacity',
+          'eventi.outdoor.carretto.spec1.value': 'Up to 6 flavours',
+          'eventi.outdoor.carretto.spec2.label': 'Service',
+          'eventi.outdoor.carretto.spec2.value': 'Dedicated operator included',
+          'eventi.outdoor.carretto.spec3.label': 'Duration',
+          'eventi.outdoor.carretto.spec3.value': '2 to 4 hours',
+          'eventi.outdoor.carretto.spec4.label': 'Guests',
+          'eventi.outdoor.carretto.spec4.value': '50 to 200 guests',
+          'eventi.outdoor.coolbox.title': 'Cool Box',
+          'eventi.outdoor.coolbox.desc': 'Portable solution for catering and exclusive locations.',
+          'eventi.outdoor.coolbox.modalDesc': 'The Cool Box is the ideal solution for exclusive venues where the cart cannot reach. Elegant design and maximum practicality.',
+          'eventi.outdoor.coolbox.spec1.label': 'Capacity',
+          'eventi.outdoor.coolbox.spec1.value': 'Up to 4 flavours',
+          'eventi.outdoor.coolbox.spec2.label': 'Size',
+          'eventi.outdoor.coolbox.spec2.value': 'Compact and portable',
+          'eventi.outdoor.coolbox.spec3.label': 'Autonomy',
+          'eventi.outdoor.coolbox.spec3.value': 'Up to 6 hours',
+          'eventi.outdoor.coolbox.spec4.label': 'Ideal for',
+          'eventi.outdoor.coolbox.spec4.value': 'Corporate events, private parties',
+          'eventi.outdoor.vetrina.title': 'Gelato Display',
+          'eventi.outdoor.vetrina.desc': 'Elegant refrigerated display for corporate events and receptions.',
+          'eventi.outdoor.vetrina.modalDesc': 'The professional refrigerated display brings the full gelateria experience to your event. Perfect for high-end receptions.',
+          'eventi.outdoor.vetrina.spec1.label': 'Capacity',
+          'eventi.outdoor.vetrina.spec1.value': 'Up to 8 flavours',
+          'eventi.outdoor.vetrina.spec2.label': 'Style',
+          'eventi.outdoor.vetrina.spec2.value': 'Premium Badiani design',
+          'eventi.outdoor.vetrina.spec3.label': 'Service',
+          'eventi.outdoor.vetrina.spec3.value': 'Dedicated staff included',
+          'eventi.outdoor.vetrina.spec4.label': 'Guests',
+          'eventi.outdoor.vetrina.spec4.value': '100 to 500 guests',
+          'eventi.outdoor.modal.cta': 'Request information',
+          'eventi.packages.viewDetails': 'View details',
+          'eventi.packages.popular': 'Most popular',
+          'eventi.packages.premium': 'Premium',
+          'eventi.packages.modal.cta': 'Request information'
+        },
+        fr: {
+          'meta.title': 'Badiani 1932 — Événements',
+          'brand.alt': 'Badiani 1932',
+          'topbar.label': 'Barre de marque',
+          'lang.label': 'Sélecteur de langue',
+          'lang.it': 'IT',
+          'lang.en': 'EN',
+          'lang.fr': 'FR',
+          'lang.es': 'ES',
+          'eventi.back': '← Retour à l\'accueil',
+          'eventi.tag': 'Parcours Événements',
+          'eventi.hero.label': 'Hero événements',
+          'eventi.hero.none.title': 'Événements',
+          'eventi.hero.none.subtitle': 'Découvrez nos offres pour rendre votre événement unique avec le gelato Badiani.',
+          'eventi.hero.none.note': '',
+          'eventi.hero.indoor.title': 'Événements privés avec salle réservée',
+          'eventi.hero.indoor.subtitle': 'Expériences sur mesure pour remises de diplômes, anniversaires, fêtes privées et événements spéciaux',
+          'eventi.hero.indoor.note': 'Minimum 15 personnes – maximum 35 personnes assises',
+          'eventi.hero.outdoor.title': 'Événements extérieurs',
+          'eventi.hero.outdoor.subtitle': 'Apportez le gelato Badiani directement à votre événement avec nos solutions mobiles.',
+          'eventi.hero.outdoor.note': '',
+          'eventi.hero.hint': '↓ Choisissez le type d\'événement',
+          'eventi.hero.title': 'Événements privés avec salle réservée',
+          'eventi.hero.subtitle': 'Expériences sur mesure pour remises de diplômes, anniversaires, fêtes privées et événements spéciaux',
+          'eventi.hero.note': 'Minimum 15 personnes – maximum 35 personnes assises',
+          'eventi.packages.label': 'Forfaits événement',
+          'eventi.packages.title': 'Forfaits événement',
+          'eventi.packages.tag': 'Accordion',
+          'eventi.packages.silver.title': 'Forfait Silver',
+          'eventi.packages.silver.desc': 'Forfait de base pour événements privés avec sélection food & drink.',
+          'eventi.packages.silver.food': 'Food : mini pizzas, sandwichs, bouchées salées, panettone gastronomique (poisson/viande/végétarien)',
+          'eventi.packages.silver.drink': 'Drink : 2 cocktails alcoolisés, 1 sans alcool, prosecco',
+          'eventi.packages.silver.confirm': 'Confirmation : au moins 10 jours avant',
+          'eventi.packages.silver.duration': 'Jusqu\'à 1h30',
+          'eventi.packages.silver.price': '20,00 € par personne (TVA incluse)',
+          'eventi.packages.gold.title': 'Forfait Gold',
+          'eventi.packages.gold.desc': 'Forfait complet avec finger food et proposition sucrée dédiée.',
+          'eventi.packages.gold.food': 'Food : panettone gastronomique + 5 finger food + mini portion sucrée ou coupe Buontalenti',
+          'eventi.packages.gold.drink': 'Drink : 2 cocktails alcoolisés, 2 sans alcool, Franciacorta',
+          'eventi.packages.gold.confirm': 'Confirmation : au moins 10 jours avant',
+          'eventi.packages.gold.duration': 'Jusqu\'à 2 heures',
+          'eventi.packages.gold.price': '30,00 € par personne (TVA incluse)',
+          'eventi.packages.platinum.title': 'Forfait Platinum / Événement à thème',
+          'eventi.packages.platinum.desc': 'Forfait premium avec personnalisation et cocktails à thème.',
+          'eventi.packages.platinum.food': 'Food : 7 finger food + option gelato personnalisé ou desserts de cake designer',
+          'eventi.packages.platinum.drink': 'Drink : cocktails à thème + champagne',
+          'eventi.packages.platinum.confirm': 'Confirmation : au moins 2 semaines avant',
+          'eventi.packages.platinum.duration': 'Jusqu\'à 2 heures',
+          'eventi.packages.platinum.price': 'À partir de 40,00 € par personne (TVA incluse)',
+          'eventi.meta.duration.label': 'Durée',
+          'eventi.meta.price.label': 'Prix',
+          'eventi.gallery.event.title': 'Photos événement',
+          'eventi.gallery.location.title': 'Photos du lieu',
+          'eventi.gallery.lightbox.label': 'Galerie photo',
+          'eventi.gallery.close': 'Fermer',
+          'eventi.gallery.prev': 'Précédent',
+          'eventi.gallery.next': 'Suivant',
+          'eventi.gallery.silver.event1.alt': 'Photo événement Silver 1',
+          'eventi.gallery.silver.event2.alt': 'Photo événement Silver 2',
+          'eventi.gallery.silver.event3.alt': 'Photo événement Silver 3',
+          'eventi.gallery.silver.location1.alt': 'Photo lieu Silver 1',
+          'eventi.gallery.silver.location2.alt': 'Photo lieu Silver 2',
+          'eventi.gallery.silver.location3.alt': 'Photo lieu Silver 3',
+          'eventi.gallery.gold.event1.alt': 'Photo événement Gold 1',
+          'eventi.gallery.gold.event2.alt': 'Photo événement Gold 2',
+          'eventi.gallery.gold.event3.alt': 'Photo événement Gold 3',
+          'eventi.gallery.gold.location1.alt': 'Photo lieu Gold 1',
+          'eventi.gallery.gold.location2.alt': 'Photo lieu Gold 2',
+          'eventi.gallery.gold.location3.alt': 'Photo lieu Gold 3',
+          'eventi.gallery.platinum.event1.alt': 'Photo événement Platinum 1',
+          'eventi.gallery.platinum.event2.alt': 'Photo événement Platinum 2',
+          'eventi.gallery.platinum.event3.alt': 'Photo événement Platinum 3',
+          'eventi.gallery.platinum.location1.alt': 'Photo lieu Platinum 1',
+          'eventi.gallery.platinum.location2.alt': 'Photo lieu Platinum 2',
+          'eventi.gallery.platinum.location3.alt': 'Photo lieu Platinum 3',
+          'eventi.conditions.label': 'Conditions événement',
+          'eventi.conditions.title': 'Conditions',
+          'eventi.conditions.item1': 'Acompte de 50 % à la confirmation',
+          'eventi.conditions.item2': 'Solde avant le jour de l\'événement',
+          'eventi.conditions.item3': 'Paiement par virement bancaire',
+          'eventi.conditions.item4': 'Boissons extra au prix plein',
+          'eventi.tabs.indoor': 'En Salle',
+          'eventi.tabs.outdoor': 'Extérieur',
+          'eventi.outdoor.title': 'Événements Extérieurs',
+          'eventi.outdoor.subtitle': 'Apportez le gelato Badiani directement à votre événement avec nos solutions mobiles.',
+          'eventi.outdoor.carretto.title': 'Chariot à Glaces',
+          'eventi.outdoor.carretto.desc': 'Le chariot classique pour événements en plein air et cérémonies.',
+          'eventi.outdoor.carretto.modalDesc': 'Notre chariot emblématique apporte l\'authentique gelato Badiani directement à votre événement. Parfait pour les mariages, fêtes en jardin et cérémonies en plein air.',
+          'eventi.outdoor.carretto.spec1.label': 'Capacité',
+          'eventi.outdoor.carretto.spec1.value': 'Jusqu\'à 6 parfums',
+          'eventi.outdoor.carretto.spec2.label': 'Service',
+          'eventi.outdoor.carretto.spec2.value': 'Opérateur dédié inclus',
+          'eventi.outdoor.carretto.spec3.label': 'Durée',
+          'eventi.outdoor.carretto.spec3.value': 'De 2 à 4 heures',
+          'eventi.outdoor.carretto.spec4.label': 'Invités',
+          'eventi.outdoor.carretto.spec4.value': 'De 50 à 200 invités',
+          'eventi.outdoor.coolbox.title': 'Cool Box',
+          'eventi.outdoor.coolbox.desc': 'Solution portable pour catering et lieux exclusifs.',
+          'eventi.outdoor.coolbox.modalDesc': 'La Cool Box est la solution idéale pour les lieux exclusifs où le chariot ne peut pas accéder. Design élégant et praticité maximale.',
+          'eventi.outdoor.coolbox.spec1.label': 'Capacité',
+          'eventi.outdoor.coolbox.spec1.value': 'Jusqu\'à 4 parfums',
+          'eventi.outdoor.coolbox.spec2.label': 'Dimensions',
+          'eventi.outdoor.coolbox.spec2.value': 'Compacte et transportable',
+          'eventi.outdoor.coolbox.spec3.label': 'Autonomie',
+          'eventi.outdoor.coolbox.spec3.value': 'Jusqu\'à 6 heures',
+          'eventi.outdoor.coolbox.spec4.label': 'Idéal pour',
+          'eventi.outdoor.coolbox.spec4.value': 'Événements d\'entreprise, fêtes privées',
+          'eventi.outdoor.vetrina.title': 'Vitrine Gelato',
+          'eventi.outdoor.vetrina.desc': 'Vitrine réfrigérée élégante pour événements d\'entreprise et réceptions.',
+          'eventi.outdoor.vetrina.modalDesc': 'La vitrine réfrigérée professionnelle apporte l\'expérience complète de notre gelateria à votre événement. Parfaite pour les réceptions haut de gamme.',
+          'eventi.outdoor.vetrina.spec1.label': 'Capacité',
+          'eventi.outdoor.vetrina.spec1.value': 'Jusqu\'à 8 parfums',
+          'eventi.outdoor.vetrina.spec2.label': 'Style',
+          'eventi.outdoor.vetrina.spec2.value': 'Design premium Badiani',
+          'eventi.outdoor.vetrina.spec3.label': 'Service',
+          'eventi.outdoor.vetrina.spec3.value': 'Personnel dédié inclus',
+          'eventi.outdoor.vetrina.spec4.label': 'Invités',
+          'eventi.outdoor.vetrina.spec4.value': 'De 100 à 500 invités',
+          'eventi.outdoor.modal.cta': 'Demander des informations',
+          'eventi.packages.viewDetails': 'En savoir plus',
+          'eventi.packages.popular': 'Le plus demandé',
+          'eventi.packages.premium': 'Premium',
+          'eventi.packages.modal.cta': 'Demander des informations'
+        },
+        es: {
+          'meta.title': 'Badiani 1932 — Eventos',
+          'brand.alt': 'Badiani 1932',
+          'topbar.label': 'Barra de marca',
+          'lang.label': 'Selector de idioma',
+          'lang.it': 'IT',
+          'lang.en': 'EN',
+          'lang.fr': 'FR',
+          'lang.es': 'ES',
+          'eventi.back': '← Volver al inicio',
+          'eventi.tag': 'Ruta Eventos',
+          'eventi.hero.label': 'Hero eventos',
+          'eventi.hero.none.title': 'Eventos',
+          'eventi.hero.none.subtitle': 'Descubre nuestras propuestas para hacer único tu evento con el gelato Badiani.',
+          'eventi.hero.none.note': '',
+          'eventi.hero.indoor.title': 'Eventos privados con sala reservada',
+          'eventi.hero.indoor.subtitle': 'Experiencias a medida para graduaciones, cumpleaños, fiestas privadas y eventos especiales',
+          'eventi.hero.indoor.note': 'Mínimo 15 personas – máximo 35 personas sentadas',
+          'eventi.hero.outdoor.title': 'Eventos exteriores',
+          'eventi.hero.outdoor.subtitle': 'Lleva el gelato Badiani directamente a tu evento con nuestras soluciones móviles.',
+          'eventi.hero.outdoor.note': '',
+          'eventi.hero.hint': '↓ Elige el tipo de evento',
+          'eventi.hero.title': 'Eventos privados con sala reservada',
+          'eventi.hero.subtitle': 'Experiencias a medida para graduaciones, cumpleaños, fiestas privadas y eventos especiales',
+          'eventi.hero.note': 'Mínimo 15 personas – máximo 35 personas sentadas',
+          'eventi.packages.label': 'Paquetes de eventos',
+          'eventi.packages.title': 'Paquetes de eventos',
+          'eventi.packages.tag': 'Accordion',
+          'eventi.packages.silver.title': 'Paquete Silver',
+          'eventi.packages.silver.desc': 'Paquete base para eventos privados con selección de food & drink.',
+          'eventi.packages.silver.food': 'Food: mini pizzas, sándwiches, aperitivos, panettone gastronómico (pescado/carne/vegetariano)',
+          'eventi.packages.silver.drink': 'Drink: 2 cócteles con alcohol, 1 sin alcohol, prosecco',
+          'eventi.packages.silver.confirm': 'Confirmación: mínimo 10 días antes',
+          'eventi.packages.silver.duration': 'Hasta 1h 30 min',
+          'eventi.packages.silver.price': '20,00 € por persona (IVA incluido)',
+          'eventi.packages.gold.title': 'Paquete Gold',
+          'eventi.packages.gold.desc': 'Paquete completo con finger food y propuesta dulce dedicada.',
+          'eventi.packages.gold.food': 'Food: panettone gastronómico + 5 finger food + mini porción dulce o copa Buontalenti',
+          'eventi.packages.gold.drink': 'Drink: 2 cócteles con alcohol, 2 sin alcohol, Franciacorta',
+          'eventi.packages.gold.confirm': 'Confirmación: mínimo 10 días antes',
+          'eventi.packages.gold.duration': 'Hasta 2 horas',
+          'eventi.packages.gold.price': '30,00 € por persona (IVA incluido)',
+          'eventi.packages.platinum.title': 'Paquete Platinum / Evento temático',
+          'eventi.packages.platinum.desc': 'Paquete premium con personalización y cócteles temáticos.',
+          'eventi.packages.platinum.food': 'Food: 7 finger food + opción de gelato personalizado o postres de cake designer',
+          'eventi.packages.platinum.drink': 'Drink: cócteles temáticos + champagne',
+          'eventi.packages.platinum.confirm': 'Confirmación: mínimo 2 semanas antes',
+          'eventi.packages.platinum.duration': 'Hasta 2 horas',
+          'eventi.packages.platinum.price': 'Desde 40,00 € por persona (IVA incluido)',
+          'eventi.meta.duration.label': 'Duración',
+          'eventi.meta.price.label': 'Precio',
+          'eventi.gallery.event.title': 'Fotos del evento',
+          'eventi.gallery.location.title': 'Fotos de la location',
+          'eventi.gallery.lightbox.label': 'Galería de fotos',
+          'eventi.gallery.close': 'Cerrar',
+          'eventi.gallery.prev': 'Anterior',
+          'eventi.gallery.next': 'Siguiente',
+          'eventi.gallery.silver.event1.alt': 'Foto evento Silver 1',
+          'eventi.gallery.silver.event2.alt': 'Foto evento Silver 2',
+          'eventi.gallery.silver.event3.alt': 'Foto evento Silver 3',
+          'eventi.gallery.silver.location1.alt': 'Foto location Silver 1',
+          'eventi.gallery.silver.location2.alt': 'Foto location Silver 2',
+          'eventi.gallery.silver.location3.alt': 'Foto location Silver 3',
+          'eventi.gallery.gold.event1.alt': 'Foto evento Gold 1',
+          'eventi.gallery.gold.event2.alt': 'Foto evento Gold 2',
+          'eventi.gallery.gold.event3.alt': 'Foto evento Gold 3',
+          'eventi.gallery.gold.location1.alt': 'Foto location Gold 1',
+          'eventi.gallery.gold.location2.alt': 'Foto location Gold 2',
+          'eventi.gallery.gold.location3.alt': 'Foto location Gold 3',
+          'eventi.gallery.platinum.event1.alt': 'Foto evento Platinum 1',
+          'eventi.gallery.platinum.event2.alt': 'Foto evento Platinum 2',
+          'eventi.gallery.platinum.event3.alt': 'Foto evento Platinum 3',
+          'eventi.gallery.platinum.location1.alt': 'Foto location Platinum 1',
+          'eventi.gallery.platinum.location2.alt': 'Foto location Platinum 2',
+          'eventi.gallery.platinum.location3.alt': 'Foto location Platinum 3',
+          'eventi.conditions.label': 'Condiciones del evento',
+          'eventi.conditions.title': 'Condiciones',
+          'eventi.conditions.item1': 'Anticipo del 50% al confirmar',
+          'eventi.conditions.item2': 'Saldo antes del día del evento',
+          'eventi.conditions.item3': 'Pago por transferencia bancaria',
+          'eventi.conditions.item4': 'Bebidas extra a precio completo',
+          'eventi.tabs.indoor': 'En Sala',
+          'eventi.tabs.outdoor': 'Exteriores',
+          'eventi.outdoor.title': 'Eventos Exteriores',
+          'eventi.outdoor.subtitle': 'Lleva el gelato Badiani directamente a tu evento con nuestras soluciones móviles.',
+          'eventi.outdoor.carretto.title': 'Carrito de Helados',
+          'eventi.outdoor.carretto.desc': 'El clásico carrito para eventos al aire libre y ceremonias.',
+          'eventi.outdoor.carretto.modalDesc': 'Nuestro icónico carrito lleva el auténtico gelato Badiani directamente a tu evento. Perfecto para bodas, fiestas en jardín y ceremonias al aire libre.',
+          'eventi.outdoor.carretto.spec1.label': 'Capacidad',
+          'eventi.outdoor.carretto.spec1.value': 'Hasta 6 sabores',
+          'eventi.outdoor.carretto.spec2.label': 'Servicio',
+          'eventi.outdoor.carretto.spec2.value': 'Operador dedicado incluido',
+          'eventi.outdoor.carretto.spec3.label': 'Duración',
+          'eventi.outdoor.carretto.spec3.value': 'De 2 a 4 horas',
+          'eventi.outdoor.carretto.spec4.label': 'Invitados',
+          'eventi.outdoor.carretto.spec4.value': 'De 50 a 200 invitados',
+          'eventi.outdoor.coolbox.title': 'Cool Box',
+          'eventi.outdoor.coolbox.desc': 'Solución portátil para catering y ubicaciones exclusivas.',
+          'eventi.outdoor.coolbox.modalDesc': 'La Cool Box es la solución ideal para lugares exclusivos donde el carrito no puede llegar. Diseño elegante y máxima practicidad.',
+          'eventi.outdoor.coolbox.spec1.label': 'Capacidad',
+          'eventi.outdoor.coolbox.spec1.value': 'Hasta 4 sabores',
+          'eventi.outdoor.coolbox.spec2.label': 'Tamaño',
+          'eventi.outdoor.coolbox.spec2.value': 'Compacta y transportable',
+          'eventi.outdoor.coolbox.spec3.label': 'Autonomía',
+          'eventi.outdoor.coolbox.spec3.value': 'Hasta 6 horas',
+          'eventi.outdoor.coolbox.spec4.label': 'Ideal para',
+          'eventi.outdoor.coolbox.spec4.value': 'Eventos corporativos, fiestas privadas',
+          'eventi.outdoor.vetrina.title': 'Vitrina Gelato',
+          'eventi.outdoor.vetrina.desc': 'Elegante vitrina refrigerada para eventos corporativos y recepciones.',
+          'eventi.outdoor.vetrina.modalDesc': 'La vitrina refrigerada profesional lleva la experiencia completa de nuestra heladería a tu evento. Perfecta para recepciones de alto nivel.',
+          'eventi.outdoor.vetrina.spec1.label': 'Capacidad',
+          'eventi.outdoor.vetrina.spec1.value': 'Hasta 8 sabores',
+          'eventi.outdoor.vetrina.spec2.label': 'Estilo',
+          'eventi.outdoor.vetrina.spec2.value': 'Diseño premium Badiani',
+          'eventi.outdoor.vetrina.spec3.label': 'Servicio',
+          'eventi.outdoor.vetrina.spec3.value': 'Personal dedicado incluido',
+          'eventi.outdoor.vetrina.spec4.label': 'Invitados',
+          'eventi.outdoor.vetrina.spec4.value': 'De 100 a 500 invitados',
+          'eventi.outdoor.modal.cta': 'Solicitar información',
+          'eventi.packages.viewDetails': 'Ver detalles',
+          'eventi.packages.popular': 'Más solicitado',
+          'eventi.packages.premium': 'Premium',
+          'eventi.packages.modal.cta': 'Solicitar información'
+        }
+      };
+
+      function normalizeLang(lang){
+        if(!lang) return DEFAULT_LANG;
+        const base = String(lang).toLowerCase().split('-')[0];
+        return SUPPORTED.includes(base) ? base : DEFAULT_LANG;
+      }
+
+      function getInitialLang(){
+        try{
+          const params = new URLSearchParams(window.location.search || '');
+          const q = params.get('lang');
+          if(q) return normalizeLang(q);
+        }catch{}
+        try{
+          const saved = localStorage.getItem(STORAGE_KEY);
+          if(saved) return normalizeLang(saved);
+        }catch{}
+        return normalizeLang(navigator.language || DEFAULT_LANG);
+      }
+
+      let currentLang = getInitialLang();
+
+      function t(key){
+        const dict = STRINGS[currentLang] || STRINGS[DEFAULT_LANG];
+        return dict && dict[key] ? dict[key] : '';
+      }
+
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightboxImage');
+      const thumbButtons = Array.from(document.querySelectorAll('.thumb[data-gallery]'));
+      const groups = new Map();
+      let activeGroup = '';
+      let activeIndex = 0;
+      let scrollY = 0;
+
+      thumbButtons.forEach((btn) => {
+        const group = btn.dataset.gallery || '';
+        if(!groups.has(group)) groups.set(group, []);
+        groups.get(group).push(btn);
+      });
+
+      function lockScroll(){
+        scrollY = window.scrollY || window.pageYOffset || 0;
+        document.body.style.position = 'fixed';
+        document.body.style.top = `-${scrollY}px`;
+        document.body.style.left = '0';
+        document.body.style.right = '0';
+        document.body.style.width = '100%';
+        document.documentElement.style.overflow = 'hidden';
+      }
+
+      function unlockScroll(){
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.body.style.width = '';
+        document.documentElement.style.overflow = '';
+        window.scrollTo(0, scrollY);
+      }
+
+      function getThumbSrc(btn){
+        const img = btn.querySelector('img');
+        return btn.dataset.full || (img ? img.src : '');
+      }
+
+      function getThumbAlt(btn){
+        const img = btn.querySelector('img');
+        return img ? img.getAttribute('alt') || '' : '';
+      }
+
+      function showImage(index){
+        const list = groups.get(activeGroup) || [];
+        if(!list.length || !lightboxImg) return;
+        activeIndex = (index + list.length) % list.length;
+        const btn = list[activeIndex];
+        lightboxImg.src = getThumbSrc(btn);
+        lightboxImg.alt = getThumbAlt(btn);
+      }
+
+      function openLightbox(btn){
+        if(!lightbox) return;
+        activeGroup = btn.dataset.gallery || '';
+        const list = groups.get(activeGroup) || [];
+        activeIndex = Math.max(0, list.indexOf(btn));
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        showImage(activeIndex);
+        lockScroll();
+      }
+
+      function closeLightbox(){
+        if(!lightbox) return;
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        if(lightboxImg) lightboxImg.src = '';
+        unlockScroll();
+      }
+
+      function nextImage(){
+        showImage(activeIndex + 1);
+      }
+
+      function prevImage(){
+        showImage(activeIndex - 1);
+      }
+
+      if(lightbox){
+        const closeBtn = lightbox.querySelector('[data-close]');
+        const nextBtn = lightbox.querySelector('[data-next]');
+        const prevBtn = lightbox.querySelector('[data-prev]');
+
+        closeBtn && closeBtn.addEventListener('click', closeLightbox);
+        nextBtn && nextBtn.addEventListener('click', nextImage);
+        prevBtn && prevBtn.addEventListener('click', prevImage);
+
+        lightbox.addEventListener('click', (e) => {
+          if(e.target === lightbox) closeLightbox();
+        });
+
+        let touchStartX = 0;
+        let touchStartY = 0;
+        lightbox.addEventListener('touchstart', (e) => {
+          const touch = e.touches[0];
+          if(!touch) return;
+          touchStartX = touch.clientX;
+          touchStartY = touch.clientY;
+        }, { passive: true });
+        lightbox.addEventListener('touchend', (e) => {
+          const touch = e.changedTouches[0];
+          if(!touch) return;
+          const dx = touch.clientX - touchStartX;
+          const dy = touch.clientY - touchStartY;
+          if(Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy)){
+            if(dx < 0){ nextImage(); }
+            else{ prevImage(); }
+          }
+        });
+      }
+
+      thumbButtons.forEach((btn) => {
+        btn.addEventListener('click', () => openLightbox(btn));
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if(!lightbox || !lightbox.classList.contains('is-open')) return;
+        if(e.key === 'Escape') closeLightbox();
+        if(e.key === 'ArrowRight') nextImage();
+        if(e.key === 'ArrowLeft') prevImage();
+      });
+
+      function updateLightboxImage(){
+        if(lightbox && lightbox.classList.contains('is-open')){
+          showImage(activeIndex);
+        }
+      }
+
+      function applyTranslations(){
+        document.documentElement.setAttribute('lang', currentLang);
+        document.title = t('meta.title');
+
+        document.querySelectorAll('[data-i18n]').forEach((el) => {
+          const key = el.getAttribute('data-i18n');
+          if(!key) return;
+          el.textContent = t(key);
+        });
+
+        document.querySelectorAll('[data-i18n-html]').forEach((el) => {
+          const key = el.getAttribute('data-i18n-html');
+          if(!key) return;
+          el.innerHTML = t(key);
+        });
+
+        document.querySelectorAll('[data-i18n-attr]').forEach((el) => {
+          const raw = el.getAttribute('data-i18n-attr') || '';
+          raw.split(',').forEach((pair) => {
+            const [attr, key] = pair.split(':').map((s) => s.trim());
+            if(attr && key) el.setAttribute(attr, t(key));
+          });
+        });
+
+        updateLightboxImage();
+      }
+
+      function setLang(lang){
+        const next = normalizeLang(lang);
+        if(next === currentLang) return;
+        currentLang = next;
+        try{ localStorage.setItem(STORAGE_KEY, currentLang); }catch{}
+        applyTranslations();
+        // Update hero text when language changes
+        if(typeof updateHero === 'function' && typeof activeEventsSection !== 'undefined'){
+          updateHero(activeEventsSection);
+        }
+      }
+
+      const select = document.getElementById('langSelect');
+      if(select){
+        select.value = currentLang;
+        select.addEventListener('change', (e) => setLang(e.target.value));
+      }
+
+      applyTranslations();
+
+      // Tab Navigation with tri-state (none/indoor/outdoor)
+      const tabBtns = document.querySelectorAll('.events-tabs__btn');
+      const tabPanels = document.querySelectorAll('.events-tabs__panel');
+      const hero = document.querySelector('.hero');
+      const heroBgs = document.querySelectorAll('.hero__bg');
+      const heroTitle = document.getElementById('heroTitle');
+      const heroSubtitle = document.getElementById('heroSubtitle');
+      const heroNote = document.getElementById('heroNote');
+
+      let activeEventsSection = 'none'; // 'none' | 'indoor' | 'outdoor'
+
+      function updateHero(state){
+        // Update hero data-state attribute
+        if(hero) hero.setAttribute('data-state', state);
+
+        // Update background visibility
+        heroBgs.forEach(bg => {
+          const bgType = bg.getAttribute('data-bg');
+          bg.classList.toggle('is-active', bgType === state);
+        });
+
+        // Update hero text content
+        const titleKey = 'eventi.hero.' + state + '.title';
+        const subtitleKey = 'eventi.hero.' + state + '.subtitle';
+        const noteKey = 'eventi.hero.' + state + '.note';
+
+        if(heroTitle) heroTitle.textContent = t(titleKey);
+        if(heroSubtitle) heroSubtitle.textContent = t(subtitleKey);
+        if(heroNote) heroNote.textContent = t(noteKey);
+      }
+
+      function switchTab(state){
+        activeEventsSection = state;
+
+        // Update tab buttons
+        tabBtns.forEach(btn => {
+          const btnTab = btn.getAttribute('data-tab');
+          const isActive = btnTab === state;
+          btn.classList.toggle('is-active', isActive);
+          btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        });
+
+        // Update panels
+        tabPanels.forEach(panel => {
+          const panelId = panel.id;
+          let isActive = false;
+          if(state === 'indoor' && panelId === 'panel-indoor') isActive = true;
+          if(state === 'outdoor' && panelId === 'panel-outdoor') isActive = true;
+          panel.classList.toggle('is-active', isActive);
+        });
+
+        // Update hero
+        updateHero(state);
+      }
+
+      // Initialize with neutral state
+      switchTab('none');
+
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const tabType = btn.getAttribute('data-tab');
+          switchTab(tabType);
+        });
+      });
+
+      // ========================================
+      // Outdoor Specs Modal (inspiration pattern)
+      // ========================================
+      const outdoorData = {
+        carretto: {
+          image: '../assets/extracted/a7a56600066a6e356fdf55d5683807c4328d597b.webp',
+          titleKey: 'eventi.outdoor.carretto.title',
+          descKey: 'eventi.outdoor.carretto.modalDesc',
+          specs: [
+            { labelKey: 'eventi.outdoor.carretto.spec1.label', valueKey: 'eventi.outdoor.carretto.spec1.value' },
+            { labelKey: 'eventi.outdoor.carretto.spec2.label', valueKey: 'eventi.outdoor.carretto.spec2.value' },
+            { labelKey: 'eventi.outdoor.carretto.spec3.label', valueKey: 'eventi.outdoor.carretto.spec3.value' },
+            { labelKey: 'eventi.outdoor.carretto.spec4.label', valueKey: 'eventi.outdoor.carretto.spec4.value' }
+          ]
+        },
+        coolbox: {
+          image: '../assets/extracted/5a21d37ff7aad42e4cbf72325d7f2285026d0fda.webp',
+          titleKey: 'eventi.outdoor.coolbox.title',
+          descKey: 'eventi.outdoor.coolbox.modalDesc',
+          specs: [
+            { labelKey: 'eventi.outdoor.coolbox.spec1.label', valueKey: 'eventi.outdoor.coolbox.spec1.value' },
+            { labelKey: 'eventi.outdoor.coolbox.spec2.label', valueKey: 'eventi.outdoor.coolbox.spec2.value' },
+            { labelKey: 'eventi.outdoor.coolbox.spec3.label', valueKey: 'eventi.outdoor.coolbox.spec3.value' },
+            { labelKey: 'eventi.outdoor.coolbox.spec4.label', valueKey: 'eventi.outdoor.coolbox.spec4.value' }
+          ]
+        },
+        vetrina: {
+          image: '../assets/extracted/1b2a5cc62945aea094a8e00e488dd08378eef958.webp',
+          titleKey: 'eventi.outdoor.vetrina.title',
+          descKey: 'eventi.outdoor.vetrina.modalDesc',
+          specs: [
+            { labelKey: 'eventi.outdoor.vetrina.spec1.label', valueKey: 'eventi.outdoor.vetrina.spec1.value' },
+            { labelKey: 'eventi.outdoor.vetrina.spec2.label', valueKey: 'eventi.outdoor.vetrina.spec2.value' },
+            { labelKey: 'eventi.outdoor.vetrina.spec3.label', valueKey: 'eventi.outdoor.vetrina.spec3.value' },
+            { labelKey: 'eventi.outdoor.vetrina.spec4.label', valueKey: 'eventi.outdoor.vetrina.spec4.value' }
+          ]
+        }
+      };
+
+      let activeOutdoorItem = null;
+      const specsOverlay = document.getElementById('specsOverlay');
+      const specsImage = document.getElementById('specsImage');
+      const specsTitle = document.getElementById('specsTitle');
+      const specsDesc = document.getElementById('specsDesc');
+      const specsGrid = document.getElementById('specsGrid');
+      const specsCta = document.getElementById('specsCta');
+      const specsCloseBtn = specsOverlay ? specsOverlay.querySelector('.specs-close-btn') : null;
+
+      function renderOutdoorSpecs(itemId) {
+        const data = outdoorData[itemId];
+        if (!data || !specsOverlay) return;
+
+        specsImage.src = data.image;
+        specsImage.alt = t(data.titleKey);
+        specsTitle.textContent = t(data.titleKey);
+        specsDesc.textContent = t(data.descKey);
+        specsCta.textContent = t('eventi.outdoor.modal.cta');
+
+        let specsHTML = '';
+        data.specs.forEach(spec => {
+          specsHTML += '<div class="spec-card">';
+          specsHTML += '<span class="spec-label">' + t(spec.labelKey).toUpperCase() + '</span>';
+          specsHTML += '<span class="spec-value">' + t(spec.valueKey) + '</span>';
+          specsHTML += '</div>';
+        });
+        specsGrid.innerHTML = specsHTML;
+      }
+
+      window.openOutdoorSpecs = function(itemId) {
+        activeOutdoorItem = itemId;
+        renderOutdoorSpecs(itemId);
+        specsOverlay.classList.add('is-active');
+        specsOverlay.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      };
+
+      function closeOutdoorSpecs() {
+        if (!specsOverlay) return;
+        specsOverlay.classList.remove('is-active');
+        specsOverlay.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        activeOutdoorItem = null;
+        activePackageItem = null;
+      }
+
+      // ========================================
+      // Package Modal (FULL content with galleries)
+      // ========================================
+      const packagesData = {
+        silver: {
+          titleKey: 'eventi.packages.silver.title',
+          descKey: 'eventi.packages.silver.desc',
+          foodKey: 'eventi.packages.silver.food',
+          drinkKey: 'eventi.packages.silver.drink',
+          confirmKey: 'eventi.packages.silver.confirm',
+          durationKey: 'eventi.packages.silver.duration',
+          priceKey: 'eventi.packages.silver.price',
+          eventGallery: [
+            { src: '../assets/extracted/a7a56600066a6e356fdf55d5683807c4328d597b.webp', altKey: 'eventi.gallery.silver.event1.alt' },
+            { src: '../assets/extracted/5a21d37ff7aad42e4cbf72325d7f2285026d0fda.webp', altKey: 'eventi.gallery.silver.event2.alt' },
+            { src: '../assets/extracted/1b2a5cc62945aea094a8e00e488dd08378eef958.webp', altKey: 'eventi.gallery.silver.event3.alt' }
+          ],
+          locationGallery: [
+            { src: '../assets/barattolo-tab.webp', altKey: 'eventi.gallery.silver.location1.alt' },
+            { src: '../assets/extracted/1b2a5cc62945aea094a8e00e488dd08378eef958.webp', altKey: 'eventi.gallery.silver.location2.alt' },
+            { src: '../assets/extracted/a7a56600066a6e356fdf55d5683807c4328d597b.webp', altKey: 'eventi.gallery.silver.location3.alt' }
+          ]
+        },
+        gold: {
+          titleKey: 'eventi.packages.gold.title',
+          descKey: 'eventi.packages.gold.desc',
+          foodKey: 'eventi.packages.gold.food',
+          drinkKey: 'eventi.packages.gold.drink',
+          confirmKey: 'eventi.packages.gold.confirm',
+          durationKey: 'eventi.packages.gold.duration',
+          priceKey: 'eventi.packages.gold.price',
+          eventGallery: [
+            { src: './foto%20eventi/Event/Steve%20Madden%20MICAM/STEVE1.JPG', altKey: 'eventi.gallery.gold.event1.alt' },
+            { src: './foto%20eventi/Event/Steve%20Madden%20MICAM/STEVE2.JPG', altKey: 'eventi.gallery.gold.event2.alt' },
+            { src: './foto%20eventi/Event/Steve%20Madden%20MICAM/STEVE3.JPG', altKey: 'eventi.gallery.gold.event3.alt' }
+          ],
+          locationGallery: [
+            { src: './foto%20eventi/Event/Steve%20Madden%20Pitti/STEVE4.jpg', altKey: 'eventi.gallery.gold.location1.alt' },
+            { src: './foto%20eventi/Event/Steve%20Madden%20Pitti/STEVE5.jpg', altKey: 'eventi.gallery.gold.location2.alt' },
+            { src: './foto%20eventi/Event/Steve%20Madden%20Pitti/STEVE6.jpg', altKey: 'eventi.gallery.gold.location3.alt' }
+          ]
+        },
+        platinum: {
+          titleKey: 'eventi.packages.platinum.title',
+          descKey: 'eventi.packages.platinum.desc',
+          foodKey: 'eventi.packages.platinum.food',
+          drinkKey: 'eventi.packages.platinum.drink',
+          confirmKey: 'eventi.packages.platinum.confirm',
+          durationKey: 'eventi.packages.platinum.duration',
+          priceKey: 'eventi.packages.platinum.price',
+          eventGallery: [
+            { src: './foto%20eventi/Event/Artigianato%20a%20Palazzo/location_platinum1.JPG', altKey: 'eventi.gallery.platinum.event1.alt' },
+            { src: './foto%20eventi/Event/Artigianato%20a%20Palazzo/location_platinum2.JPG', altKey: 'eventi.gallery.platinum.event2.alt' },
+            { src: './foto%20eventi/Event/Artigianato%20a%20Palazzo/locationplatinum3.JPG', altKey: 'eventi.gallery.platinum.event3.alt' }
+          ],
+          locationGallery: [
+            { src: './foto%20eventi/Event/Artigianato%20a%20Palazzo/locationplatinum4..JPG', altKey: 'eventi.gallery.platinum.location1.alt' },
+            { src: './foto%20eventi/Event/Artigianato%20a%20Palazzo/platinum5.JPG', altKey: 'eventi.gallery.platinum.location2.alt' },
+            { src: './foto%20eventi/Event/Artigianato%20a%20Palazzo/locationplatinum6.JPG', altKey: 'eventi.gallery.platinum.location3.alt' }
+          ]
+        }
+      };
+
+      let activePackageItem = null;
+      const packageModal = document.getElementById('packageModal');
+      const pkgModalTitle = document.getElementById('pkgModalTitle');
+      const pkgModalDesc = document.getElementById('pkgModalDesc');
+      const pkgModalList = document.getElementById('pkgModalList');
+      const pkgModalMeta = document.getElementById('pkgModalMeta');
+      const pkgModalGalleries = document.getElementById('pkgModalGalleries');
+      const pkgModalCta = document.getElementById('pkgModalCta');
+
+      function renderPackageModal(pkgId) {
+        const data = packagesData[pkgId];
+        if (!data || !packageModal) return;
+
+        // Title
+        pkgModalTitle.textContent = t(data.titleKey);
+        
+        // Description
+        pkgModalDesc.textContent = t(data.descKey);
+        
+        // List items (food, drink, confirm)
+        pkgModalList.innerHTML = 
+          '<li>' + t(data.foodKey) + '</li>' +
+          '<li>' + t(data.drinkKey) + '</li>' +
+          '<li>' + t(data.confirmKey) + '</li>';
+        
+        // Meta cards (duration, price)
+        pkgModalMeta.innerHTML = 
+          '<div class="meta-card"><div class="meta-title">' + t('eventi.meta.duration.label') + '</div><div class="meta-value">' + t(data.durationKey) + '</div></div>' +
+          '<div class="meta-card"><div class="meta-title">' + t('eventi.meta.price.label') + '</div><div class="meta-value">' + t(data.priceKey) + '</div></div>';
+        
+        // Galleries
+        let galleriesHTML = '';
+        
+        // Event gallery
+        galleriesHTML += '<div class="gallery-block"><h3 class="gallery-title">' + t('eventi.gallery.event.title') + '</h3><div class="gallery-grid">';
+        data.eventGallery.forEach(img => {
+          galleriesHTML += '<button class="thumb" type="button" data-gallery="' + pkgId + '-event" data-full="' + img.src + '">';
+          galleriesHTML += '<img src="' + img.src + '" loading="lazy" decoding="async" alt="' + t(img.altKey) + '" />';
+          galleriesHTML += '</button>';
+        });
+        galleriesHTML += '</div></div>';
+        
+        // Location gallery
+        galleriesHTML += '<div class="gallery-block"><h3 class="gallery-title">' + t('eventi.gallery.location.title') + '</h3><div class="gallery-grid">';
+        data.locationGallery.forEach(img => {
+          galleriesHTML += '<button class="thumb" type="button" data-gallery="' + pkgId + '-location" data-full="' + img.src + '">';
+          galleriesHTML += '<img src="' + img.src + '" loading="lazy" decoding="async" alt="' + t(img.altKey) + '" />';
+          galleriesHTML += '</button>';
+        });
+        galleriesHTML += '</div></div>';
+        
+        pkgModalGalleries.innerHTML = galleriesHTML;
+        
+        // CTA
+        pkgModalCta.textContent = t('eventi.packages.modal.cta');
+
+        // Re-bind gallery thumbs in modal
+        pkgModalGalleries.querySelectorAll('.thumb[data-gallery]').forEach(btn => {
+          const group = btn.dataset.gallery || '';
+          if(!groups.has(group)) groups.set(group, []);
+          if(!groups.get(group).includes(btn)) groups.get(group).push(btn);
+          
+          btn.addEventListener('click', function() {
+            activeGroup = group;
+            const arr = groups.get(group) || [];
+            activeIndex = arr.indexOf(btn);
+            if (activeIndex < 0) activeIndex = 0;
+            openLightbox(btn.dataset.full);
+          });
+        });
+      }
+
+      window.openPackageModal = function(pkgId) {
+        activePackageItem = pkgId;
+        renderPackageModal(pkgId);
+        packageModal.classList.add('is-active');
+        packageModal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      };
+
+      window.closePackageModal = function() {
+        if (!packageModal) return;
+        packageModal.classList.remove('is-active');
+        packageModal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        activePackageItem = null;
+      };
+
+      // Package modal backdrop click
+      if (packageModal) {
+        packageModal.addEventListener('click', function(e) {
+          if (e.target === packageModal || e.target.classList.contains('specs-overlay-bg')) {
+            closePackageModal();
+          }
+        });
+        const pkgContent = packageModal.querySelector('.package-modal-content');
+        if (pkgContent) {
+          pkgContent.addEventListener('click', function(e) {
+            e.stopPropagation();
+          });
+        }
+      }
+
+      // Close button
+      if (specsCloseBtn) {
+        specsCloseBtn.addEventListener('click', closeOutdoorSpecs);
+      }
+
+      // Click on backdrop
+      if (specsOverlay) {
+        specsOverlay.addEventListener('click', function(e) {
+          if (e.target === specsOverlay || e.target.classList.contains('specs-overlay-bg')) {
+            closeOutdoorSpecs();
+          }
+        });
+
+        // Prevent close when clicking content
+        const specsContent = specsOverlay.querySelector('.specs-overlay-content');
+        if (specsContent) {
+          specsContent.addEventListener('click', function(e) {
+            e.stopPropagation();
+          });
+        }
+      }
+
+      // ESC key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          if (specsOverlay && specsOverlay.classList.contains('is-active')) {
+            closeOutdoorSpecs();
+          }
+          if (packageModal && packageModal.classList.contains('is-active')) {
+            closePackageModal();
+          }
+        }
+      });
+
+      // Re-render modal on language change
+      const originalSetLangForSpecs = setLang;
+      setLang = function(lang) {
+        originalSetLangForSpecs.call(this, lang);
+        if (activeOutdoorItem && specsOverlay && specsOverlay.classList.contains('is-active')) {
+          renderOutdoorSpecs(activeOutdoorItem);
+        }
+        if (activePackageItem && packageModal && packageModal.classList.contains('is-active')) {
+          renderPackageModal(activePackageItem);
+        }
+      };
+
+    })();
+  </script>
+</body>
+</html>
