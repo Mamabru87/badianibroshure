@@ -301,6 +301,14 @@
     .modal__cta{ display:flex; justify-content:flex-end; }
     .modal__cta .cta-button{ background:transparent; color:var(--badiani-blue); border:1px solid rgba(30,57,141,0.2); }
 
+    .modal__table-wrap{ overflow:auto; border-radius:12px; border:1px solid rgba(30,57,141,0.12); background:#fff; }
+    .modal__table{ width:100%; border-collapse:collapse; font-size:13px; color:#4a4f57; }
+    .modal__table th,
+    .modal__table td{ padding:8px 10px; border-bottom:1px solid rgba(30,57,141,0.08); text-align:left; vertical-align:top; }
+    .modal__table th{ background:#f5f6f8; font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#6a6b6e; position:sticky; top:0; z-index:1; }
+    .modal__table tr:last-child td{ border-bottom:none; }
+    .modal__note{ font-size:12px; color:#9aa0a6; }
+
     .gelato-showcase{ display:none; gap:20px; }
     .gelato-showcase.is-active{ display:grid; }
     .gelato-header{ display:grid; gap:6px; }
@@ -1566,6 +1574,148 @@
         }
       };
 
+      const CATEGORY_DATA = {
+        'VASCHE': {
+          title: 'Vaschette',
+          columns: ['Gusto', 'Prezzo per kg'],
+          rows: [
+            ['Bacio', '€12.00'],
+            ['Banana', '€10.00'],
+            ['Buontalenti', '€10.00'],
+            ['Buontalenti Caramello', '€12.00'],
+            ['Buontalenti Delattosato', '€12.00'],
+            ['Buontalenti Fondente', '€12.00'],
+            ['Buontalenti Pistacchio', '€18.00'],
+            ['Caffè', '€10.00'],
+            ['Caramello al Burro Salato', '€14.00'],
+            ['Cassandra Delattosata', '€14.00'],
+            ['Cheesecake', '€16.00'],
+            ['Cioccolata', '€10.00'],
+            ['Cioccolata all Arancia', '€14.00'],
+            ['Cioccoriso', '€12.00'],
+            ['Cocco', '€12.00'],
+            ['Cremino', '€14.00'],
+            ['La Dolcevita', '€14.00'],
+            ['Nocciola', '€14.00'],
+            ['Pistacchio', '€16.00'],
+            ['Sorbetto: Albicocca', '€12.00'],
+            ['Sorbetto: Cioccolato Monorigine Venezuela', '€14.00'],
+            ['Sorbetto: Fragola', '€10.00'],
+            ['Sorbetto: Frutto della Passione', '€12.00'],
+            ['Sorbetto: Lampone', '€12.00'],
+            ['Sorbetto: Limone', '€10.00'],
+            ['Sorbetto: Mango', '€12.00'],
+            ['Sorbetto: Pera', '€12.00'],
+            ['Sorbetto Tropical Summer', '€12.00'],
+            ['Stracciatella', '€12.00'],
+            ['Stracciatella alla menta', '€12.00'],
+            ['Vaniglia', '€14.00'],
+            ['Yogurt', '€12.00']
+          ]
+        },
+        'PEZZI DURI': {
+          title: 'Pezzi duri',
+          columns: ['Gusto', 'Prezzo unità', 'Peso medio unità', 'Ordine minimo*'],
+          rows: [
+            ['Classico Buontalenti', '€2.20', '90 g', '24'],
+            ['Classico Stracciatella', '€2.20', '100 g', '24'],
+            ['Classico Fondente', '€2.20', '100 g', '24'],
+            ['Tavoletta Buontalenti e cioccolato', '€2.50', '110 g', '24'],
+            ['Cuore di Buontalenti fondente', '€2.50', '110 g', '16'],
+            ['Cuore di Buontalenti alla fragola', '€2.50', '110 g', '16'],
+            ['Biscotto Buontalenti', '€2.20', '110 g', '12'],
+            ['Biscotto Stracciatella', '€2.20', '110 g', '12'],
+            ['Donut cioccolato', '€2.50', '90 g', '16'],
+            ['Donut cioccolato bianco', '€2.50', '90 g', '16'],
+            ['Donut cioccolato alla fragola', '€2.50', '90 g', '16'],
+            ['Donut cioccolato al pistacchio', '€2.50', '90 g', '16'],
+            ['Fruit Tube Limone', '€2.20', '120 g', '16'],
+            ['Fruit Tube Menta', '€2.20', '120 g', '16'],
+            ['Fruit Tube Fragola', '€2.00', '120 g', '16'],
+            ['Ghiacciolo di frutta alla fragola', '€2.20', '100 g', '20'],
+            ['Ghiacciolo di frutta al limone', '€2.00', '100 g', '20'],
+            ['Ghiacciolo di frutta la mango', '€2.00', '100 g', '20'],
+            ['Ghiacciolo alla menta', '€2.00', '100 g', '20'],
+            ['Lingotto', '€2.00', '60 g', '96'],
+            ['Zampa', '€3.00', '150 g', '16']
+          ]
+        },
+        'TORTE': {
+          title: 'Torte',
+          columns: ['Gusto', 'Prezzo per kg'],
+          rows: [
+            ['Millefoglie Buontalenti', '€ 22.00/Kg'],
+            ['Millefoglie Buontalenti con salsa Dolcevita (Nocciole e cacao)', '€ 24.00/Kg'],
+            ['Millefoglie Buontalenti con salsa Pistacchio', '€ 28.00/Kg']
+          ]
+        },
+        'CONO': {
+          title: 'Coni',
+          columns: ['Prodotto', 'Descrizione', 'Quantità', 'Prezzo'],
+          rows: [
+            ['Sottozero', 'Coni Piccoli', '264 pz', '€ 30.00'],
+            ['Maxi 1', 'Coni Medi', '220 pz', '€ 30.00'],
+            ['Maxi 2', 'Coni Grandi', '216 pz', '€ 30.00'],
+            ['Coni Gluten free (083)', '1^ misura', '240 pz', '€ 45.00'],
+            ['Coni Gluten free (084)', '2^ misura', '212 pz', '€ 45.00']
+          ]
+        },
+        'PALETTINE': {
+          title: 'Palettine',
+          columns: ['Prodotto', 'Descrizione', 'Quantità', 'Prezzo'],
+          rows: [
+            ['Hawaii', 'Palettine gelato', '1 Kg', '€ 15.00']
+          ]
+        },
+        'COPPETTE': {
+          title: 'Coppette',
+          columns: ['Prodotto', 'Descrizione', 'Quantità', 'Prezzo'],
+          rows: [
+            ['Bicchierini 16B', 'Coppette piccole 80cc', '250 pz', '€ 27.00'],
+            ['Bicchierini 108', 'Coppette medie 120cc', '250 pz', '€ 30.00'],
+            ['Bicchierini 4C', 'Coppette grandi 160cc', '200 pz', '€ 22.50'],
+            ['Bicchierini 4CA', 'Coppette XL 200cc', '200 pz', '€ 22.50']
+          ]
+        },
+        'CIALDE': {
+          title: 'Cialde',
+          columns: ['Prodotto', 'Descrizione', 'Quantità', 'Prezzo'],
+          rows: [
+            ['Cialdine', 'Cialdine logate Badiani', '1200pz', '€ 45.00']
+          ]
+        },
+        'TOVAGLIOLI': {
+          title: 'Tovagliolini',
+          columns: ['Prodotto', 'Descrizione', 'Quantità', 'Prezzo'],
+          rows: [
+            ['Tovagliolini stampati', 'Salviettine logate Badiani 17x17', '40 pacchetti', '€ 45.00']
+          ]
+        },
+        'CONTENITORI': {
+          title: 'Contenitori',
+          columns: ['Prodotto', 'Descrizione', 'Quantità', 'Prezzo'],
+          rows: [
+            ['RE-MAXIGEL 350', 'Vaschetta asporto gelato piccola (ottenuta dal riciclo della plastica)', '60 pz', '€ 55.00'],
+            ['RE-MAGIGEL 500', 'Vaschetta asporto gelato media (ottenuta dal riciclo della plastica)', '60 pz', '€ 55.00'],
+            ['RE-MAXIGEL 750', 'Vaschetta asporto gelato grande (ottenuta dal riciclo della plastica)', '60 pz', '€ 75.00'],
+            ['RE-MAXIGEL 1000', 'Vaschetta asporto gelato XL (ottenuta dal riciclo della plastica)', '60 pz', '€ 87.50'],
+            ['Contenitore polistirolo T2', 'Contenitore rettangolare in polistirolo 140x110x100', '80 pz', '€ 240.00']
+          ]
+        }
+      };
+
+      const CATEGORY_NOTES = {
+        'PEZZI DURI': '*ordine minimo o multipli'
+      };
+
+      const PRICING_NOTE = 'Prezzi IVA esclusa.';
+      const SHIPPING_INFO = [
+        "All'interno del comune di Firenze: costo di spedizione gratuita, il listino è valido per minimo 250 EUR per ordine (IVA esclusa);",
+        'gli ordini devono essere inviati con almeno 48 ore di preavviso;',
+        'nelle zone a traffico limitato, le consegne saranno effettuate in accordanza con i limiti orari di entrata e uscita.',
+        'Per spedizioni al di fuori del comune di Firenze: quotazione su richiesta, modalità e tempi di consegna da stabilire.'
+      ];
+
       function normalizeLang(lang){
         if(!lang) return DEFAULT_LANG;
         const base = String(lang).toLowerCase().split('-')[0];
@@ -1624,6 +1774,64 @@
         if(season === 'tutti') return true;
         if(flavor.seasons.includes(season)) return true;
         return false;
+      }
+
+      function renderTableSection({ title, columns, rows }){
+        if(!columns || !columns.length || !rows || !rows.length) return '';
+        const head = `
+          <thead>
+            <tr>${columns.map((col) => `<th>${col}</th>`).join('')}</tr>
+          </thead>
+        `;
+        const body = `
+          <tbody>
+            ${rows.map((row) => `<tr>${row.map((cell) => `<td>${cell}</td>`).join('')}</tr>`).join('')}
+          </tbody>
+        `;
+        return `
+          <div class="modal__section">
+            <h4>${title}</h4>
+            <div class="modal__table-wrap">
+              <table class="modal__table">
+                ${head}
+                ${body}
+              </table>
+            </div>
+          </div>
+        `;
+      }
+
+      function renderListSection(title, items){
+        if(!items || !items.length) return '';
+        return `
+          <div class="modal__section">
+            <h4>${title}</h4>
+            <ul class="list">
+              ${items.map((item) => `<li>${item}</li>`).join('')}
+            </ul>
+          </div>
+        `;
+      }
+
+      function renderCategoryContent(category){
+        if(!defaultContent) return;
+        const data = CATEGORY_DATA[category];
+        if(!data){
+          defaultContent.innerHTML = '';
+          return;
+        }
+        const note = CATEGORY_NOTES[category];
+        const sections = [
+          `<div class="modal__section"><p class="modal__note">${PRICING_NOTE}</p></div>`,
+          renderTableSection(data)
+        ];
+
+        if(note){
+          sections.push(`<div class="modal__section"><p class="modal__note">${note}</p></div>`);
+        }
+
+        sections.push(renderListSection('Spedizione', SHIPPING_INFO));
+        defaultContent.innerHTML = sections.join('');
       }
 
       function renderGelatoDetail(flavor){
@@ -1819,6 +2027,8 @@
         if(defaultContent) defaultContent.style.display = isGelato ? 'none' : '';
         if(isGelato){
           renderGelatoGrid();
+        }else{
+          renderCategoryContent(activeCategory);
         }
       }
 

@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../assets/badiani-common.css" />
+  <style>
+    .page-shell{ padding:48px clamp(16px, 4vw, 80px) 80px; }
+    .top-bar{ display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:32px; }
+    .back-link{ text-decoration:none; color:var(--badiani-blue); font-weight:600; letter-spacing:1px; text-transform:uppercase; font-size:12px; }
+
+    .hero{ background:var(--surface); border-radius:28px; padding:40px; box-shadow:0 18px 40px rgba(0,0,0,0.08); margin-bottom:36px; }
+    .hero h1{ font-size:clamp(28px, 3.6vw, 46px); margin-bottom:10px; }
+    .hero p{ font-size:clamp(15px, 1.5vw, 19px); color:#6a6b6e; max-width:860px; }
+
+    .magazine-wrap{ background:#f7f7fb; border-radius:28px; padding:28px; box-shadow:0 14px 30px rgba(0,0,0,0.08); }
+    .magazine-header{ display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:16px; }
+    .magazine-title{ font-size:clamp(20px, 2.2vw, 30px); text-transform:uppercase; letter-spacing:2px; color:var(--badiani-blue); }
+    .magazine-controls{ display:flex; gap:10px; }
+    .magazine-btn{ border:none; background:#fff; color:var(--badiani-blue); padding:8px 14px; border-radius:999px; cursor:pointer; box-shadow:0 6px 16px rgba(0,0,0,0.08); font-size:12px; letter-spacing:1px; text-transform:uppercase; }
+    .magazine-btn:focus-visible{ outline:2px solid var(--badiani-pink); outline-offset:3px; }
+
+    .magazine-track{
+      display:grid;
+      grid-auto-flow:column;
+      grid-auto-columns:minmax(260px, 320px);
+      gap:18px;
+      overflow-x:auto;
+      padding-bottom:10px;
+      scroll-snap-type:x mandatory;
+      -webkit-overflow-scrolling:touch;
+    }
+    .magazine-track::-webkit-scrollbar{ height:8px; }
+    .magazine-track::-webkit-scrollbar-thumb{ background:rgba(30,57,141,0.2); border-radius:999px; }
+
+    .article-card{
+      background:#fff;
+      border-radius:18px;
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      min-height:360px;
+      scroll-snap-align:start;
+      box-shadow:0 12px 26px rgba(0,0,0,0.08);
+      border:1px solid rgba(30,57,141,0.08);
+      text-decoration:none;
+      color:inherit;
+    }
+    .article-media{
+      position:relative;
+      aspect-ratio:4 / 3;
+      background:linear-gradient(135deg, rgba(30,57,141,0.85), rgba(240,103,166,0.75));
+      display:flex;
+      align-items:flex-end;
+      justify-content:flex-start;
+      padding:14px;
+      color:#fff;
+      font-size:11px;
+      letter-spacing:1px;
+      text-transform:uppercase;
+    }
+    .article-media img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+      filter:saturate(1.1) contrast(1.02);
+    }
+    .article-media span{ position:relative; z-index:1; background:rgba(0,0,0,0.5); padding:6px 10px; border-radius:999px; }
+
+    .article-body{ padding:16px 18px 20px; display:grid; gap:10px; }
+    .article-title{ font-size:16px; font-weight:600; color:var(--badiani-blue); line-height:1.35; }
+    .article-meta{ font-size:12px; text-transform:uppercase; letter-spacing:1px; color:#9aa0a6; }
+    .article-excerpt{ font-size:13px; color:#6a6b6e; line-height:1.5; }
+    .article-cta{ margin-top:auto; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; font-weight:600; color:var(--badiani-pink); }
+
+    .news-columns{ margin-top:28px; column-count:3; column-gap:24px; }
+    .news-columns h3{ break-inside:avoid; font-size:14px; text-transform:uppercase; letter-spacing:1px; color:var(--badiani-blue); margin-bottom:8px; }
+    .news-columns p{ break-inside:avoid; font-size:14px; color:#6a6b6e; margin-bottom:18px; line-height:1.6; }
+
+    @media(max-width:1024px){
+      .news-columns{ column-count:2; }
+    }
+    @media(max-width:720px){
+      .news-columns{ column-count:1; }
+      .magazine-controls{ display:none; }
+      .hero{ padding:28px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar" data-i18n-attr="aria-label:topbar.label">
+    <div class="topbar__logo">
+      <img src="../assets/extracted/f473fa4a48ae6948929084c736e84f6274322e2d.webp" alt="Badiani 1932" />
+    </div>
+    <div class="topbar__right">
+      <nav class="topbar__nav">
+        <a href="../eventi/" data-i18n="nav.eventi">Eventi</a>
+        <a href="../b2b/" data-i18n="nav.b2b">B2B</a>
+        <a href="./" data-i18n="nav.magazine">Magazine</a>
+      </nav>
+      <div class="topbar__lang">
+        <select class="topbar__select" id="langSelect" data-i18n-attr="aria-label:lang.label">
+          <option value="it" data-i18n="lang.it"></option>
+          <option value="en" data-i18n="lang.en"></option>
+          <option value="es" data-i18n="lang.es"></option>
+          <option value="fr" data-i18n="lang.fr"></option>
+        </select>
+      </div>
+    </div>
+  </header>
+
+  <main class="page-shell">
+    <div class="top-bar">
+      <a class="back-link" href="../" data-i18n="magazine.back">← Torna alla home</a>
+      <span class="category-tag" data-i18n="magazine.tag">Magazine</span>
+    </div>
+
+    <section class="hero" data-i18n-attr="aria-label:magazine.hero.label">
+      <h1 data-i18n="magazine.hero.title">Magazine</h1>
+      <p data-i18n="magazine.hero.subtitle">Una rassegna stampa con gli articoli che parlano di Badiani, sfogliabile come un giornale.</p>
+    </section>
+
+    <section class="magazine-wrap" data-i18n-attr="aria-label:magazine.list.label">
+      <div class="magazine-header">
+        <h2 class="magazine-title" data-i18n="magazine.list.title">Rassegna stampa</h2>
+        <div class="magazine-controls">
+          <button class="magazine-btn" type="button" id="magazinePrev" data-i18n="magazine.controls.prev">Indietro</button>
+          <button class="magazine-btn" type="button" id="magazineNext" data-i18n="magazine.controls.next">Avanti</button>
+        </div>
+      </div>
+      <div class="magazine-track" id="magazineTrack" aria-live="polite"></div>
+    </section>
+
+    <section class="news-columns" data-i18n-attr="aria-label:magazine.columns.label">
+      <h3 data-i18n="magazine.columns.title">In breve</h3>
+      <p data-i18n="magazine.columns.lead">Abbiamo raccolto link, articoli e segnalazioni dai media italiani e internazionali. Ogni card porta all’articolo originale.</p>
+      <p data-i18n="magazine.columns.note">Se vuoi aggiungere nuovi articoli, basta inserire il link nel file di rassegna stampa.</p>
+    </section>
+  </main>
+
+  <script>
+    (function(){
+      const SUPPORTED = ['it','en','fr','es'];
+      const DEFAULT_LANG = 'it';
+      const STORAGE_KEY = 'badianiLang';
+
+      const STRINGS = {
+        it: {
+          'meta.title': 'Badiani 1932 — Magazine',
+          'topbar.label': 'Barra brand',
+          'lang.label': 'Selettore lingua',
+          'lang.it': 'IT',
+          'lang.en': 'EN',
+          'lang.fr': 'FR',
+          'lang.es': 'ES',
+          'nav.eventi': 'Eventi',
+          'nav.b2b': 'B2B',
+          'nav.magazine': 'Magazine',
+          'magazine.back': '← Torna alla home',
+          'magazine.tag': 'Magazine',
+          'magazine.hero.label': 'Hero magazine',
+          'magazine.hero.title': 'Magazine',
+          'magazine.hero.subtitle': 'Una rassegna stampa con gli articoli che parlano di Badiani, sfogliabile come un giornale.',
+          'magazine.list.label': 'Rassegna stampa',
+          'magazine.list.title': 'Rassegna stampa',
+          'magazine.controls.prev': 'Indietro',
+          'magazine.controls.next': 'Avanti',
+          'magazine.columns.label': 'Colonne magazine',
+          'magazine.columns.title': 'In breve',
+          'magazine.columns.lead': 'Abbiamo raccolto link, articoli e segnalazioni dai media italiani e internazionali. Ogni card porta all’articolo originale.',
+          'magazine.columns.note': 'Se vuoi aggiungere nuovi articoli, basta inserire il link nel file di rassegna stampa.',
+          'magazine.card.cta': 'Leggi l’articolo'
+        },
+        en: {
+          'meta.title': 'Badiani 1932 — Magazine',
+          'topbar.label': 'Brand bar',
+          'lang.label': 'Language selector',
+          'lang.it': 'IT',
+          'lang.en': 'EN',
+          'lang.fr': 'FR',
+          'lang.es': 'ES',
+          'nav.eventi': 'Events',
+          'nav.b2b': 'B2B',
+          'nav.magazine': 'Magazine',
+          'magazine.back': '← Back to home',
+          'magazine.tag': 'Magazine',
+          'magazine.hero.label': 'Magazine hero',
+          'magazine.hero.title': 'Magazine',
+          'magazine.hero.subtitle': 'A press review with articles about Badiani, scrollable like a newspaper.',
+          'magazine.list.label': 'Press review',
+          'magazine.list.title': 'Press review',
+          'magazine.controls.prev': 'Prev',
+          'magazine.controls.next': 'Next',
+          'magazine.columns.label': 'Magazine columns',
+          'magazine.columns.title': 'In short',
+          'magazine.columns.lead': 'We collected links and articles from Italian and international media. Each card links to the original article.',
+          'magazine.columns.note': 'Add new articles by updating the press review file.',
+          'magazine.card.cta': 'Read the article'
+        },
+        fr: {
+          'meta.title': 'Badiani 1932 — Magazine',
+          'topbar.label': 'Barre de marque',
+          'lang.label': 'Sélecteur de langue',
+          'lang.it': 'IT',
+          'lang.en': 'EN',
+          'lang.fr': 'FR',
+          'lang.es': 'ES',
+          'nav.eventi': 'Événements',
+          'nav.b2b': 'B2B',
+          'nav.magazine': 'Magazine',
+          'magazine.back': '← Retour à l’accueil',
+          'magazine.tag': 'Magazine',
+          'magazine.hero.label': 'Hero magazine',
+          'magazine.hero.title': 'Magazine',
+          'magazine.hero.subtitle': 'Une revue de presse avec les articles qui parlent de Badiani, à feuilleter comme un journal.',
+          'magazine.list.label': 'Revue de presse',
+          'magazine.list.title': 'Revue de presse',
+          'magazine.controls.prev': 'Précédent',
+          'magazine.controls.next': 'Suivant',
+          'magazine.columns.label': 'Colonnes magazine',
+          'magazine.columns.title': 'En bref',
+          'magazine.columns.lead': 'Nous avons rassemblé des liens et articles de médias italiens et internationaux. Chaque carte renvoie à l’article original.',
+          'magazine.columns.note': 'Ajoutez de nouveaux articles en mettant à jour le fichier de revue de presse.',
+          'magazine.card.cta': 'Lire l’article'
+        },
+        es: {
+          'meta.title': 'Badiani 1932 — Magazine',
+          'topbar.label': 'Barra de marca',
+          'lang.label': 'Selector de idioma',
+          'lang.it': 'IT',
+          'lang.en': 'EN',
+          'lang.fr': 'FR',
+          'lang.es': 'ES',
+          'nav.eventi': 'Eventos',
+          'nav.b2b': 'B2B',
+          'nav.magazine': 'Magazine',
+          'magazine.back': '← Volver al inicio',
+          'magazine.tag': 'Magazine',
+          'magazine.hero.label': 'Hero magazine',
+          'magazine.hero.title': 'Magazine',
+          'magazine.hero.subtitle': 'Una recopilación de artículos sobre Badiani, desplazable como un periódico.',
+          'magazine.list.label': 'Recopilación de prensa',
+          'magazine.list.title': 'Recopilación de prensa',
+          'magazine.controls.prev': 'Anterior',
+          'magazine.controls.next': 'Siguiente',
+          'magazine.columns.label': 'Columnas magazine',
+          'magazine.columns.title': 'En breve',
+          'magazine.columns.lead': 'Hemos recopilado enlaces y artículos de medios italianos e internacionales. Cada tarjeta enlaza al artículo original.',
+          'magazine.columns.note': 'Agrega nuevos artículos actualizando el archivo de prensa.',
+          'magazine.card.cta': 'Leer el artículo'
+        }
+      };
+
+      const ARTICLES = [
+        {
+          title: 'Il Buontalenti di Badiani sbarca al Carrousel du Louvre',
+          source: 'Intoscana',
+          date: '26 giugno 2024',
+          url: 'https://www.intoscana.it/it/il-buontalenti-di-badiani-sbarca-al-carrousel-du-louvre/',
+          image: ''
+        },
+        {
+          title: 'Badiani in the World: Firenze val bene un Gelato',
+          source: 'Firenze Spettacolo',
+          date: '25 giugno 2024',
+          url: 'https://www.firenzespettacolo.it/badiani-in-the-world-firenze-val-bene-un-gelato-6791',
+          image: ''
+        },
+        {
+          title: 'Un gelato italiano al Louvre',
+          source: 'MAG 1861',
+          date: '3 luglio 2024',
+          url: 'https://www.mag1861.it/it/news/articolo/gelato_italiano_louvre-26997869',
+          image: 'https://www.mag1861.it/_next/image?url=https%3A%2F%2Fwww.mag1861.it%2Fpictures%2F2024%2F07%2F03%2F095105283-a88532bf-a304-4a88-b048-de27f83af4df.jpg&w=1920&q=75'
+        },
+        {
+          title: 'Paolo Pomposi della Gelateria Badiani è il miglior gelatiere d’Europa',
+          source: 'WineNews',
+          date: '5 ottobre 2015',
+          url: 'https://winenews.it/it/e-paolo-pomposi-della-gelateria-badiani-di-firenze_329420/',
+          image: 'https://static.winenews.it/2018/04/GelatoFestival.jpg'
+        },
+        {
+          title: 'Paolo Pomposi trionfa con “Dolce Vita” e diventa Miglior gelatiere d’Europa',
+          source: 'Italia a Tavola',
+          date: '6 ottobre 2015',
+          url: 'https://www.italiaatavola.net/horeca/2015/10/6/paolo-pomposi-trionfa-dolce-vita-diventa-miglior-gelatiere-europa/41435/',
+          image: ''
+        },
+        {
+          title: 'Il gusto La Dolcevita di Badiani conquista il London Gelato Festival',
+          source: 'Italia a Tavola',
+          date: '30 giugno 2015',
+          url: 'https://www.italiaatavola.net/alimenti-bevande/2015/6/30/gusto-dolcevita-badiani-conquista-london-gelato-festival/40310/',
+          image: 'https://www.italiaatavola.net/images/contenutiarticoli/Paolo-Pomposi.jpg'
+        },
+        {
+          title: 'Le migliori gelaterie artigianali di Firenze',
+          source: 'Dissapore',
+          date: '1 luglio 2024',
+          url: 'https://www.dissapore.com/locali/le-migliori-gelaterie-artigianali-di-firenze/?fbclid=PAZXh0bgNhZW0CMTEAAaYfn-_zQ7MroVx3JVakWPddcEBKqr5FpFFAyjcwfGScRPka3-vbPxeURBc_aem_qLOfaKEzchzHjyWtojCXWw',
+          image: 'https://images.dissapore.com/wp-content/uploads/2024/06/Edoardo-scaled-e1719826053163.jpg?width=1280&height=720&quality=50'
+        },
+        {
+          title: 'Crystal Launches New Gelato Collection',
+          source: 'Cruise Industry News',
+          date: '29 maggio 2025',
+          url: 'https://cruiseindustrynews.com/cruise-news/2025/05/crystal-launches-new-gelato-collection/',
+          image: 'https://cruiseindustrynews.com/wp-content/uploads/2025/05/crystal_gelato.jpg.webp'
+        },
+        {
+          title: 'Rassegna stampa (documento)',
+          source: 'Google Drive',
+          date: '',
+          url: 'https://drive.google.com/file/d/11Z8dCd4pCsp0k7z1Lg49wk-d3-gZ8Cr4/view?usp=sharing',
+          image: ''
+        },
+        {
+          title: 'Rassegna stampa (documento)',
+          source: 'Google Drive',
+          date: '',
+          url: 'https://drive.google.com/file/d/1FJY8X6u3uk1q-I8zRez5j4Qy_xRLDrXv/view?usp=sharing',
+          image: 'https://drive.google.com/drive-viewer/AKGpiha4qjT7U0qW4B5G8CR8_05_yXLUrs6qnj8T2hqiWiwlRqw7IAKVIyE-DYZur0p2YwdUbzkxmSt7Pp-RXUdKZ2GOFwIRQv-4XVg=s1600-rw-v1'
+        },
+        {
+          title: 'Rassegna stampa (documento)',
+          source: 'Google Drive',
+          date: '',
+          url: 'https://drive.google.com/file/d/13knh29b9nR18AEiq2kiz3vhXyLhX90Kr/view?usp=sharing',
+          image: 'https://drive.google.com/drive-viewer/AKGpihbzYZjG-nuZuOGoylBCm9QLZ8wigSo8qNIXzctZEmOtNdjqgqFJGCHaJGTHryxQflmGBwi61hloZmUuVG8KZL6LYi4gcOCe5Q=s1600-rw-v1'
+        },
+        {
+          title: 'Non solo arte, a Firenze si mangia pure un buon gelato',
+          source: 'Gambero Rosso',
+          date: '27 aprile 2025',
+          url: 'https://www.gamberorosso.it/notizie/rubriche/miniguide/migliori-gelaterie-di-firenze/',
+          image: 'https://static.gamberorosso.it/2025/04/Gelato-con-dietro-panoramica-di-Firenze.-Foto-di-Gelateria-della-Passera.jpg'
+        },
+        {
+          title: 'Instagram Post',
+          source: 'Instagram',
+          date: '',
+          url: 'https://www.instagram.com/p/C9wnAWjoB7O/?igsh=MThieWt4cXFicTcwNg%3D%3D',
+          image: ''
+        },
+        {
+          title: 'Badiani fa novant’anni. Una storia dolcissima',
+          source: 'La Nazione',
+          date: '18 settembre 2022',
+          url: 'https://www.lanazione.it/firenze/cronaca/badiani-fa-novantanni-una-storia-dolcissima-4d7cb30f',
+          image: ''
+        },
+        {
+          title: '90 anni di Badiani, il gelato di Firenze che spopola a Londra',
+          source: 'Dolcesalato',
+          date: '17 settembre 2022',
+          url: 'https://www.dolcesalato.com/2022/09/17/90-anni-di-badiani-il-gelato-di-firenze-che-spopola-a-londra/',
+          image: 'https://www.dolcesalato.com/wp-content/uploads/sites/5/2022/09/fs-sitonl-2022-09-16T141913.422.png'
+        }
+      ];
+
+      function normalizeLang(lang){
+        if(!lang) return DEFAULT_LANG;
+        const base = String(lang).toLowerCase().split('-')[0];
+        return SUPPORTED.includes(base) ? base : DEFAULT_LANG;
+      }
+
+      function getInitialLang(){
+        try{
+          const params = new URLSearchParams(window.location.search || '');
+          const q = params.get('lang');
+          if(q) return normalizeLang(q);
+        }catch{}
+        try{
+          const saved = localStorage.getItem(STORAGE_KEY);
+          if(saved) return normalizeLang(saved);
+        }catch{}
+        return normalizeLang(navigator.language || DEFAULT_LANG);
+      }
+
+      let currentLang = getInitialLang();
+
+      function t(key){
+        const dict = STRINGS[currentLang] || STRINGS[DEFAULT_LANG];
+        return dict && dict[key] ? dict[key] : '';
+      }
+
+      function renderArticles(){
+        const track = document.getElementById('magazineTrack');
+        if(!track) return;
+        track.innerHTML = '';
+        ARTICLES.forEach((article) => {
+          const card = document.createElement('a');
+          card.className = 'article-card';
+          card.href = article.url;
+          card.target = '_blank';
+          card.rel = 'noopener noreferrer';
+
+          const media = document.createElement('div');
+          media.className = 'article-media';
+          if(article.image){
+            const img = document.createElement('img');
+            img.src = article.image;
+            img.alt = article.title;
+            img.loading = 'lazy';
+            img.decoding = 'async';
+            media.appendChild(img);
+          }
+          const sourceTag = document.createElement('span');
+          sourceTag.textContent = article.source;
+          media.appendChild(sourceTag);
+
+          const body = document.createElement('div');
+          body.className = 'article-body';
+
+          const title = document.createElement('div');
+          title.className = 'article-title';
+          title.textContent = article.title;
+
+          const meta = document.createElement('div');
+          meta.className = 'article-meta';
+          meta.textContent = [article.source, article.date].filter(Boolean).join(' · ');
+
+          const excerpt = document.createElement('div');
+          excerpt.className = 'article-excerpt';
+          excerpt.textContent = article.url.replace(/^https?:\/\//, '');
+
+          const cta = document.createElement('div');
+          cta.className = 'article-cta';
+          cta.textContent = t('magazine.card.cta');
+
+          body.appendChild(title);
+          body.appendChild(meta);
+          body.appendChild(excerpt);
+          body.appendChild(cta);
+
+          card.appendChild(media);
+          card.appendChild(body);
+          track.appendChild(card);
+        });
+      }
+
+      function applyTranslations(){
+        document.documentElement.setAttribute('lang', currentLang);
+        document.title = t('meta.title');
+
+        document.querySelectorAll('[data-i18n]').forEach((el) => {
+          const key = el.getAttribute('data-i18n');
+          if(!key) return;
+          el.textContent = t(key);
+        });
+
+        document.querySelectorAll('[data-i18n-html]').forEach((el) => {
+          const key = el.getAttribute('data-i18n-html');
+          if(!key) return;
+          el.innerHTML = t(key);
+        });
+
+        document.querySelectorAll('[data-i18n-attr]').forEach((el) => {
+          const raw = el.getAttribute('data-i18n-attr') || '';
+          raw.split(',').forEach((pair) => {
+            const [attr, key] = pair.split(':').map((s) => s.trim());
+            if(attr && key) el.setAttribute(attr, t(key));
+          });
+        });
+
+        renderArticles();
+      }
+
+      function setLang(lang){
+        const next = normalizeLang(lang);
+        if(next === currentLang) return;
+        currentLang = next;
+        try{ localStorage.setItem(STORAGE_KEY, currentLang); }catch{}
+        applyTranslations();
+      }
+
+      const select = document.getElementById('langSelect');
+      if(select){
+        select.value = currentLang;
+        select.addEventListener('change', (e) => setLang(e.target.value));
+      }
+
+      const track = document.getElementById('magazineTrack');
+      const prevBtn = document.getElementById('magazinePrev');
+      const nextBtn = document.getElementById('magazineNext');
+      if(track && prevBtn && nextBtn){
+        const scrollBy = () => track.clientWidth * 0.8;
+        prevBtn.addEventListener('click', () => track.scrollBy({ left: -scrollBy(), behavior: 'smooth' }));
+        nextBtn.addEventListener('click', () => track.scrollBy({ left: scrollBy(), behavior: 'smooth' }));
+      }
+
+      applyTranslations();
+    })();
+  </script>
+</body>
+</html>
