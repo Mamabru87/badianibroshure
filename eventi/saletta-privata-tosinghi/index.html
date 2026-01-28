@@ -354,6 +354,57 @@
       .modal-info{
         max-height:none;
       }
+
+      /* Modal mobile: compatta come inspiration */
+      .modal-overlay{ padding:42px 12px 22px; align-items:center; }
+      .modal-content{ border-radius:18px; }
+      .modal-close{ top:8px; right:8px; width:40px; height:40px; font-size:22px; }
+      .modal-header{ padding:28px 18px 16px; }
+      .modal-title{ font-size:clamp(18px, 6vw, 24px); margin-bottom:6px; }
+      .modal-subtitle{ font-size:clamp(12px, 4vw, 16px); }
+      .modal-layout{ gap:10px; padding:0 18px 18px; }
+      .modal-media{ width:min(68vw, 240px); margin:0 auto; }
+      .modal-info{ padding:12px; max-height:50vh; overflow:hidden; }
+      .modal-section{ padding:10px 12px; margin-bottom:10px; }
+      .modal-section h4{ font-size:13px; margin-bottom:6px; letter-spacing:0.6px; }
+      .modal-section li,
+      .modal-section p{ font-size:12px; line-height:1.45; }
+
+      /* Mobile cards: swipeable like inspiration mobile */
+      .packages-grid{
+        display:flex;
+        gap:10px;
+        overflow-x:auto;
+        padding:6px 10px 10px;
+        margin-left:-10px;
+        margin-right:-10px;
+        scroll-snap-type:x mandatory;
+        scroll-padding-left:10px;
+        -webkit-overflow-scrolling:touch;
+      }
+      .packages-grid::-webkit-scrollbar{ display:none; }
+      .package-card{
+        flex:0 0 70vw;
+        max-width:280px;
+        min-width:200px;
+        scroll-snap-align:start;
+        border-radius:12px;
+      }
+      .package-card:hover{
+        transform:none;
+        box-shadow:0 15px 50px rgba(0,0,0,0.15);
+      }
+      .package-header{ padding:18px 16px; }
+      .package-name{ font-size:clamp(18px, 5vw, 22px); }
+      .package-price{ font-size:clamp(14px, 4vw, 18px); }
+      .package-body{ padding:16px; }
+      .package-desc{ font-size:13px; line-height:1.5; margin-bottom:14px; }
+      .package-features li{ font-size:12.5px; padding:8px 0; }
+      .package-note{ font-size:11px; margin-top:12px; }
+    }
+
+    @media (hover:none) and (pointer:coarse){
+      .package-card:hover{ transform:none; }
     }
   </style>
 </head>

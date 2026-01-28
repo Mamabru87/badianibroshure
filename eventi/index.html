@@ -269,6 +269,31 @@
       .van-grid{ gap:10px; }
       .van-card__body{ padding:16px; }
       .van-card__desc{ font-size:12px; }
+
+      /* Mobile cards: swipeable like inspiration mobile */
+      .van-grid{
+        display:flex;
+        gap:10px;
+        overflow-x:auto;
+        padding:6px 10px 10px;
+        margin-left:-10px;
+        margin-right:-10px;
+        scroll-snap-type:x mandatory;
+        scroll-padding-left:10px;
+        -webkit-overflow-scrolling:touch;
+      }
+      .van-grid::-webkit-scrollbar{ display:none; }
+      .van-card{
+        flex:0 0 70vw;
+        max-width:280px;
+        min-width:200px;
+        scroll-snap-align:start;
+        border-radius:12px;
+      }
+      .van-card:hover{
+        transform:none;
+        box-shadow:0 16px 40px rgba(0,0,0,0.12);
+      }
     }
 
     @media(max-width:600px){
