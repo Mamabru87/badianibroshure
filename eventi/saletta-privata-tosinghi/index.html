@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Saletta Privata Tosinghi — Eventi Badiani</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="../../assets/badiani-common.css" />
+  <style>
+    /* Page-specific styles for Saletta Privata Tosinghi */
+
+    .hero{
+      position:relative;
+      min-height:400px;
+      background:var(--badiani-blue);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      color:#fff;
+      padding:60px 20px;
+    }
+    .hero h1{
+      font-size:clamp(32px, 4.5vw, 54px);
+      color:#fff;
+      margin-bottom:16px;
+    }
+    .hero p{
+      font-size:clamp(16px, 1.8vw, 22px);
+      max-width:700px;
+      margin:0 auto;
+      opacity:0.95;
+    }
+
+    .section{
+      padding:clamp(48px, 8vw, 90px) clamp(16px, 4vw, 80px);
+      max-width:1400px;
+      margin:0 auto;
+    }
+    .section-title{
+      font-size:clamp(24px, 3vw, 38px);
+      text-align:center;
+      margin-bottom:50px;
+    }
+
+    /* PACCHETTI GRID */
+    .packages-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(340px, 1fr));
+      gap:32px;
+      margin-bottom:60px;
+    }
+    .package-card{
+      background:var(--surface);
+      border-radius:25px;
+      overflow:hidden;
+      box-shadow:0 15px 50px rgba(0,0,0,0.15);
+      transition:transform 0.4s ease, box-shadow 0.4s ease;
+      cursor:pointer;
+      display:flex;
+      flex-direction:column;
+    }
+    .package-card:hover{
+      transform:translateY(-12px);
+      box-shadow:0 25px 70px rgba(240,103,166,0.25);
+    }
+    .package-card.silver .package-header{ background:linear-gradient(135deg, var(--badiani-blue), #2a4ab0); }
+    .package-card.gold .package-header{ background:linear-gradient(135deg, var(--badiani-yellow), #e0ad00); }
+    .package-card.platinum .package-header{ background:linear-gradient(135deg, var(--badiani-pink), #ff7ab7); }
+
+    .package-header{
+      padding:40px 30px;
+      text-align:center;
+      color:#fff;
+    }
+    .package-name{
+      font-size:clamp(28px, 3vw, 36px);
+      letter-spacing:1px;
+      margin-bottom:12px;
+    }
+    .package-price{
+      font-size:clamp(20px, 2.2vw, 28px);
+      font-weight:700;
+      opacity:0.95;
+    }
+    .package-body{
+      padding:35px 30px;
+      flex:1;
+      display:flex;
+      flex-direction:column;
+    }
+    .package-desc{
+      font-size:16px;
+      color:#6a6b6e;
+      margin-bottom:24px;
+      line-height:1.7;
+    }
+    .package-features{
+      list-style:none;
+      padding:0;
+      margin-bottom:auto;
+    }
+    .package-features li{
+      font-size:15px;
+      padding:10px 0;
+      border-bottom:1px solid rgba(30,57,141,0.08);
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      line-height:1.5;
+    }
+    .package-features li::before{
+      content:"✓";
+      color:var(--badiani-pink);
+      font-size:18px;
+      font-weight:700;
+      flex-shrink:0;
+    }
+    .package-features strong{
+      color:var(--badiani-blue);
+      font-weight:600;
+    }
+    .package-note{
+      font-size:13px;
+      color:#90949a;
+      margin-top:20px;
+      font-style:italic;
+    }
+
+    /* MODAL */
+    .modal-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.75);
+      z-index:9999;
+      display:none;
+      opacity:0;
+      transition:opacity 0.4s ease;
+      overflow-y:auto;
+      padding:40px 20px;
+    }
+    .modal-overlay.active{
+      display:flex;
+      opacity:1;
+      align-items:flex-start;
+      justify-content:center;
+    }
+    .modal-content{
+      background:var(--surface);
+      border-radius:25px;
+      max-width:900px;
+      width:100%;
+      position:relative;
+      margin:auto;
+      box-shadow:0 30px 80px rgba(0,0,0,0.3);
+      transform:translateY(50px);
+      transition:transform 0.4s ease;
+    }
+    .modal-overlay.active .modal-content{
+      transform:translateY(0);
+    }
+    .modal-close{
+      position:absolute;
+      top:20px;
+      right:20px;
+      background:rgba(255,255,255,0.15);
+      border:none;
+      color:#fff;
+      font-size:32px;
+      width:50px;
+      height:50px;
+      border-radius:50%;
+      cursor:pointer;
+      transition:background 0.3s;
+      z-index:10;
+      line-height:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .modal-close:hover{
+      background:var(--badiani-pink);
+    }
+    .modal-header{
+      padding:50px 40px 30px;
+      text-align:center;
+    }
+    .modal-title{
+      font-size:clamp(28px, 3.5vw, 42px);
+      color:#fff;
+      margin-bottom:10px;
+    }
+    .modal-subtitle{
+      font-size:clamp(18px, 2vw, 24px);
+      color:rgba(255,255,255,0.9);
+    }
+    .modal-body{
+      padding:0 40px 40px;
+    }
+    .modal-section{
+      margin-bottom:30px;
+    }
+    .modal-section h4{
+      font-size:18px;
+      color:var(--badiani-blue);
+      margin-bottom:12px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+    }
+    .modal-section ul{
+      list-style:none;
+      padding:0;
+    }
+    .modal-section li{
+      padding:8px 0;
+      padding-left:22px;
+      position:relative;
+      font-size:15px;
+      line-height:1.6;
+    }
+    .modal-section li::before{
+      content:"•";
+      position:absolute;
+      left:0;
+      color:var(--badiani-pink);
+      font-weight:700;
+    }
+
+    /* TERMINI */
+    .terms{
+      background:rgba(30,57,141,0.04);
+      padding:30px;
+      border-radius:20px;
+      margin-top:40px;
+    }
+    .terms h3{
+      font-size:20px;
+      margin-bottom:16px;
+    }
+    .terms ul{
+      list-style:none;
+      padding:0;
+    }
+    .terms li{
+      font-size:14px;
+      padding:6px 0;
+      padding-left:20px;
+      position:relative;
+    }
+    .terms li::before{
+      content:"→";
+      position:absolute;
+      left:0;
+      color:var(--badiani-blue);
+    }
+
+    /* CONTACT */
+    .contact-footer{
+      background:var(--badiani-blue);
+      padding:40px 30px;
+      text-align:center;
+      color:#fff;
+    }
+    .contact-footer h3{
+      color:#fff;
+      font-size:24px;
+      margin-bottom:12px;
+    }
+    .contact-footer a{
+      color:var(--badiani-pink);
+      text-decoration:none;
+      font-size:20px;
+      font-weight:600;
+      letter-spacing:1px;
+    }
+    .contact-footer a:hover{
+      text-decoration:underline;
+    }
+
+    @media(max-width:768px){
+      .packages-grid{
+        grid-template-columns:1fr;
+      }
+      .modal-header, .modal-body{
+        padding-left:24px;
+        padding-right:24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar__logo">
+      <img src="../../assets/extracted/f473fa4a48ae6948929084c736e84f6274322e2d.webp" alt="Badiani 1932" />
+    </div>
+    <nav class="topbar__nav">
+      <a href="../../">Home</a>
+      <a href="../">Eventi</a>
+      <a href="../../b2b/">B2B</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>Il tuo party nella nostra saletta privata</h1>
+      <p>Scegli il pacchetto perfetto per il tuo evento nella nostra elegante saletta Tosinghi a Firenze</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2 class="section-title">Pacchetti Disponibili</h2>
+
+    <div class="packages-grid">
+      <!-- SILVER -->
+      <article class="package-card silver" onclick="openModal('silver')" tabindex="0" aria-label="Pacchetto Silver">
+        <div class="package-header">
+          <h3 class="package-name">SILVER</h3>
+          <p class="package-price">€20,00/persona</p>
+        </div>
+        <div class="package-body">
+          <p class="package-desc">Aperitivo di base con rustici e pizzette, bevande selezionate e un'esperienza classica.</p>
+          <ul class="package-features">
+            <li><strong>Food:</strong> Pizzette, tramezzini, rustici, panettone gastronomico</li>
+            <li><strong>Drink:</strong> 2 cocktail alcolici, 1 analcolico, Prosecco</li>
+            <li><strong>Durata:</strong> Fino a 1h 30min</li>
+            <li><strong>Prenotazione:</strong> Minimo 10 giorni prima</li>
+          </ul>
+          <p class="package-note">IVA inclusa • 15-35 pax sedute</p>
+        </div>
+      </article>
+
+      <!-- GOLD -->
+      <article class="package-card gold" onclick="openModal('gold')" tabindex="0" aria-label="Pacchetto Gold">
+        <div class="package-header">
+          <h3 class="package-name">GOLD</h3>
+          <p class="package-price">€30,00/persona</p>
+        </div>
+        <div class="package-body">
+          <p class="package-desc">Pacchetto premium con finger food gourmet, cocktail d'autore e un'esperienza ricca.</p>
+          <ul class="package-features">
+            <li><strong>Food:</strong> Panettone, 5 finger food, monoporzioni dolci o Buontalenti</li>
+            <li><strong>Drink:</strong> 2 cocktail alcolici, 1 analcolico, Franciacorta</li>
+            <li><strong>Durata:</strong> Fino a 2 ore</li>
+            <li><strong>Prenotazione:</strong> Minimo 10 giorni prima</li>
+          </ul>
+          <p class="package-note">IVA inclusa • 15-35 pax sedute</p>
+        </div>
+      </article>
+
+      <!-- PLATINUM -->
+      <article class="package-card platinum" onclick="openModal('platinum')" tabindex="0" aria-label="Pacchetto Platinum">
+        <div class="package-header">
+          <h3 class="package-name">PLATINUM</h3>
+          <p class="package-price">Da €40,00/persona</p>
+        </div>
+        <div class="package-body">
+          <p class="package-desc">L'esperienza definitiva con chef dedicato, champagne, servizio esclusivo e un evento completamente personalizzabile.</p>
+          <ul class="package-features">
+            <li><strong>Food:</strong> 7 finger food, gusto gelato dedicato (35+ pax), dolci cake designer</li>
+            <li><strong>Drink:</strong> Cocktail a tema personalizzato, 1 analcolico, Champagne</li>
+            <li><strong>Durata:</strong> Fino a 2 ore</li>
+            <li><strong>Extra:</strong> Allestimento personalizzabile</li>
+            <li><strong>Prenotazione:</strong> Minimo 14 giorni prima</li>
+          </ul>
+          <p class="package-note">IVA inclusa • Prezzo da valutare in base a preventivo</p>
+        </div>
+      </article>
+    </div>
+
+    <!-- TERMINI E CONDIZIONI -->
+    <div class="terms">
+      <h3>Termini e Condizioni</h3>
+      <ul>
+        <li><strong>Capienza:</strong> 15-35 persone sedute</li>
+        <li><strong>Extra drink:</strong> Prezzo pieno, pagamento immediato</li>
+        <li><strong>Acconto:</strong> 50% al momento della conferma</li>
+        <li><strong>Saldo:</strong> Entro il giorno dell'evento tramite bonifico</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- CONTACT FOOTER -->
+  <footer class="contact-footer">
+    <h3>Richiedi Informazioni</h3>
+    <a href="mailto:eventi@badiani1932.com">eventi@badiani1932.com</a>
+  </footer>
+
+  <!-- MODAL SILVER -->
+  <div class="modal-overlay" id="modalSilver" onclick="closeModal('silver')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal('silver')" aria-label="Chiudi">&times;</button>
+      <div class="package-header silver">
+        <h2 class="modal-title">PACCHETTO SILVER</h2>
+        <p class="modal-subtitle">€20,00 a persona (IVA inclusa)</p>
+      </div>
+      <div class="modal-body">
+        <div class="modal-section">
+          <h4>Food (tutto preparato da noi)</h4>
+          <ul>
+            <li>Pizzette</li>
+            <li>Tramezzini</li>
+            <li>Rustici</li>
+            <li>Panettone gastronomico (con farcitura a scelta: pesce / carne / vegetariano, quantità panettoni in base al numero di persone)</li>
+          </ul>
+        </div>
+        <div class="modal-section">
+          <h4>Drink (1 a persona, scelta tra)</h4>
+          <ul>
+            <li>2 cocktail alcolici (la scelta dei 2 tipi di cocktail la lasciamo al cliente fra i classici)</li>
+            <li>1 cocktail analcolico</li>
+            <li>Prosecco</li>
+          </ul>
+          <p style="font-size:14px;color:#90949a;margin-top:8px;">Per i cocktail verrà realizzato un menù come di consueto, esposto sulla postazione beverage</p>
+        </div>
+        <div class="modal-section">
+          <h4>Dettagli</h4>
+          <ul>
+            <li>Conferma prenotazione: minimo 10 giorni prima della data dell'evento</li>
+            <li>Durata evento: fino a 1 ora e 30 minuti</li>
+            <li>Capienza: 15-35 pax sedute</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL GOLD -->
+  <div class="modal-overlay" id="modalGold" onclick="closeModal('gold')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal('gold')" aria-label="Chiudi">&times;</button>
+      <div class="package-header gold">
+        <h2 class="modal-title">PACCHETTO GOLD</h2>
+        <p class="modal-subtitle">€30,00 a persona (IVA inclusa)</p>
+      </div>
+      <div class="modal-body">
+        <div class="modal-section">
+          <h4>Food (tutto preparato da noi)</h4>
+          <ul>
+            <li>Panettone gastronomico (pesce / carne / vegetariano a scelta, quantità panettoni in base al numero di persone)</li>
+            <li>5 tipi di finger food (a scelta da lista completa da concordare)</li>
+            <li>Monoporzioni dolci o coppetta Buontalenti</li>
+          </ul>
+        </div>
+        <div class="modal-section">
+          <h4>Drink (1 a persona, scelta tra)</h4>
+          <ul>
+            <li>2 cocktail alcolici (la scelta dei 2 tipi di cocktail la lasciamo al cliente fra i classici)</li>
+            <li>1 cocktail analcolico</li>
+            <li>Franciacorta</li>
+          </ul>
+          <p style="font-size:14px;color:#90949a;margin-top:8px;">Per i cocktail verrà realizzato un menù come di consueto, esposto sulla postazione beverage</p>
+        </div>
+        <div class="modal-section">
+          <h4>Dettagli</h4>
+          <ul>
+            <li>Conferma prenotazione: minimo 10 giorni prima della data dell'evento</li>
+            <li>Durata evento: fino a 2 ore</li>
+            <li>Capienza: 15-35 pax sedute</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL PLATINUM -->
+  <div class="modal-overlay" id="modalPlatinum" onclick="closeModal('platinum')">
+    <div class="modal-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal('platinum')" aria-label="Chiudi">&times;</button>
+      <div class="package-header platinum">
+        <h2 class="modal-title">PACCHETTO PLATINUM</h2>
+        <p class="modal-subtitle">A partire da €40,00 a persona (IVA inclusa)</p>
+      </div>
+      <div class="modal-body">
+        <div class="modal-section">
+          <h4>Food (tutto preparato da noi)</h4>
+          <ul>
+            <li>7 tipi di finger food (a scelta da lista completa da concordare)</li>
+            <li>Possibilità di concordare un gusto di gelato dedicato (per minimo 35 pax; prezzo da concordare a parte)</li>
+            <li>Monoporzioni o dolci creati dalla cake designer a tema evento</li>
+          </ul>
+        </div>
+        <div class="modal-section">
+          <h4>Drink (1 a persona, scelta tra)</h4>
+          <ul>
+            <li>Cocktail a tema con nome personalizzato</li>
+            <li>1 cocktail analcolico</li>
+            <li>Champagne</li>
+          </ul>
+          <p style="font-size:14px;color:#90949a;margin-top:8px;">Per i cocktail verrà realizzato un menù come di consueto, esposto sulla postazione beverage</p>
+        </div>
+        <div class="modal-section">
+          <h4>Extra</h4>
+          <ul>
+            <li>Allestimento personalizzabile</li>
+            <li>Concept creativo su misura per il tuo evento</li>
+          </ul>
+        </div>
+        <div class="modal-section">
+          <h4>Dettagli</h4>
+          <ul>
+            <li>Conferma prenotazione: minimo 14 giorni prima della data dell'evento</li>
+            <li>Durata evento: fino a 2 ore</li>
+            <li>Capienza: 15-35 pax sedute</li>
+            <li>Prezzo da valutare in base al preventivo dei prodotti scelti dalla cake designer</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModal(type) {
+      const modal = document.getElementById('modal' + type.charAt(0).toUpperCase() + type.slice(1));
+      if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeModal(type) {
+      const modal = document.getElementById('modal' + type.charAt(0).toUpperCase() + type.slice(1));
+      if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // Close on Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-overlay').forEach(m => {
+          m.classList.remove('active');
+        });
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Keyboard navigation for cards
+    document.querySelectorAll('.package-card').forEach(card => {
+      card.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.click();
+        }
+      });
+    });
+  </script>
+</body>
+</html>
