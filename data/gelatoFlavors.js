@@ -48,6 +48,66 @@ export const gelatoFlavors = [
     isTub: true
   },
   {
+    id: "buontalenti-delattosato",
+    nameKey: "flavor.buontalentiDelattosato",
+    label: "Buontalenti Delattosato",
+    seasons: ["tutti"],
+    image: "../foto_vasche/Buontalenti Delattosato/buontalenti_delattosato.png",
+    detailImage: "../foto_vasche/Buontalenti Delattosato/buontalenti_delattosato-2.png",
+    ingredients: [],
+    allergens: [],
+    flags: { vegan: false, glutenFree: true, lactoseFree: true, containsEggs: false, containsNuts: false, containsAlcohol: false },
+    isTub: true
+  },
+  {
+    id: "buontalenti-fondente",
+    nameKey: "flavor.buontalentiFondente",
+    label: "Buontalenti Fondente",
+    seasons: ["tutti"],
+    image: "../foto_vasche/Buontalenti Fondente/buontalenti_fondente.png",
+    detailImage: "../foto_vasche/Buontalenti Fondente/buontalenti_fondente-2.png",
+    ingredients: [],
+    allergens: [],
+    flags: { vegan: true, glutenFree: true, lactoseFree: true, containsEggs: false, containsNuts: false, containsAlcohol: false },
+    isTub: true
+  },
+  {
+    id: "caffe",
+    nameKey: "flavor.caffe",
+    label: "Caffè",
+    seasons: ["tutti"],
+    image: "../foto_vasche/Caffè/caffè.png",
+    detailImage: "../foto_vasche/Caffè/caffè-2.png",
+    ingredients: [],
+    allergens: [],
+    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false },
+    isTub: true
+  },
+  {
+    id: "caramello-salato",
+    nameKey: "flavor.caramelloSalato",
+    label: "Caramello Salato",
+    seasons: ["tutti"],
+    image: "../foto_vasche/Caramello Salato/caramello_salato.png",
+    detailImage: "../foto_vasche/Caramello Salato/caramello_salato-2.png",
+    ingredients: [],
+    allergens: [],
+    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false },
+    isTub: true
+  },
+  {
+    id: "cassandra",
+    nameKey: "flavor.cassandra",
+    label: "Cassandra",
+    seasons: ["tutti"],
+    image: "../foto_vasche/Cassandra/cassandra.png",
+    detailImage: "../foto_vasche/Cassandra/cassandra-2.png",
+    ingredients: [],
+    allergens: [],
+    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false },
+    isTub: true
+  },
+  {
     id: "fior-di-latte",
     nameKey: "flavor.fiorDiLatte",
     seasons: ["tutti"],
