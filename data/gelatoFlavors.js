@@ -12,6 +12,18 @@ export const gelatoFlavors = [
     isTub: true
   },
   {
+    id: "la-dolcevita",
+    nameKey: "flavor.laDolcevita",
+    label: "La Dolcevita",
+    seasons: ["tutti"],
+    image: "../foto_vasche/La Dolcevita/la_dolcevita.png",
+    detailImage: "../foto_vasche/La Dolcevita/la_dolcevita-2.png",
+    ingredients: [],
+    allergens: [],
+    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: true, containsAlcohol: false },
+    isTub: true
+  },
+  {
     id: "buontalenti-pistacchio",
     nameKey: "flavor.buontalentiPistacchio",
     label: "Buontalenti al Pistacchio",
@@ -78,8 +90,8 @@ export const gelatoFlavors = [
     seasons: ["tutti"],
     image: "../foto_vasche/Caffè/caffè.png",
     detailImage: "../foto_vasche/Caffè/caffè-2.png",
-    ingredients: [],
-    allergens: [],
+    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.zucchero", "gelato.ingredients.caffe"],
+    allergens: ["gelato.allergens.latte"],
     flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false },
     isTub: true
   },
@@ -90,8 +102,8 @@ export const gelatoFlavors = [
     seasons: ["tutti"],
     image: "../foto_vasche/Caramello Salato/caramello_salato.png",
     detailImage: "../foto_vasche/Caramello Salato/caramello_salato-2.png",
-    ingredients: [],
-    allergens: [],
+    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.panna", "gelato.ingredients.zucchero", "gelato.ingredients.caramello", "gelato.ingredients.sale"],
+    allergens: ["gelato.allergens.latte"],
     flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false },
     isTub: true
   },
@@ -108,372 +120,207 @@ export const gelatoFlavors = [
     isTub: true
   },
   {
-    id: "fior-di-latte",
-    nameKey: "flavor.fiorDiLatte",
-    seasons: ["tutti"],
-    image: "../images/gusti/fior-di-latte.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.panna", "gelato.ingredients.zucchero"],
-    allergens: ["gelato.allergens.latte"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "stracciatella",
-    nameKey: "flavor.stracciatella",
-    seasons: ["tutti"],
-    image: "../images/gusti/stracciatella.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.panna", "gelato.ingredients.zucchero", "gelato.ingredients.cioccolato"],
-    allergens: ["gelato.allergens.latte"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "cioccolato-fondente",
-    nameKey: "flavor.cioccolatoFondente",
-    seasons: ["tutti"],
-    image: "../pdf_extracted/chocolate.png",
-    ingredients: ["gelato.ingredients.base-latte-acqua", "gelato.ingredients.zucchero", "gelato.ingredients.cacao"],
-    allergens: [],
-    flags: { vegan: true, glutenFree: true, lactoseFree: true, containsEggs: false, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "nocciola",
-    nameKey: "flavor.nocciola",
-    seasons: ["tutti"],
-    image: "../pdf_extracted/hezelnut.png",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.panna", "gelato.ingredients.zucchero", "gelato.ingredients.nocciole"],
-    allergens: ["gelato.allergens.latte", "gelato.allergens.frutta-guscio"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: true, containsAlcohol: false }
-  },
-  {
-    id: "pistacchio",
-    nameKey: "flavor.pistacchio",
-    seasons: ["tutti"],
-    image: "../images/gusti/pistacchio.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.panna", "gelato.ingredients.zucchero", "gelato.ingredients.pistacchio"],
-    allergens: ["gelato.allergens.latte", "gelato.allergens.frutta-guscio"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: true, containsAlcohol: false }
-  },
-  {
-    id: "mandorla",
-    nameKey: "flavor.mandorla",
+    id: "cheesecake-frutti-rossi",
+    nameKey: "flavor.cheesecakeFruttiRossi",
+    label: "Cheesecake Frutti Rossi",
     seasons: ["primavera", "estate"],
-    image: "../images/gusti/mandorla.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.zucchero", "gelato.ingredients.mandorle"],
-    allergens: ["gelato.allergens.latte", "gelato.allergens.frutta-guscio"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: true, containsAlcohol: false }
+    image: "../foto_vasche/Cheesecake Frutti Rossi/cheesecake_fruttirossi.png",
+    detailImage: "../foto_vasche/Cheesecake Frutti Rossi/cheesecake_fruttirossi-2.png",
+    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.zucchero", "gelato.ingredients.base-cheesecake"],
+    allergens: ["gelato.allergens.latte", "gelato.allergens.glutine"],
+    flags: { vegan: false, glutenFree: false, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false },
+    isTub: true
   },
   {
-    id: "crema",
-    nameKey: "flavor.crema",
+    id: "cioccolato-al-latte",
+    nameKey: "flavor.cioccolatoLatte",
+    label: "Cioccolato al latte",
     seasons: ["tutti"],
-    image: "../images/gusti/crema.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.panna", "gelato.ingredients.zucchero", "gelato.ingredients.tuorlo"],
-    allergens: ["gelato.allergens.latte", "gelato.allergens.uova"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: true, containsNuts: false, containsAlcohol: false }
+    image: "../foto_vasche/Cioccolato al latte/cioccolato_al_latte.png",
+    detailImage: "../foto_vasche/Cioccolato al latte/cioccolato_al_latte-2.png",
+    ingredients: [],
+    allergens: [],
+    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false },
+    isTub: true
   },
   {
-    id: "vaniglia",
-    nameKey: "flavor.vaniglia",
+    id: "cioccolato-bianco-arancia",
+    nameKey: "flavor.cioccolatoBiancoArancia",
+    label: "Cioccolato bianco all’arancia",
     seasons: ["tutti"],
-    image: "../images/gusti/vaniglia.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.panna", "gelato.ingredients.zucchero", "gelato.ingredients.vaniglia"],
-    allergens: ["gelato.allergens.latte"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "caffe",
-    nameKey: "flavor.caffe",
-    seasons: ["tutti"],
-    image: "../images/gusti/caffe.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.zucchero", "gelato.ingredients.caffe"],
-    allergens: ["gelato.allergens.latte"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "tiramisu",
-    nameKey: "flavor.tiramisu",
-    seasons: ["autunno", "inverno"],
-    image: "../images/gusti/tiramisu.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.zucchero", "gelato.ingredients.caffe", "gelato.ingredients.mascarpone"],
-    allergens: ["gelato.allergens.latte", "gelato.allergens.uova"],
-    flags: { vegan: false, glutenFree: false, lactoseFree: false, containsEggs: true, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "caramello-salato",
-    nameKey: "flavor.caramelloSalato",
-    seasons: ["tutti"],
-    image: "../images/gusti/caramello-salato.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.panna", "gelato.ingredients.zucchero", "gelato.ingredients.caramello", "gelato.ingredients.sale"],
-    allergens: ["gelato.allergens.latte"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "gianduia",
-    nameKey: "flavor.gianduia",
-    seasons: ["tutti"],
-    image: "../images/gusti/gianduia.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.zucchero", "gelato.ingredients.cacao", "gelato.ingredients.nocciole"],
-    allergens: ["gelato.allergens.latte", "gelato.allergens.frutta-guscio"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: true, containsAlcohol: false }
-  },
-  {
-    id: "bacio",
-    nameKey: "flavor.bacio",
-    seasons: ["tutti"],
-    image: "../images/gusti/bacio.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.zucchero", "gelato.ingredients.cacao", "gelato.ingredients.nocciole"],
-    allergens: ["gelato.allergens.latte", "gelato.allergens.frutta-guscio"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: true, containsAlcohol: false }
-  },
-  {
-    id: "menta",
-    nameKey: "flavor.menta",
-    seasons: ["estate"],
-    image: "../images/gusti/menta.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.zucchero", "gelato.ingredients.menta"],
-    allergens: ["gelato.allergens.latte"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "menta-cioccolato",
-    nameKey: "flavor.mentaCioccolato",
-    seasons: ["estate"],
-    image: "../images/gusti/menta-cioccolato.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.zucchero", "gelato.ingredients.menta", "gelato.ingredients.cioccolato"],
-    allergens: ["gelato.allergens.latte"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "amarena",
-    nameKey: "flavor.amarena",
-    seasons: ["primavera", "estate"],
-    image: "../images/gusti/amarena.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.zucchero", "gelato.ingredients.amarena"],
-    allergens: ["gelato.allergens.latte"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "yogurt",
-    nameKey: "flavor.yogurt",
-    seasons: ["primavera", "estate"],
-    image: "../images/gusti/yogurt.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.zucchero", "gelato.ingredients.yogurt"],
-    allergens: ["gelato.allergens.latte"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "limone",
-    nameKey: "flavor.limoneSorbetto",
-    seasons: ["estate"],
-    image: "../images/gusti/limone.jpg",
-    ingredients: ["gelato.ingredients.acqua", "gelato.ingredients.zucchero", "gelato.ingredients.limone"],
+    image: "../foto_vasche/Cioccolato Bianco all_Arancia/cioccolato_bianco_all_arancia.png",
+    detailImage: "../foto_vasche/Cioccolato Bianco all_Arancia/cioccolato_bianco_all_arancia-2.png",
+    ingredients: [],
     allergens: [],
-    flags: { vegan: true, glutenFree: true, lactoseFree: true, containsEggs: false, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "fragola",
-    nameKey: "flavor.fragolaSorbetto",
-    seasons: ["primavera", "estate"],
-    image: "../images/gusti/fragola.jpg",
-    ingredients: ["gelato.ingredients.acqua", "gelato.ingredients.zucchero", "gelato.ingredients.fragola"],
-    allergens: [],
-    flags: { vegan: true, glutenFree: true, lactoseFree: true, containsEggs: false, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "lampone",
-    nameKey: "flavor.lamponeSorbetto",
-    seasons: ["estate"],
-    image: "../images/gusti/lampone.jpg",
-    ingredients: ["gelato.ingredients.acqua", "gelato.ingredients.zucchero", "gelato.ingredients.lampone"],
-    allergens: [],
-    flags: { vegan: true, glutenFree: true, lactoseFree: true, containsEggs: false, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "frutti-di-bosco",
-    nameKey: "flavor.fruttiDiBoscoSorbetto",
-    seasons: ["estate"],
-    image: "../images/gusti/frutti-di-bosco.jpg",
-    ingredients: ["gelato.ingredients.acqua", "gelato.ingredients.zucchero", "gelato.ingredients.frutti-di-bosco"],
-    allergens: [],
-    flags: { vegan: true, glutenFree: true, lactoseFree: true, containsEggs: false, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "mango",
-    nameKey: "flavor.mangoSorbetto",
-    seasons: ["estate"],
-    image: "../images/gusti/mango.jpg",
-    ingredients: ["gelato.ingredients.acqua", "gelato.ingredients.zucchero", "gelato.ingredients.mango"],
-    allergens: [],
-    flags: { vegan: true, glutenFree: true, lactoseFree: true, containsEggs: false, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "passion-fruit",
-    nameKey: "flavor.passionFruitSorbetto",
-    seasons: ["estate"],
-    image: "../images/gusti/passion-fruit.jpg",
-    ingredients: ["gelato.ingredients.acqua", "gelato.ingredients.zucchero", "gelato.ingredients.frutto-passione"],
-    allergens: [],
-    flags: { vegan: true, glutenFree: true, lactoseFree: true, containsEggs: false, containsNuts: false, containsAlcohol: false }
+    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false },
+    isTub: true
   },
   {
     id: "cocco",
     nameKey: "flavor.cocco",
+    label: "Cocco",
     seasons: ["estate"],
-    image: "../images/gusti/cocco.jpg",
+    image: "../foto_vasche/Cocco/cocco.png",
+    detailImage: "../foto_vasche/Cocco/cocco-2.png",
     ingredients: ["gelato.ingredients.latte", "gelato.ingredients.zucchero", "gelato.ingredients.cocco"],
     allergens: ["gelato.allergens.latte"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false }
+    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false },
+    isTub: true
   },
   {
-    id: "banana",
-    nameKey: "flavor.banana",
-    seasons: ["estate"],
-    image: "../images/gusti/banana.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.zucchero", "gelato.ingredients.banana"],
-    allergens: ["gelato.allergens.latte"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "rum-uvetta",
-    nameKey: "flavor.rumUvetta",
-    seasons: ["autunno", "inverno"],
-    image: "../images/gusti/rum-uvetta.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.zucchero", "gelato.ingredients.uvetta", "gelato.ingredients.rum"],
-    allergens: ["gelato.allergens.latte"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: true }
-  },
-  {
-    id: "zabaione",
-    nameKey: "flavor.zabaione",
-    seasons: ["autunno", "inverno"],
-    image: "../images/gusti/zabaione.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.zucchero", "gelato.ingredients.tuorlo", "gelato.ingredients.vino"],
-    allergens: ["gelato.allergens.latte", "gelato.allergens.uova"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: true, containsNuts: false, containsAlcohol: true }
-  },
-  {
-    id: "liquirizia",
-    nameKey: "flavor.liquirizia",
-    seasons: ["autunno", "inverno"],
-    image: "../images/gusti/liquirizia.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.zucchero", "gelato.ingredients.liquirizia"],
-    allergens: ["gelato.allergens.latte"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "cannella",
-    nameKey: "flavor.cannella",
-    seasons: ["autunno", "inverno"],
-    image: "../images/gusti/cannella.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.zucchero", "gelato.ingredients.cannella"],
-    allergens: ["gelato.allergens.latte"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "arancia",
-    nameKey: "flavor.aranciaSorbetto",
-    seasons: ["inverno"],
-    image: "../images/gusti/arancia.jpg",
-    ingredients: ["gelato.ingredients.acqua", "gelato.ingredients.zucchero", "gelato.ingredients.arancia"],
+    id: "cremino-al-pistacchio",
+    nameKey: "flavor.creminoPistacchio",
+    label: "Cremino al Pistacchio",
+    seasons: ["tutti"],
+    image: "../foto_vasche/Cremino al Pistacchio/cremino_al_pistacchio.png",
+    detailImage: "../foto_vasche/Cremino al Pistacchio/cremino_al_pistacchio-2.png",
+    ingredients: [],
     allergens: [],
-    flags: { vegan: true, glutenFree: true, lactoseFree: true, containsEggs: false, containsNuts: false, containsAlcohol: false }
+    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: true, containsAlcohol: false },
+    isTub: true
   },
   {
-    id: "mandarino",
-    nameKey: "flavor.mandarinoSorbetto",
-    seasons: ["inverno"],
-    image: "../images/gusti/mandarino.jpg",
-    ingredients: ["gelato.ingredients.acqua", "gelato.ingredients.zucchero", "gelato.ingredients.mandarino"],
+    id: "cremino-alla-nocciola",
+    nameKey: "flavor.creminoNocciola",
+    label: "Cremino alla Nocciola",
+    seasons: ["tutti"],
+    image: "../foto_vasche/Cremino alla Nocciola/cremino_alla_nocciola.png",
+    detailImage: "../foto_vasche/Cremino alla Nocciola/cremino_alla_nocciola-2.png",
+    ingredients: [],
     allergens: [],
-    flags: { vegan: true, glutenFree: true, lactoseFree: true, containsEggs: false, containsNuts: false, containsAlcohol: false }
+    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: true, containsAlcohol: false },
+    isTub: true
   },
   {
-    id: "pistacchio-salato",
-    nameKey: "flavor.pistacchioSalato",
-    seasons: ["tutti"],
-    image: "../images/gusti/pistacchio-salato.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.zucchero", "gelato.ingredients.pistacchio", "gelato.ingredients.sale"],
-    allergens: ["gelato.allergens.latte", "gelato.allergens.frutta-guscio"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: true, containsAlcohol: false }
-  },
-  {
-    id: "ricotta-pera",
-    nameKey: "flavor.ricottaPera",
-    seasons: ["autunno", "inverno"],
-    image: "../images/gusti/ricotta-pera.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.zucchero", "gelato.ingredients.ricotta", "gelato.ingredients.pera"],
-    allergens: ["gelato.allergens.latte"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "panna",
-    nameKey: "flavor.panna",
-    seasons: ["tutti"],
-    image: "../images/gusti/panna.jpg",
-    ingredients: ["gelato.ingredients.panna", "gelato.ingredients.latte", "gelato.ingredients.zucchero"],
-    allergens: ["gelato.allergens.latte"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "biscotto",
-    nameKey: "flavor.biscotto",
-    seasons: ["tutti"],
-    image: "../images/gusti/biscotto.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.zucchero", "gelato.ingredients.biscotto"],
-    allergens: ["gelato.allergens.latte", "gelato.allergens.glutine"],
-    flags: { vegan: false, glutenFree: false, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "cheesecake-frutti-rossi",
-    nameKey: "flavor.cheesecakeFruttiRossi",
+    id: "fragola",
+    nameKey: "flavor.fragolaSorbetto",
+    label: "Fragola",
     seasons: ["primavera", "estate"],
-    image: "../images/gusti/cheesecake-frutti-rossi.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.zucchero", "gelato.ingredients.base-cheesecake"],
-    allergens: ["gelato.allergens.latte", "gelato.allergens.glutine"],
-    flags: { vegan: false, glutenFree: false, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "pesca",
-    nameKey: "flavor.pescaSorbetto",
-    seasons: ["estate"],
-    image: "../images/gusti/pesca.jpg",
-    ingredients: ["gelato.ingredients.acqua", "gelato.ingredients.zucchero", "gelato.ingredients.pesca"],
+    image: "../foto_vasche/Fragola/fragola.png",
+    detailImage: "../foto_vasche/Fragola/fragola-2.png",
+    ingredients: ["gelato.ingredients.acqua", "gelato.ingredients.zucchero", "gelato.ingredients.fragola"],
     allergens: [],
-    flags: { vegan: true, glutenFree: true, lactoseFree: true, containsEggs: false, containsNuts: false, containsAlcohol: false }
+    flags: { vegan: true, glutenFree: true, lactoseFree: true, containsEggs: false, containsNuts: false, containsAlcohol: false },
+    isTub: true
   },
   {
-    id: "albicocca",
-    nameKey: "flavor.albicoccaSorbetto",
-    seasons: ["estate"],
-    image: "../images/gusti/albicocca.jpg",
-    ingredients: ["gelato.ingredients.acqua", "gelato.ingredients.zucchero", "gelato.ingredients.albicocca"],
-    allergens: [],
-    flags: { vegan: true, glutenFree: true, lactoseFree: true, containsEggs: false, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "fico",
-    nameKey: "flavor.fico",
-    seasons: ["estate", "autunno"],
-    image: "../images/gusti/fico.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.zucchero", "gelato.ingredients.fico"],
-    allergens: ["gelato.allergens.latte"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "ananas",
-    nameKey: "flavor.ananasSorbetto",
-    seasons: ["estate"],
-    image: "../images/gusti/ananas.jpg",
-    ingredients: ["gelato.ingredients.acqua", "gelato.ingredients.zucchero", "gelato.ingredients.ananas"],
-    allergens: [],
-    flags: { vegan: true, glutenFree: true, lactoseFree: true, containsEggs: false, containsNuts: false, containsAlcohol: false }
-  },
-  {
-    id: "sesamo",
-    nameKey: "flavor.sesamo",
+    id: "fondente",
+    nameKey: "flavor.fondente",
+    label: "Fondente",
     seasons: ["tutti"],
-    image: "../images/gusti/sesamo.jpg",
-    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.zucchero", "gelato.ingredients.sesamo"],
-    allergens: ["gelato.allergens.latte", "gelato.allergens.sesamo"],
-    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false }
+    image: "../foto_vasche/Fondente/fondente.png",
+    detailImage: "../foto_vasche/Fondente/fondente-2.png",
+    ingredients: ["gelato.ingredients.base-latte-acqua", "gelato.ingredients.zucchero", "gelato.ingredients.cacao"],
+    allergens: [],
+    flags: { vegan: true, glutenFree: true, lactoseFree: true, containsEggs: false, containsNuts: false, containsAlcohol: false },
+    isTub: true
+  },
+  {
+    id: "lampone",
+    nameKey: "flavor.lamponeSorbetto",
+    label: "Lampone",
+    seasons: ["estate"],
+    image: "../foto_vasche/Lampone/lampone.png",
+    detailImage: "../foto_vasche/Lampone/lampone-2.png",
+    ingredients: ["gelato.ingredients.acqua", "gelato.ingredients.zucchero", "gelato.ingredients.lampone"],
+    allergens: [],
+    flags: { vegan: true, glutenFree: true, lactoseFree: true, containsEggs: false, containsNuts: false, containsAlcohol: false },
+    isTub: true
+  },
+  {
+    id: "limone",
+    nameKey: "flavor.limoneSorbetto",
+    label: "Limone",
+    seasons: ["estate"],
+    image: "../foto_vasche/Limone/limone.png",
+    detailImage: "../foto_vasche/Limone/limone-2.png",
+    ingredients: ["gelato.ingredients.acqua", "gelato.ingredients.zucchero", "gelato.ingredients.limone"],
+    allergens: [],
+    flags: { vegan: true, glutenFree: true, lactoseFree: true, containsEggs: false, containsNuts: false, containsAlcohol: false },
+    isTub: true
+  },
+  {
+    id: "malaga",
+    nameKey: "flavor.malaga",
+    label: "Malaga",
+    seasons: ["tutti"],
+    image: "../foto_vasche/Malaga/malaga.png",
+    detailImage: "../foto_vasche/Malaga/malaga-2.png",
+    ingredients: [],
+    allergens: [],
+    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: true },
+    isTub: true
+  },
+  {
+    id: "mango",
+    nameKey: "flavor.mangoSorbetto",
+    label: "Mango",
+    seasons: ["estate"],
+    image: "../foto_vasche/Mango/mango.png",
+    detailImage: "../foto_vasche/Mango/mango-2.png",
+    ingredients: ["gelato.ingredients.acqua", "gelato.ingredients.zucchero", "gelato.ingredients.mango"],
+    allergens: [],
+    flags: { vegan: true, glutenFree: true, lactoseFree: true, containsEggs: false, containsNuts: false, containsAlcohol: false },
+    isTub: true
+  },
+  {
+    id: "nocciola",
+    nameKey: "flavor.nocciola",
+    label: "Nocciola",
+    seasons: ["tutti"],
+    image: "../foto_vasche/Nocciola/nocciola.png",
+    detailImage: "../foto_vasche/Nocciola/nocciola-2.png",
+    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.panna", "gelato.ingredients.zucchero", "gelato.ingredients.nocciole"],
+    allergens: ["gelato.allergens.latte", "gelato.allergens.frutta-guscio"],
+    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: true, containsAlcohol: false },
+    isTub: true
+  },
+  {
+    id: "pistacchio",
+    nameKey: "flavor.pistacchio",
+    label: "Pistacchio",
+    seasons: ["tutti"],
+    image: "../foto_vasche/Pistacchio/pistacchio.png",
+    detailImage: "../foto_vasche/Pistacchio/pistacchio-2.png",
+    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.panna", "gelato.ingredients.zucchero", "gelato.ingredients.pistacchio"],
+    allergens: ["gelato.allergens.latte", "gelato.allergens.frutta-guscio"],
+    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: true, containsAlcohol: false },
+    isTub: true
+  },
+  {
+    id: "stracciatella",
+    nameKey: "flavor.stracciatella",
+    label: "Stracciatella",
+    seasons: ["tutti"],
+    image: "../foto_vasche/Stracciatella/stracciatella.png",
+    detailImage: "../foto_vasche/Stracciatella/stracciatella-2.png",
+    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.panna", "gelato.ingredients.zucchero", "gelato.ingredients.cioccolato"],
+    allergens: ["gelato.allergens.latte"],
+    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false },
+    isTub: true
+  },
+  {
+    id: "tiramisù",
+    nameKey: "flavor.tiramisu",
+    label: "Tiramisù",
+    seasons: ["autunno", "inverno"],
+    image: "../foto_vasche/Tiramisù/tiramisù.png",
+    detailImage: "../foto_vasche/Tiramisù/tiramisù-2.png",
+    ingredients: ["gelato.ingredients.latte", "gelato.ingredients.zucchero", "gelato.ingredients.caffe", "gelato.ingredients.mascarpone"],
+    allergens: ["gelato.allergens.latte", "gelato.allergens.uova"],
+    flags: { vegan: false, glutenFree: false, lactoseFree: false, containsEggs: true, containsNuts: false, containsAlcohol: false },
+    isTub: true
+  },
+  {
+    id: "yogurt-mirtillo",
+    nameKey: "flavor.yogurtMirtillo",
+    label: "Yogurt Mirtillo",
+    seasons: ["tutti"],
+    image: "../foto_vasche/Yogurt Mirtillo/yogurt_mirtillo.png",
+    detailImage: "../foto_vasche/Yogurt Mirtillo/yogurt_mirtillo-2.png",
+    ingredients: [],
+    allergens: [],
+    flags: { vegan: false, glutenFree: true, lactoseFree: false, containsEggs: false, containsNuts: false, containsAlcohol: false },
+    isTub: true
   }
 ];

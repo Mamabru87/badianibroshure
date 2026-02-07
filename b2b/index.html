@@ -495,7 +495,12 @@
       display:flex;
       flex-direction:column;
       min-height:100%;
+      cursor:pointer;
+      transition:transform 0.2s ease, box-shadow 0.2s ease;
     }
+    .pezziduri-card:hover{ transform:translateY(-2px); box-shadow:0 16px 30px rgba(0,0,0,0.1); }
+    .pezziduri-card:focus-visible{ outline:2px solid rgba(30,57,141,0.6); outline-offset:3px; }
+    .pezziduri-card.is-expanded{ grid-column:span 2; }
     .pezziduri-media{
       width:100%;
       aspect-ratio:1 / 1;
@@ -614,6 +619,10 @@
       .torte-card.is-expanded{ grid-column:span 1; }
     }
 
+    @media(max-width:768px){
+      .pezziduri-card.is-expanded{ grid-column:span 1; }
+    }
+
     @media(max-width:840px){
       .modal__body{ grid-template-columns:200px 1fr; }
     }
@@ -659,7 +668,7 @@
       .modal__content{ padding:20px 22px 24px; }
     }
     @media(max-width:768px){
-      .gelato-grid{ grid-template-columns:repeat(2, minmax(0, 1fr)); }
+      .gelato-grid{ grid-template-columns:repeat(3, minmax(0, 1fr)); }
       .gelato-detail{ position:relative; opacity:1; transform:none; pointer-events:auto; }
       .gelato-detail.is-collapsed{ height:auto; padding:16px; border:1px solid rgba(30,57,141,0.12); }
     }
@@ -1936,6 +1945,7 @@
       let activeGelatoId = '';
       let expandedFlavorId = '';
       let expandedTorteId = '';
+      let expandedPezziDuriId = '';
       let lastGridRects = null;
       const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -2002,8 +2012,9 @@
             const src = PEZZI_DURI_IMAGES[name];
             if(!src) return '';
             const imageSrc = encodeURI(src);
+            const isExpanded = expandedPezziDuriId === name;
             return `
-              <article class="pezziduri-card">
+              <article class="pezziduri-card${isExpanded ? ' is-expanded' : ''}" data-pezziduri-id="${name}" role="button" tabindex="0" aria-expanded="${isExpanded ? 'true' : 'false'}">
                 <div class="pezziduri-media">
                   <img src="${imageSrc}" alt="${name}" loading="lazy" decoding="async" />
                 </div>
@@ -2087,6 +2098,25 @@
         });
       }
 
+      function setupPezziDuriZoom(){
+        const cards = defaultContent ? defaultContent.querySelectorAll('.pezziduri-card[data-pezziduri-id]') : [];
+        cards.forEach((card) => {
+          const id = card.dataset.pezziduriId;
+          if(!id) return;
+          card.addEventListener('click', () => {
+            expandedPezziDuriId = expandedPezziDuriId === id ? '' : id;
+            renderCategoryContent('PEZZI DURI');
+          });
+          card.addEventListener('keydown', (event) => {
+            if(event.key === 'Enter' || event.key === ' '){
+              event.preventDefault();
+              expandedPezziDuriId = expandedPezziDuriId === id ? '' : id;
+              renderCategoryContent('PEZZI DURI');
+            }
+          });
+        });
+      }
+
       function renderCategoryContent(category){
         if(!defaultContent) return;
         const data = CATEGORY_DATA[category];
@@ -2113,6 +2143,9 @@
 
         if(category === 'TORTE'){
           requestAnimationFrame(setupTorteZoom);
+        }
+        if(category === 'PEZZI DURI'){
+          requestAnimationFrame(setupPezziDuriZoom);
         }
 
         sections.push(renderListSection('Spedizione', SHIPPING_INFO));
@@ -2219,9 +2252,10 @@
           btn.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
           const flavorName = tGelato(flavor.nameKey) || flavor.label || flavor.id;
           const imageSrc = isExpanded && flavor.detailImage ? flavor.detailImage : flavor.image;
+          const imageUrl = encodeURI(imageSrc);
           const mediaBlock = `
             <div class=\"gelato-card__media\">
-              <img src=\"${imageSrc}\" alt=\"${flavorName}\" loading=\"lazy\" decoding=\"async\" />
+              <img src=\"${imageUrl}\" alt=\"${flavorName}\" loading=\"lazy\" decoding=\"async\" />
             </div>
             <span>${flavorName}</span>
           `;
