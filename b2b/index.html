@@ -298,7 +298,7 @@
     .gelato-header{ display:grid; gap:6px; }
     .gelato-header h4{ font-size:16px; text-transform:uppercase; letter-spacing:1px; color:var(--badiani-blue); }
     .gelato-header p{ font-size:14px; color:#6a6b6e; }
-    .gelato-controls{ display:flex; flex-wrap:wrap; gap:14px; }
+    .gelato-controls{ display:flex; flex-wrap:wrap; gap:14px; align-items:flex-end; }
     .gelato-control{
       display:flex;
       flex-direction:column;
@@ -306,6 +306,24 @@
       min-width:180px;
       flex:1;
     }
+    .gelato-control--search{
+      flex:0 1 260px;
+      min-width:200px;
+    }
+    .gelato-control--search input{
+      width:100%;
+      background:#f5f6f8;
+      border-color:rgba(30,57,141,0.12);
+      box-shadow:inset 0 1px 2px rgba(30,57,141,0.08);
+      padding-left:34px;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' stroke='%2390949a' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='7' cy='7' r='5'/%3E%3Cpath d='M11 11l4 4'/%3E%3C/svg%3E");
+      background-repeat:no-repeat;
+      background-position:12px center;
+      background-size:16px;
+      -webkit-appearance:none;
+      appearance:none;
+    }
+    .gelato-control--search input::placeholder{ color:#9aa0a6; }
     .gelato-control label{ font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#90949a; }
     .gelato-control select,
     .gelato-control input{
@@ -466,6 +484,29 @@
       display:block;
       background:#f0f1f3;
     }
+    .gelato-vasche{
+      display:grid;
+      gap:12px;
+    }
+    .gelato-vasche__toggle{
+      justify-self:flex-start;
+      padding:10px 16px;
+      border-radius:999px;
+      border:1px solid rgba(30,57,141,0.2);
+      background:#fff;
+      color:var(--badiani-blue);
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:1px;
+      font-weight:600;
+      cursor:pointer;
+    }
+    .gelato-vasche__toggle.is-open{
+      background:var(--badiani-blue);
+      color:#fff;
+      border-color:var(--badiani-blue);
+    }
+    .gelato-vasche__content[hidden]{ display:none; }
     .gelato-section-title{ font-size:12px; text-transform:uppercase; letter-spacing:1px; color:#90949a; }
     .gelato-list{ display:grid; gap:6px; font-size:13px; color:#4a4f57; }
     .gelato-flags{ display:grid; gap:8px; }
@@ -749,10 +790,6 @@
           <h3 class="category-title" data-i18n="b2b.categories.GELATO"></h3>
           <p class="category-desc" data-i18n-html="b2b.categories.desc"></p>
         </article>
-        <article class="category-card b2b-card--vasche" data-category="VASCHE" role="button" tabindex="0" aria-haspopup="dialog">
-          <h3 class="category-title" data-i18n="b2b.categories.VASCHE"></h3>
-          <p class="category-desc" data-i18n-html="b2b.categories.desc"></p>
-        </article>
         <article class="category-card b2b-card--pezziduri" data-category="PEZZI DURI" role="button" tabindex="0" aria-haspopup="dialog">
           <h3 class="category-title" data-i18n="b2b.categories.PEZZI_DURI"></h3>
           <p class="category-desc" data-i18n-html="b2b.categories.desc"></p>
@@ -761,24 +798,12 @@
           <h3 class="category-title" data-i18n="b2b.categories.TORTE"></h3>
           <p class="category-desc" data-i18n-html="b2b.categories.desc"></p>
         </article>
-        <article class="category-card b2b-card--coppette" data-category="COPPETTE" role="button" tabindex="0" aria-haspopup="dialog">
-          <h3 class="category-title" data-i18n="b2b.categories.COPPETTE"></h3>
+        <article class="category-card b2b-card--cono" data-category="CONI_COPPETTE" role="button" tabindex="0" aria-haspopup="dialog">
+          <h3 class="category-title" data-i18n="b2b.categories.CONI_COPPETTE"></h3>
           <p class="category-desc" data-i18n-html="b2b.categories.desc"></p>
         </article>
-        <article class="category-card b2b-card--cono" data-category="CONO" role="button" tabindex="0" aria-haspopup="dialog">
-          <h3 class="category-title" data-i18n="b2b.categories.CONO"></h3>
-          <p class="category-desc" data-i18n-html="b2b.categories.desc"></p>
-        </article>
-        <article class="category-card" data-category="PALETTINE" role="button" tabindex="0" aria-haspopup="dialog">
-          <h3 class="category-title" data-i18n="b2b.categories.PALETTINE"></h3>
-          <p class="category-desc" data-i18n-html="b2b.categories.desc"></p>
-        </article>
-        <article class="category-card b2b-card--cialde" data-category="CIALDE" role="button" tabindex="0" aria-haspopup="dialog">
-          <h3 class="category-title" data-i18n="b2b.categories.CIALDE"></h3>
-          <p class="category-desc" data-i18n-html="b2b.categories.desc"></p>
-        </article>
-        <article class="category-card" data-category="TOVAGLIOLI" role="button" tabindex="0" aria-haspopup="dialog">
-          <h3 class="category-title" data-i18n="b2b.categories.TOVAGLIOLI"></h3>
+        <article class="category-card" data-category="ACCESSORI" role="button" tabindex="0" aria-haspopup="dialog">
+          <h3 class="category-title" data-i18n="b2b.categories.ACCESSORI"></h3>
           <p class="category-desc" data-i18n-html="b2b.categories.desc"></p>
         </article>
         <article class="category-card b2b-card--contenitori" data-category="CONTENITORI" role="button" tabindex="0" aria-haspopup="dialog">
@@ -842,26 +867,20 @@
         </aside>
         <div class="modal__content" id="categoryContent">
           <div class="gelato-showcase" id="gelatoShowcase">
+            <div class="gelato-vasche">
+              <button class="gelato-vasche__toggle" id="vascheToggle" type="button" data-i18n="b2b.gelato.vascheButton" aria-expanded="false"></button>
+              <div class="gelato-vasche__content" id="vascheContent" hidden></div>
+            </div>
             <div class="gelato-header">
-                <h4 data-gelato-i18n="vetrinaGelato.title"></h4>
-                <p data-gelato-i18n="vetrinaGelato.subtitle"></p>
+              <h4 data-gelato-i18n="vetrinaGelato.title"></h4>
+              <p data-gelato-i18n="vetrinaGelato.subtitle"></p>
+            </div>
+            <div class="gelato-controls">
+              <div class="gelato-control gelato-control--search">
+                <label for="gelatoSearch" data-gelato-i18n="common.search"></label>
+                <input id="gelatoSearch" type="search" data-gelato-i18n-attr="placeholder:vetrinaGelato.searchPlaceholder" />
               </div>
-              <div class="gelato-controls">
-                <div class="gelato-control">
-                  <label for="gelatoSeason" data-gelato-i18n="vetrinaGelato.filterSeason"></label>
-                  <select id="gelatoSeason">
-                    <option value="tutti" data-gelato-i18n="vetrinaGelato.filterAll"></option>
-                    <option value="primavera" data-gelato-i18n="seasons.primavera"></option>
-                    <option value="estate" data-gelato-i18n="seasons.estate"></option>
-                    <option value="autunno" data-gelato-i18n="seasons.autunno"></option>
-                    <option value="inverno" data-gelato-i18n="seasons.inverno"></option>
-                  </select>
-                </div>
-                <div class="gelato-control">
-                  <label for="gelatoSearch" data-gelato-i18n="common.search"></label>
-                  <input id="gelatoSearch" type="search" data-gelato-i18n-attr="placeholder:vetrinaGelato.searchPlaceholder" />
-                </div>
-              </div>
+            </div>
             <div class="gelato-body">
               <div>
                 <div class="gelato-section-title" data-gelato-i18n="vetrinaGelato.gridTitle"></div>
@@ -970,11 +989,8 @@
           'b2b.categories.TORTE': 'TORTE',
           'b2b.categories.SEMIFREDDI': 'SEMIFREDDI',
           'b2b.categories.BARATTOLI': 'BARATTOLI',
-          'b2b.categories.COPPETTE': 'COPPETTE',
-          'b2b.categories.CONO': 'CONO',
-          'b2b.categories.PALETTINE': 'PALETTINE',
-          'b2b.categories.CIALDE': 'CIALDE',
-          'b2b.categories.TOVAGLIOLI': 'TOVAGLIOLI',
+          'b2b.categories.CONI_COPPETTE': 'CONI & COPPETTE',
+          'b2b.categories.ACCESSORI': 'ACCESSORI',
           'b2b.categories.CONTENITORI': 'CONTENITORI',
           'b2b.experiences.label': 'Esperienze B2B',
           'b2b.experiences.title': 'Esperienze B2B',
@@ -1028,6 +1044,7 @@
           'gelato.filters.season.winter': 'Inverno',
           'gelato.filters.search.label': 'Cerca gusto',
           'gelato.filters.search.placeholder': 'Cerca per nome...',
+          'b2b.gelato.vascheButton': 'Vasche: mostra listino',
           'gelato.detail.empty': 'Seleziona un gusto per vedere i dettagli.',
           'gelato.detail.ingredients': 'Ingredienti',
           'gelato.detail.allergens': 'Allergeni',
@@ -1171,11 +1188,8 @@
           'b2b.categories.TORTE': 'CAKES',
           'b2b.categories.SEMIFREDDI': 'SEMIFREDDI',
           'b2b.categories.BARATTOLI': 'JARS',
-          'b2b.categories.COPPETTE': 'CUPS',
-          'b2b.categories.CONO': 'CONE',
-          'b2b.categories.PALETTINE': 'STICKS',
-          'b2b.categories.CIALDE': 'WAFERS',
-          'b2b.categories.TOVAGLIOLI': 'NAPKINS',
+          'b2b.categories.CONI_COPPETTE': 'CONES & CUPS',
+          'b2b.categories.ACCESSORI': 'ACCESSORIES',
           'b2b.categories.CONTENITORI': 'CONTAINERS',
           'b2b.experiences.label': 'B2B experiences',
           'b2b.experiences.title': 'B2B experiences',
@@ -1229,6 +1243,7 @@
           'gelato.filters.season.winter': 'Winter',
           'gelato.filters.search.label': 'Search flavor',
           'gelato.filters.search.placeholder': 'Search by name...',
+          'b2b.gelato.vascheButton': 'Tubs: show price list',
           'gelato.detail.empty': 'Select a flavor to see details.',
           'gelato.detail.ingredients': 'Ingredients',
           'gelato.detail.allergens': 'Allergens',
@@ -1372,11 +1387,8 @@
           'b2b.categories.TORTE': 'GÂTEAUX',
           'b2b.categories.SEMIFREDDI': 'SEMIFREDDI',
           'b2b.categories.BARATTOLI': 'BOCAUX',
-          'b2b.categories.COPPETTE': 'COUPES',
-          'b2b.categories.CONO': 'CORNÉTS',
-          'b2b.categories.PALETTINE': 'BÂTONNETS',
-          'b2b.categories.CIALDE': 'GAUFRETTES',
-          'b2b.categories.TOVAGLIOLI': 'SERVIETTES',
+          'b2b.categories.CONI_COPPETTE': 'CORNÉTS & COUPES',
+          'b2b.categories.ACCESSORI': 'ACCESSOIRES',
           'b2b.categories.CONTENITORI': 'CONTENANTS',
           'b2b.experiences.label': 'Expériences B2B',
           'b2b.experiences.title': 'Expériences B2B',
@@ -1430,6 +1442,7 @@
           'gelato.filters.season.winter': 'Hiver',
           'gelato.filters.search.label': 'Rechercher un parfum',
           'gelato.filters.search.placeholder': 'Rechercher par nom...',
+          'b2b.gelato.vascheButton': 'Bacs : afficher la liste',
           'gelato.detail.empty': 'Sélectionnez un parfum pour voir les détails.',
           'gelato.detail.ingredients': 'Ingrédients',
           'gelato.detail.allergens': 'Allergènes',
@@ -1573,11 +1586,8 @@
           'b2b.categories.TORTE': 'TARTAS',
           'b2b.categories.SEMIFREDDI': 'SEMIFREDDI',
           'b2b.categories.BARATTOLI': 'TARROS',
-          'b2b.categories.COPPETTE': 'COPAS',
-          'b2b.categories.CONO': 'CONO',
-          'b2b.categories.PALETTINE': 'PALETAS',
-          'b2b.categories.CIALDE': 'OBLEAS',
-          'b2b.categories.TOVAGLIOLI': 'SERVILLETAS',
+          'b2b.categories.CONI_COPPETTE': 'CONOS & COPAS',
+          'b2b.categories.ACCESSORI': 'ACCESORIOS',
           'b2b.categories.CONTENITORI': 'CONTENEDORES',
           'b2b.experiences.label': 'Experiencias B2B',
           'b2b.experiences.title': 'Experiencias B2B',
@@ -1631,6 +1641,7 @@
           'gelato.filters.season.winter': 'Invierno',
           'gelato.filters.search.label': 'Buscar sabor',
           'gelato.filters.search.placeholder': 'Buscar por nombre...',
+          'b2b.gelato.vascheButton': 'Cubas: ver lista',
           'gelato.detail.empty': 'Selecciona un sabor para ver los detalles.',
           'gelato.detail.ingredients': 'Ingredientes',
           'gelato.detail.allergens': 'Alérgenos',
@@ -1819,45 +1830,27 @@
             ['Millefoglie Buontalenti con salsa Pistacchio', '€ 28.00/Kg']
           ]
         },
-        'CONO': {
-          title: 'Coni',
+        'CONI_COPPETTE': {
+          title: 'Coni & Coppette',
           columns: ['Prodotto', 'Descrizione', 'Quantità', 'Prezzo'],
           rows: [
             ['Sottozero', 'Coni Piccoli', '264 pz', '€ 30.00'],
             ['Maxi 1', 'Coni Medi', '220 pz', '€ 30.00'],
             ['Maxi 2', 'Coni Grandi', '216 pz', '€ 30.00'],
             ['Coni Gluten free (083)', '1^ misura', '240 pz', '€ 45.00'],
-            ['Coni Gluten free (084)', '2^ misura', '212 pz', '€ 45.00']
-          ]
-        },
-        'PALETTINE': {
-          title: 'Palettine',
-          columns: ['Prodotto', 'Descrizione', 'Quantità', 'Prezzo'],
-          rows: [
-            ['Hawaii', 'Palettine gelato', '1 Kg', '€ 15.00']
-          ]
-        },
-        'COPPETTE': {
-          title: 'Coppette',
-          columns: ['Prodotto', 'Descrizione', 'Quantità', 'Prezzo'],
-          rows: [
+            ['Coni Gluten free (084)', '2^ misura', '212 pz', '€ 45.00'],
             ['Bicchierini 16B', 'Coppette piccole 80cc', '250 pz', '€ 27.00'],
             ['Bicchierini 108', 'Coppette medie 120cc', '250 pz', '€ 30.00'],
             ['Bicchierini 4C', 'Coppette grandi 160cc', '200 pz', '€ 22.50'],
             ['Bicchierini 4CA', 'Coppette XL 200cc', '200 pz', '€ 22.50']
           ]
         },
-        'CIALDE': {
-          title: 'Cialde',
+        'ACCESSORI': {
+          title: 'Accessori',
           columns: ['Prodotto', 'Descrizione', 'Quantità', 'Prezzo'],
           rows: [
-            ['Cialdine', 'Cialdine logate Badiani', '1200pz', '€ 45.00']
-          ]
-        },
-        'TOVAGLIOLI': {
-          title: 'Tovagliolini',
-          columns: ['Prodotto', 'Descrizione', 'Quantità', 'Prezzo'],
-          rows: [
+            ['Hawaii', 'Palettine gelato', '1 Kg', '€ 15.00'],
+            ['Cialdine', 'Cialdine logate Badiani', '1200pz', '€ 45.00'],
             ['Tovagliolini stampati', 'Salviettine logate Badiani 17x17', '40 pacchetti', '€ 45.00']
           ]
         },
@@ -1950,8 +1943,9 @@
       const gelatoShowcase = document.getElementById('gelatoShowcase');
       const gelatoGrid = document.getElementById('gelatoGrid');
       const gelatoDetail = document.getElementById('gelatoDetail');
-      const gelatoSeason = document.getElementById('gelatoSeason');
       const gelatoSearch = document.getElementById('gelatoSearch');
+      const vascheToggle = document.getElementById('vascheToggle');
+      const vascheContent = document.getElementById('vascheContent');
       const defaultContent = document.getElementById('b2bDefaultContent');
       let expandedFlavorId = '';
       let expandedTorteId = '';
@@ -2015,6 +2009,12 @@
             </ul>
           </div>
         `;
+      }
+
+      function renderVascheSection(){
+        const data = CATEGORY_DATA['VASCHE'];
+        if(!data) return '';
+        return renderTableSection(data);
       }
 
       function renderPezziDuriGallery(rows){
@@ -2339,7 +2339,7 @@
 
       function renderGelatoGrid(){
         if(!gelatoGrid) return;
-        const season = gelatoSeason ? gelatoSeason.value : 'tutti';
+        const season = 'tutti';
         const query = gelatoSearch ? gelatoSearch.value.trim().toLowerCase() : '';
         const filtered = gelatoFlavors.filter((flavor) => {
           const name = (tGelato(flavor.nameKey) || flavor.label || flavor.id).toLowerCase();
@@ -2439,6 +2439,9 @@
         if(defaultContent) defaultContent.style.display = isGelato ? 'none' : '';
         if(isGelato){
           renderGelatoGrid();
+          if(vascheContent){
+            vascheContent.innerHTML = renderVascheSection();
+          }
         }else{
           renderCategoryContent(activeCategory);
         }
@@ -2537,11 +2540,26 @@
         langSelect.addEventListener('change', (e) => setLang(e.target.value));
       }
 
-      if(gelatoSeason){
-        gelatoSeason.addEventListener('change', renderGelatoGrid);
-      }
       if(gelatoSearch){
         gelatoSearch.addEventListener('input', renderGelatoGrid);
+      }
+
+      if(vascheToggle && vascheContent){
+        vascheToggle.addEventListener('click', () => {
+          const willOpen = vascheContent.hasAttribute('hidden');
+          if(willOpen){
+            vascheContent.removeAttribute('hidden');
+            vascheToggle.classList.add('is-open');
+            vascheToggle.setAttribute('aria-expanded', 'true');
+            requestAnimationFrame(() => {
+              vascheContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+          }else{
+            vascheContent.setAttribute('hidden', '');
+            vascheToggle.classList.remove('is-open');
+            vascheToggle.setAttribute('aria-expanded', 'false');
+          }
+        });
       }
 
       renderCategoryNav();
