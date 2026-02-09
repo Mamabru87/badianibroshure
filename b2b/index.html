@@ -378,11 +378,13 @@
       aspect-ratio:3081 / 4393;
     }
     .gelato-card span{
-      font-size:12px;
-      letter-spacing:0.5px;
+      font-size:13px;
+      font-weight:600;
+      letter-spacing:0.3px;
       padding:8px 10px;
-      color:#4a4f57;
+      color:var(--badiani-blue);
       background:#fafbfc;
+      text-align:center;
     }
     .gelato-card:focus-visible{
       outline:2px solid rgba(30,57,141,0.6);
@@ -617,7 +619,7 @@
     .pezziduri-card.is-expanded{ grid-column:span 2; }
     .pezziduri-media{
       width:100%;
-      aspect-ratio:1 / 1;
+      aspect-ratio:3 / 4;
       background:#f0f1f3;
       overflow:hidden;
       position:relative;
@@ -627,6 +629,12 @@
       height:100%;
       object-fit:cover;
       display:block;
+    }
+    .pezziduri-card.is-expanded .pezziduri-media{
+      aspect-ratio:1 / 1;
+    }
+    .pezziduri-card.is-expanded .pezziduri-media img{
+      object-fit:cover;
     }
     .pezziduri-body{
       padding:12px 14px 14px;
@@ -749,7 +757,7 @@
         z-index:2;
         position:relative;
       }
-      .pezziduri-card.is-expanded .pezziduri-media{ aspect-ratio:3 / 4; }
+      .pezziduri-card.is-expanded .pezziduri-media{ aspect-ratio:1 / 1; }
     }
 
     @media(max-width:840px){
