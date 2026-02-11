@@ -20,6 +20,25 @@
   font-display: swap;
 }
 
+/* Digits-only font: SuperGroteskC for numbers 0-9 everywhere */
+@font-face {
+  font-family: 'SuperGroteskDigits';
+  src: url('fonts/SuperGroteskC-MedLF.otf') format('opentype');
+  font-weight: 1 1000;
+  font-style: normal;
+  unicode-range: U+0030-0039;
+  font-display: swap;
+}
+
+/* Full SuperGroteskC for elements that reference it explicitly */
+@font-face {
+  font-family: 'SuperGroteskC';
+  src: url('fonts/SuperGroteskC-MedLF.otf') format('opentype');
+  font-weight: 1 1000;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* CSS Variables */
 :root {
   --badiani-blue: #1e398d;
@@ -51,7 +70,7 @@ html {
 }
 
 body, html {
-  font-family: 'SuperGroteskA', 'SuperGroteskB', sans-serif;
+  font-family: 'SuperGroteskDigits', 'SuperGroteskA', 'SuperGroteskB', sans-serif;
   font-weight: 400;
   font-size: 16px;
   -webkit-font-smoothing: antialiased;
@@ -101,7 +120,7 @@ body > *:nth-child(15){ animation-delay: 0.88s; }
 }
 
 h1, h2, h3 {
-  font-family: 'SuperGroteskB', 'SuperGroteskA', sans-serif;
+  font-family: 'SuperGroteskDigits', 'SuperGroteskB', 'SuperGroteskA', sans-serif;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.6px;

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
@@ -24,225 +24,143 @@
     .intro h1{ font-size:clamp(28px, 3.6vw, 48px); margin-bottom:16px; }
     .intro p{ font-size:clamp(16px, 1.6vw, 20px); color:#6a6b6e; }
 
-    .hero-intro{
-      padding:var(--space-xl) clamp(16px, 4vw, 80px) var(--space-lg);
+    /* HERO - VIDEO + TITLE (inspiration style) */
+    .hero{
+      position:relative;
+      height:550px;
+      overflow:hidden;
+      display:grid;
+      place-items:center;
       text-align:center;
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:16px;
-      background:linear-gradient(135deg, #f0f2f7 0%, #e8ecf4 100%);
+      color:#fff;
+      background:#000;
     }
-    .hero-intro__logo img{
-      height:52px;
-      width:auto;
-      filter:brightness(0.95);
+    .hero video{
+      position:absolute;
+      top:0; left:0;
+      width:100%; height:100%;
+      object-fit:cover;
+      object-position:center center;
+      filter:brightness(0.32);
+      transition: filter 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .hero-intro__title{
-      font-size:clamp(30px, 4vw, 56px);
-      color:var(--badiani-blue);
-      letter-spacing:1px;
+    .hero:hover video,
+    .hero.is-active video{
+      filter:brightness(1) saturate(1.1);
+      transform:scale(1.05);
+    }
+    .hero-content{
+      position:relative;
+      z-index:2;
+      width:100%;
+      max-width:900px;
+      padding:20px;
+      transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .hero:hover .hero-content,
+    .hero.is-active .hero-content{
+      opacity:0;
+      pointer-events:none;
+    }
+    .hero-content h1{
+      font-family:'SuperGroteskDigits', 'SuperGroteskB';
+      font-size:clamp(42px, 6.2vw, 86px);
+      font-weight:700;
+      letter-spacing:clamp(1px, 0.35vw, 5px);
       text-transform:uppercase;
-    }
-    .hero-intro__note{
-      font-size:12px;
-      letter-spacing:2px;
-      text-transform:uppercase;
-      color:var(--badiani-pink);
+      line-height:1.08;
+      color:#fff;
+      text-shadow:2px 2px 12px rgba(0,0,0,0.4);
     }
 
-    .choice-grid{ display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:24px; max-width:860px; margin:0 auto; }
+    .choice-grid{ display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:32px; max-width:960px; margin:0 auto; }
     .choice-card{
-      background:var(--surface);
+      position:relative;
       border-radius:24px;
-      padding:36px 28px;
+      overflow:hidden;
       text-decoration:none;
-      color:inherit;
-      border:2px solid rgba(30,57,141,0.1);
-      box-shadow:0 18px 40px rgba(0,0,0,0.08);
+      color:#fff;
+      aspect-ratio:1 / 1;
       display:flex;
       flex-direction:column;
-      gap:18px;
-      transition:transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      justify-content:flex-end;
+      box-shadow:0 20px 50px rgba(0,0,0,0.25);
+      transition:transform 0.4s ease, box-shadow 0.4s ease;
     }
-    .choice-card:hover{ transform:translateY(-6px); border-color:var(--badiani-pink); box-shadow:0 22px 50px rgba(240,103,166,0.2); }
+    .choice-card:hover{ transform:translateY(-8px); box-shadow:0 28px 60px rgba(0,0,0,0.35); }
+    .choice-card__img{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform 0.6s ease;
+    }
+    .choice-card:hover .choice-card__img{ transform:scale(1.06); }
+    .choice-card__overlay{
+      position:relative;
+      z-index:1;
+      padding:32px;
+      background:linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 60%, transparent 100%);
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
     .choice-tag{ font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--badiani-pink); font-weight:600; }
-    .choice-title{ font-size:clamp(20px, 2.5vw, 32px); color:var(--badiani-blue); }
-    .choice-desc{ font-size:15px; color:#6a6b6e; }
-    .choice-cta{ font-size:13px; letter-spacing:2px; text-transform:uppercase; font-weight:600; color:var(--badiani-blue); }
+    .choice-title{ font-size:clamp(22px, 3vw, 36px); color:#fff; text-transform:uppercase; letter-spacing:2px; }
+    .choice-desc{ font-size:15px; color:rgba(255,255,255,0.9); line-height:1.5; }
+    .choice-cta{
+      display:inline-block;
+      margin-top:8px;
+      font-size:13px;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      font-weight:600;
+      color:#fff;
+      background:var(--badiani-pink);
+      padding:10px 24px;
+      border-radius:999px;
+      opacity:0;
+      transform:translateY(10px);
+      transition:opacity 0.35s ease, transform 0.35s ease;
+      width:fit-content;
+    }
+    .choice-card:hover .choice-cta{ opacity:1; transform:translateY(0); }
 
     @media(max-width:768px){
       .page-shell{ padding:var(--space-lg) 18px; }
       .choice-card{ padding:30px 22px; }
     }
     @media(max-width:900px){
-      .hero-intro{
-        padding:24px 16px 18px;
-        gap:10px;
+      .hero{
+        height:auto;
+        min-height:50vh;
+        padding:40px 15px 35px;
       }
-      .hero-intro__logo img{ height:40px; }
-      .hero-intro__title{ font-size:clamp(22px, 6vw, 28px); }
-      .hero-intro__note{ display:none; }
+      .hero-content h1{
+        font-size:clamp(32px, 8.4vw, 44px);
+        letter-spacing:1px;
+        line-height:1.2;
+      }
 
       .choice-section{ padding:24px 16px 28px; }
-      .choice-grid{ gap:10px; }
-      .choice-card{ padding:20px 16px; gap:12px; }
+      .choice-grid{ gap:14px; }
+      .choice-card{ aspect-ratio:4/3; }
+      .choice-card__overlay{ padding:20px; }
       .choice-desc{ font-size:13px; }
-      .choice-cta{ font-size:11px; }
+      .choice-cta{ opacity:1; transform:translateY(0); font-size:11px; padding:8px 18px; }
       .todo-note{ display:none; }
 
       .video-note{ margin:10px auto 24px; }
     }
 
     @media(max-width:600px){
-      .choice-grid{ gap:8px; }
-      .choice-card{ padding:16px 12px; gap:10px; }
-      .choice-title{ font-size:clamp(16px, 4.6vw, 20px); }
+      .choice-grid{ gap:10px; }
+      .choice-card{ aspect-ratio:3/2; }
+      .choice-card__overlay{ padding:16px; }
+      .choice-title{ font-size:clamp(18px, 5vw, 24px); }
       .choice-desc{ font-size:12px; }
-      .choice-cta{ font-size:10px; letter-spacing:1.4px; }
-    }
-
-    /* HERO VIDEO */
-    .hero-video{
-      position:relative;
-      width:100%;
-      overflow:hidden;
-      background:#000;
-      line-height:0;
-    }
-    .hero-video video{
-      width:100%;
-      height:auto;
-      display:block;
-      object-fit:contain;
-    }
-    /* Desktop: mostra video intero senza tagli */
-    @media(min-width:901px){
-      .hero-video video{
-        width:100%;
-        height:auto;
-        object-fit:contain;
-        object-position:center center;
-      }
-    }
-    /* Tablet iPad */
-    @media(min-width:768px) and (max-width:900px){
-      .hero-video video{
-        width:100%;
-        height:auto;
-        object-fit:contain;
-        object-position:center center;
-      }
-    }
-    /* Mobile */
-    @media(max-width:767px){
-      .hero-video video{
-        width:100%;
-        height:auto;
-        object-fit:contain;
-        object-position:center center;
-      }
-    }
-
-    /* HERO OVERLAY CTA */
-    .hero-overlay{
-      position:absolute;
-      bottom:0;
-      left:0;
-      right:0;
-      padding:clamp(24px, 5vw, 60px) clamp(20px, 4vw, 80px);
-      background:linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.35) 60%, transparent 100%);
-      display:flex;
-      flex-direction:column;
-      align-items:flex-start;
-      gap:16px;
-      z-index:10;
-    }
-    .hero-overlay__subtitle{
-      color:#fff;
-      font-size:clamp(14px, 1.4vw, 20px);
-      letter-spacing:1.5px;
-      text-transform:uppercase;
-      font-weight:400;
-      opacity:0.9;
-      text-shadow:1px 1px 4px rgba(0,0,0,0.4);
-    }
-    .hero-overlay__buttons{
-      display:flex;
-      gap:16px;
-      flex-wrap:wrap;
-    }
-    .hero-cta{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding:14px 32px;
-      font-size:clamp(13px, 1.2vw, 16px);
-      font-weight:600;
-      letter-spacing:2px;
-      text-transform:uppercase;
-      text-decoration:none;
-      border-radius:30px;
-      transition:transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-      cursor:pointer;
-      border:none;
-      font-family:inherit;
-    }
-    .hero-cta--primary{
-      background:var(--badiani-pink);
-      color:#fff;
-      box-shadow:0 6px 24px rgba(240,103,166,0.4);
-    }
-    .hero-cta--primary:hover{
-      transform:translateY(-3px);
-      box-shadow:0 10px 32px rgba(240,103,166,0.5);
-    }
-    .hero-cta--primary:active{
-      transform:scale(0.98) translateY(0);
-      box-shadow:0 4px 16px rgba(240,103,166,0.4);
-    }
-    .hero-cta--secondary{
-      background:rgba(255,255,255,0.15);
-      color:#fff;
-      border:2px solid rgba(255,255,255,0.6);
-      box-shadow:0 4px 16px rgba(0,0,0,0.2);
-      backdrop-filter:blur(4px);
-      -webkit-backdrop-filter:blur(4px);
-    }
-    .hero-cta--secondary:hover{
-      background:var(--badiani-blue);
-      border-color:var(--badiani-blue);
-      transform:translateY(-3px);
-      box-shadow:0 8px 28px rgba(30,57,141,0.4);
-    }
-    .hero-cta--secondary:active{
-      transform:scale(0.98) translateY(0);
-      box-shadow:0 4px 12px rgba(30,57,141,0.3);
-    }
-    .hero-cta:focus-visible{
-      outline:3px solid var(--badiani-pink);
-      outline-offset:3px;
-    }
-    /* Reduce motion */
-    @media(prefers-reduced-motion:reduce){
-      .hero-cta{ transition:none; }
-    }
-    /* Mobile: stack buttons */
-    @media(max-width:600px){
-      .hero-overlay{
-        align-items:center;
-        text-align:center;
-        padding:20px 16px 28px;
-      }
-      .hero-overlay__buttons{
-        flex-direction:column;
-        width:100%;
-        max-width:280px;
-      }
-      .hero-cta{
-        width:100%;
-        padding:14px 24px;
-      }
+      .choice-cta{ font-size:10px; letter-spacing:1.4px; padding:7px 14px; }
     }
 
     .video-note{
@@ -255,12 +173,19 @@
     }
 
     .choice-section{
-      padding:var(--space-lg) clamp(16px, 4vw, 80px) var(--space-xl);
+      padding:var(--space-xl) clamp(16px, 4vw, 80px);
       text-align:center;
+      background-color:#1e398d;
+      background-image:url('assets/images/branding/eventi-bg.webp');
+      background-repeat:repeat-y;
+      background-position:top center;
+      background-size:100% auto;
     }
     .choice-section h2{
       font-size:clamp(24px, 3vw, 38px);
-      margin-bottom:24px;
+      margin-bottom:36px;
+      color:#fff;
+      text-shadow:0 2px 14px rgba(0,0,0,0.35);
     }
     .todo-note{
       display:block;
@@ -347,7 +272,7 @@
       text-align:center;
     }
     .story-lead{ font-size:clamp(16px, 1.8vw, 22px); margin-bottom:40px; line-height:1.9; max-width:900px; margin-left:auto; margin-right:auto; font-weight:300; text-align:center; }
-    .highlight-pink{ background:var(--badiani-pink); color:#fff; padding:3px 10px; font-family:'SuperGroteskC', 'SuperGroteskA', 'SuperGroteskB', sans-serif; font-weight:500; border-radius:3px; white-space:nowrap; text-transform:uppercase; font-variant-caps:normal; }
+    .highlight-pink{ background:var(--badiani-pink); color:#fff; padding:3px 10px; font-family:'SuperGroteskDigits', 'SuperGroteskC', 'SuperGroteskA', 'SuperGroteskB', sans-serif; font-weight:500; border-radius:3px; white-space:nowrap; text-transform:uppercase; font-variant-caps:normal; }
     .story-timeline{ display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:36px; margin-top:50px; }
     .timeline-item{ 
       flex:1 1 300px;
@@ -413,30 +338,19 @@
     .stat-num{ font-size:54px; font-weight:700; margin-bottom:12px; }
     .stat-label{ font-size:16px; text-transform:uppercase; letter-spacing:2px; opacity:0.95; font-weight:500; }
 
-    /* GLOBAL PRESENCE - BADIANI NEL MONDO (mobile inspiration) */
+    /* GLOBAL PRESENCE - BADIANI NEL MONDO */
     .global-presence{ width:100%; padding:0; line-height:1; background:#1f4495; position:relative; aspect-ratio: 8 / 3; overflow:hidden; }
     .global-presence-bg{ position:absolute; inset:0; overflow:hidden; z-index:0; }
     .global-presence-bg img{
-      position:relative;
-      top:0;
-      left:0;
-      transform:none;
       width:100%;
       height:100%;
       object-fit:cover;
-      object-position:center;
+      object-position:center bottom;
       display:block;
       user-select:none;
       -webkit-user-select:none;
       -webkit-user-drag:none;
       pointer-events:none;
-      will-change: transform, left, top, width, height;
-      transition:
-        width 0.65s cubic-bezier(0.34, 1.56, 0.64, 1),
-        left 0.65s cubic-bezier(0.34, 1.56, 0.64, 1),
-        transform 0.65s cubic-bezier(0.34, 1.56, 0.64, 1),
-        top 0.65s cubic-bezier(0.34, 1.56, 0.64, 1),
-        height 0.65s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
     .global-presence::after{ display:none; }
     .global-presence::before{
@@ -452,27 +366,6 @@
     }
     .global-presence > img{ display:none; }
     .global-presence-headline{ position:absolute; top:7%; left:0; right:0; text-align:center; z-index:3; padding:0 18px; }
-    .global-presence-scroll-hint{
-      position:absolute;
-      left:50%;
-      top:14px;
-      bottom:auto;
-      transform:translateX(-50%);
-      background:rgba(0,0,0,0.55);
-      color:#fff;
-      padding:8px 14px;
-      border-radius:999px;
-      font-size:11px;
-      letter-spacing:1px;
-      text-transform:uppercase;
-      opacity:0;
-      transition:opacity 0.25s ease;
-      pointer-events:none;
-      z-index:4;
-      white-space:nowrap;
-      max-width:calc(100% - 24px);
-      text-align:center;
-    }
     .global-presence-headline .world-means-title{
       margin:0;
       color:#fff;
@@ -501,99 +394,15 @@
       font-size:clamp(56.16px, 9.828vw, 152.88px);
       letter-spacing:0.06em;
     }
-    .global-presence {
-      transition: background-size 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), background-position 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), overflow 0.6s ease;
-    }
-    .global-presence.is-expanded {
-      overflow: hidden;
-      cursor: grab;
-      padding-bottom: 0;
-      -webkit-overflow-scrolling: touch;
-    }
-    .global-presence.is-expanded .global-presence-bg{ 
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      overflow-x: auto;
-      overflow-y: hidden;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-    }
-    .global-presence.is-expanded .global-presence-bg img{
-      width: 250%;
-      height: 155%;
-      max-width: none;
-      margin-left: 0;
-      margin-top: -35%;
-      object-fit: cover;
-      object-position: center;
-      position: relative;
-      top: auto;
-      left: auto;
-      transform: none;
-      pointer-events: none;
-    }
-    .global-presence.is-expanded .global-presence-bg::-webkit-scrollbar{ display:none; }
-    .global-presence-headline {
-      transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-      opacity: 1;
-    }
-    .global-presence.is-expanded .global-presence-headline {
-      opacity: 0;
-      pointer-events: none;
-    }
-    .global-presence.is-expanded .global-presence-scroll-hint{ opacity:1; }
-    .global-presence::before {
-      transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .global-presence::after {
-      transition: opacity 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-    .global-presence.is-expanded::before { opacity: 0; }
-    .global-presence.is-expanded::after { opacity: 0; }
     .global-presence-arrows{ display:none; }
 
     @media(max-width:900px){
-      /* Locations (expanded): show arrows on the image layer */
-      .global-presence-scroll-hint{ display:none !important; }
-      .global-presence-arrows{ display:none; }
-      .global-presence.is-expanded .global-presence-arrows{
-        display:block;
-        position:absolute;
-        inset:0;
-        z-index:6;
-        pointer-events:none;
-      }
-      .global-presence.is-expanded .global-presence-arrows::before,
-      .global-presence.is-expanded .global-presence-arrows::after{
-        position:absolute;
-        top:50%;
-        transform:translateY(-50%);
-        width:34px;
-        height:34px;
-        border-radius:999px;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        background:rgba(0,0,0,0.28);
-        color:rgba(255,255,255,0.92);
-        font-size:24px;
-        line-height:1;
-        box-shadow:0 6px 18px rgba(0,0,0,0.22);
-        text-shadow:0 2px 10px rgba(0,0,0,0.35);
-        opacity:0.95;
-      }
-      .global-presence.is-expanded .global-presence-arrows::before{ content:"\2039"; left:10px; }
-      .global-presence.is-expanded .global-presence-arrows::after{ content:"\203A"; right:10px; }
-
-      /* Global Presence - cropped 15% each side */
+      /* Global Presence - mobile */
       .global-presence{ 
         aspect-ratio:auto; 
         height:clamp(180px, 35vh, 280px);
       }
-      .global-presence-bg img{ width:143%; left:50%; transform:translateX(-50%); }
+      .global-presence-bg img{ object-position:center bottom; }
 
       /* Story timeline - mobile swipeable (match inspiration mobile) */
       .buontalenti-story{ padding:24px 10px; overflow:visible; }
@@ -621,7 +430,7 @@
         margin:0 3px;
         border-radius:0;
         font-weight:500;
-        font-family:'SuperGroteskC', 'SuperGroteskA', 'SuperGroteskB', sans-serif;
+        font-family:'SuperGroteskDigits', 'SuperGroteskC', 'SuperGroteskA', 'SuperGroteskB', sans-serif;
         font-variant-caps:normal;
       }
       .story-timeline{
@@ -761,37 +570,38 @@
     </div>
   </header>
 
-  <section class="hero-intro" data-i18n-attr="aria-label:home.hero.label">
-    <div class="hero-intro__logo">
-      <img src="assets/images/branding/logo.webp" alt="Badiani 1932" />
-    </div>
-    <h1 class="hero-intro__title" data-i18n="home.hero.title">Badiani events</h1>
-  </section>
-
   <section class="choice-section" data-i18n-attr="aria-label:home.choice.label">
-    <h2 data-i18n="home.choice.title">Scegli l’esperienza che ti serve</h2>
+    <h2 data-i18n="home.choice.title">Scegli l'esperienza che ti serve</h2>
     <div class="choice-grid">
       <a class="choice-card" href="eventi/" data-i18n-attr="aria-label:home.choice.eventi.aria">
-        <h3 class="choice-title">EVENTI</h3>
-        <p class="choice-desc" data-i18n="home.choice.eventi.desc">Feste private ed eventi su misura</p>
-        <span class="choice-cta" data-i18n="home.choice.cta">Scopri</span>
+        <img class="choice-card__img" src="assets/images/eventi/evento-esterno-2.png" alt="Eventi" loading="lazy" decoding="async" />
+        <div class="choice-card__overlay">
+          <h3 class="choice-title">EVENTI</h3>
+          <p class="choice-desc" data-i18n="home.choice.eventi.desc">Feste private ed eventi su misura</p>
+          <span class="choice-cta" data-i18n="home.choice.cta">Scopri</span>
+        </div>
       </a>
       <a class="choice-card" href="b2b/" data-i18n-attr="aria-label:home.choice.b2b.aria">
-        <h3 class="choice-title">B2B</h3>
-        <p class="choice-desc" data-i18n="home.choice.b2b.desc">Soluzioni gelato per catering, hotel</p>
-        <span class="choice-cta" data-i18n="home.choice.cta">Scopri</span>
+        <img class="choice-card__img" src="assets/images/categories/vasche.png" alt="B2B" loading="lazy" decoding="async" />
+        <div class="choice-card__overlay">
+          <h3 class="choice-title">B2B</h3>
+          <p class="choice-desc" data-i18n="home.choice.b2b.desc">Soluzioni gelato per catering, hotel</p>
+          <span class="choice-cta" data-i18n="home.choice.cta">Scopri</span>
+        </div>
       </a>
     </div>
   </section>
 
-  <!-- VIDEO LABORATORIO -->
-  <section class="hero-video" data-i18n-attr="aria-label:home.video.label">
+  <!-- HERO: VIDEO + TITLE -->
+  <section class="hero" id="hero">
     <video autoplay muted loop playsinline preload="metadata">
       <source src="assets/video/home-b2b.mp4" type="video/mp4">
     </video>
-    <div class="hero-overlay">
+    <div class="hero-content">
+      <h1 data-i18n="home.hero.title">Badiani Events</h1>
     </div>
   </section>
+
 
   <!-- STORIA DI BADIANI -->
   <section id="story" class="buontalenti-story">
@@ -856,7 +666,6 @@
     <div class="global-presence-bg" aria-hidden="true">
       <img src="assets/worldwide.webp" alt="" loading="lazy" decoding="async">
     </div>
-    <div class="global-presence-arrows" aria-hidden="true"></div>
     <div class="global-presence-headline">
       <h2 class="world-means-title" aria-label="Badiani around the world means gelato">
         <span class="wmt-top" data-i18n="global.top">Badiani Nel Mondo</span>
@@ -864,7 +673,6 @@
         <span class="wmt-bottom">Gelato</span>
       </h2>
     </div>
-    <div class="global-presence-scroll-hint" aria-hidden="true">← Scorri per vedere tutto →</div>
   </section>
 
   <section id="contatti" class="home-contact" data-i18n-attr="aria-label:home.contact.label">
@@ -1219,94 +1027,15 @@
       applyTranslations();
     })();
 
-    // Global Presence interactive zoom (mobile inspiration)
-    (function setupGlobalPresence(){
-      const section = document.querySelector('.global-presence');
-      if (!section) return;
 
-      const scroller = section.querySelector('.global-presence-bg');
-      if (!scroller) return;
 
-      function collapse(){
-        section.classList.remove('is-expanded');
-        section.style.cursor = '';
-        scroller.scrollLeft = 0;
-      }
-
-      let moved = false;
-      let startX = 0;
-      let startY = 0;
-      let isDragging = false;
-      let dragStartX = 0;
-      let dragStartScrollLeft = 0;
-
-      scroller.addEventListener('pointerdown', (e) => {
-        moved = false;
-        startX = e.clientX;
-        startY = e.clientY;
-
-        if (section.classList.contains('is-expanded') && e.pointerType === 'mouse') {
-          isDragging = true;
-          dragStartX = e.clientX;
-          dragStartScrollLeft = scroller.scrollLeft;
-          scroller.setPointerCapture && scroller.setPointerCapture(e.pointerId);
-          section.style.cursor = 'grabbing';
-          e.preventDefault();
-        }
+    /* Hero: click toggles active state on mobile (hover works on desktop) */
+    (function(){
+      var hero = document.getElementById('hero');
+      if (!hero) return;
+      hero.addEventListener('click', function(){
+        hero.classList.toggle('is-active');
       });
-
-      scroller.addEventListener('pointermove', (e) => {
-        if (isDragging) {
-          const dx = e.clientX - dragStartX;
-          scroller.scrollLeft = dragStartScrollLeft - (dx * 1.6);
-          return;
-        }
-        if (moved) return;
-        const dx = Math.abs(e.clientX - startX);
-        const dy = Math.abs(e.clientY - startY);
-        if (dx > 10 || dy > 10) moved = true;
-      }, { passive: true });
-
-      scroller.addEventListener('pointerup', () => {
-        if (isDragging) {
-          isDragging = false;
-          if (section.classList.contains('is-expanded')) section.style.cursor = 'grab';
-        }
-      });
-
-      scroller.addEventListener('pointercancel', () => {
-        if (isDragging) {
-          isDragging = false;
-          if (section.classList.contains('is-expanded')) section.style.cursor = 'grab';
-        }
-      });
-
-      section.addEventListener('click', () => {
-        if (moved) return;
-
-        section.classList.toggle('is-expanded');
-        const expanded = section.classList.contains('is-expanded');
-        section.style.cursor = expanded ? 'grab' : '';
-
-        if (expanded) {
-          requestAnimationFrame(() => {
-            const max = scroller.scrollWidth - scroller.clientWidth;
-            if (max > 0) scroller.scrollLeft = max / 2;
-          });
-        } else {
-          scroller.scrollLeft = 0;
-        }
-      });
-
-      if ('IntersectionObserver' in window) {
-        const obs = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) return;
-            collapse();
-          });
-        }, { threshold: 0.1 });
-        obs.observe(section);
-      }
     })();
   </script>
 </body>

@@ -8,12 +8,20 @@
   <style>
     /* Page-specific styles for Eventi landing page */
 
+    body{
+      background-color:#f5f6f8;
+      background-image:url('../assets/images/branding/eventi-bg.webp');
+      background-repeat:repeat-y;
+      background-position:top center;
+      background-size:100% auto;
+    }
+
     .page-shell{ padding:48px clamp(16px, 4vw, 80px) 80px; }
     .hero{ background:var(--surface); border-radius:28px; padding:40px; box-shadow:0 18px 40px rgba(0,0,0,0.08); margin-bottom:48px; }
     .hero h1{ font-size:clamp(28px, 3.6vw, 46px); margin-bottom:12px; }
     .hero p{ font-size:clamp(16px, 1.5vw, 20px); color:#6a6b6e; max-width:780px; }
 
-    .section-title{ font-size:clamp(20px, 2.4vw, 30px); margin:40px 0 18px; }
+    .section-title{ font-size:clamp(20px, 2.4vw, 30px); margin:40px 0 18px; color:#fff; text-shadow:0 2px 10px rgba(0,0,0,0.3); }
 
     .event-grid{ display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:24px; }
     .event-card{
@@ -77,7 +85,7 @@
     .van-card__title{ font-size:18px; letter-spacing:1px; text-transform:uppercase; color:var(--badiani-blue); }
     .van-card__desc{ font-size:14px; color:#6a6b6e; line-height:1.6; }
 
-    .tag{ font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--badiani-pink); font-weight:600; }
+    .tag{ font-size:12px; letter-spacing:2px; text-transform:uppercase; color:#fff; font-weight:600; text-shadow:0 1px 6px rgba(0,0,0,0.3); }
     .pill{ background:#f5f6f8; border-radius:16px; padding:10px 14px; font-size:14px; }
     .list{ padding-left:18px; display:grid; gap:8px; font-size:15px; color:#6a6b6e; }
     .dual-list{ display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:18px; }
@@ -88,130 +96,418 @@
 
     .coming-soon{ display:inline-flex; align-items:center; gap:10px; background:var(--badiani-pink); color:#fff; padding:10px 18px; border-radius:999px; text-transform:uppercase; letter-spacing:2px; font-size:12px; font-weight:600; }
 
-    .contact-block{ background:var(--surface); border-radius:24px; padding:32px; box-shadow:0 16px 36px rgba(0,0,0,0.1); }
-    .contact-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px; }
-    .contact-grid label{ font-size:11px; text-transform:uppercase; letter-spacing:1px; color:#90949a; }
-    .contact-grid input,
-    .contact-grid select,
-    .contact-grid textarea{
-      width:100%;
-      border:1px solid rgba(30,57,141,0.18);
-      border-radius:12px;
-      padding:10px 12px;
-      font-family:inherit;
-      font-size:13px;
-      background:#fff;
-      color:#4a4f57;
+    /* ========== REQUEST INFO FORM ========== */
+    .request-form-section{
+      margin:0 0 60px;
     }
-    .contact-grid textarea{ min-height:120px; resize:vertical; }
-    .contact-actions{ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-top:16px; }
-    .contact-actions button{
+    .request-form-block{
+      background:#fff;
+      border-radius:28px;
+      overflow:hidden;
+      box-shadow:0 20px 60px rgba(30,57,141,0.10);
+    }
+    .request-form-header{
+      background:linear-gradient(135deg, var(--badiani-blue) 0%, #2a4faf 100%);
+      padding:clamp(28px, 4vw, 44px) clamp(24px, 4vw, 60px);
+      text-align:center;
+      color:#fff;
+    }
+    .request-form-header h2{
+      font-size:clamp(22px, 2.8vw, 34px);
+      letter-spacing:2px;
+      text-transform:uppercase;
+      color:#fff;
+      margin-bottom:8px;
+    }
+    .request-form-header p{
+      font-size:clamp(14px, 1.2vw, 17px);
+      color:rgba(255,255,255,0.75);
+    }
+    .request-form-body{
+      padding:clamp(28px, 4vw, 48px) clamp(24px, 4vw, 60px);
+    }
+    .request-form-grid{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:20px;
+    }
+    .request-form-grid .form-field{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .request-form-grid .form-field.full-width{
+      grid-column:1 / -1;
+    }
+    .request-form-grid label{
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:1.2px;
+      color:#6a6b6e;
+      font-weight:600;
+    }
+    .request-form-grid input,
+    .request-form-grid select{
+      width:100%;
+      border:1px solid rgba(30,57,141,0.15);
+      border-radius:12px;
+      padding:12px 14px;
+      font-family:inherit;
+      font-size:14px;
+      background:#f8f9fc;
+      color:#4a4f57;
+      transition:border-color 0.3s, box-shadow 0.3s;
+    }
+    .request-form-grid input:focus,
+    .request-form-grid select:focus{
+      outline:none;
+      border-color:var(--badiani-blue);
+      box-shadow:0 0 0 3px rgba(30,57,141,0.1);
+    }
+    .request-form-grid input::placeholder{
+      color:#b0b4ba;
+    }
+    .checkbox-group{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    .checkbox-group label{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-size:13px;
+      font-weight:400;
+      text-transform:none;
+      letter-spacing:0;
+      color:#58595b;
+      cursor:pointer;
+      background:#f8f9fc;
+      padding:8px 14px;
+      border-radius:10px;
+      border:1px solid rgba(30,57,141,0.1);
+      transition:background 0.3s, border-color 0.3s;
+    }
+    .checkbox-group label:hover{
+      background:rgba(30,57,141,0.06);
+      border-color:rgba(30,57,141,0.2);
+    }
+    .checkbox-group input[type="checkbox"]{
+      width:16px;
+      height:16px;
+      accent-color:var(--badiani-blue);
+    }
+    .radio-group{
+      display:flex;
+      gap:16px;
+    }
+    .radio-group label{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-size:14px;
+      font-weight:400;
+      text-transform:none;
+      letter-spacing:0;
+      color:#58595b;
+      cursor:pointer;
+    }
+    .radio-group input[type="radio"]{
+      width:16px;
+      height:16px;
+      accent-color:var(--badiani-blue);
+    }
+    .request-form-actions{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:16px;
+      margin-top:28px;
+      padding-top:24px;
+      border-top:1px solid rgba(30,57,141,0.08);
+    }
+    .request-form-actions .privacy-row{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      font-size:13px;
+      color:#6a6b6e;
+    }
+    .request-form-actions .privacy-row input{
+      margin-top:2px;
+      width:16px;
+      height:16px;
+      accent-color:var(--badiani-blue);
+    }
+    .request-form-submit{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
       border:none;
       background:var(--badiani-blue);
       color:#fff;
-      padding:12px 26px;
+      padding:14px 36px;
       border-radius:999px;
-      font-size:12px;
+      font-size:13px;
       text-transform:uppercase;
       letter-spacing:2px;
+      font-family:inherit;
+      font-weight:600;
       cursor:pointer;
+      transition:background 0.3s, transform 0.3s, box-shadow 0.3s;
+      box-shadow:0 8px 24px rgba(30,57,141,0.2);
     }
-    .contact-note{ font-size:12px; color:#9aa0a6; }
-    .privacy-row{ display:flex; align-items:flex-start; gap:10px; font-size:12px; color:#6a6b6e; }
-    .privacy-row input{ margin-top:3px; }
+    .request-form-submit:hover{
+      background:var(--badiani-pink);
+      transform:translateY(-2px);
+      box-shadow:0 12px 32px rgba(240,103,166,0.25);
+    }
+    .request-form-submit svg{
+      width:18px;
+      height:18px;
+      fill:currentColor;
+    }
+    @media(max-width:768px){
+      .request-form-grid{
+        grid-template-columns:1fr;
+      }
+      .request-form-actions{
+        flex-direction:column;
+        align-items:stretch;
+        text-align:center;
+      }
+      .request-form-submit{
+        justify-content:center;
+      }
+    }
 
-    /* CORPORATE HIGHLIGHT */
-    .corporate-highlight{
-      position:relative;
-      margin:70px 0 80px;
-      padding:clamp(36px, 5vw, 70px);
-      border-radius:32px;
-      background:radial-gradient(circle at 20% 20%, rgba(30,57,141,0.16), transparent 42%),
-                 radial-gradient(circle at 80% 0%, rgba(88,89,91,0.18), transparent 48%),
-                 linear-gradient(135deg, #f5f6f8, #ffffff 55%, #f1f3f6);
-      box-shadow:0 26px 80px rgba(30,57,141,0.16);
+    /* ========== CUSTOM EVENT SECTION ========== */
+    .custom-event-divider{
+      width:80px;
+      height:3px;
+      background:linear-gradient(90deg, var(--badiani-blue), var(--badiani-pink));
+      border-radius:4px;
+      margin:60px auto 0;
+    }
+    .custom-event{
+      margin:40px 0 60px;
+      background:#fff;
+      border-radius:28px;
+      box-shadow:0 20px 60px rgba(30,57,141,0.10);
       overflow:hidden;
-      border:1px solid rgba(30,57,141,0.08);
-      isolation:isolate;
     }
-    .corporate-highlight::before,
-    .corporate-highlight::after{
-      content:"";
-      position:absolute;
-      inset:-120px;
-      background:conic-gradient(from 180deg at 50% 50%, rgba(88,89,91,0.16), rgba(30,57,141,0.16), rgba(88,89,91,0.12), rgba(30,57,141,0.14));
-      opacity:0.25;
-      animation:spinGlow 18s linear infinite;
-      z-index:0;
+    .custom-event__header{
+      background:linear-gradient(135deg, var(--badiani-blue) 0%, #2a4faf 100%);
+      color:#fff;
+      padding:clamp(32px, 5vw, 56px) clamp(24px, 4vw, 60px);
+      text-align:center;
     }
-    .corporate-highlight::after{
-      inset:-180px;
-      opacity:0.18;
-      animation-direction:reverse;
-    }
-    .corporate-inner{ position:relative; z-index:2; display:grid; gap:28px; }
-    .corporate-header{ display:grid; gap:14px; max-width:860px; }
-    .corporate-header .section-title{ margin:0; font-size:clamp(24px, 3vw, 36px); }
-    .corporate-pill-row{ display:flex; flex-wrap:wrap; gap:10px; }
-    .corporate-pill{
-      background:#ffffff;
+    .custom-event__tag{
+      display:inline-block;
+      font-size:11px;
+      letter-spacing:2.5px;
+      text-transform:uppercase;
+      color:rgba(255,255,255,0.7);
+      border:1px solid rgba(255,255,255,0.25);
       border-radius:999px;
-      padding:8px 16px;
+      padding:6px 18px;
+      margin-bottom:18px;
+    }
+    .custom-event__title{
+      font-size:clamp(22px, 3vw, 38px);
+      letter-spacing:2px;
+      text-transform:uppercase;
+      color:#fff;
+      margin-bottom:10px;
+      line-height:1.15;
+    }
+    .custom-event__subtitle{
+      font-size:clamp(16px, 1.6vw, 22px);
+      font-weight:400;
+      color:rgba(255,255,255,0.85);
+      font-style:italic;
+      margin-bottom:14px;
+    }
+    .custom-event__desc{
+      font-size:clamp(14px, 1.2vw, 17px);
+      color:rgba(255,255,255,0.72);
+      max-width:700px;
+      margin:0 auto;
+      line-height:1.7;
+    }
+
+    .custom-event__body{
+      padding:clamp(28px, 4vw, 56px) clamp(24px, 4vw, 60px);
+      display:grid;
+      gap:clamp(28px, 3vw, 48px);
+    }
+
+    /* Two-column list area */
+    .custom-event__columns{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:28px;
+    }
+    .custom-event__col{
+      background:#f8f9fc;
+      border-radius:20px;
+      padding:clamp(22px, 2.5vw, 32px);
+      border:1px solid rgba(30,57,141,0.06);
+    }
+    .custom-event__col-icon{
+      width:44px;
+      height:44px;
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:20px;
+      margin-bottom:16px;
+    }
+    .custom-event__col-icon--customize{
+      background:linear-gradient(135deg, rgba(30,57,141,0.12), rgba(30,57,141,0.04));
+      color:var(--badiani-blue);
+    }
+    .custom-event__col-icon--ideal{
+      background:linear-gradient(135deg, rgba(240,103,166,0.14), rgba(240,103,166,0.04));
+      color:var(--badiani-pink);
+    }
+    .custom-event__col h3{
+      font-size:clamp(14px, 1.3vw, 17px);
+      text-transform:uppercase;
+      letter-spacing:1.5px;
+      color:var(--badiani-blue);
+      margin-bottom:16px;
+    }
+    .custom-event__list{
+      list-style:none;
+      padding:0;
+      margin:0;
+      display:grid;
+      gap:12px;
+    }
+    .custom-event__list li{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      font-size:clamp(13px, 1.1vw, 15px);
+      color:#58595b;
+      line-height:1.55;
+    }
+    .custom-event__list li::before{
+      content:"";
+      flex-shrink:0;
+      width:7px;
+      height:7px;
+      border-radius:50%;
+      margin-top:7px;
+    }
+    .custom-event__col--customize .custom-event__list li::before{
+      background:var(--badiani-blue);
+    }
+    .custom-event__col--ideal .custom-event__list li::before{
+      background:var(--badiani-pink);
+    }
+
+    /* Photo gallery */
+    .custom-event__gallery-label{
       font-size:12px;
-      letter-spacing:1.8px;
+      letter-spacing:2.5px;
+      text-transform:uppercase;
+      color:#9aa0a6;
+      text-align:center;
+      margin-bottom:6px;
+    }
+    .custom-event__gallery-title{
+      font-size:clamp(18px, 2vw, 26px);
+      letter-spacing:2px;
       text-transform:uppercase;
       color:var(--badiani-blue);
-      box-shadow:0 8px 22px rgba(30,57,141,0.12);
-      display:inline-flex;
-      gap:8px;
-      align-items:center;
+      text-align:center;
+      margin-bottom:24px;
     }
-    .corporate-pill::before{
-      content:"✦";
-      color:var(--badiani-blue);
-      font-size:12px;
+    .custom-event__gallery{
+      display:grid;
+      grid-template-columns:repeat(4, 1fr);
+      gap:14px;
     }
-    .corporate-grid{ display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:18px; }
-    .corporate-card{
-      background:#fff;
-      border-radius:20px;
-      padding:22px;
-      box-shadow:0 16px 40px rgba(0,0,0,0.08);
-      border:1px solid rgba(30,57,141,0.08);
-      position:relative;
+    .custom-event__photo{
+      border-radius:16px;
       overflow:hidden;
+      cursor:pointer;
+      position:relative;
+      box-shadow:0 8px 24px rgba(0,0,0,0.08);
       transition:transform 0.4s ease, box-shadow 0.4s ease;
     }
-    .corporate-card::after{
-      content:"";
+    .custom-event__photo:hover{
+      transform:translateY(-6px);
+      box-shadow:0 16px 40px rgba(30,57,141,0.16);
+    }
+    .custom-event__photo img{
+      width:100%;
+      aspect-ratio:4 / 3;
+      object-fit:cover;
+      display:block;
+      transition:transform 0.5s ease;
+    }
+    .custom-event__photo:hover img{
+      transform:scale(1.06);
+    }
+    .custom-event__photo-label{
       position:absolute;
-      inset:0;
-      background:linear-gradient(120deg, rgba(30,57,141,0.12), transparent 60%);
-      opacity:0;
-      transition:opacity 0.4s ease;
-    }
-    .corporate-card:hover{
-      transform:translateY(-8px);
-      box-shadow:0 24px 50px rgba(30,57,141,0.15);
-    }
-    .corporate-card:hover::after{ opacity:1; }
-    .corporate-card h3{ margin-bottom:12px; font-size:15px; text-transform:uppercase; letter-spacing:1.4px; color:var(--badiani-blue); }
-    .corporate-card .list{ padding-left:18px; margin:0; }
-    .corporate-gallery-title{
-      font-size:clamp(22px, 3vw, 32px);
+      bottom:0;
+      left:0;
+      right:0;
+      padding:10px 14px;
+      background:linear-gradient(to top, rgba(30,57,141,0.85), transparent);
+      color:#fff;
+      font-size:11px;
+      letter-spacing:1.5px;
       text-transform:uppercase;
-      letter-spacing:3px;
-      color:#1e398d;
-      margin:30px 0 24px;
-      text-align:center;
-      font-weight:700;
-      position:relative;
-      z-index:5;
+      font-weight:600;
     }
-    .corporate-gallery{ display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:18px; }
-    .corporate-gallery .gallery-card{ transform:translateY(20px); opacity:0; transition:transform 0.6s ease, opacity 0.6s ease; cursor:pointer; }
-    .corporate-highlight.is-visible .corporate-gallery .gallery-card{ transform:translateY(0); opacity:1; }
-    .corporate-highlight.is-visible .corporate-gallery .gallery-card:nth-child(2){ transition-delay:0.15s; }
+
+    /* CTA */
+    .custom-event__cta{
+      background:linear-gradient(135deg, #f8f9fc 0%, #eef1f8 100%);
+      border-radius:20px;
+      padding:clamp(24px, 2.5vw, 36px);
+      text-align:center;
+      border:1px solid rgba(30,57,141,0.08);
+    }
+    .custom-event__cta p{
+      font-size:clamp(14px, 1.2vw, 16px);
+      color:#58595b;
+      margin-bottom:18px;
+    }
+    .custom-event__cta-btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      background:var(--badiani-blue);
+      color:#fff;
+      text-decoration:none;
+      padding:14px 32px;
+      border-radius:999px;
+      font-size:13px;
+      letter-spacing:2px;
+      text-transform:uppercase;
+      font-family:inherit;
+      font-weight:600;
+      transition:background 0.3s, transform 0.3s, box-shadow 0.3s;
+      box-shadow:0 8px 24px rgba(30,57,141,0.2);
+    }
+    .custom-event__cta-btn:hover{
+      background:var(--badiani-pink);
+      transform:translateY(-3px);
+      box-shadow:0 14px 36px rgba(240,103,166,0.25);
+    }
+    .custom-event__cta-btn svg{
+      width:18px;
+      height:18px;
+      fill:currentColor;
+    }
 
     /* LIGHTBOX */
     .lightbox{
@@ -279,48 +575,6 @@
     }
     .lightbox-prev{ left:20px; }
     .lightbox-next{ right:20px; }
-    .corporate-cta{
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      gap:14px;
-      padding:18px 22px;
-      border-radius:18px;
-      background:linear-gradient(135deg, rgba(30,57,141,0.12), rgba(88,89,91,0.08));
-      border:1px solid rgba(30,57,141,0.12);
-      box-shadow:0 14px 30px rgba(30,57,141,0.1);
-    }
-    .corporate-cta strong{ color:var(--badiani-blue); text-transform:uppercase; letter-spacing:1px; }
-
-    .corporate-expand{
-      cursor:pointer;
-      transition:transform 0.35s ease, box-shadow 0.35s ease;
-    }
-    .corporate-expand.is-expanded{
-      transform:scale(1.04);
-      box-shadow:0 24px 60px rgba(30,57,141,0.18);
-      z-index:3;
-      position:relative;
-    }
-    .corporate-expand.is-expanded .list{
-      font-size:16px;
-      line-height:1.7;
-    }
-
-    @keyframes spinGlow{
-      from{ transform:rotate(0deg); }
-      to{ transform:rotate(360deg); }
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      .corporate-highlight::before,
-      .corporate-highlight::after,
-      .corporate-card,
-      .corporate-gallery .gallery-card{
-        animation:none !important;
-        transition:none !important;
-      }
-    }
 
     @media(max-width:768px){
       .hero{ padding:30px; }
@@ -373,89 +627,35 @@
         box-shadow:0 16px 40px rgba(0,0,0,0.12);
       }
 
-      /* Corporate section mobile */
-      .corporate-highlight{
-        margin:40px -16px 50px;
-        padding:28px 16px;
-        border-radius:0;
+      /* Custom event section mobile */
+      .custom-event__header{
+        padding:28px 20px;
       }
-      .corporate-header{
+      .custom-event__title{
+        font-size:clamp(18px, 5.5vw, 26px);
+        letter-spacing:1px;
+      }
+      .custom-event__subtitle{
+        font-size:clamp(14px, 4vw, 18px);
+      }
+      .custom-event__body{
+        padding:24px 18px;
+      }
+      .custom-event__columns{
+        grid-template-columns:1fr;
+        gap:18px;
+      }
+      .custom-event__gallery{
+        grid-template-columns:repeat(2, 1fr);
         gap:10px;
       }
-      .corporate-header .section-title{
-        font-size:clamp(18px, 5vw, 24px);
-        text-align:center;
+      .custom-event__photo-label{
+        font-size:10px;
+        padding:8px 10px;
       }
-      .corporate-header p{
-        font-size:14px;
-        text-align:center;
-      }
-      .corporate-pill-row{
-        display:flex;
-        gap:8px;
-        overflow-x:auto;
-        padding:6px 0 10px;
-        scroll-snap-type:x mandatory;
-        -webkit-overflow-scrolling:touch;
-      }
-      .corporate-pill-row::-webkit-scrollbar{ display:none; }
-      .corporate-pill{
-        flex:0 0 auto;
-        scroll-snap-align:start;
-        padding:6px 12px;
-        font-size:11px;
-      }
-      .corporate-grid{
-        display:flex;
-        gap:12px;
-        overflow-x:auto;
-        padding:6px 0 10px;
-        scroll-snap-type:x mandatory;
-        -webkit-overflow-scrolling:touch;
-      }
-      .corporate-grid::-webkit-scrollbar{ display:none; }
-      .corporate-card{
-        flex:0 0 75vw;
-        max-width:300px;
-        min-width:240px;
-        scroll-snap-align:start;
-        padding:18px;
-      }
-      .corporate-card h3{
-        font-size:13px;
-      }
-      .corporate-card .list{
-        font-size:13px;
-      }
-      .corporate-card .list li{
-        padding:6px 0;
-      }
-      .corporate-cta{
-        flex-direction:column;
-        text-align:center;
-        padding:14px 16px;
-        gap:10px;
-      }
-      .corporate-cta strong{
-        font-size:14px;
-      }
-      .corporate-cta .pill{
+      .custom-event__cta-btn{
+        padding:12px 24px;
         font-size:12px;
-      }
-      .corporate-gallery{
-        display:flex;
-        gap:12px;
-        overflow-x:auto;
-        padding:6px 0 10px;
-        scroll-snap-type:x mandatory;
-        -webkit-overflow-scrolling:touch;
-      }
-      .corporate-gallery::-webkit-scrollbar{ display:none; }
-      .gallery-card{
-        flex:0 0 70vw;
-        max-width:260px;
-        min-width:200px;
-        scroll-snap-align:start;
       }
       .gallery-grid{
         grid-template-columns:repeat(2, 1fr);
@@ -493,7 +693,7 @@
   </header>
 
   <main class="page-shell">
-    <h1 style="font-size:clamp(32px, 5vw, 56px); color:#1e398d; text-transform:uppercase; letter-spacing:3px; text-align:center; margin-bottom:40px;">Eventi</h1>
+    <h1 style="font-size:clamp(32px, 5vw, 56px); color:#fff; text-transform:uppercase; letter-spacing:3px; text-align:center; margin-bottom:40px; text-shadow:0 2px 12px rgba(0,0,0,0.3);">Eventi</h1>
     
     <section data-i18n-attr="aria-label:eventi.types.label">
       <span class="tag" style="margin-bottom:15px; display:inline-block;" data-i18n="eventi.types.tag">Tipologie</span>
@@ -528,23 +728,25 @@
       </div>
     </section>
 
-    <section class="corporate-highlight" data-i18n-attr="aria-label:eventi.corporate.label">
-      <div class="corporate-inner">
-        <div class="corporate-header">
-          <span class="tag" data-i18n="eventi.corporate.label">Speciale aziende</span>
-          <h2 class="section-title" data-i18n="eventi.corporate.title">CREA IL TUO EVENTO AZIENDALE SU MISURA</h2>
-          <p data-i18n="eventi.corporate.intro1">Crea un evento unico, pensato intorno al tuo brand</p>
-          <p data-i18n="eventi.corporate.intro2">Ogni azienda ha un'identità diversa. Per questo realizziamo eventi personalizzati, studiati su misura in base alle tue esigenze, al contesto e al tipo di pubblico.</p>
-          <div class="corporate-pill-row">
-            <span class="corporate-pill" data-i18n="eventi.corporate.custom.title">Cosa possiamo personalizzare</span>
-            <span class="corporate-pill" data-i18n="eventi.corporate.ideal.title">Ideale per</span>
-          </div>
-        </div>
+    <!-- DIVIDER -->
+    <div class="custom-event-divider"></div>
 
-        <div class="corporate-grid">
-          <div class="corporate-card corporate-expand" role="button" tabindex="0" data-expand="corporate-card">
+    <!-- CREA IL TUO EVENTO AZIENDALE SU MISURA -->
+    <section class="custom-event" data-i18n-attr="aria-label:eventi.corporate.label">
+      <div class="custom-event__header">
+        <span class="custom-event__tag" data-i18n="eventi.corporate.label">Speciale aziende</span>
+        <h2 class="custom-event__title" data-i18n="eventi.corporate.title">CREA IL TUO EVENTO AZIENDALE SU MISURA</h2>
+        <p class="custom-event__subtitle" data-i18n="eventi.corporate.intro1">Crea un evento unico, pensato intorno al tuo brand</p>
+        <p class="custom-event__desc" data-i18n="eventi.corporate.intro2">Ogni azienda ha un'identità diversa. Per questo realizziamo eventi personalizzati, studiati su misura in base alle tue esigenze, al contesto e al tipo di pubblico.</p>
+      </div>
+
+      <div class="custom-event__body">
+        <!-- Two columns: Personalizzare + Ideale per -->
+        <div class="custom-event__columns">
+          <div class="custom-event__col custom-event__col--customize">
+            <div class="custom-event__col-icon custom-event__col-icon--customize">&#9881;</div>
             <h3 data-i18n="eventi.corporate.custom.title">Cosa possiamo personalizzare</h3>
-            <ul class="list">
+            <ul class="custom-event__list">
               <li data-i18n="eventi.corporate.custom.item1">Tipologia di servizio gelato</li>
               <li data-i18n="eventi.corporate.custom.item2">Selezione dei gusti (possibilità di avere gusti personalizzati e/o su richiesta)</li>
               <li data-i18n="eventi.corporate.custom.item3">Allestimento dell'evento</li>
@@ -552,9 +754,10 @@
               <li data-i18n="eventi.corporate.custom.item5">Concept creativo in linea con il tuo brand</li>
             </ul>
           </div>
-          <div class="corporate-card corporate-expand" role="button" tabindex="0" data-expand="corporate-card">
+          <div class="custom-event__col custom-event__col--ideal">
+            <div class="custom-event__col-icon custom-event__col-icon--ideal">&#9733;</div>
             <h3 data-i18n="eventi.corporate.ideal.title">Ideale per</h3>
-            <ul class="list">
+            <ul class="custom-event__list">
               <li data-i18n="eventi.corporate.ideal.item1">Eventi aziendali</li>
               <li data-i18n="eventi.corporate.ideal.item2">Inaugurazioni</li>
               <li data-i18n="eventi.corporate.ideal.item3">Attivazioni in store</li>
@@ -564,67 +767,127 @@
           </div>
         </div>
 
-        <div class="corporate-cta corporate-expand" role="button" tabindex="0" data-expand="corporate-cta">
-          <strong data-i18n="eventi.corporate.intro1">Crea un evento unico, pensato intorno al tuo brand</strong>
-          <span class="pill" data-i18n="eventi.corporate.intro2">Ogni azienda ha un'identità diversa. Per questo realizziamo eventi personalizzati, studiati su misura in base alle tue esigenze, al contesto e al tipo di pubblico.</span>
+        <!-- Photo Gallery -->
+        <div>
+          <p class="custom-event__gallery-label">Portfolio</p>
+          <h3 class="custom-event__gallery-title">Foto da eventi passati</h3>
+          <div class="custom-event__gallery">
+            <div class="custom-event__photo" onclick="openEventLightbox(0)">
+              <img src="./foto%20eventi/Steve%20Madden%20Pitti/DSC09319.jpg" alt="Steve Madden – Pitti" loading="lazy" decoding="async" />
+              <span class="custom-event__photo-label">Steve Madden — Pitti</span>
+            </div>
+            <div class="custom-event__photo" onclick="openEventLightbox(1)">
+              <img src="./foto%20eventi/Steve%20Madden%20MICAM/DSC01280.JPG" alt="Steve Madden – MICAM" loading="lazy" decoding="async" />
+              <span class="custom-event__photo-label">Steve Madden — MICAM</span>
+            </div>
+            <div class="custom-event__photo" onclick="openEventLightbox(2)">
+              <img src="./foto%20eventi/Steve%20Madden%20MICAM/STEVE1.JPG" alt="Steve Madden – Evento" loading="lazy" decoding="async" />
+              <span class="custom-event__photo-label">Steve Madden</span>
+            </div>
+            <div class="custom-event__photo" onclick="openEventLightbox(3)">
+              <img src="./foto%20eventi/Steve%20Madden%20Pitti/STEVE5.jpg" alt="Steve Madden – Setup" loading="lazy" decoding="async" />
+              <span class="custom-event__photo-label">Steve Madden</span>
+            </div>
+            <div class="custom-event__photo" onclick="openEventLightbox(4)">
+              <img src="./foto%20eventi/Steve%20Madden%20MICAM/STEVE2.JPG" alt="Steve Madden – Gelato" loading="lazy" decoding="async" />
+              <span class="custom-event__photo-label">Steve Madden</span>
+            </div>
+            <div class="custom-event__photo" onclick="openEventLightbox(5)">
+              <img src="./foto%20eventi/Steve%20Madden%20Pitti/STEVE4.jpg" alt="Steve Madden – Branding" loading="lazy" decoding="async" />
+              <span class="custom-event__photo-label">Steve Madden</span>
+            </div>
+            <div class="custom-event__photo" onclick="openEventLightbox(6)">
+              <img src="./foto%20eventi/Steve%20Madden%20MICAM/DSC01260.JPG" alt="Steve Madden – Dettaglio" loading="lazy" decoding="async" />
+              <span class="custom-event__photo-label">Steve Madden</span>
+            </div>
+            <div class="custom-event__photo" onclick="openEventLightbox(7)">
+              <img src="./foto%20eventi/Steve%20Madden%20Pitti/STEVE6.jpg" alt="Steve Madden – Servizio" loading="lazy" decoding="async" />
+              <span class="custom-event__photo-label">Steve Madden</span>
+            </div>
+          </div>
         </div>
 
-        <h3 style="font-size:28px; text-transform:uppercase; letter-spacing:3px; color:#1e398d; margin:30px 0 24px; text-align:center; font-weight:700; position:relative; z-index:10;">FOTO EVENTI</h3>
-        <div class="corporate-gallery">
-          <div class="gallery-card" onclick="openEventLightbox(0)">
-            <img src="./foto%20eventi/Steve%20Madden%20Pitti/DSC09319.jpg" alt="Steve Madden" loading="lazy" decoding="async" />
-            <span>Steve Madden</span>
-          </div>
-          <div class="gallery-card" onclick="openEventLightbox(1)">
-            <img src="../assets/images/branding/eventi-bg.webp" alt="Menarini" loading="lazy" decoding="async" />
-            <span>Menarini</span>
-          </div>
+        <!-- CTA -->
+        <div class="custom-event__cta">
+          <p>Per info e costi contattare il nostro team eventi</p>
+          <a href="mailto:eventi@badiani1932.com" class="custom-event__cta-btn">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+            eventi@badiani1932.com
+          </a>
         </div>
       </div>
     </section>
 
-    <section id="contatti" data-i18n-attr="aria-label:eventi.contact.label">
-      <h2 class="section-title" data-i18n="eventi.contact.title">Contatti</h2>
-      <div class="contact-block">
-        <form action="mailto:eventi@badiani1932.com" method="post" enctype="text/plain">
-          <div class="contact-grid">
-            <div>
-              <label for="tipoRichiesta" data-i18n="eventi.contact.form.type">Tipo richiesta</label>
-              <select id="tipoRichiesta" name="tipoRichiesta" data-i18n-attr="aria-label:eventi.contact.form.type">
-                <option data-i18n="eventi.contact.form.type.event">Evento</option>
-                <option data-i18n="eventi.contact.form.type.b2b">B2B</option>
-              </select>
+    <section id="contatti" class="request-form-section" data-i18n-attr="aria-label:eventi.contact.label">
+      <div class="request-form-block">
+        <div class="request-form-header">
+          <h2>Richiedi Informazioni</h2>
+          <p>Compila il modulo e ti ricontatteremo per organizzare il tuo evento</p>
+        </div>
+        <div class="request-form-body">
+          <form action="mailto:eventi@badiani1932.com" method="post" enctype="text/plain" id="requestForm">
+            <div class="request-form-grid">
+              <div class="form-field">
+                <label for="rf-nome">Nome *</label>
+                <input id="rf-nome" name="nome" type="text" placeholder="Il tuo nome" autocomplete="given-name" required />
+              </div>
+              <div class="form-field">
+                <label for="rf-cognome">Cognome *</label>
+                <input id="rf-cognome" name="cognome" type="text" placeholder="Il tuo cognome" autocomplete="family-name" required />
+              </div>
+              <div class="form-field">
+                <label for="rf-tipo">Azienda o Privato *</label>
+                <select id="rf-tipo" name="tipo" required>
+                  <option value="" disabled selected>Seleziona...</option>
+                  <option value="azienda">Azienda</option>
+                  <option value="privato">Privato</option>
+                </select>
+              </div>
+              <div class="form-field">
+                <label for="rf-telefono">Telefono *</label>
+                <input id="rf-telefono" name="telefono" type="tel" placeholder="+39 ..." autocomplete="tel" required />
+              </div>
+              <div class="form-field">
+                <label for="rf-data">Data dell'evento</label>
+                <input id="rf-data" name="data" type="date" />
+              </div>
+              <div class="form-field">
+                <label for="rf-orario">Orario</label>
+                <input id="rf-orario" name="orario" type="time" />
+              </div>
+              <div class="form-field">
+                <label for="rf-persone">Numero Persone</label>
+                <input id="rf-persone" name="persone" type="number" min="1" placeholder="Es. 50" />
+              </div>
+              <div class="form-field">
+                <label>Opzioni Extra?</label>
+                <div class="radio-group">
+                  <label><input type="radio" name="opzioniExtra" value="si" /> Sì</label>
+                  <label><input type="radio" name="opzioniExtra" value="no" checked /> No</label>
+                </div>
+              </div>
+              <div class="form-field full-width">
+                <label>A quale evento sei interessato? *</label>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="evento[]" value="saletta-privata" /> Saletta Privata Tosinghi</label>
+                  <label><input type="checkbox" name="evento[]" value="evento-esterno" /> Evento Esterno</label>
+                  <label><input type="checkbox" name="evento[]" value="gelato-van" /> Gelato Van</label>
+                  <label><input type="checkbox" name="evento[]" value="evento-su-misura" /> Evento Aziendale su Misura</label>
+                </div>
+              </div>
             </div>
-            <div>
-              <label for="nome" data-i18n="eventi.contact.form.name">Nome</label>
-              <input id="nome" name="nome" type="text" autocomplete="name" required />
+            <div class="request-form-actions">
+              <label class="privacy-row">
+                <input type="checkbox" required />
+                <span>Ho letto e accetto la <a href="#" style="color:var(--badiani-blue);text-decoration:underline;">privacy policy</a>.</span>
+              </label>
+              <button type="submit" class="request-form-submit">
+                <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+                Invia Richiesta
+              </button>
             </div>
-            <div>
-              <label for="azienda" data-i18n="eventi.contact.form.company">Azienda</label>
-              <input id="azienda" name="azienda" type="text" autocomplete="organization" />
-            </div>
-            <div>
-              <label for="email" data-i18n="eventi.contact.form.email">Email</label>
-              <input id="email" name="email" type="email" autocomplete="email" required />
-            </div>
-            <div>
-              <label for="telefono" data-i18n="eventi.contact.form.phone">Telefono</label>
-              <input id="telefono" name="telefono" type="tel" autocomplete="tel" />
-            </div>
-            <div style="grid-column:1/-1;">
-              <label for="messaggio" data-i18n="eventi.contact.form.message">Messaggio</label>
-              <textarea id="messaggio" name="messaggio" required></textarea>
-            </div>
-          </div>
-          <div class="contact-actions">
-            <label class="privacy-row">
-              <input type="checkbox" required data-i18n-attr="aria-label:eventi.contact.form.privacy.aria" />
-              <span data-i18n="eventi.contact.form.privacy.text">Ho letto e accetto la privacy policy. TODO: integrare link privacy.</span>
-            </label>
-            <button type="submit" data-i18n-attr="aria-label:eventi.contact.form.submit.aria" data-i18n="eventi.contact.form.submit">Invia richiesta</button>
-          </div>
-          <p class="contact-note" data-i18n="eventi.contact.form.note">TODO: integrare backend per invio form. Email eventi: eventi@badiani1932.com</p>
-        </form>
+          </form>
+        </div>
       </div>
     </section>
   </main>
@@ -641,7 +904,13 @@
     // Lightbox functions for event gallery
     const eventImages = [
       './foto%20eventi/Steve%20Madden%20Pitti/DSC09319.jpg',
-      '../assets/images/branding/eventi-bg.webp'
+      './foto%20eventi/Steve%20Madden%20MICAM/DSC01280.JPG',
+      './foto%20eventi/Steve%20Madden%20MICAM/STEVE1.JPG',
+      './foto%20eventi/Steve%20Madden%20Pitti/STEVE5.jpg',
+      './foto%20eventi/Steve%20Madden%20MICAM/STEVE2.JPG',
+      './foto%20eventi/Steve%20Madden%20Pitti/STEVE4.jpg',
+      './foto%20eventi/Steve%20Madden%20MICAM/DSC01260.JPG',
+      './foto%20eventi/Steve%20Madden%20Pitti/STEVE6.jpg'
     ];
     let currentEventIndex = 0;
 
@@ -773,7 +1042,7 @@
           'nav.b2b': 'B2B',
           'eventi.hero.label': 'Badiani Events',
           'eventi.hero.title': 'Badiani Events',
-          'eventi.hero.desc': 'Select the event type to discover details and request a personalized quote.',
+          'eventi.hero.desc': 'Select the event type to discover details and request a personalised quote.',
           'eventi.types.label': 'Event types',
           'eventi.types.tag': 'Types',
           'eventi.types.title': 'Events',
@@ -801,12 +1070,12 @@
           'eventi.corporate.label': 'Corporate special',
           'eventi.corporate.title': 'CREATE YOUR TAILORED CORPORATE EVENT',
           'eventi.corporate.intro1': 'Create a unique event, designed around your brand',
-          'eventi.corporate.intro2': 'Every company has a different identity. That\'s why we create personalized events, tailored to your needs, context and type of audience.',
-          'eventi.corporate.custom.title': 'What we can customize',
+          'eventi.corporate.intro2': 'Every company has a different identity. That\'s why we create personalised events, tailored to your needs, context and type of audience.',
+          'eventi.corporate.custom.title': 'What we can customise',
           'eventi.corporate.custom.item1': 'Gelato service type',
-          'eventi.corporate.custom.item2': 'Flavor selection (possibility of customized and/or on-demand flavors)',
+          'eventi.corporate.custom.item2': 'Flavour selection (possibility of customised and/or on-demand flavours)',
           'eventi.corporate.custom.item3': 'Event setup',
-          'eventi.corporate.custom.item4': 'Personalized branding',
+          'eventi.corporate.custom.item4': 'Personalised branding',
           'eventi.corporate.custom.item5': 'Creative concept aligned with your brand',
           'eventi.corporate.ideal.title': 'Ideal for',
           'eventi.corporate.ideal.item1': 'Corporate events',
@@ -1042,37 +1311,33 @@
   </script>
 
   <script>
-    // Corporate highlight interactions
+    // Scroll reveal for custom-event section
     (function(){
-      const section = document.querySelector('.corporate-highlight');
+      const section = document.querySelector('.custom-event');
       if (!section) return;
 
-      const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
+      const photos = section.querySelectorAll('.custom-event__photo');
       const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-          if (entry.isIntersecting) section.classList.add('is-visible');
-        });
-      }, { threshold: 0.3 });
-
-      observer.observe(section);
-
-      function toggleExpand(target){
-        if (!target) return;
-        const isExpanded = target.classList.contains('is-expanded');
-        section.querySelectorAll('.corporate-expand.is-expanded').forEach(el => el.classList.remove('is-expanded'));
-        if (!isExpanded) target.classList.add('is-expanded');
-      }
-
-      section.querySelectorAll('[data-expand]').forEach(el => {
-        el.addEventListener('click', () => toggleExpand(el));
-        el.addEventListener('keydown', (event) => {
-          if (event.key === 'Enter' || event.key === ' ') {
-            event.preventDefault();
-            toggleExpand(el);
+          if (entry.isIntersecting) {
+            photos.forEach((photo, i) => {
+              setTimeout(() => {
+                photo.style.opacity = '1';
+                photo.style.transform = 'translateY(0)';
+              }, i * 80);
+            });
           }
         });
+      }, { threshold: 0.15 });
+
+      // Initial hidden state for photos
+      photos.forEach(photo => {
+        photo.style.opacity = '0';
+        photo.style.transform = 'translateY(20px)';
+        photo.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
       });
+
+      observer.observe(section);
     })();
   </script>
 </body>

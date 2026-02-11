@@ -16,28 +16,35 @@
       color:var(--badiani-blue);
       text-transform:uppercase;
       letter-spacing:3px;
-      margin-bottom:40px;
+      margin-bottom:12px;
+    }
+    .page-subtitle{
+      text-align:center;
+      font-size:clamp(14px, 1.5vw, 18px);
+      color:#6a6b6e;
+      max-width:600px;
+      margin:0 auto 40px;
+      line-height:1.6;
     }
 
     .magazine-wrap{ background:#f7f7fb; border-radius:28px; padding:28px; box-shadow:0 14px 30px rgba(0,0,0,0.08); }
     .magazine-header{ display:flex; align-items:center; justify-content:space-between; gap:16px; margin-bottom:16px; }
     .magazine-title{ font-size:clamp(20px, 2.2vw, 30px); text-transform:uppercase; letter-spacing:2px; color:var(--badiani-blue); }
-    .magazine-controls{ display:flex; gap:10px; }
+    .magazine-controls{ display:none; }
     .magazine-btn{ border:none; background:#fff; color:var(--badiani-blue); padding:8px 14px; border-radius:999px; cursor:pointer; box-shadow:0 6px 16px rgba(0,0,0,0.08); font-size:12px; letter-spacing:1px; text-transform:uppercase; }
     .magazine-btn:focus-visible{ outline:2px solid var(--badiani-pink); outline-offset:3px; }
 
-    .magazine-track{
+    .magazine-grid{
       display:grid;
-      grid-auto-flow:column;
-      grid-auto-columns:minmax(260px, 320px);
-      gap:18px;
-      overflow-x:auto;
-      padding-bottom:10px;
-      scroll-snap-type:x mandatory;
-      -webkit-overflow-scrolling:touch;
+      grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+      gap:24px;
     }
-    .magazine-track::-webkit-scrollbar{ height:8px; }
-    .magazine-track::-webkit-scrollbar-thumb{ background:rgba(30,57,141,0.2); border-radius:999px; }
+    .magazine-grid .article-card:first-child{
+      grid-column:span 2;
+    }
+    .magazine-grid .article-card:first-child .article-media{
+      aspect-ratio:16 / 9;
+    }
 
     .article-card{
       background:#fff;
@@ -46,11 +53,19 @@
       display:flex;
       flex-direction:column;
       min-height:360px;
-      scroll-snap-align:start;
-      box-shadow:0 12px 26px rgba(0,0,0,0.08);
-      border:1px solid rgba(30,57,141,0.08);
+      box-shadow:0 8px 24px rgba(0,0,0,0.07);
+      border:1px solid rgba(30,57,141,0.06);
       text-decoration:none;
       color:inherit;
+      transition:transform 0.28s ease, box-shadow 0.28s ease;
+    }
+    .article-card:hover, .article-card:focus-visible{
+      transform:translateY(-6px);
+      box-shadow:0 18px 40px rgba(0,0,0,0.13);
+    }
+    .article-card:focus-visible{
+      outline:2px solid var(--badiani-pink);
+      outline-offset:3px;
     }
     .article-media{
       position:relative;
@@ -79,8 +94,9 @@
     .article-body{ padding:16px 18px 20px; display:grid; gap:10px; }
     .article-title{ font-size:16px; font-weight:600; color:var(--badiani-blue); line-height:1.35; }
     .article-meta{ font-size:12px; text-transform:uppercase; letter-spacing:1px; color:#9aa0a6; }
-    .article-excerpt{ font-size:13px; color:#6a6b6e; line-height:1.5; }
-    .article-cta{ margin-top:auto; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; font-weight:600; color:var(--badiani-pink); }
+    .article-excerpt{ font-size:13px; color:#6a6b6e; line-height:1.55; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+    .article-cta{ margin-top:auto; font-size:12px; letter-spacing:1.5px; text-transform:uppercase; font-weight:600; color:var(--badiani-pink); transition:color 0.2s ease; }
+    .article-card:hover .article-cta{ color:var(--badiani-blue); }
 
     .news-columns{ margin-top:28px; column-count:3; column-gap:24px; }
     .news-columns h3{ break-inside:avoid; font-size:14px; text-transform:uppercase; letter-spacing:1px; color:var(--badiani-blue); margin-bottom:8px; }
@@ -88,10 +104,13 @@
 
     @media(max-width:1024px){
       .news-columns{ column-count:2; }
+      .magazine-grid .article-card:first-child{ grid-column:span 1; }
     }
     @media(max-width:720px){
       .news-columns{ column-count:1; }
       .magazine-controls{ display:none; }
+      .magazine-grid{ grid-template-columns:1fr; }
+      .magazine-grid .article-card:first-child{ grid-column:span 1; }
     }
   </style>
 </head>
@@ -124,6 +143,7 @@
     </div>
 
     <h1 class="page-title-centered" data-i18n="magazine.hero.title">Magazine</h1>
+    <p class="page-subtitle" data-i18n="magazine.hero.subtitle">Una rassegna stampa con gli articoli che parlano di Badiani, sfogliabile come un giornale.</p>
 
     <section class="magazine-wrap" data-i18n-attr="aria-label:magazine.list.label">
       <div class="magazine-header">
@@ -133,7 +153,7 @@
           <button class="magazine-btn" type="button" id="magazineNext" data-i18n="magazine.controls.next">Avanti</button>
         </div>
       </div>
-      <div class="magazine-track" id="magazineTrack" aria-live="polite"></div>
+      <div class="magazine-grid" id="magazineTrack" aria-live="polite"></div>
     </section>
 
     <section class="news-columns" data-i18n-attr="aria-label:magazine.columns.label">
@@ -262,14 +282,14 @@
           source: 'Intoscana',
           date: '26 giugno 2024',
           url: 'https://www.intoscana.it/it/il-buontalenti-di-badiani-sbarca-al-carrousel-du-louvre/',
-          image: ''
+          image: 'https://www.intoscana.it/wp-content/uploads/20240620-L1010607-scaled-e1719316587691.jpg'
         },
         {
           title: 'Badiani in the World: Firenze val bene un Gelato',
           source: 'Firenze Spettacolo',
           date: '25 giugno 2024',
           url: 'https://www.firenzespettacolo.it/badiani-in-the-world-firenze-val-bene-un-gelato-6791',
-          image: ''
+          image: 'https://www.firenzespettacolo.it/media/immagini/1719323839-IMG_1019-Modifica-Modifica2.jpg'
         },
         {
           title: 'Un gelato italiano al Louvre',
@@ -290,7 +310,7 @@
           source: 'Italia a Tavola',
           date: '6 ottobre 2015',
           url: 'https://www.italiaatavola.net/horeca/2015/10/6/paolo-pomposi-trionfa-dolce-vita-diventa-miglior-gelatiere-europa/41435/',
-          image: ''
+          image: 'https://www.italiaatavola.net/images/contenutiarticoli/Pomposi-GelatoFestival.jpg'
         },
         {
           title: 'Il gusto La Dolcevita di Badiani conquista il London Gelato Festival',
@@ -314,25 +334,19 @@
           image: 'https://cruiseindustrynews.com/wp-content/uploads/2025/05/crystal_gelato.jpg.webp'
         },
         {
-          title: 'Rassegna stampa (documento)',
-          source: 'Google Drive',
+          title: 'Badiani su Food & Beverage',
+          source: 'Food & Beverage',
           date: '',
           url: 'https://drive.google.com/file/d/11Z8dCd4pCsp0k7z1Lg49wk-d3-gZ8Cr4/view?usp=sharing',
-          image: ''
+          image: '../assets/images/rassegna-stampa/food-beverage.png'
         },
         {
-          title: 'Rassegna stampa (documento)',
-          source: 'Google Drive',
+          title: 'Badiani su Il Tirreno',
+          source: 'Il Tirreno',
           date: '',
           url: 'https://drive.google.com/file/d/1FJY8X6u3uk1q-I8zRez5j4Qy_xRLDrXv/view?usp=sharing',
-          image: 'https://drive.google.com/drive-viewer/AKGpiha4qjT7U0qW4B5G8CR8_05_yXLUrs6qnj8T2hqiWiwlRqw7IAKVIyE-DYZur0p2YwdUbzkxmSt7Pp-RXUdKZ2GOFwIRQv-4XVg=s1600-rw-v1'
-        },
-        {
-          title: 'Rassegna stampa (documento)',
-          source: 'Google Drive',
-          date: '',
-          url: 'https://drive.google.com/file/d/13knh29b9nR18AEiq2kiz3vhXyLhX90Kr/view?usp=sharing',
-          image: 'https://drive.google.com/drive-viewer/AKGpihbzYZjG-nuZuOGoylBCm9QLZ8wigSo8qNIXzctZEmOtNdjqgqFJGCHaJGTHryxQflmGBwi61hloZmUuVG8KZL6LYi4gcOCe5Q=s1600-rw-v1'
+          url2: 'https://drive.google.com/file/d/13knh29b9nR18AEiq2kiz3vhXyLhX90Kr/view?usp=sharing',
+          image: '../assets/images/rassegna-stampa/il-tirreno-1.png'
         },
         {
           title: 'Non solo arte, a Firenze si mangia pure un buon gelato',
@@ -342,18 +356,18 @@
           image: 'https://static.gamberorosso.it/2025/04/Gelato-con-dietro-panoramica-di-Firenze.-Foto-di-Gelateria-della-Passera.jpg'
         },
         {
-          title: 'Instagram Post',
+          title: 'Badiani al Carrousel du Louvre — Instagram',
           source: 'Instagram',
-          date: '',
+          date: 'luglio 2024',
           url: 'https://www.instagram.com/p/C9wnAWjoB7O/?igsh=MThieWt4cXFicTcwNg%3D%3D',
-          image: ''
+          image: '../assets/images/branding/hero-bg.webp'
         },
         {
-          title: 'Badiani fa novant’anni. Una storia dolcissima',
+          title: 'Badiani fa novant\u2019anni. Una storia dolcissima',
           source: 'La Nazione',
           date: '18 settembre 2022',
           url: 'https://www.lanazione.it/firenze/cronaca/badiani-fa-novantanni-una-storia-dolcissima-4d7cb30f',
-          image: ''
+          image: 'https://www.lanazione.it/image-service/version/c:YzdhYmIyYmUtODA5OC00:ZmNlNDkz/la-gelateria.jpg?f=16:9&w=1200&h=675'
         },
         {
           title: '90 anni di Badiani, il gelato di Firenze che spopola a Londra',
@@ -390,16 +404,41 @@
         return dict && dict[key] ? dict[key] : '';
       }
 
+      const EXCERPT_MAP = [
+        'La storica gelateria fiorentina apre il 28° punto vendita al Carrousel du Louvre a Parigi.',
+        'Firenze viene esportata nel mondo grazie alla storica gelateria Badiani. Ultima apertura al Louvre di Parigi.',
+        'Badiani inaugura il primo punto vendita nella prestigiosa galleria del Carrousel du Louvre a Parigi.',
+        'Paolo Pomposi premiato al Gelato Festival 2015 per il gusto Dolcevita, a base di Buontalenti con nocciole e cacao.',
+        'Finale europea del Gelato Festival 2015: Pomposi conquista il titolo con la rivisitazione del Buontalenti.',
+        'Paolo Pomposi miglior gelatiere: il gusto La Dolcevita, panna gelato variegata con cioccolato e nocciole.',
+        'Badiani tra le 5 migliori gelaterie artigianali di Firenze. Oltre 90 anni di storia, Buontalenti come simbolo.',
+        'Crystal Cruises introduce il gelato Badiani a bordo di Symphony e Serenity con 22 gusti esclusivi.',
+        'Articolo dedicato a Badiani pubblicato su Food & Beverage.',
+        'Articolo dedicato a Badiani pubblicato su Il Tirreno — due pagine.',
+        'Badiani nella guida delle migliori gelaterie di Firenze del Gambero Rosso. Oltre 90 anni di tradizione.',
+        'Scopri il post dedicato a Badiani al Carrousel du Louvre di Parigi su Instagram.',
+        'Nel viale dei Mille a Firenze, dal 1932 la gelateria famosa nel mondo. Una fortuna fondata sul Buontalenti.',
+        '90° anniversario Badiani: 12 gelaterie nel mondo, 9 a Londra, 130 dipendenti, 250 tonnellate di gelato.'
+      ];
+
       function renderArticles(){
         const track = document.getElementById('magazineTrack');
         if(!track) return;
         track.innerHTML = '';
-        ARTICLES.forEach((article) => {
+        ARTICLES.forEach((article, idx) => {
           const card = document.createElement('a');
           card.className = 'article-card';
           card.href = article.url;
           card.target = '_blank';
           card.rel = 'noopener noreferrer';
+
+          if(article.url2){
+            card.addEventListener('click', function(e){
+              e.preventDefault();
+              window.open(article.url, '_blank', 'noopener,noreferrer');
+              window.open(article.url2, '_blank', 'noopener,noreferrer');
+            });
+          }
 
           const media = document.createElement('div');
           media.className = 'article-media';
@@ -428,7 +467,7 @@
 
           const excerpt = document.createElement('div');
           excerpt.className = 'article-excerpt';
-          excerpt.textContent = article.url.replace(/^https?:\/\//, '');
+          excerpt.textContent = EXCERPT_MAP[idx] || '';
 
           const cta = document.createElement('div');
           cta.className = 'article-cta';

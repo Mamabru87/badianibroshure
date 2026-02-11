@@ -33,7 +33,7 @@
       'music.off': 'Music: Off',
 
       'customizer.title': 'Create Your Gelato',
-      'customizer.subtitle': 'Choose your favorite flavors for your custom cursor!',
+      'customizer.subtitle': 'Choose your favourite flavours for your custom cursor!',
       'customizer.leftScoop': 'Left Scoop',
       'customizer.rightScoop': 'Right Scoop',
       'customizer.previewTitle': 'Your Custom Cursor',
