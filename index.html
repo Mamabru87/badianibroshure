@@ -509,11 +509,178 @@
       .stat{ min-height:70px; padding:12px 24px; aspect-ratio:2.5/1; }
       .stat-num{ font-size:clamp(17px, 6.8vw, 24px); }
     }
+
+    /* ========== HOME REQUEST INFO FORM ========== */
+    .home-form-section{
+      padding:clamp(40px, 6vw, 80px) clamp(16px, 4vw, 80px);
+      background:#fff;
+    }
+    .home-form-block{
+      max-width:900px;
+      margin:0 auto;
+      background:#fff;
+      border-radius:28px;
+      overflow:hidden;
+      box-shadow:0 20px 60px rgba(30,57,141,0.10);
+    }
+    .home-form-header{
+      background:linear-gradient(135deg, var(--badiani-blue) 0%, #2a4faf 100%);
+      padding:clamp(28px, 4vw, 44px) clamp(24px, 4vw, 60px);
+      text-align:center;
+      color:#fff;
+    }
+    .home-form-header h2{
+      font-size:clamp(22px, 2.8vw, 34px);
+      letter-spacing:2px;
+      text-transform:uppercase;
+      color:#fff;
+      margin-bottom:8px;
+    }
+    .home-form-header p{
+      font-size:clamp(14px, 1.2vw, 17px);
+      color:rgba(255,255,255,0.75);
+    }
+    .home-form-body{
+      padding:clamp(28px, 4vw, 48px) clamp(24px, 4vw, 60px);
+    }
+    .home-form-grid{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:20px;
+    }
+    .home-form-grid .hf-field{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+    .home-form-grid .hf-field.full-width{
+      grid-column:1 / -1;
+    }
+    .home-form-grid label{
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:1.2px;
+      color:#6a6b6e;
+      font-weight:600;
+    }
+    .home-form-grid input,
+    .home-form-grid select,
+    .home-form-grid textarea{
+      width:100%;
+      border:1px solid rgba(30,57,141,0.15);
+      border-radius:12px;
+      padding:12px 14px;
+      font-family:inherit;
+      font-size:14px;
+      background:#f8f9fc;
+      color:#4a4f57;
+      transition:border-color 0.3s, box-shadow 0.3s;
+      box-sizing:border-box;
+    }
+    .home-form-grid textarea{
+      resize:vertical;
+      min-height:90px;
+    }
+    .home-form-grid input:focus,
+    .home-form-grid select:focus,
+    .home-form-grid textarea:focus{
+      outline:none;
+      border-color:var(--badiani-blue);
+      box-shadow:0 0 0 3px rgba(30,57,141,0.1);
+    }
+    .home-form-grid input::placeholder,
+    .home-form-grid textarea::placeholder{
+      color:#b0b4ba;
+    }
+    .hf-radio-group{
+      display:flex;
+      gap:16px;
+    }
+    .hf-radio-group label{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      font-size:14px;
+      font-weight:400;
+      text-transform:none;
+      letter-spacing:0;
+      color:#58595b;
+      cursor:pointer;
+    }
+    .hf-radio-group input[type="radio"]{
+      width:16px;
+      height:16px;
+      accent-color:var(--badiani-blue);
+    }
+    .home-form-actions{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      flex-wrap:wrap;
+      gap:16px;
+      margin-top:28px;
+      padding-top:24px;
+      border-top:1px solid rgba(30,57,141,0.08);
+    }
+    .home-form-actions .hf-privacy{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      font-size:13px;
+      color:#6a6b6e;
+    }
+    .home-form-actions .hf-privacy input{
+      margin-top:2px;
+      width:16px;
+      height:16px;
+      accent-color:var(--badiani-blue);
+    }
+    .home-form-submit{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      border:none;
+      background:var(--badiani-blue);
+      color:#fff;
+      padding:14px 36px;
+      border-radius:999px;
+      font-size:13px;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      font-family:inherit;
+      font-weight:600;
+      cursor:pointer;
+      transition:background 0.3s, transform 0.3s, box-shadow 0.3s;
+      box-shadow:0 8px 24px rgba(30,57,141,0.2);
+    }
+    .home-form-submit:hover{
+      background:var(--badiani-pink);
+      transform:translateY(-2px);
+      box-shadow:0 12px 32px rgba(240,103,166,0.25);
+    }
+    .home-form-submit svg{
+      width:18px;
+      height:18px;
+      fill:currentColor;
+    }
+    @media(max-width:768px){
+      .home-form-grid{
+        grid-template-columns:1fr;
+      }
+      .home-form-actions{
+        flex-direction:column;
+        align-items:stretch;
+        text-align:center;
+      }
+      .home-form-submit{
+        justify-content:center;
+      }
+    }
   </style>
 </head>
 <body>
   <header class="topbar" data-i18n-attr="aria-label:topbar.label">
-    <a href="/" class="topbar__logo">
+    <a href="./" class="topbar__logo">
       <img src="assets/images/branding/logo.webp" alt="Badiani 1932" />
     </a>
     <div class="topbar__right">
@@ -639,6 +806,68 @@
     </div>
   </section>
 
+  <!-- RICHIEDI INFORMAZIONI -->
+  <section id="contatti" class="home-form-section" data-i18n-attr="aria-label:home.form.label">
+    <div class="home-form-block">
+      <div class="home-form-header">
+        <h2 data-i18n="home.form.title">Richiedi Informazioni</h2>
+        <p data-i18n="home.form.subtitle">Compila il modulo e ti ricontatteremo</p>
+      </div>
+      <div class="home-form-body">
+        <form id="homeRequestForm">
+          <div class="home-form-grid">
+            <div class="hf-field">
+              <label for="hf-nome" data-i18n="home.form.nome">Nome *</label>
+              <input id="hf-nome" name="nome" type="text" placeholder="Il tuo nome" data-i18n-attr="placeholder:home.form.nome_ph" autocomplete="given-name" required />
+            </div>
+            <div class="hf-field">
+              <label for="hf-cognome" data-i18n="home.form.cognome">Cognome *</label>
+              <input id="hf-cognome" name="cognome" type="text" placeholder="Il tuo cognome" data-i18n-attr="placeholder:home.form.cognome_ph" autocomplete="family-name" required />
+            </div>
+            <div class="hf-field">
+              <label for="hf-email" data-i18n="home.form.email">Email *</label>
+              <input id="hf-email" name="email" type="email" placeholder="email@esempio.com" data-i18n-attr="placeholder:home.form.email_ph" autocomplete="email" required />
+            </div>
+            <div class="hf-field">
+              <label for="hf-telefono" data-i18n="home.form.telefono">Telefono *</label>
+              <input id="hf-telefono" name="telefono" type="tel" placeholder="+39 ..." data-i18n-attr="placeholder:home.form.telefono_ph" autocomplete="tel" required />
+            </div>
+            <div class="hf-field">
+              <label data-i18n="home.form.contactPref">Preferenza di contatto *</label>
+              <div class="hf-radio-group">
+                <label><input type="radio" name="preferenza_contatto" value="telefono" checked /> <span data-i18n="home.form.contactPref.phone">Telefono</span></label>
+                <label><input type="radio" name="preferenza_contatto" value="email" /> <span data-i18n="home.form.contactPref.email">Email</span></label>
+              </div>
+            </div>
+            <div class="hf-field">
+              <label for="hf-interesse" data-i18n="home.form.interesse">Interessato a *</label>
+              <select id="hf-interesse" name="interesse" required>
+                <option value="" disabled selected data-i18n="home.form.interesse_select">Seleziona...</option>
+                <option value="eventi" data-i18n="home.form.interesse_eventi">Eventi</option>
+                <option value="b2b" data-i18n="home.form.interesse_b2b">B2B</option>
+                <option value="altro" data-i18n="home.form.interesse_altro">Altro</option>
+              </select>
+            </div>
+            <div class="hf-field full-width">
+              <label for="hf-messaggio" data-i18n="home.form.messaggio">Messaggio</label>
+              <textarea id="hf-messaggio" name="messaggio" placeholder="Descrivi le tue esigenze o richieste..." data-i18n-attr="placeholder:home.form.messaggio_ph"></textarea>
+            </div>
+          </div>
+          <div class="home-form-actions">
+            <label class="hf-privacy">
+              <input type="checkbox" required />
+              <span data-i18n-html="home.form.privacy">Ho letto e accetto la <a href="#" style="color:var(--badiani-blue);text-decoration:underline;">privacy policy</a>.</span>
+            </label>
+            <button type="submit" class="home-form-submit">
+              <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+              <span data-i18n="home.form.submit">Invia Richiesta</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
 
 
 
@@ -714,7 +943,30 @@
           'heritage.stat.quality': 'Qualità Italiana',
           'heritage.stat.countries': 'Paesi',
           'global.top': 'Badiani Nel Mondo',
-          'global.mid': 'Significa'
+          'global.mid': 'Significa',
+          'home.form.label': 'Richiedi informazioni',
+          'home.form.title': 'Richiedi Informazioni',
+          'home.form.subtitle': 'Compila il modulo e ti ricontatteremo',
+          'home.form.nome': 'Nome *',
+          'home.form.nome_ph': 'Il tuo nome',
+          'home.form.cognome': 'Cognome *',
+          'home.form.cognome_ph': 'Il tuo cognome',
+          'home.form.email': 'Email *',
+          'home.form.email_ph': 'email@esempio.com',
+          'home.form.telefono': 'Telefono *',
+          'home.form.telefono_ph': '+39 ...',
+          'home.form.contactPref': 'Preferenza di contatto *',
+          'home.form.contactPref.phone': 'Telefono',
+          'home.form.contactPref.email': 'Email',
+          'home.form.interesse': 'Interessato a *',
+          'home.form.interesse_select': 'Seleziona...',
+          'home.form.interesse_eventi': 'Eventi',
+          'home.form.interesse_b2b': 'B2B',
+          'home.form.interesse_altro': 'Altro',
+          'home.form.messaggio': 'Messaggio',
+          'home.form.messaggio_ph': 'Descrivi le tue esigenze o richieste...',
+          'home.form.privacy': 'Ho letto e accetto la <a href="#" style="color:var(--badiani-blue);text-decoration:underline;">privacy policy</a>.',
+          'home.form.submit': 'Invia Richiesta'
         },
         en: {
           'meta.title': 'Badiani 1932 — Home',
@@ -781,7 +1033,30 @@
           'heritage.stat.quality': 'Italian Quality',
           'heritage.stat.countries': 'Countries',
           'global.top': 'Badiani Around The World',
-          'global.mid': 'Means'
+          'global.mid': 'Means',
+          'home.form.label': 'Request information',
+          'home.form.title': 'Request Information',
+          'home.form.subtitle': 'Fill in the form and we will get back to you',
+          'home.form.nome': 'First Name *',
+          'home.form.nome_ph': 'Your first name',
+          'home.form.cognome': 'Last Name *',
+          'home.form.cognome_ph': 'Your last name',
+          'home.form.email': 'Email *',
+          'home.form.email_ph': 'email@example.com',
+          'home.form.telefono': 'Phone *',
+          'home.form.telefono_ph': '+44 ...',
+          'home.form.contactPref': 'Preferred contact method *',
+          'home.form.contactPref.phone': 'Phone',
+          'home.form.contactPref.email': 'Email',
+          'home.form.interesse': 'Interested in *',
+          'home.form.interesse_select': 'Select...',
+          'home.form.interesse_eventi': 'Events',
+          'home.form.interesse_b2b': 'B2B',
+          'home.form.interesse_altro': 'Other',
+          'home.form.messaggio': 'Message',
+          'home.form.messaggio_ph': 'Describe your needs or requests...',
+          'home.form.privacy': 'I have read and accept the <a href="#" style="color:var(--badiani-blue);text-decoration:underline;">privacy policy</a>.',
+          'home.form.submit': 'Send Request'
         },
         fr: {
           'meta.title': 'Badiani 1932 — Accueil',
@@ -848,7 +1123,30 @@
           'heritage.stat.quality': 'Qualité Italienne',
           'heritage.stat.countries': 'Pays',
           'global.top': 'Badiani Dans Le Monde',
-          'global.mid': 'Signifie'
+          'global.mid': 'Signifie',
+          'home.form.label': 'Demander des informations',
+          'home.form.title': 'Demander des Informations',
+          'home.form.subtitle': 'Remplissez le formulaire et nous vous recontacterons',
+          'home.form.nome': 'Prénom *',
+          'home.form.nome_ph': 'Votre prénom',
+          'home.form.cognome': 'Nom *',
+          'home.form.cognome_ph': 'Votre nom',
+          'home.form.email': 'Email *',
+          'home.form.email_ph': 'email@exemple.com',
+          'home.form.telefono': 'Téléphone *',
+          'home.form.telefono_ph': '+33 ...',
+          'home.form.contactPref': 'Méthode de contact préférée *',
+          'home.form.contactPref.phone': 'Téléphone',
+          'home.form.contactPref.email': 'Email',
+          'home.form.interesse': 'Intéressé par *',
+          'home.form.interesse_select': 'Sélectionner...',
+          'home.form.interesse_eventi': 'Événements',
+          'home.form.interesse_b2b': 'B2B',
+          'home.form.interesse_altro': 'Autre',
+          'home.form.messaggio': 'Message',
+          'home.form.messaggio_ph': 'Décrivez vos besoins ou demandes...',
+          'home.form.privacy': 'J\'ai lu et j\'accepte la <a href="#" style="color:var(--badiani-blue);text-decoration:underline;">politique de confidentialité</a>.',
+          'home.form.submit': 'Envoyer la Demande'
         },
         es: {
           'meta.title': 'Badiani 1932 — Inicio',
@@ -915,7 +1213,30 @@
           'heritage.stat.quality': 'Calidad Italiana',
           'heritage.stat.countries': 'Países',
           'global.top': 'Badiani En El Mundo',
-          'global.mid': 'Significa'
+          'global.mid': 'Significa',
+          'home.form.label': 'Solicitar información',
+          'home.form.title': 'Solicitar Información',
+          'home.form.subtitle': 'Completa el formulario y te contactaremos',
+          'home.form.nome': 'Nombre *',
+          'home.form.nome_ph': 'Tu nombre',
+          'home.form.cognome': 'Apellido *',
+          'home.form.cognome_ph': 'Tu apellido',
+          'home.form.email': 'Email *',
+          'home.form.email_ph': 'email@ejemplo.com',
+          'home.form.telefono': 'Teléfono *',
+          'home.form.telefono_ph': '+34 ...',
+          'home.form.contactPref': 'Método de contacto preferido *',
+          'home.form.contactPref.phone': 'Teléfono',
+          'home.form.contactPref.email': 'Email',
+          'home.form.interesse': 'Interesado en *',
+          'home.form.interesse_select': 'Seleccionar...',
+          'home.form.interesse_eventi': 'Eventos',
+          'home.form.interesse_b2b': 'B2B',
+          'home.form.interesse_altro': 'Otro',
+          'home.form.messaggio': 'Mensaje',
+          'home.form.messaggio_ph': 'Describe tus necesidades o solicitudes...',
+          'home.form.privacy': 'He leído y acepto la <a href="#" style="color:var(--badiani-blue);text-decoration:underline;">política de privacidad</a>.',
+          'home.form.submit': 'Enviar Solicitud'
         }
       };
 
@@ -995,6 +1316,43 @@
       if (!hero) return;
       hero.addEventListener('click', function(){
         hero.classList.toggle('is-active');
+      });
+    })();
+
+    /* Home form submit handler - builds email summary */
+    (function(){
+      var form = document.getElementById('homeRequestForm');
+      if(!form) return;
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+
+        var labels = {
+          nome: 'Nome', cognome: 'Cognome', email: 'Email',
+          telefono: 'Telefono', preferenza_contatto: 'Preferenza di contatto',
+          interesse: 'Interessato a', messaggio: 'Messaggio'
+        };
+
+        var lines = ['=== RICHIESTA INFORMAZIONI ===', ''];
+        var fd = new FormData(form);
+        var seen = {};
+
+        for(var pair of fd.entries()){
+          var key = pair[0], val = pair[1];
+          if(!val) continue;
+          if(seen[key]) continue;
+          seen[key] = true;
+          var label = labels[key] || key;
+          lines.push(label + ': ' + val);
+        }
+
+        lines.push('', '--- Fine richiesta ---');
+
+        var interesse = fd.get('interesse') || 'generale';
+        var mailto = interesse === 'b2b' ? 'b2b@badiani1932.com' : 'eventi@badiani1932.com';
+        var subject = encodeURIComponent('Richiesta Informazioni - ' + (fd.get('nome') || '') + ' ' + (fd.get('cognome') || ''));
+        var body = encodeURIComponent(lines.join('\n'));
+        window.location.href = 'mailto:' + mailto + '?subject=' + subject + '&body=' + body;
       });
     })();
   </script>

@@ -832,6 +832,10 @@
                 <input id="rf-cognome" name="cognome" type="text" placeholder="Il tuo cognome" data-i18n-attr="placeholder:eventi.form.lastName.placeholder" autocomplete="family-name" required />
               </div>
               <div class="form-field">
+                <label for="rf-email" data-i18n="eventi.form.email">Email *</label>
+                <input id="rf-email" name="email" type="email" placeholder="email@esempio.com" data-i18n-attr="placeholder:eventi.form.email.placeholder" autocomplete="email" required />
+              </div>
+              <div class="form-field">
                 <label for="rf-tipo" data-i18n="eventi.form.clientType">Azienda o Privato *</label>
                 <select id="rf-tipo" name="tipo" required>
                   <option value="" disabled selected data-i18n="eventi.form.clientType.placeholder">Seleziona...</option>
@@ -842,6 +846,13 @@
               <div class="form-field">
                 <label for="rf-telefono" data-i18n="eventi.form.phone">Telefono *</label>
                 <input id="rf-telefono" name="telefono" type="tel" placeholder="+39 ..." data-i18n-attr="placeholder:eventi.form.phone.placeholder" autocomplete="tel" required />
+              </div>
+              <div class="form-field">
+                <label data-i18n="eventi.form.contactPref">Preferenza di contatto *</label>
+                <div class="radio-group">
+                  <label><input type="radio" name="preferenza_contatto" value="telefono" checked /> <span data-i18n="eventi.form.contactPref.phone">Telefono</span></label>
+                  <label><input type="radio" name="preferenza_contatto" value="email" /> <span data-i18n="eventi.form.contactPref.email">Email</span></label>
+                </div>
               </div>
               <div class="form-field">
                 <label for="rf-data" data-i18n="eventi.form.eventDate">Data dell'evento</label>
@@ -1044,8 +1055,13 @@
           'eventi.form.clientType.placeholder': 'Seleziona...',
           'eventi.form.clientType.company': 'Azienda',
           'eventi.form.clientType.private': 'Privato',
+          'eventi.form.email': 'Email *',
+          'eventi.form.email.placeholder': 'email@esempio.com',
           'eventi.form.phone': 'Telefono *',
           'eventi.form.phone.placeholder': '+39 ...',
+          'eventi.form.contactPref': 'Preferenza di contatto *',
+          'eventi.form.contactPref.phone': 'Telefono',
+          'eventi.form.contactPref.email': 'Email',
           'eventi.form.eventDate': 'Data dell\'evento',
           'eventi.form.eventTime': 'Orario',
           'eventi.form.guests': 'Numero Persone',
@@ -1148,8 +1164,13 @@
           'eventi.form.clientType.placeholder': 'Select...',
           'eventi.form.clientType.company': 'Company',
           'eventi.form.clientType.private': 'Private',
+          'eventi.form.email': 'Email *',
+          'eventi.form.email.placeholder': 'email@example.com',
           'eventi.form.phone': 'Phone *',
           'eventi.form.phone.placeholder': '+44 ...',
+          'eventi.form.contactPref': 'Preferred contact method *',
+          'eventi.form.contactPref.phone': 'Phone',
+          'eventi.form.contactPref.email': 'Email',
           'eventi.form.eventDate': 'Event Date',
           'eventi.form.eventTime': 'Time',
           'eventi.form.guests': 'Number of Guests',
@@ -1252,8 +1273,13 @@
           'eventi.form.clientType.placeholder': 'Sélectionner...',
           'eventi.form.clientType.company': 'Entreprise',
           'eventi.form.clientType.private': 'Particulier',
+          'eventi.form.email': 'Email *',
+          'eventi.form.email.placeholder': 'email@exemple.com',
           'eventi.form.phone': 'Téléphone *',
           'eventi.form.phone.placeholder': '+33 ...',
+          'eventi.form.contactPref': 'Méthode de contact préférée *',
+          'eventi.form.contactPref.phone': 'Téléphone',
+          'eventi.form.contactPref.email': 'Email',
           'eventi.form.eventDate': 'Date de l\'événement',
           'eventi.form.eventTime': 'Heure',
           'eventi.form.guests': 'Nombre de personnes',
@@ -1356,8 +1382,13 @@
           'eventi.form.clientType.placeholder': 'Seleccionar...',
           'eventi.form.clientType.company': 'Empresa',
           'eventi.form.clientType.private': 'Particular',
+          'eventi.form.email': 'Email *',
+          'eventi.form.email.placeholder': 'email@ejemplo.com',
           'eventi.form.phone': 'Teléfono *',
           'eventi.form.phone.placeholder': '+34 ...',
+          'eventi.form.contactPref': 'Método de contacto preferido *',
+          'eventi.form.contactPref.phone': 'Teléfono',
+          'eventi.form.contactPref.email': 'Email',
           'eventi.form.eventDate': 'Fecha del evento',
           'eventi.form.eventTime': 'Hora',
           'eventi.form.guests': 'Número de personas',
@@ -1448,6 +1479,56 @@
       }
 
       applyTranslations();
+    })();
+  </script>
+
+  <script>
+    // Form submit handler - builds email summary
+    (function(){
+      const form = document.getElementById('requestForm');
+      if(!form) return;
+
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+
+        const labels = {
+          nome: 'Nome', cognome: 'Cognome', email: 'Email',
+          tipo: 'Azienda/Privato', telefono: 'Telefono',
+          preferenza_contatto: 'Preferenza di contatto',
+          data: 'Data evento', orario: 'Orario',
+          persone: 'Numero persone', opzioniExtra: 'Opzioni extra'
+        };
+
+        const lines = ['=== RICHIESTA INFORMAZIONI EVENTI ===', ''];
+        const fd = new FormData(form);
+        const seen = new Set();
+
+        for(const [key, val] of fd.entries()){
+          if(!val || key === 'extras[]' || key === 'evento[]') continue;
+          if(seen.has(key)) continue;
+          seen.add(key);
+          const label = labels[key] || key;
+          lines.push(label + ': ' + val);
+        }
+
+        // Extras
+        const extras = fd.getAll('extras[]');
+        if(extras.length){
+          lines.push('Opzioni extra: ' + extras.join(', '));
+        }
+
+        // Eventi di interesse
+        const eventi = fd.getAll('evento[]');
+        if(eventi.length){
+          lines.push('Eventi di interesse: ' + eventi.join(', '));
+        }
+
+        lines.push('', '--- Fine richiesta ---');
+
+        const subject = encodeURIComponent('Richiesta Informazioni Eventi - ' + (fd.get('nome') || '') + ' ' + (fd.get('cognome') || ''));
+        const body = encodeURIComponent(lines.join('\n'));
+        window.location.href = 'mailto:eventi@badiani1932.com?subject=' + subject + '&body=' + body;
+      });
     })();
   </script>
 

@@ -226,223 +226,234 @@
     .packages-grid{
       display:grid;
       grid-template-columns:repeat(3, minmax(0, 1fr));
-      gap:20px;
+      gap:24px;
       margin-bottom:40px;
-      max-width:960px;
+      max-width:1200px;
       margin-left:auto;
       margin-right:auto;
+      align-items:stretch;
     }
     .package-card{
       background:var(--surface);
-      border-radius:16px;
+      border-radius:20px;
       overflow:hidden;
-      box-shadow:0 8px 24px rgba(0,0,0,0.10);
-      transition:transform 0.3s ease, box-shadow 0.3s ease;
-      cursor:pointer;
+      box-shadow:0 8px 28px rgba(0,0,0,0.10);
       display:flex;
       flex-direction:column;
+      transition:box-shadow 0.3s ease;
     }
     .package-card:hover{
-      transform:translateY(-4px);
-      box-shadow:0 12px 32px rgba(240,103,166,0.2);
+      box-shadow:0 14px 40px rgba(0,0,0,0.14);
     }
     .package-card.silver .package-header{ background:linear-gradient(135deg, #6F7C4A, #7f8c5a); }
     .package-card.gold .package-header{ background:linear-gradient(135deg, var(--badiani-yellow), #e0ad00); }
     .package-card.platinum .package-header{ background:linear-gradient(135deg, var(--badiani-pink), #ff7ab7); }
 
     .package-header{
-      padding:20px 20px;
+      padding:24px 22px;
       text-align:center;
       color:#fff;
     }
     .package-name{
-      font-size:clamp(18px, 2vw, 24px);
-      letter-spacing:1px;
+      font-size:clamp(20px, 2.2vw, 28px);
+      letter-spacing:2px;
       margin-bottom:6px;
+      font-weight:700;
     }
     .package-price{
-      font-size:clamp(15px, 1.4vw, 18px);
+      font-size:clamp(16px, 1.5vw, 20px);
       font-weight:700;
       opacity:0.95;
     }
     .package-body{
-      padding:16px 18px;
+      padding:20px 20px 16px;
       flex:1;
       display:flex;
       flex-direction:column;
-      justify-content:center;
     }
     .package-desc{
       font-size:14px;
       color:#6a6b6e;
-      margin-bottom:12px;
+      margin-bottom:16px;
       line-height:1.6;
+      text-align:center;
     }
-    .package-features{
-      list-style:none;
-      padding:0;
-      margin-bottom:auto;
+
+    /* Inline spec sections inside cards */
+    .pkg-section{
+      background:#f8f9fc;
+      border-radius:12px;
+      padding:14px 16px;
+      margin-bottom:12px;
+      position:relative;
+      border:1px solid rgba(30,57,141,0.06);
     }
-    .package-features li{
+    .pkg-section-label{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:1.5px;
+      font-weight:700;
+      margin-bottom:6px;
+      display:block;
+    }
+    .pkg-section.food .pkg-section-label{ color:var(--badiani-blue); }
+    .pkg-section.drink .pkg-section-label{ color:var(--badiani-pink); }
+    .pkg-section-value{
       font-size:13px;
-      padding:6px 0;
-      border-bottom:1px solid rgba(30,57,141,0.08);
+      color:#4a4f57;
+      line-height:1.65;
+    }
+
+    .pkg-detail-row{
       display:flex;
       align-items:flex-start;
-      gap:6px;
-      line-height:1.4;
+      gap:8px;
+      padding:8px 0;
+      border-bottom:1px solid rgba(30,57,141,0.06);
+      font-size:13px;
+      color:#4a4f57;
+      line-height:1.5;
     }
-    .package-features li::before{
-      content:"✓";
-      color:var(--badiani-pink);
-      font-size:14px;
-      font-weight:700;
+    .pkg-detail-row:last-child{ border-bottom:none; }
+    .pkg-detail-icon{
       flex-shrink:0;
+      width:20px;
+      height:20px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:50%;
+      font-size:11px;
+      margin-top:1px;
     }
-    .package-features strong{
-      color:var(--badiani-blue);
-      font-weight:600;
+    .pkg-detail-icon.clock{ background:rgba(30,57,141,0.08); color:var(--badiani-blue); }
+    .pkg-detail-icon.cal{ background:rgba(240,103,166,0.1); color:var(--badiani-pink); }
+
+    .packages-cta{
+      text-align:center;
+      margin-top:10px;
+      padding-top:20px;
     }
+    .packages-cta-btn{
+      font-size:14px !important;
+      padding:18px 48px !important;
+      letter-spacing:2.5px;
+      box-shadow:0 10px 30px rgba(30,57,141,0.25) !important;
+    }
+
     .package-note{
       font-size:11px;
       color:#90949a;
-      margin-top:auto;
+      margin-top:10px;
       font-style:italic;
+      text-align:center;
     }
 
-    /* MODAL — inspiration style */
-    .modal-overlay{
-      position:fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      z-index:9999;
-      display:none;
-      opacity:0;
-      transition:opacity 0.5s ease;
-      overflow:hidden;
-    }
-    .modal-overlay.active{ display:block; opacity:1; }
-    .modal-bg{
-      position:fixed;
-      top:0; left:0;
-      width:100%; height:100%;
-      background:rgba(0,0,0,0.95);
-      -webkit-backdrop-filter:blur(10px);
-      backdrop-filter:blur(10px);
-    }
-    .modal-content{
-      position:relative;
-      z-index:2;
+    /* ===== FOOD & DRINK LIST BUTTONS ===== */
+    .list-btns-row{
       display:flex;
-      align-items:center;
       justify-content:center;
-      width:100%;
-      height:100vh;
-      margin:0 auto;
-      padding:25px;
+      gap:16px;
+      margin-bottom:10px;
     }
-    .modal-close{
-      --close-icon-size:22px;
-      --close-icon-stroke:3px;
-      position:fixed;
-      top:18px; right:18px;
-      width:55px; height:55px;
-      background:linear-gradient(135deg, var(--badiani-pink), #ff7ab7);
-      border:none;
-      border-radius:50%;
-      cursor:pointer;
-      display:flex;
+    .list-btn{
+      display:inline-flex;
       align-items:center;
-      justify-content:center;
-      z-index:10;
-      box-shadow:0 5px 20px rgba(240,103,166,0.5);
-      padding:0; line-height:0; font-size:0; color:transparent;
-      transition:transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
-    }
-    .modal-close::before,
-    .modal-close::after{
-      content:"";
-      position:absolute;
-      left:50%; top:50%;
-      width:var(--close-icon-size);
-      height:var(--close-icon-stroke);
-      background:#fff;
+      gap:8px;
+      background:transparent;
+      color:var(--badiani-blue);
+      border:2px solid var(--badiani-blue);
+      padding:12px 28px;
       border-radius:999px;
-      transform-origin:center;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:2px;
+      font-family:inherit;
+      font-weight:600;
+      cursor:pointer;
+      transition:background 0.3s, color 0.3s, transform 0.3s, box-shadow 0.3s;
     }
-    .modal-close::before{ transform:translate(-50%,-50%) rotate(45deg); }
-    .modal-close::after{ transform:translate(-50%,-50%) rotate(-45deg); }
-    .modal-close:hover{
-      background:linear-gradient(135deg, var(--badiani-blue), #2a4ab0);
-      transform:rotate(90deg) scale(1.1);
-      box-shadow:0 8px 28px rgba(30,57,141,0.6);
+    .list-btn:hover{
+      background:var(--badiani-blue);
+      color:#fff;
+      transform:translateY(-2px);
+      box-shadow:0 8px 24px rgba(30,57,141,0.2);
+    }
+    .list-btn.drink-btn{
+      border-color:var(--badiani-pink);
+      color:var(--badiani-pink);
+    }
+    .list-btn.drink-btn:hover{
+      background:var(--badiani-pink);
+      color:#fff;
+      box-shadow:0 8px 24px rgba(240,103,166,0.25);
+    }
+    .list-btn svg{
+      width:16px; height:16px; fill:currentColor;
     }
 
-    .modal-panel{
-      width:100%;
-      max-width:1180px;
-      max-height:90vh;
+    /* ===== FOOD & DRINK LIST MODALS ===== */
+    .list-modal-overlay{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,0.7);
+      z-index:20000;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:20px;
       overflow-y:auto;
-      background:linear-gradient(135deg, #fff 0%, #f8f8f8 100%);
-      border-radius:20px;
-      padding:56px 52px;
-      box-shadow:0 20px 60px rgba(0,0,0,0.5);
-      animation:slideUp 0.5s cubic-bezier(0.34,1.56,0.64,1);
     }
-    @keyframes slideUp{ from{transform:translateY(40px);opacity:0;} to{transform:translateY(0);opacity:1;} }
-
-    .modal-panel-title{
-      font-size:clamp(28px, 3.5vw, 42px);
+    .list-modal-overlay.active{ display:flex; }
+    .list-modal{
+      background:#fff;
+      border-radius:24px;
+      max-width:540px;
+      width:100%;
+      position:relative;
+      box-shadow:0 30px 80px rgba(0,0,0,0.3);
+      overflow:hidden;
+      animation:formSlideUp 0.4s ease;
+    }
+    .list-modal__header{
+      padding:28px 32px;
+      color:#fff;
+      text-align:center;
+    }
+    .list-modal__header.food{ background:linear-gradient(135deg, var(--badiani-blue), #2a4faf); }
+    .list-modal__header.drink{ background:linear-gradient(135deg, var(--badiani-pink), #ff7ab7); }
+    .list-modal__header h2{
+      font-size:clamp(18px, 2.4vw, 26px);
       letter-spacing:2px;
       text-transform:uppercase;
-      color:var(--badiani-blue);
-      margin-bottom:10px;
-      font-weight:700;
-      text-align:center;
+      color:#fff;
+      margin-bottom:4px;
     }
-    .modal-panel-desc{
-      font-size:20px;
-      color:#6a6b6e;
-      line-height:1.7;
-      margin-bottom:32px;
-      text-align:center;
+    .list-modal__header p{
+      font-size:14px;
+      color:rgba(255,255,255,0.7);
     }
-
-    /* ===== COCKTAIL LIST TOGGLE ===== */
-    .cocktail-toggle-btn{
+    .list-modal__close{
       position:absolute;
-      top:12px;
-      right:12px;
-      padding:0;
+      top:16px; right:16px;
+      width:40px; height:40px;
+      background:rgba(255,255,255,0.15);
       border:none;
-      background:none;
-      color:var(--badiani-pink);
-      font-size:13px;
-      font-weight:700;
-      text-transform:uppercase;
-      letter-spacing:1px;
+      border-radius:50%;
+      color:#fff;
+      font-size:22px;
       cursor:pointer;
-      font-family:inherit;
-      transition:color 0.2s;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transition:background 0.3s;
+      z-index:2;
     }
-    .cocktail-toggle-btn:hover{
-      color:var(--badiani-blue);
+    .list-modal__close:hover{ background:rgba(255,255,255,0.3); }
+    .list-modal__body{
+      padding:24px 28px 28px;
     }
-    .cocktail-list-panel{
-      display:none;
-      margin-top:10px;
-      padding:12px 14px;
-      background:#f8f9fc;
-      border-radius:10px;
-      border:1px solid rgba(30,57,141,0.1);
-      animation:cocktailReveal 0.3s ease;
-    }
-    .cocktail-list-panel.visible{ display:block; }
-    @keyframes cocktailReveal{
-      from{ opacity:0; transform:translateY(-6px); }
-      to{ opacity:1; transform:translateY(0); }
-    }
-    .cocktail-list-panel ul{
+    .list-modal__body ul{
       list-style:none;
       padding:0;
       margin:0;
@@ -450,118 +461,26 @@
       flex-direction:column;
       gap:6px;
     }
-    .cocktail-list-panel li{
+    .list-modal__body li{
       font-size:15px;
       color:#4a4f57;
       line-height:1.5;
-      padding:5px 0;
+      padding:8px 0;
       border-bottom:1px solid rgba(30,57,141,0.06);
     }
-    .cocktail-list-panel li:last-child{ border-bottom:none; }
-    .cocktail-list-panel li strong{
+    .list-modal__body li:last-child{ border-bottom:none; }
+    .list-modal__body li strong{
       color:var(--badiani-blue);
       font-weight:600;
     }
-    .cocktail-list-panel li small{
+    .list-modal__body li small{
       color:#90949a;
       font-size:13px;
     }
-
-    /* ===== FINGER FOOD LIST TOGGLE ===== */
-    .fingerfood-toggle-btn{
-      position:absolute;
-      top:12px;
-      right:12px;
-      padding:0;
-      border:none;
-      background:none;
-      color:var(--badiani-blue);
-      font-size:13px;
-      font-weight:700;
-      text-transform:uppercase;
-      letter-spacing:1px;
-      cursor:pointer;
-      font-family:inherit;
-      transition:color 0.2s;
-    }
-    .fingerfood-toggle-btn:hover{
-      color:var(--badiani-pink);
-    }
-    .fingerfood-list-panel{
-      display:none;
-      margin-top:10px;
-      padding:12px 14px;
-      background:#f8f9fc;
-      border-radius:10px;
-      border:1px solid rgba(30,57,141,0.1);
-      animation:cocktailReveal 0.3s ease;
-    }
-    .fingerfood-list-panel.visible{ display:block; }
-    .fingerfood-list-panel ul{
-      list-style:none;
-      padding:0;
-      margin:0;
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-    }
-    .fingerfood-list-panel li{
-      font-size:15px;
-      color:#4a4f57;
-      line-height:1.5;
-      padding:5px 0;
-      border-bottom:1px solid rgba(30,57,141,0.06);
-    }
-    .fingerfood-list-panel li:last-child{ border-bottom:none; }
-    .fingerfood-list-panel li strong{
-      color:var(--badiani-blue);
-      font-weight:600;
-    }
-
-    .specs-grid{
-      display:grid;
-      grid-template-columns:repeat(2, 1fr);
-      gap:16px;
-    }
-    .spec-card{
-      background:#fff;
-      padding:20px;
-      border-radius:12px;
-      box-shadow:0 2px 8px rgba(0,0,0,0.08);
-      transition:transform 0.3s ease, box-shadow 0.3s ease;
-      position:relative;
-    }
-    .spec-card:hover{ transform:translateY(-2px); box-shadow:0 4px 12px rgba(240,103,166,0.15); }
-    .spec-label{
-      font-size:14px;
-      text-transform:uppercase;
-      letter-spacing:1.2px;
-      color:var(--badiani-pink);
-      font-weight:700;
-      margin-bottom:8px;
-      display:block;
-    }
-    .spec-card:nth-child(odd) .spec-label{ color:var(--badiani-blue); }
-    .spec-value{
-      font-size:16px;
-      font-weight:400;
-      color:var(--badiani-gray);
-      line-height:1.6;
-    }
-
-    @media(max-width:768px){
-      .modal-content{
-        padding:15px;
-        height:100vh;
-        overflow-y:auto;
-      }
-      .modal-panel{
-        width:100%;
-        max-height:none;
-        padding:32px 24px;
-      }
-      .modal-panel-title{ font-size:20px; }
-      .modal-panel-desc{ font-size:14px; margin-bottom:24px; }
+    @media(max-width:600px){
+      .list-modal__body{ padding:20px 18px; }
+      .list-modal__header{ padding:22px 18px; }
+      .list-btns-row{ flex-direction:column; align-items:center; gap:12px; }
     }
 
     /* TERMINI */
@@ -639,42 +558,35 @@
     }
 
     @media(max-width:768px){
-      /* Mobile cards: swipeable like inspiration mobile */
+      /* Mobile cards: stack vertically */
       .packages-grid{
-        display:flex;
-        gap:10px;
-        overflow-x:auto;
-        padding:6px 10px 10px;
-        margin-left:-10px;
-        margin-right:-10px;
-        scroll-snap-type:x mandatory;
-        scroll-padding-left:10px;
-        -webkit-overflow-scrolling:touch;
+        grid-template-columns:1fr;
+        gap:20px;
+        max-width:480px;
+        padding:0;
       }
-      .packages-grid::-webkit-scrollbar{ display:none; }
       .package-card{
-        flex:0 0 70vw;
-        max-width:280px;
-        min-width:200px;
-        scroll-snap-align:start;
-        border-radius:12px;
-        aspect-ratio:auto;
+        border-radius:16px;
       }
       .package-card:hover{
-        transform:none;
-        box-shadow:0 15px 50px rgba(0,0,0,0.15);
+        box-shadow:0 10px 30px rgba(0,0,0,0.12);
       }
-      .package-header{ padding:18px 16px; }
-      .package-name{ font-size:clamp(18px, 5vw, 22px); }
-      .package-price{ font-size:clamp(14px, 4vw, 18px); }
-      .package-body{ padding:16px; }
+      .package-header{ padding:20px 18px; }
+      .package-name{ font-size:clamp(18px, 5vw, 24px); }
+      .package-price{ font-size:clamp(15px, 4vw, 18px); }
+      .package-body{ padding:18px 16px 14px; }
       .package-desc{ font-size:13px; line-height:1.5; margin-bottom:14px; }
-      .package-features li{ font-size:12.5px; padding:8px 0; }
-      .package-note{ font-size:11px; margin-top:12px; }
+      .package-note{ font-size:11px; margin-top:10px; }
+      .pkg-section{ padding:12px 14px; }
+      .pkg-section-value{ font-size:12.5px; }
+      .pkg-detail-row{ font-size:12.5px; }
     }
 
-    @media (hover:none) and (pointer:coarse){
-      .package-card:hover{ transform:none; }
+    @media(min-width:769px) and (max-width:1100px){
+      .packages-grid{
+        grid-template-columns:1fr;
+        max-width:480px;
+      }
     }
 
     /* ========== REQUEST INFO BUTTON IN MODALS ========== */
@@ -968,41 +880,132 @@
     <h2 class="section-title" data-i18n="tosinghi.packages.title">Pacchetti Disponibili</h2>
 
     <div class="packages-grid">
-      <!-- SILVER -->
-      <article class="package-card silver" onclick="openModal('silver')" tabindex="0" data-i18n-attr="aria-label:tosinghi.silver.aria">
+
+      <!-- ==================== SILVER ==================== -->
+      <article class="package-card silver" tabindex="0" data-i18n-attr="aria-label:tosinghi.silver.aria">
         <div class="package-header">
           <h3 class="package-name">SILVER</h3>
-          <p class="package-price" data-i18n="tosinghi.silver.price">€20,00/persona</p>
+          <p class="package-price" data-i18n="tosinghi.silver.price">&euro;20,00/persona</p>
         </div>
         <div class="package-body">
           <p class="package-desc" data-i18n="tosinghi.silver.desc">Aperitivo con rustici, pizzette, panettone gastronomico, Coppetta Buontalenti e bevande selezionate.</p>
-          <p class="package-note" data-i18n="tosinghi.silver.note">IVA inclusa • Minimo 30 persone</p>
+
+          <!-- Food -->
+          <div class="pkg-section food">
+            <span class="pkg-section-label" data-i18n="tosinghi.modal.label.food">Food</span>
+            <span class="pkg-section-value" data-i18n-html="tosinghi.modal.silver.food.compact">Pizzette<br>Tramezzini<br>Rustici<br>Panettone gastronomico (1 ogni 6-8 pp.)<br>Coppetta Buontalenti</span>
+          </div>
+
+          <!-- Drink -->
+          <div class="pkg-section drink">
+            <span class="pkg-section-label" data-i18n="tosinghi.modal.label.drink">Drink</span>
+            <span class="pkg-section-value" data-i18n-html="tosinghi.modal.silver.drink.compact">2 cocktail alcolici<br>1 analcolico<br>Prosecco<br>Acqua<br><small style="color:#90949a">Men&ugrave; esposto sulla postazione beverage</small></span>
+          </div>
+
+          <!-- Duration & Booking -->
+          <div class="pkg-detail-row">
+            <span class="pkg-detail-icon clock">&#9201;</span>
+            <span data-i18n="tosinghi.modal.silver.duration.value">2 ore estendibili (con estensione extra)</span>
+          </div>
+          <div class="pkg-detail-row">
+            <span class="pkg-detail-icon cal">&#128197;</span>
+            <span data-i18n-html="tosinghi.modal.silver.booking.value">Minimo 10 giorni prima<br>Minimo richiesto per saletta in esclusiva</span>
+          </div>
+
+          <p class="package-note" data-i18n="tosinghi.silver.note">IVA inclusa &bull; Max 45/50 persone</p>
         </div>
       </article>
 
-      <!-- GOLD -->
-      <article class="package-card gold" onclick="openModal('gold')" tabindex="0" data-i18n-attr="aria-label:tosinghi.gold.aria">
+      <!-- ==================== GOLD ==================== -->
+      <article class="package-card gold" tabindex="0" data-i18n-attr="aria-label:tosinghi.gold.aria">
         <div class="package-header">
           <h3 class="package-name">GOLD</h3>
-          <p class="package-price" data-i18n="tosinghi.gold.price">€30,00/persona</p>
+          <p class="package-price" data-i18n="tosinghi.gold.price">&euro;30,00/persona</p>
         </div>
         <div class="package-body">
           <p class="package-desc" data-i18n="tosinghi.gold.desc">Pacchetto premium con panettone gastronomico, finger food dello Chef, monoporzioni dolci o Buontalenti e bevande selezionate.</p>
-          <p class="package-note" data-i18n="tosinghi.gold.note">IVA inclusa • Minimo 30 persone</p>
+
+          <!-- Food -->
+          <div class="pkg-section food">
+            <span class="pkg-section-label" data-i18n="tosinghi.modal.label.food">Food</span>
+            <span class="pkg-section-value" data-i18n-html="tosinghi.modal.gold.food.compact">Panettone gastronomico (1 ogni 6-8 pp.)<br>5 tipi di finger food a cura dello Chef<br>Monoporzioni dolci o coppetta Buontalenti</span>
+          </div>
+
+          <!-- Drink -->
+          <div class="pkg-section drink">
+            <span class="pkg-section-label" data-i18n="tosinghi.modal.label.drink">Drink</span>
+            <span class="pkg-section-value" data-i18n-html="tosinghi.modal.gold.drink.compact">2 cocktail alcolici<br>1 analcolico<br>Franciacorta<br>Acqua<br><small style="color:#90949a">Men&ugrave; esposto sulla postazione beverage</small></span>
+          </div>
+
+          <!-- Duration & Booking -->
+          <div class="pkg-detail-row">
+            <span class="pkg-detail-icon clock">&#9201;</span>
+            <span data-i18n="tosinghi.modal.gold.duration.value">2 ore estendibili (con estensione extra)</span>
+          </div>
+          <div class="pkg-detail-row">
+            <span class="pkg-detail-icon cal">&#128197;</span>
+            <span data-i18n-html="tosinghi.modal.gold.booking.value">Minimo 10 giorni prima<br>Minimo richiesto per saletta in esclusiva</span>
+          </div>
+
+          <p class="package-note" data-i18n="tosinghi.gold.note">IVA inclusa &bull; Max 45/50 persone</p>
         </div>
       </article>
 
-      <!-- PLATINUM -->
-      <article class="package-card platinum" onclick="openModal('platinum')" tabindex="0" data-i18n-attr="aria-label:tosinghi.platinum.aria">
+      <!-- ==================== PLATINUM ==================== -->
+      <article class="package-card platinum" tabindex="0" data-i18n-attr="aria-label:tosinghi.platinum.aria">
         <div class="package-header">
           <h3 class="package-name">PLATINUM</h3>
-          <p class="package-price" data-i18n="tosinghi.platinum.price">€40,00/persona</p>
+          <p class="package-price" data-i18n="tosinghi.platinum.price">&euro;40,00/persona</p>
         </div>
         <div class="package-body">
-          <p class="package-desc" data-i18n="tosinghi.platinum.desc">L'esperienza esclusiva con finger food dello Chef, monoporzioni dolci, Champagne e servizio premium.</p>
-          <p class="package-note" data-i18n="tosinghi.platinum.note">IVA inclusa • Minimo 30 persone</p>
+          <p class="package-desc" data-i18n="tosinghi.platinum.desc">L&rsquo;esperienza esclusiva con finger food dello Chef, monoporzioni dolci, Champagne e servizio premium.</p>
+
+          <!-- Food -->
+          <div class="pkg-section food">
+            <span class="pkg-section-label" data-i18n="tosinghi.modal.label.food">Food</span>
+            <span class="pkg-section-value" data-i18n-html="tosinghi.modal.platinum.food.compact">7 tipi di finger food a cura dello Chef<br>Monoporzioni dolci, Mignon o coppetta Buontalenti</span>
+          </div>
+
+          <!-- Drink -->
+          <div class="pkg-section drink">
+            <span class="pkg-section-label" data-i18n="tosinghi.modal.label.drink">Drink</span>
+            <span class="pkg-section-value" data-i18n-html="tosinghi.modal.platinum.drink.compact">2 cocktail alcolici<br>1 analcolico<br>Champagne (da concordare)<br>Acqua<br><small style="color:#90949a">Men&ugrave; esposto sulla postazione beverage</small></span>
+          </div>
+
+          <!-- Duration & Booking -->
+          <div class="pkg-detail-row">
+            <span class="pkg-detail-icon clock">&#9201;</span>
+            <span data-i18n="tosinghi.modal.platinum.duration.value">2 ore estendibili (con estensione extra)</span>
+          </div>
+          <div class="pkg-detail-row">
+            <span class="pkg-detail-icon cal">&#128197;</span>
+            <span data-i18n-html="tosinghi.modal.platinum.booking.value">Minimo 14 giorni prima<br>Minimo richiesto per saletta in esclusiva</span>
+          </div>
+
+          <p class="package-note" data-i18n="tosinghi.platinum.note">IVA inclusa &bull; Max 45/50 persone</p>
         </div>
       </article>
+
+    </div>
+
+    <!-- Shared Food & Drink List Buttons -->
+    <div class="list-btns-row">
+      <button type="button" class="list-btn" onclick="openFoodListModal()">
+        <svg viewBox="0 0 24 24"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
+        <span data-i18n="tosinghi.list.food.btn">Lista Food</span>
+      </button>
+      <button type="button" class="list-btn drink-btn" onclick="openDrinkListModal()">
+        <svg viewBox="0 0 24 24"><path d="M21 5V3H3v2l8 9v5H6v2h12v-2h-5v-5l8-9zM7.43 7L5.66 5h12.69l-1.78 2H7.43z"/></svg>
+        <span data-i18n="tosinghi.list.drink.btn">Lista Drink</span>
+      </button>
+    </div>
+
+    <!-- Shared CTA -->
+    <div class="packages-cta">
+      <button type="button" class="modal-request-btn packages-cta-btn" onclick="openRequestForm('Saletta Privata Tosinghi')">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+        <span data-i18n="tosinghi.cta.request">Richiedi Informazioni</span>
+      </button>
     </div>
 
   </section>
@@ -1030,7 +1033,10 @@
   <div class="terms">
     <h3 data-i18n="tosinghi.terms.title">Termini e Condizioni</h3>
     <ul>
-      <li data-i18n-html="tosinghi.terms.capacity"><strong>Capienza:</strong> Minimo 30 persone, massimo 35 persone sedute</li>
+      <li data-i18n-html="tosinghi.terms.spending"><strong>Spesa minima per pacchetto:</strong> In base al pacchetto scelto</li>
+      <li data-i18n-html="tosinghi.terms.duration"><strong>Durata:</strong> 2 ore estendibili (con estensione extra)</li>
+      <li data-i18n-html="tosinghi.terms.booking"><strong>Prenotazione:</strong> Minimo richiesto per saletta in esclusiva</li>
+      <li data-i18n-html="tosinghi.terms.capacity"><strong>Capienza massima:</strong> 45/50 persone</li>
       <li data-i18n-html="tosinghi.terms.extradrink"><strong>Extra drink:</strong> Prezzo pieno, pagamento immediato alla cassa</li>
       <li data-i18n-html="tosinghi.terms.deposit"><strong>Acconto:</strong> 50% al momento della conferma tramite bonifico</li>
       <li data-i18n-html="tosinghi.terms.balance"><strong>Saldo:</strong> 3 giorni prima dell'evento tramite bonifico</li>
@@ -1039,198 +1045,6 @@
 
 
   </main>
-
-  <!-- MODAL SILVER -->
-  <div class="modal-overlay" id="modalSilver" onclick="closeModal('silver')">
-    <div class="modal-bg"></div>
-    <button class="modal-close" onclick="closeModal('silver')" data-i18n-attr="aria-label:tosinghi.modal.close"></button>
-    <div class="modal-content" onclick="event.stopPropagation()">
-      <div class="modal-panel">
-        <h2 class="modal-panel-title" data-i18n="tosinghi.modal.silver.title">PACCHETTO SILVER</h2>
-        <p class="modal-panel-desc" data-i18n="tosinghi.silver.desc">Aperitivo con rustici, pizzette, panettone gastronomico, Coppetta Buontalenti e bevande selezionate.</p>
-        <div class="specs-grid">
-          <div class="spec-card">
-            <span class="spec-label" data-i18n="tosinghi.modal.label.food">Food</span>
-            <span class="spec-value" data-i18n-html="tosinghi.modal.silver.food.compact">Pizzette<br>Tramezzini<br>Rustici<br>Panettone gastronomico (1 ogni 6-8 pp.)<br>Coppetta Buontalenti</span>
-            <button type="button" class="fingerfood-toggle-btn" data-i18n="tosinghi.fingerfood.btn.list" onclick="event.stopPropagation(); this.nextElementSibling.classList.toggle('visible'); var o=this.nextElementSibling.classList.contains('visible'); this.textContent = window._t ? window._t(o?'tosinghi.fingerfood.btn.close':'tosinghi.fingerfood.btn.list') : (o?'Chiudi':'Lista')">Lista</button>
-            <div class="fingerfood-list-panel">
-              <ul>
-                <li data-i18n-html="tosinghi.fingerfood.bresaola"><strong>Rotolino di Bresaola</strong>, rucola e grana</li>
-                <li data-i18n-html="tosinghi.fingerfood.caprese"><strong>Spiedini di caprese</strong></li>
-                <li data-i18n-html="tosinghi.fingerfood.zucchine"><strong>Zucchine</strong>, stracchino e prosciutto cotto</li>
-                <li data-i18n-html="tosinghi.fingerfood.fegatini"><strong>Tartine di sfoglia</strong> con fegatini</li>
-                <li data-i18n-html="tosinghi.fingerfood.salsiccia"><strong>Tartine di sfoglia</strong> salsiccia e stracchino</li>
-                <li data-i18n-html="tosinghi.fingerfood.salmone"><strong>Fagottino salmone</strong>, philadelphia e avocado</li>
-                <li data-i18n-html="tosinghi.fingerfood.pinzimonio"><strong>Crudit&eacute; di pinzimonio</strong></li>
-                <li data-i18n-html="tosinghi.fingerfood.melanzane"><strong>Sformatino melanzane</strong> e mozzarella</li>
-                <li data-i18n-html="tosinghi.fingerfood.pomodorini"><strong>Pomodorini confit</strong> e stracciatella</li>
-                <li data-i18n-html="tosinghi.fingerfood.miniburger"><strong>Mini burger</strong></li>
-                <li data-i18n-html="tosinghi.fingerfood.pappa"><strong>Pappa al pomodoro</strong><br><strong>Ribollita</strong></li>
-              </ul>
-            </div>
-          </div>
-          <div class="spec-card">
-            <span class="spec-label" data-i18n="tosinghi.modal.label.drink">Drink</span>
-            <span class="spec-value" data-i18n-html="tosinghi.modal.silver.drink.compact">2 cocktail alcolici<br>1 analcolico<br>Prosecco<br>Acqua<br><small style="color:#90949a">Men&ugrave; esposto sulla postazione beverage</small></span>
-            <button type="button" class="cocktail-toggle-btn" data-i18n="tosinghi.cocktail.btn.list" onclick="event.stopPropagation(); this.nextElementSibling.classList.toggle('visible'); var o=this.nextElementSibling.classList.contains('visible'); this.textContent = window._t ? window._t(o?'tosinghi.cocktail.btn.close':'tosinghi.cocktail.btn.list') : (o?'Chiudi':'Lista')">Lista</button>
-            <div class="cocktail-list-panel">
-              <ul>
-                <li data-i18n-html="tosinghi.cocktail.spritz"><strong>Spritz</strong> <small>(a scelta tra Campari, Aperol, Select, Salvia e Limone)</small></li>
-                <li data-i18n-html="tosinghi.cocktail.paloma"><strong>Paloma Sorbetto</strong> <small>(tequila, lime, sorbetto, soda)</small></li>
-                <li data-i18n-html="tosinghi.cocktail.americano"><strong>Americano</strong> <small>(bitter, vermouth rosso)</small></li>
-                <li data-i18n-html="tosinghi.cocktail.negroni"><strong>Negroni</strong> <small>(gin, bitter, vermouth rosso)</small></li>
-                <li data-i18n-html="tosinghi.cocktail.londonmule"><strong>London Mule</strong> <small>(gin, ginger beer, lime)</small></li>
-                <li data-i18n-html="tosinghi.cocktail.moscowmule"><strong>Moscow Mule</strong> <small>(lime, ginger beer, vodka)</small></li>
-                <li data-i18n-html="tosinghi.cocktail.vodkaimperiale"><strong>Vodka Imperiale</strong> <small>(vodka, succo pera, sorbetto sottobosco)</small></li>
-              </ul>
-            </div>
-          </div>
-          <div class="spec-card">
-            <span class="spec-label" data-i18n="tosinghi.modal.label.duration">Durata</span>
-            <span class="spec-value" data-i18n="tosinghi.modal.silver.duration.value">Fino a 1h 30min</span>
-          </div>
-          <div class="spec-card">
-            <span class="spec-label" data-i18n="tosinghi.modal.label.booking">Prenotazione</span>
-            <span class="spec-value" data-i18n-html="tosinghi.modal.silver.booking.value">Minimo 10 giorni prima<br>Minimo 30 persone con saletta riservata</span>
-          </div>
-        </div>
-        <div style="text-align:center; margin-top:24px;">
-          <button type="button" class="modal-request-btn" onclick="openRequestForm('Saletta Privata — Silver')">
-            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-            <span data-i18n="tosinghi.cta.request">Richiedi Informazioni</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL GOLD -->
-  <div class="modal-overlay" id="modalGold" onclick="closeModal('gold')">
-    <div class="modal-bg"></div>
-    <button class="modal-close" onclick="closeModal('gold')" data-i18n-attr="aria-label:tosinghi.modal.close"></button>
-    <div class="modal-content" onclick="event.stopPropagation()">
-      <div class="modal-panel">
-        <h2 class="modal-panel-title" data-i18n="tosinghi.modal.gold.title">PACCHETTO GOLD</h2>
-        <p class="modal-panel-desc" data-i18n="tosinghi.gold.desc">Pacchetto premium con panettone gastronomico, finger food dello Chef, monoporzioni dolci o Buontalenti e bevande selezionate.</p>
-        <div class="specs-grid">
-          <div class="spec-card">
-            <span class="spec-label" data-i18n="tosinghi.modal.label.food">Food</span>
-            <span class="spec-value" data-i18n-html="tosinghi.modal.gold.food.compact">Panettone gastronomico (1 ogni 6-8 pp.)<br>5 tipi di finger food a cura dello Chef<br>Monoporzioni dolci o coppetta Buontalenti</span>
-            <button type="button" class="fingerfood-toggle-btn" data-i18n="tosinghi.fingerfood.btn.list" onclick="event.stopPropagation(); this.nextElementSibling.classList.toggle('visible'); var o=this.nextElementSibling.classList.contains('visible'); this.textContent = window._t ? window._t(o?'tosinghi.fingerfood.btn.close':'tosinghi.fingerfood.btn.list') : (o?'Chiudi':'Lista')">Lista</button>
-            <div class="fingerfood-list-panel">
-              <ul>
-                <li data-i18n-html="tosinghi.fingerfood.bresaola"><strong>Rotolino di Bresaola</strong>, rucola e grana</li>
-                <li data-i18n-html="tosinghi.fingerfood.caprese"><strong>Spiedini di caprese</strong></li>
-                <li data-i18n-html="tosinghi.fingerfood.zucchine"><strong>Zucchine</strong>, stracchino e prosciutto cotto</li>
-                <li data-i18n-html="tosinghi.fingerfood.fegatini"><strong>Tartine di sfoglia</strong> con fegatini</li>
-                <li data-i18n-html="tosinghi.fingerfood.salsiccia"><strong>Tartine di sfoglia</strong> salsiccia e stracchino</li>
-                <li data-i18n-html="tosinghi.fingerfood.salmone"><strong>Fagottino salmone</strong>, philadelphia e avocado</li>
-                <li data-i18n-html="tosinghi.fingerfood.pinzimonio"><strong>Crudit&eacute; di pinzimonio</strong></li>
-                <li data-i18n-html="tosinghi.fingerfood.melanzane"><strong>Sformatino melanzane</strong> e mozzarella</li>
-                <li data-i18n-html="tosinghi.fingerfood.pomodorini"><strong>Pomodorini confit</strong> e stracciatella</li>
-                <li data-i18n-html="tosinghi.fingerfood.miniburger"><strong>Mini burger</strong></li>
-                <li data-i18n-html="tosinghi.fingerfood.pappa"><strong>Pappa al pomodoro</strong><br><strong>Ribollita</strong></li>
-              </ul>
-            </div>
-          </div>
-          <div class="spec-card">
-            <span class="spec-label" data-i18n="tosinghi.modal.label.drink">Drink</span>
-            <span class="spec-value" data-i18n-html="tosinghi.modal.gold.drink.compact">2 cocktail alcolici<br>1 analcolico<br>Franciacorta<br>Acqua<br><small style="color:#90949a">Men&ugrave; esposto sulla postazione beverage</small></span>
-            <button type="button" class="cocktail-toggle-btn" data-i18n="tosinghi.cocktail.btn.list" onclick="event.stopPropagation(); this.nextElementSibling.classList.toggle('visible'); var o=this.nextElementSibling.classList.contains('visible'); this.textContent = window._t ? window._t(o?'tosinghi.cocktail.btn.close':'tosinghi.cocktail.btn.list') : (o?'Chiudi':'Lista')">Lista</button>
-            <div class="cocktail-list-panel">
-              <ul>
-                <li data-i18n-html="tosinghi.cocktail.spritz"><strong>Spritz</strong> <small>(a scelta tra Campari, Aperol, Select, Salvia e Limone)</small></li>
-                <li data-i18n-html="tosinghi.cocktail.paloma"><strong>Paloma Sorbetto</strong> <small>(tequila, lime, sorbetto, soda)</small></li>
-                <li data-i18n-html="tosinghi.cocktail.americano"><strong>Americano</strong> <small>(bitter, vermouth rosso)</small></li>
-                <li data-i18n-html="tosinghi.cocktail.negroni"><strong>Negroni</strong> <small>(gin, bitter, vermouth rosso)</small></li>
-                <li data-i18n-html="tosinghi.cocktail.londonmule"><strong>London Mule</strong> <small>(gin, ginger beer, lime)</small></li>
-                <li data-i18n-html="tosinghi.cocktail.moscowmule"><strong>Moscow Mule</strong> <small>(lime, ginger beer, vodka)</small></li>
-                <li data-i18n-html="tosinghi.cocktail.vodkaimperiale"><strong>Vodka Imperiale</strong> <small>(vodka, succo pera, sorbetto sottobosco)</small></li>
-              </ul>
-            </div>
-          </div>
-          <div class="spec-card">
-            <span class="spec-label" data-i18n="tosinghi.modal.label.duration">Durata</span>
-            <span class="spec-value" data-i18n="tosinghi.modal.gold.duration.value">Fino a 2 ore</span>
-          </div>
-          <div class="spec-card">
-            <span class="spec-label" data-i18n="tosinghi.modal.label.booking">Prenotazione</span>
-            <span class="spec-value" data-i18n-html="tosinghi.modal.gold.booking.value">Minimo 10 giorni prima<br>Minimo 30 persone con saletta riservata</span>
-          </div>
-        </div>
-        <div style="text-align:center; margin-top:24px;">
-          <button type="button" class="modal-request-btn" onclick="openRequestForm('Saletta Privata — Gold')">
-            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-            <span data-i18n="tosinghi.cta.request">Richiedi Informazioni</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL PLATINUM -->
-  <div class="modal-overlay" id="modalPlatinum" onclick="closeModal('platinum')">
-    <div class="modal-bg"></div>
-    <button class="modal-close" onclick="closeModal('platinum')" data-i18n-attr="aria-label:tosinghi.modal.close"></button>
-    <div class="modal-content" onclick="event.stopPropagation()">
-      <div class="modal-panel">
-        <h2 class="modal-panel-title" data-i18n="tosinghi.modal.platinum.title">PACCHETTO PLATINUM</h2>
-        <p class="modal-panel-desc" data-i18n="tosinghi.platinum.desc">L'esperienza esclusiva con finger food dello Chef, monoporzioni dolci, Champagne e servizio premium.</p>
-        <div class="specs-grid">
-          <div class="spec-card">
-            <span class="spec-label" data-i18n="tosinghi.modal.label.food">Food</span>
-            <span class="spec-value" data-i18n-html="tosinghi.modal.platinum.food.compact">7 tipi di finger food a cura dello Chef<br>Monoporzioni dolci, Mignon o coppetta Buontalenti</span>
-            <button type="button" class="fingerfood-toggle-btn" data-i18n="tosinghi.fingerfood.btn.list" onclick="event.stopPropagation(); this.nextElementSibling.classList.toggle('visible'); var o=this.nextElementSibling.classList.contains('visible'); this.textContent = window._t ? window._t(o?'tosinghi.fingerfood.btn.close':'tosinghi.fingerfood.btn.list') : (o?'Chiudi':'Lista')">Lista</button>
-            <div class="fingerfood-list-panel">
-              <ul>
-                <li data-i18n-html="tosinghi.fingerfood.bresaola"><strong>Rotolino di Bresaola</strong>, rucola e grana</li>
-                <li data-i18n-html="tosinghi.fingerfood.caprese"><strong>Spiedini di caprese</strong></li>
-                <li data-i18n-html="tosinghi.fingerfood.zucchine"><strong>Zucchine</strong>, stracchino e prosciutto cotto</li>
-                <li data-i18n-html="tosinghi.fingerfood.fegatini"><strong>Tartine di sfoglia</strong> con fegatini</li>
-                <li data-i18n-html="tosinghi.fingerfood.salsiccia"><strong>Tartine di sfoglia</strong> salsiccia e stracchino</li>
-                <li data-i18n-html="tosinghi.fingerfood.salmone"><strong>Fagottino salmone</strong>, philadelphia e avocado</li>
-                <li data-i18n-html="tosinghi.fingerfood.pinzimonio"><strong>Crudit&eacute; di pinzimonio</strong></li>
-                <li data-i18n-html="tosinghi.fingerfood.melanzane"><strong>Sformatino melanzane</strong> e mozzarella</li>
-                <li data-i18n-html="tosinghi.fingerfood.pomodorini"><strong>Pomodorini confit</strong> e stracciatella</li>
-                <li data-i18n-html="tosinghi.fingerfood.miniburger"><strong>Mini burger</strong></li>
-                <li data-i18n-html="tosinghi.fingerfood.pappa"><strong>Pappa al pomodoro</strong><br><strong>Ribollita</strong></li>
-              </ul>
-            </div>
-          </div>
-          <div class="spec-card">
-            <span class="spec-label" data-i18n="tosinghi.modal.label.drink">Drink</span>
-            <span class="spec-value" data-i18n-html="tosinghi.modal.platinum.drink.compact">2 cocktail alcolici<br>1 analcolico<br>Champagne (da concordare)<br>Acqua<br><small style="color:#90949a">Men&ugrave; esposto sulla postazione beverage</small></span>
-            <button type="button" class="cocktail-toggle-btn" data-i18n="tosinghi.cocktail.btn.list" onclick="event.stopPropagation(); this.nextElementSibling.classList.toggle('visible'); var o=this.nextElementSibling.classList.contains('visible'); this.textContent = window._t ? window._t(o?'tosinghi.cocktail.btn.close':'tosinghi.cocktail.btn.list') : (o?'Chiudi':'Lista')">Lista</button>
-            <div class="cocktail-list-panel">
-              <ul>
-                <li data-i18n-html="tosinghi.cocktail.spritz"><strong>Spritz</strong> <small>(a scelta tra Campari, Aperol, Select, Salvia e Limone)</small></li>
-                <li data-i18n-html="tosinghi.cocktail.paloma"><strong>Paloma Sorbetto</strong> <small>(tequila, lime, sorbetto, soda)</small></li>
-                <li data-i18n-html="tosinghi.cocktail.americano"><strong>Americano</strong> <small>(bitter, vermouth rosso)</small></li>
-                <li data-i18n-html="tosinghi.cocktail.negroni"><strong>Negroni</strong> <small>(gin, bitter, vermouth rosso)</small></li>
-                <li data-i18n-html="tosinghi.cocktail.londonmule"><strong>London Mule</strong> <small>(gin, ginger beer, lime)</small></li>
-                <li data-i18n-html="tosinghi.cocktail.moscowmule"><strong>Moscow Mule</strong> <small>(lime, ginger beer, vodka)</small></li>
-                <li data-i18n-html="tosinghi.cocktail.vodkaimperiale"><strong>Vodka Imperiale</strong> <small>(vodka, succo pera, sorbetto sottobosco)</small></li>
-              </ul>
-            </div>
-          </div>
-          <div class="spec-card">
-            <span class="spec-label" data-i18n="tosinghi.modal.label.duration">Durata</span>
-            <span class="spec-value" data-i18n="tosinghi.modal.platinum.duration.value">Fino a 2 ore</span>
-          </div>
-          <div class="spec-card">
-            <span class="spec-label" data-i18n="tosinghi.modal.label.booking">Prenotazione</span>
-            <span class="spec-value" data-i18n-html="tosinghi.modal.platinum.booking.value">Minimo 14 giorni prima<br>Minimo 30 persone con saletta riservata</span>
-          </div>
-        </div>
-        <div style="text-align:center; margin-top:24px;">
-          <button type="button" class="modal-request-btn" onclick="openRequestForm('Saletta Privata — Platinum')">
-            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-            <span data-i18n="tosinghi.cta.request">Richiedi Informazioni</span>
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
 
   <!-- REQUEST FORM MODAL -->
   <div class="form-modal-overlay" id="requestFormModal" onclick="closeRequestForm(event)">
@@ -1282,6 +1096,54 @@
     </div>
   </div>
 
+  <!-- FOOD LIST MODAL -->
+  <div class="list-modal-overlay" id="foodListModal" onclick="closeFoodListModal(event)">
+    <div class="list-modal">
+      <button class="list-modal__close" onclick="closeFoodListModal()">&times;</button>
+      <div class="list-modal__header food">
+        <h2 data-i18n="tosinghi.list.food.title">Lista Finger Food</h2>
+        <p data-i18n="tosinghi.list.food.subtitle">A cura del nostro Chef</p>
+      </div>
+      <div class="list-modal__body">
+        <ul>
+          <li data-i18n-html="tosinghi.fingerfood.bresaola"><strong>Rotolino di Bresaola</strong>, rucola e grana</li>
+          <li data-i18n-html="tosinghi.fingerfood.caprese"><strong>Spiedini di caprese</strong></li>
+          <li data-i18n-html="tosinghi.fingerfood.zucchine"><strong>Zucchine</strong>, stracchino e prosciutto cotto</li>
+          <li data-i18n-html="tosinghi.fingerfood.fegatini"><strong>Tartine di sfoglia</strong> con fegatini</li>
+          <li data-i18n-html="tosinghi.fingerfood.salsiccia"><strong>Tartine di sfoglia</strong> salsiccia e stracchino</li>
+          <li data-i18n-html="tosinghi.fingerfood.salmone"><strong>Fagottino salmone</strong>, philadelphia e avocado</li>
+          <li data-i18n-html="tosinghi.fingerfood.pinzimonio"><strong>Crudit&eacute; di pinzimonio</strong></li>
+          <li data-i18n-html="tosinghi.fingerfood.melanzane"><strong>Sformatino melanzane</strong> e mozzarella</li>
+          <li data-i18n-html="tosinghi.fingerfood.pomodorini"><strong>Pomodorini confit</strong> e stracciatella</li>
+          <li data-i18n-html="tosinghi.fingerfood.miniburger"><strong>Mini burger</strong></li>
+          <li data-i18n-html="tosinghi.fingerfood.pappa"><strong>Pappa al pomodoro</strong><br><strong>Ribollita</strong></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- DRINK LIST MODAL -->
+  <div class="list-modal-overlay" id="drinkListModal" onclick="closeDrinkListModal(event)">
+    <div class="list-modal">
+      <button class="list-modal__close" onclick="closeDrinkListModal()">&times;</button>
+      <div class="list-modal__header drink">
+        <h2 data-i18n="tosinghi.list.drink.title">Lista Cocktail</h2>
+        <p data-i18n="tosinghi.list.drink.subtitle">I nostri cocktail selezionati</p>
+      </div>
+      <div class="list-modal__body">
+        <ul>
+          <li data-i18n-html="tosinghi.cocktail.spritz"><strong>Spritz</strong> <small>(a scelta tra Campari, Aperol, Select, Salvia e Limone)</small></li>
+          <li data-i18n-html="tosinghi.cocktail.paloma"><strong>Paloma Sorbetto</strong> <small>(tequila, lime, sorbetto, soda)</small></li>
+          <li data-i18n-html="tosinghi.cocktail.americano"><strong>Americano</strong> <small>(bitter, vermouth rosso)</small></li>
+          <li data-i18n-html="tosinghi.cocktail.negroni"><strong>Negroni</strong> <small>(gin, bitter, vermouth rosso)</small></li>
+          <li data-i18n-html="tosinghi.cocktail.londonmule"><strong>London Mule</strong> <small>(gin, ginger beer, lime)</small></li>
+          <li data-i18n-html="tosinghi.cocktail.moscowmule"><strong>Moscow Mule</strong> <small>(lime, ginger beer, vodka)</small></li>
+          <li data-i18n-html="tosinghi.cocktail.vodkaimperiale"><strong>Vodka Imperiale</strong> <small>(vodka, succo pera, sorbetto sottobosco)</small></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
   <script>
     // Lightbox functions
     const galleryImages = [
@@ -1321,23 +1183,6 @@
       document.getElementById('lightbox-img').src = galleryImages[currentImageIndex];
     }
 
-    // Modal functions
-    function openModal(type) {
-      const modal = document.getElementById('modal' + type.charAt(0).toUpperCase() + type.slice(1));
-      if (modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-      }
-    }
-
-    function closeModal(type) {
-      const modal = document.getElementById('modal' + type.charAt(0).toUpperCase() + type.slice(1));
-      if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-      }
-    }
-
     // Request form modal
     function openRequestForm(packageName) {
       const overlay = document.getElementById('requestFormModal');
@@ -1351,14 +1196,33 @@
       if (overlay) { overlay.classList.remove('active'); document.body.style.overflow = ''; }
     }
 
+    // Food & Drink list modals
+    function openFoodListModal() {
+      var el = document.getElementById('foodListModal');
+      if (el) { el.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    }
+    function closeFoodListModal(e) {
+      if (e && e.target !== e.currentTarget) return;
+      var el = document.getElementById('foodListModal');
+      if (el) { el.classList.remove('active'); document.body.style.overflow = ''; }
+    }
+    function openDrinkListModal() {
+      var el = document.getElementById('drinkListModal');
+      if (el) { el.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    }
+    function closeDrinkListModal(e) {
+      if (e && e.target !== e.currentTarget) return;
+      var el = document.getElementById('drinkListModal');
+      if (el) { el.classList.remove('active'); document.body.style.overflow = ''; }
+    }
+
     // Close on Escape key and arrow navigation
     document.addEventListener('keydown', function(e) {
       const lightbox = document.getElementById('lightbox');
       if (e.key === 'Escape') {
-        document.querySelectorAll('.modal-overlay').forEach(m => {
-          m.classList.remove('active');
-        });
         closeRequestForm();
+        closeFoodListModal();
+        closeDrinkListModal();
         if (lightbox.classList.contains('active')) {
           lightbox.classList.remove('active');
         }
@@ -1368,16 +1232,6 @@
         if (e.key === 'ArrowLeft') prevImage(e);
         if (e.key === 'ArrowRight') nextImage(e);
       }
-    });
-
-    // Keyboard navigation for cards
-    document.querySelectorAll('.package-card').forEach(card => {
-      card.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          this.click();
-        }
-      });
     });
 
     // i18n System
@@ -1406,30 +1260,33 @@
           'tosinghi.silver.desc': 'Aperitivo con rustici, pizzette, panettone gastronomico, Coppetta Buontalenti e bevande selezionate.',
           'tosinghi.silver.food': '<strong>Food:</strong> Pizzette, tramezzini, rustici, panettone gastronomico, Coppetta Buontalenti',
           'tosinghi.silver.drink': '<strong>Drink:</strong> 1 drink a persona — 2 cocktail alcolici, 1 analcolico, Prosecco, Acqua',
-          'tosinghi.silver.duration': '<strong>Durata:</strong> Fino a 1h 30min',
-          'tosinghi.silver.booking': '<strong>Prenotazione:</strong> Minimo 10 giorni prima, minimo 30 persone con saletta riservata',
-          'tosinghi.silver.note': 'IVA inclusa • Minimo 30 persone',
+          'tosinghi.silver.duration': '<strong>Durata:</strong> 2 ore estendibili (con estensione extra)',
+          'tosinghi.silver.booking': '<strong>Prenotazione:</strong> Minimo 10 giorni prima, minimo richiesto per saletta in esclusiva',
+          'tosinghi.silver.note': 'IVA inclusa • Max 45/50 persone',
           // Gold Package
           'tosinghi.gold.aria': 'Pacchetto Gold - Esperienza premium',
           'tosinghi.gold.price': '€30,00/persona',
           'tosinghi.gold.desc': 'Pacchetto premium con panettone gastronomico, finger food dello Chef, monoporzioni dolci o Buontalenti e bevande selezionate.',
           'tosinghi.gold.food': '<strong>Food:</strong> Panettone gastronomico, 5 finger food dello Chef, monoporzioni dolci o Buontalenti',
           'tosinghi.gold.drink': '<strong>Drink:</strong> 1 drink a persona — 2 cocktail alcolici, 1 analcolico, Franciacorta, Acqua',
-          'tosinghi.gold.duration': '<strong>Durata:</strong> Fino a 2 ore',
-          'tosinghi.gold.booking': '<strong>Prenotazione:</strong> Minimo 10 giorni prima, minimo 30 persone con saletta riservata',
-          'tosinghi.gold.note': 'IVA inclusa • Minimo 30 persone',
+          'tosinghi.gold.duration': '<strong>Durata:</strong> 2 ore estendibili (con estensione extra)',
+          'tosinghi.gold.booking': '<strong>Prenotazione:</strong> Minimo 10 giorni prima, minimo richiesto per saletta in esclusiva',
+          'tosinghi.gold.note': 'IVA inclusa • Max 45/50 persone',
           // Platinum Package
           'tosinghi.platinum.aria': 'Pacchetto Platinum - Esperienza di lusso esclusiva',
           'tosinghi.platinum.price': '€40,00/persona',
           'tosinghi.platinum.desc': 'L\'esperienza esclusiva con finger food dello Chef, monoporzioni dolci, Champagne e servizio premium.',
           'tosinghi.platinum.food': '<strong>Food:</strong> 7 finger food dello Chef, monoporzioni dolci, Mignon o Buontalenti',
           'tosinghi.platinum.drink': '<strong>Drink:</strong> 1 drink a persona — 2 cocktail alcolici, 1 analcolico, Champagne, Acqua',
-          'tosinghi.platinum.duration': '<strong>Durata:</strong> Fino a 2 ore',
-          'tosinghi.platinum.booking': '<strong>Prenotazione:</strong> Minimo 14 giorni prima, minimo 30 persone con saletta riservata',
-          'tosinghi.platinum.note': 'IVA inclusa • Minimo 30 persone',
+          'tosinghi.platinum.duration': '<strong>Durata:</strong> 2 ore estendibili (con estensione extra)',
+          'tosinghi.platinum.booking': '<strong>Prenotazione:</strong> Minimo 14 giorni prima, minimo richiesto per saletta in esclusiva',
+          'tosinghi.platinum.note': 'IVA inclusa • Max 45/50 persone',
           // Terms
           'tosinghi.terms.title': 'Termini e Condizioni',
-          'tosinghi.terms.capacity': '<strong>Capienza:</strong> Minimo 30 persone, massimo 35 persone sedute',
+          'tosinghi.terms.spending': '<strong>Spesa minima per pacchetto:</strong> In base al pacchetto scelto',
+          'tosinghi.terms.duration': '<strong>Durata:</strong> 2 ore estendibili (con estensione extra)',
+          'tosinghi.terms.booking': '<strong>Prenotazione:</strong> Minimo richiesto per saletta in esclusiva',
+          'tosinghi.terms.capacity': '<strong>Capienza massima:</strong> 45/50 persone',
           'tosinghi.terms.extradrink': '<strong>Extra drink:</strong> Prezzo pieno, pagamento immediato alla cassa',
           'tosinghi.terms.deposit': '<strong>Acconto:</strong> 50% al momento della conferma tramite bonifico',
           'tosinghi.terms.balance': '<strong>Saldo:</strong> 3 giorni prima dell\'evento tramite bonifico',
@@ -1454,8 +1311,8 @@
           'tosinghi.modal.silver.drink.item4': 'Acqua',
           'tosinghi.modal.silver.drink.note': 'Per i cocktail verrà realizzato un menù come di consueto, esposto sulla postazione beverage',
           'tosinghi.modal.silver.details.title': 'Dettagli',
-          'tosinghi.modal.silver.details.booking': 'Conferma prenotazione: minimo 10 giorni prima della data dell\'evento, minimo 30 persone con saletta riservata',
-          'tosinghi.modal.silver.details.duration': 'Durata evento: fino a 1 ora e 30 minuti',
+          'tosinghi.modal.silver.details.booking': 'Conferma prenotazione: minimo 10 giorni prima della data dell\'evento, minimo richiesto per saletta in esclusiva',
+          'tosinghi.modal.silver.details.duration': 'Durata evento: 2 ore estendibili (con estensione extra)',
           // Modal Gold
           'tosinghi.modal.gold.title': 'PACCHETTO GOLD',
           'tosinghi.modal.gold.subtitle': '€30,00 a persona (IVA inclusa)',
@@ -1470,8 +1327,8 @@
           'tosinghi.modal.gold.drink.item4': 'Acqua',
           'tosinghi.modal.gold.drink.note': 'Per i cocktail verrà realizzato un menù come di consueto, esposto sulla postazione beverage',
           'tosinghi.modal.gold.details.title': 'Dettagli',
-          'tosinghi.modal.gold.details.booking': 'Conferma prenotazione: minimo 10 giorni prima della data dell\'evento, minimo 30 persone con saletta riservata',
-          'tosinghi.modal.gold.details.duration': 'Durata evento: fino a 2 ore',
+          'tosinghi.modal.gold.details.booking': 'Conferma prenotazione: minimo 10 giorni prima della data dell\'evento, minimo richiesto per saletta in esclusiva',
+          'tosinghi.modal.gold.details.duration': 'Durata evento: 2 ore estendibili (con estensione extra)',
           // Modal Platinum
           'tosinghi.modal.platinum.title': 'PACCHETTO PLATINUM',
           'tosinghi.modal.platinum.subtitle': '€40,00 a persona (IVA inclusa)',
@@ -1485,8 +1342,8 @@
           'tosinghi.modal.platinum.drink.item4': 'Acqua',
           'tosinghi.modal.platinum.drink.note': 'Per i cocktail verrà realizzato un menù come di consueto, esposto sulla postazione beverage',
           'tosinghi.modal.platinum.details.title': 'Dettagli',
-          'tosinghi.modal.platinum.details.booking': 'Conferma prenotazione: minimo 14 giorni prima della data dell\'evento, minimo 30 persone con saletta riservata',
-          'tosinghi.modal.platinum.details.duration': 'Durata evento: fino a 2 ore',
+          'tosinghi.modal.platinum.details.booking': 'Conferma prenotazione: minimo 14 giorni prima della data dell\'evento, minimo richiesto per saletta in esclusiva',
+          'tosinghi.modal.platinum.details.duration': 'Durata evento: 2 ore estendibili (con estensione extra)',
           // Modal Compact Labels
           'tosinghi.modal.label.food': 'Food',
           'tosinghi.modal.label.drink': 'Drink',
@@ -1494,27 +1351,34 @@
           // Modal Compact Values
           'tosinghi.modal.silver.food.compact': 'Pizzette<br>Tramezzini<br>Rustici<br>Panettone gastronomico (1 ogni 6-8 pp.)<br>Coppetta Buontalenti',
           'tosinghi.modal.silver.drink.compact': '2 cocktail alcolici<br>1 analcolico<br>Prosecco<br>Acqua<br><small style="color:#90949a">Men\u00f9 esposto sulla postazione beverage</small>',
-          'tosinghi.modal.silver.details.compact': 'Conferma: min. 10 gg prima \u2022 Min. 30 persone con saletta riservata \u2022 Durata: fino a 1h30',
+          'tosinghi.modal.silver.details.compact': 'Conferma: min. 10 gg prima \u2022 Min. richiesto per saletta in esclusiva \u2022 Durata: 2h estendibili',
           'tosinghi.modal.gold.food.compact': 'Panettone gastronomico (1 ogni 6-8 pp.)<br>5 tipi di finger food a cura dello Chef<br>Monoporzioni dolci o coppetta Buontalenti',
           'tosinghi.modal.gold.drink.compact': '2 cocktail alcolici<br>1 analcolico<br>Franciacorta<br>Acqua<br><small style="color:#90949a">Men\u00f9 esposto sulla postazione beverage</small>',
-          'tosinghi.modal.gold.details.compact': 'Conferma: min. 10 gg prima \u2022 Min. 30 persone con saletta riservata \u2022 Durata: fino a 2h',
+          'tosinghi.modal.gold.details.compact': 'Conferma: min. 10 gg prima \u2022 Min. richiesto per saletta in esclusiva \u2022 Durata: 2h estendibili',
           'tosinghi.modal.platinum.food.compact': '7 tipi di finger food a cura dello Chef<br>Monoporzioni dolci, Mignon o coppetta Buontalenti',
           'tosinghi.modal.platinum.drink.compact': '2 cocktail alcolici<br>1 analcolico<br>Champagne (da concordare)<br>Acqua<br><small style="color:#90949a">Men\u00f9 esposto sulla postazione beverage</small>',
-          'tosinghi.modal.platinum.details.compact': 'Conferma: min. 14 gg prima \u2022 Min. 30 persone con saletta riservata \u2022 Durata: fino a 2h',
+          'tosinghi.modal.platinum.details.compact': 'Conferma: min. 14 gg prima \u2022 Min. richiesto per saletta in esclusiva \u2022 Durata: 2h estendibili',
           // Gallery
           'tosinghi.gallery.title': 'Galleria',
           // CTA
           'tosinghi.cta.request': 'Richiedi Informazioni',
+          // Food & Drink List Modals
+          'tosinghi.list.food.btn': 'Lista Food',
+          'tosinghi.list.drink.btn': 'Lista Drink',
+          'tosinghi.list.food.title': 'Lista Finger Food',
+          'tosinghi.list.food.subtitle': 'A cura del nostro Chef',
+          'tosinghi.list.drink.title': 'Lista Cocktail',
+          'tosinghi.list.drink.subtitle': 'I nostri cocktail selezionati',
           // Modal Spec Labels
           'tosinghi.modal.label.duration': 'Durata',
           'tosinghi.modal.label.booking': 'Prenotazione',
           // Modal Duration & Booking Values
-          'tosinghi.modal.silver.duration.value': 'Fino a 1h 30min',
-          'tosinghi.modal.silver.booking.value': 'Minimo 10 giorni prima<br>Minimo 30 persone con saletta riservata',
-          'tosinghi.modal.gold.duration.value': 'Fino a 2 ore',
-          'tosinghi.modal.gold.booking.value': 'Minimo 10 giorni prima<br>Minimo 30 persone con saletta riservata',
-          'tosinghi.modal.platinum.duration.value': 'Fino a 2 ore',
-          'tosinghi.modal.platinum.booking.value': 'Minimo 14 giorni prima<br>Minimo 30 persone con saletta riservata',
+          'tosinghi.modal.silver.duration.value': '2 ore estendibili (con estensione extra)',
+          'tosinghi.modal.silver.booking.value': 'Minimo 10 giorni prima<br>Minimo richiesto per saletta in esclusiva',
+          'tosinghi.modal.gold.duration.value': '2 ore estendibili (con estensione extra)',
+          'tosinghi.modal.gold.booking.value': 'Minimo 10 giorni prima<br>Minimo richiesto per saletta in esclusiva',
+          'tosinghi.modal.platinum.duration.value': '2 ore estendibili (con estensione extra)',
+          'tosinghi.modal.platinum.booking.value': 'Minimo 14 giorni prima<br>Minimo richiesto per saletta in esclusiva',
           // Cocktail Toggle
           'tosinghi.cocktail.btn.list': 'Lista',
           'tosinghi.cocktail.btn.close': 'Chiudi',
@@ -1593,30 +1457,33 @@
           'tosinghi.silver.desc': 'Aperitif with savoury pastries, pizzas, savoury panettone, Buontalenti cup and selected beverages.',
           'tosinghi.silver.food': '<strong>Food:</strong> Mini pizzas, sandwiches, savoury pastries, savoury panettone, Buontalenti cup',
           'tosinghi.silver.drink': '<strong>Drinks:</strong> 1 drink per person — 2 alcoholic cocktails, 1 non-alcoholic, Prosecco, Water',
-          'tosinghi.silver.duration': '<strong>Duration:</strong> Up to 1h 30min',
-          'tosinghi.silver.booking': '<strong>Booking:</strong> Minimum 10 days in advance, minimum 30 guests with private room',
-          'tosinghi.silver.note': 'VAT included • Minimum 30 guests',
+          'tosinghi.silver.duration': '<strong>Duration:</strong> 2 hours extendable (with extra extension)',
+          'tosinghi.silver.booking': '<strong>Booking:</strong> Minimum 10 days in advance, minimum required for exclusive private room',
+          'tosinghi.silver.note': 'VAT included • Max 45/50 guests',
           // Gold Package
           'tosinghi.gold.aria': 'Gold Package - Premium experience',
           'tosinghi.gold.price': '€30.00/person',
           'tosinghi.gold.desc': 'Premium package with savoury panettone, Chef\'s finger food, sweet portions or Buontalenti and selected beverages.',
           'tosinghi.gold.food': '<strong>Food:</strong> Savoury panettone, 5 Chef\'s finger foods, sweet portions or Buontalenti',
           'tosinghi.gold.drink': '<strong>Drinks:</strong> 1 drink per person — 2 alcoholic cocktails, 1 non-alcoholic, Franciacorta, Water',
-          'tosinghi.gold.duration': '<strong>Duration:</strong> Up to 2 hours',
-          'tosinghi.gold.booking': '<strong>Booking:</strong> Minimum 10 days in advance, minimum 30 guests with private room',
-          'tosinghi.gold.note': 'VAT included • Minimum 30 guests',
+          'tosinghi.gold.duration': '<strong>Duration:</strong> 2 hours extendable (with extra extension)',
+          'tosinghi.gold.booking': '<strong>Booking:</strong> Minimum 10 days in advance, minimum required for exclusive private room',
+          'tosinghi.gold.note': 'VAT included • Max 45/50 guests',
           // Platinum Package
           'tosinghi.platinum.aria': 'Platinum Package - Exclusive luxury experience',
           'tosinghi.platinum.price': '€40.00/person',
           'tosinghi.platinum.desc': 'The exclusive experience with Chef\'s finger food, sweet portions, Champagne and premium service.',
           'tosinghi.platinum.food': '<strong>Food:</strong> 7 Chef\'s finger foods, sweet portions, Mignon or Buontalenti',
           'tosinghi.platinum.drink': '<strong>Drinks:</strong> 1 drink per person — 2 alcoholic cocktails, 1 non-alcoholic, Champagne, Water',
-          'tosinghi.platinum.duration': '<strong>Duration:</strong> Up to 2 hours',
-          'tosinghi.platinum.booking': '<strong>Booking:</strong> Minimum 14 days in advance, minimum 30 guests with private room',
-          'tosinghi.platinum.note': 'VAT included • Minimum 30 guests',
+          'tosinghi.platinum.duration': '<strong>Duration:</strong> 2 hours extendable (with extra extension)',
+          'tosinghi.platinum.booking': '<strong>Booking:</strong> Minimum 14 days in advance, minimum required for exclusive private room',
+          'tosinghi.platinum.note': 'VAT included • Max 45/50 guests',
           // Terms
           'tosinghi.terms.title': 'Terms and Conditions',
-          'tosinghi.terms.capacity': '<strong>Capacity:</strong> Minimum 30 guests, maximum 35 seated guests',
+          'tosinghi.terms.spending': '<strong>Minimum spend per package:</strong> Depending on the chosen package',
+          'tosinghi.terms.duration': '<strong>Duration:</strong> 2 hours extendable (with extra extension)',
+          'tosinghi.terms.booking': '<strong>Booking:</strong> Minimum required for exclusive private room',
+          'tosinghi.terms.capacity': '<strong>Maximum capacity:</strong> 45/50 guests',
           'tosinghi.terms.extradrink': '<strong>Extra drinks:</strong> Full price, immediate payment at the counter',
           'tosinghi.terms.deposit': '<strong>Deposit:</strong> 50% upon confirmation via bank transfer',
           'tosinghi.terms.balance': '<strong>Balance:</strong> 3 days before the event via bank transfer',
@@ -1641,8 +1508,8 @@
           'tosinghi.modal.silver.drink.item4': 'Water',
           'tosinghi.modal.silver.drink.note': 'For cocktails, a menu will be created as usual, displayed at the beverage station',
           'tosinghi.modal.silver.details.title': 'Details',
-          'tosinghi.modal.silver.details.booking': 'Booking confirmation: minimum 10 days before the event date, minimum 30 guests with private room',
-          'tosinghi.modal.silver.details.duration': 'Event duration: up to 1 hour and 30 minutes',
+          'tosinghi.modal.silver.details.booking': 'Booking confirmation: minimum 10 days before the event date, minimum required for exclusive private room',
+          'tosinghi.modal.silver.details.duration': 'Event duration: 2 hours extendable (with extra extension)',
           // Modal Gold
           'tosinghi.modal.gold.title': 'GOLD PACKAGE',
           'tosinghi.modal.gold.subtitle': '€30.00 per person (VAT included)',
@@ -1657,8 +1524,8 @@
           'tosinghi.modal.gold.drink.item4': 'Water',
           'tosinghi.modal.gold.drink.note': 'For cocktails, a menu will be created as usual, displayed at the beverage station',
           'tosinghi.modal.gold.details.title': 'Details',
-          'tosinghi.modal.gold.details.booking': 'Booking confirmation: minimum 10 days before the event date, minimum 30 guests with private room',
-          'tosinghi.modal.gold.details.duration': 'Event duration: up to 2 hours',
+          'tosinghi.modal.gold.details.booking': 'Booking confirmation: minimum 10 days before the event date, minimum required for exclusive private room',
+          'tosinghi.modal.gold.details.duration': 'Event duration: 2 hours extendable (with extra extension)',
           // Modal Platinum
           'tosinghi.modal.platinum.title': 'PLATINUM PACKAGE',
           'tosinghi.modal.platinum.subtitle': '€40.00 per person (VAT included)',
@@ -1672,8 +1539,8 @@
           'tosinghi.modal.platinum.drink.item4': 'Water',
           'tosinghi.modal.platinum.drink.note': 'For cocktails, a menu will be created as usual, displayed at the beverage station',
           'tosinghi.modal.platinum.details.title': 'Details',
-          'tosinghi.modal.platinum.details.booking': 'Booking confirmation: minimum 14 days before the event date, minimum 30 guests with private room',
-          'tosinghi.modal.platinum.details.duration': 'Event duration: up to 2 hours',
+          'tosinghi.modal.platinum.details.booking': 'Booking confirmation: minimum 14 days before the event date, minimum required for exclusive private room',
+          'tosinghi.modal.platinum.details.duration': 'Event duration: 2 hours extendable (with extra extension)',
           // Modal Compact Labels
           'tosinghi.modal.label.food': 'Food',
           'tosinghi.modal.label.drink': 'Drinks',
@@ -1681,27 +1548,34 @@
           // Modal Compact Values
           'tosinghi.modal.silver.food.compact': 'Mini pizzas<br>Sandwiches<br>Savoury pastries<br>Savoury panettone (1 per 6-8 guests)<br>Buontalenti cup',
           'tosinghi.modal.silver.drink.compact': '2 alcoholic cocktails<br>1 non-alcoholic<br>Prosecco<br>Water<br><small style="color:#90949a">Menu displayed at beverage station</small>',
-          'tosinghi.modal.silver.details.compact': 'Booking: min. 10 days before \u2022 Min. 30 guests with private room \u2022 Duration: up to 1h30',
+          'tosinghi.modal.silver.details.compact': 'Booking: min. 10 days before \u2022 Min. required for exclusive room \u2022 Duration: 2h extendable',
           'tosinghi.modal.gold.food.compact': 'Savoury panettone (1 per 6-8 guests)<br>5 Chef\'s finger foods<br>Sweet portions or Buontalenti cup',
           'tosinghi.modal.gold.drink.compact': '2 alcoholic cocktails<br>1 non-alcoholic<br>Franciacorta<br>Water<br><small style="color:#90949a">Menu displayed at beverage station</small>',
-          'tosinghi.modal.gold.details.compact': 'Booking: min. 10 days before \u2022 Min. 30 guests with private room \u2022 Duration: up to 2h',
+          'tosinghi.modal.gold.details.compact': 'Booking: min. 10 days before \u2022 Min. required for exclusive room \u2022 Duration: 2h extendable',
           'tosinghi.modal.platinum.food.compact': '7 Chef\'s finger foods<br>Sweet portions, Mignon or Buontalenti cup',
           'tosinghi.modal.platinum.drink.compact': '2 alcoholic cocktails<br>1 non-alcoholic<br>Champagne (to be agreed)<br>Water<br><small style="color:#90949a">Menu displayed at beverage station</small>',
-          'tosinghi.modal.platinum.details.compact': 'Booking: min. 14 days before \u2022 Min. 30 guests with private room \u2022 Duration: up to 2h',
+          'tosinghi.modal.platinum.details.compact': 'Booking: min. 14 days before \u2022 Min. required for exclusive room \u2022 Duration: 2h extendable',
           // Gallery
           'tosinghi.gallery.title': 'Gallery',
           // CTA
           'tosinghi.cta.request': 'Request Information',
+          // Food & Drink List Modals
+          'tosinghi.list.food.btn': 'Food List',
+          'tosinghi.list.drink.btn': 'Drink List',
+          'tosinghi.list.food.title': 'Finger Food List',
+          'tosinghi.list.food.subtitle': 'By our Chef',
+          'tosinghi.list.drink.title': 'Cocktail List',
+          'tosinghi.list.drink.subtitle': 'Our selected cocktails',
           // Modal Spec Labels
           'tosinghi.modal.label.duration': 'Duration',
           'tosinghi.modal.label.booking': 'Booking',
           // Modal Duration & Booking Values
-          'tosinghi.modal.silver.duration.value': 'Up to 1h 30min',
-          'tosinghi.modal.silver.booking.value': 'Minimum 10 days in advance<br>Minimum 30 guests with private room',
-          'tosinghi.modal.gold.duration.value': 'Up to 2 hours',
-          'tosinghi.modal.gold.booking.value': 'Minimum 10 days in advance<br>Minimum 30 guests with private room',
-          'tosinghi.modal.platinum.duration.value': 'Up to 2 hours',
-          'tosinghi.modal.platinum.booking.value': 'Minimum 14 days in advance<br>Minimum 30 guests with private room',
+          'tosinghi.modal.silver.duration.value': '2 hours extendable (with extra extension)',
+          'tosinghi.modal.silver.booking.value': 'Minimum 10 days in advance<br>Minimum required for exclusive private room',
+          'tosinghi.modal.gold.duration.value': '2 hours extendable (with extra extension)',
+          'tosinghi.modal.gold.booking.value': 'Minimum 10 days in advance<br>Minimum required for exclusive private room',
+          'tosinghi.modal.platinum.duration.value': '2 hours extendable (with extra extension)',
+          'tosinghi.modal.platinum.booking.value': 'Minimum 14 days in advance<br>Minimum required for exclusive private room',
           // Cocktail Toggle
           'tosinghi.cocktail.btn.list': 'List',
           'tosinghi.cocktail.btn.close': 'Close',
@@ -1780,30 +1654,33 @@
           'tosinghi.silver.desc': 'Apéritif avec pâtisseries salées, pizzas, panettone gastronomique, coupe Buontalenti et boissons sélectionnées.',
           'tosinghi.silver.food': '<strong>Food:</strong> Mini pizzas, sandwichs, pâtisseries salées, panettone gastronomique, coupe Buontalenti',
           'tosinghi.silver.drink': '<strong>Boissons:</strong> 1 boisson par personne — 2 cocktails alcoolisés, 1 sans alcool, Prosecco, Eau',
-          'tosinghi.silver.duration': '<strong>Durée:</strong> Jusqu\'à 1h 30min',
-          'tosinghi.silver.booking': '<strong>Réservation:</strong> Minimum 10 jours à l\'avance, minimum 30 personnes avec salle privée',
-          'tosinghi.silver.note': 'TVA incluse • Minimum 30 personnes',
+          'tosinghi.silver.duration': '<strong>Durée:</strong> 2 heures extensibles (avec extension supplémentaire)',
+          'tosinghi.silver.booking': '<strong>Réservation:</strong> Minimum 10 jours à l\'avance, minimum requis pour salle privée exclusive',
+          'tosinghi.silver.note': 'TVA incluse • Max 45/50 personnes',
           // Gold Package
           'tosinghi.gold.aria': 'Forfait Gold - Expérience premium',
           'tosinghi.gold.price': '€30,00/personne',
           'tosinghi.gold.desc': 'Forfait premium avec panettone gastronomique, finger food du Chef, portions sucrées ou Buontalenti et boissons sélectionnées.',
           'tosinghi.gold.food': '<strong>Food:</strong> Panettone gastronomique, 5 finger foods du Chef, portions sucrées ou Buontalenti',
           'tosinghi.gold.drink': '<strong>Boissons:</strong> 1 boisson par personne — 2 cocktails alcoolisés, 1 sans alcool, Franciacorta, Eau',
-          'tosinghi.gold.duration': '<strong>Durée:</strong> Jusqu\'à 2 heures',
-          'tosinghi.gold.booking': '<strong>Réservation:</strong> Minimum 10 jours à l\'avance, minimum 30 personnes avec salle privée',
-          'tosinghi.gold.note': 'TVA incluse • Minimum 30 personnes',
+          'tosinghi.gold.duration': '<strong>Durée:</strong> 2 heures extensibles (avec extension supplémentaire)',
+          'tosinghi.gold.booking': '<strong>Réservation:</strong> Minimum 10 jours à l\'avance, minimum requis pour salle privée exclusive',
+          'tosinghi.gold.note': 'TVA incluse • Max 45/50 personnes',
           // Platinum Package
           'tosinghi.platinum.aria': 'Forfait Platinum - Expérience de luxe exclusive',
           'tosinghi.platinum.price': '€40,00/personne',
           'tosinghi.platinum.desc': 'L\'expérience exclusive avec finger food du Chef, portions sucrées, Champagne et service premium.',
           'tosinghi.platinum.food': '<strong>Food:</strong> 7 finger foods du Chef, portions sucrées, Mignon ou Buontalenti',
           'tosinghi.platinum.drink': '<strong>Boissons:</strong> 1 boisson par personne — 2 cocktails alcoolisés, 1 sans alcool, Champagne, Eau',
-          'tosinghi.platinum.duration': '<strong>Durée:</strong> Jusqu\'à 2 heures',
-          'tosinghi.platinum.booking': '<strong>Réservation:</strong> Minimum 14 jours à l\'avance, minimum 30 personnes avec salle privée',
-          'tosinghi.platinum.note': 'TVA incluse • Minimum 30 personnes',
+          'tosinghi.platinum.duration': '<strong>Durée:</strong> 2 heures extensibles (avec extension supplémentaire)',
+          'tosinghi.platinum.booking': '<strong>Réservation:</strong> Minimum 14 jours à l\'avance, minimum requis pour salle privée exclusive',
+          'tosinghi.platinum.note': 'TVA incluse • Max 45/50 personnes',
           // Terms
           'tosinghi.terms.title': 'Termes et Conditions',
-          'tosinghi.terms.capacity': '<strong>Capacité:</strong> Minimum 30 personnes, maximum 35 personnes assises',
+          'tosinghi.terms.spending': '<strong>Dépense minimum par forfait:</strong> Selon le forfait choisi',
+          'tosinghi.terms.duration': '<strong>Durée:</strong> 2 heures extensibles (avec extension supplémentaire)',
+          'tosinghi.terms.booking': '<strong>Réservation:</strong> Minimum requis pour salle privée exclusive',
+          'tosinghi.terms.capacity': '<strong>Capacité maximale:</strong> 45/50 personnes',
           'tosinghi.terms.extradrink': '<strong>Boissons supplémentaires:</strong> Prix plein, paiement immédiat à la caisse',
           'tosinghi.terms.deposit': '<strong>Acompte:</strong> 50% à la confirmation par virement bancaire',
           'tosinghi.terms.balance': '<strong>Solde:</strong> 3 jours avant l\'événement par virement bancaire',
@@ -1828,8 +1705,8 @@
           'tosinghi.modal.silver.drink.item4': 'Eau',
           'tosinghi.modal.silver.drink.note': 'Pour les cocktails, un menu sera créé comme d\'habitude, affiché au poste boissons',
           'tosinghi.modal.silver.details.title': 'Détails',
-          'tosinghi.modal.silver.details.booking': 'Confirmation de réservation: minimum 10 jours avant la date de l\'événement, minimum 30 personnes avec salle privée',
-          'tosinghi.modal.silver.details.duration': 'Durée de l\'événement: jusqu\'à 1 heure et 30 minutes',
+          'tosinghi.modal.silver.details.booking': 'Confirmation de réservation: minimum 10 jours avant la date de l\'événement, minimum requis pour salle privée exclusive',
+          'tosinghi.modal.silver.details.duration': 'Durée de l\'événement: 2 heures extensibles (avec extension supplémentaire)',
           // Modal Gold
           'tosinghi.modal.gold.title': 'FORFAIT GOLD',
           'tosinghi.modal.gold.subtitle': '€30,00 par personne (TVA incluse)',
@@ -1844,8 +1721,8 @@
           'tosinghi.modal.gold.drink.item4': 'Eau',
           'tosinghi.modal.gold.drink.note': 'Pour les cocktails, un menu sera créé comme d\'habitude, affiché au poste boissons',
           'tosinghi.modal.gold.details.title': 'Détails',
-          'tosinghi.modal.gold.details.booking': 'Confirmation de réservation: minimum 10 jours avant la date de l\'événement, minimum 30 personnes avec salle privée',
-          'tosinghi.modal.gold.details.duration': 'Durée de l\'événement: jusqu\'à 2 heures',
+          'tosinghi.modal.gold.details.booking': 'Confirmation de réservation: minimum 10 jours avant la date de l\'événement, minimum requis pour salle privée exclusive',
+          'tosinghi.modal.gold.details.duration': 'Durée de l\'événement: 2 heures extensibles (avec extension supplémentaire)',
           // Modal Platinum
           'tosinghi.modal.platinum.title': 'FORFAIT PLATINUM',
           'tosinghi.modal.platinum.subtitle': '€40,00 par personne (TVA incluse)',
@@ -1859,8 +1736,8 @@
           'tosinghi.modal.platinum.drink.item4': 'Eau',
           'tosinghi.modal.platinum.drink.note': 'Pour les cocktails, un menu sera créé comme d\'habitude, affiché au poste boissons',
           'tosinghi.modal.platinum.details.title': 'Détails',
-          'tosinghi.modal.platinum.details.booking': 'Confirmation de réservation: minimum 14 jours avant la date de l\'événement, minimum 30 personnes avec salle privée',
-          'tosinghi.modal.platinum.details.duration': 'Durée de l\'événement: jusqu\'à 2 heures',
+          'tosinghi.modal.platinum.details.booking': 'Confirmation de réservation: minimum 14 jours avant la date de l\'événement, minimum requis pour salle privée exclusive',
+          'tosinghi.modal.platinum.details.duration': 'Durée de l\'événement: 2 heures extensibles (avec extension supplémentaire)',
           // Modal Compact Labels
           'tosinghi.modal.label.food': 'Food',
           'tosinghi.modal.label.drink': 'Boissons',
@@ -1868,27 +1745,34 @@
           // Modal Compact Values
           'tosinghi.modal.silver.food.compact': 'Mini pizzas<br>Sandwichs<br>Pâtisseries salées<br>Panettone gastronomique (1 pour 6-8 pers.)<br>Coupe Buontalenti',
           'tosinghi.modal.silver.drink.compact': '2 cocktails alcoolisés<br>1 sans alcool<br>Prosecco<br>Eau<br><small style="color:#90949a">Menu affiché au poste boissons</small>',
-          'tosinghi.modal.silver.details.compact': 'Réservation: min. 10 jours avant • Min. 30 pers. avec salle privée • Durée: jusqu\'à 1h30',
+          'tosinghi.modal.silver.details.compact': 'Réservation: min. 10 jours avant • Min. requis pour salle exclusive • Durée: 2h extensibles',
           'tosinghi.modal.gold.food.compact': 'Panettone gastronomique (1 pour 6-8 pers.)<br>5 finger foods du Chef<br>Portions sucrées ou coupe Buontalenti',
           'tosinghi.modal.gold.drink.compact': '2 cocktails alcoolisés<br>1 sans alcool<br>Franciacorta<br>Eau<br><small style="color:#90949a">Menu affiché au poste boissons</small>',
-          'tosinghi.modal.gold.details.compact': 'Réservation: min. 10 jours avant • Min. 30 pers. avec salle privée • Durée: jusqu\'à 2h',
+          'tosinghi.modal.gold.details.compact': 'Réservation: min. 10 jours avant • Min. requis pour salle exclusive • Durée: 2h extensibles',
           'tosinghi.modal.platinum.food.compact': '7 finger foods du Chef<br>Portions sucrées, Mignon ou coupe Buontalenti',
           'tosinghi.modal.platinum.drink.compact': '2 cocktails alcoolisés<br>1 sans alcool<br>Champagne (type à convenir)<br>Eau<br><small style="color:#90949a">Menu affiché au poste boissons</small>',
-          'tosinghi.modal.platinum.details.compact': 'Réservation: min. 14 jours avant • Min. 30 pers. avec salle privée • Durée: jusqu\'à 2h',
+          'tosinghi.modal.platinum.details.compact': 'Réservation: min. 14 jours avant • Min. requis pour salle exclusive • Durée: 2h extensibles',
           // Gallery
           'tosinghi.gallery.title': 'Galerie',
           // CTA
           'tosinghi.cta.request': 'Demander des Informations',
+          // Food & Drink List Modals
+          'tosinghi.list.food.btn': 'Liste Food',
+          'tosinghi.list.drink.btn': 'Liste Boissons',
+          'tosinghi.list.food.title': 'Liste Finger Food',
+          'tosinghi.list.food.subtitle': 'Par notre Chef',
+          'tosinghi.list.drink.title': 'Liste Cocktails',
+          'tosinghi.list.drink.subtitle': 'Nos cocktails s\u00e9lectionn\u00e9s',
           // Modal Spec Labels
           'tosinghi.modal.label.duration': 'Durée',
           'tosinghi.modal.label.booking': 'Réservation',
           // Modal Duration & Booking Values
-          'tosinghi.modal.silver.duration.value': 'Jusqu\'à 1h 30min',
-          'tosinghi.modal.silver.booking.value': 'Minimum 10 jours à l\'avance<br>Minimum 30 personnes avec salle privée',
-          'tosinghi.modal.gold.duration.value': 'Jusqu\'à 2 heures',
-          'tosinghi.modal.gold.booking.value': 'Minimum 10 jours à l\'avance<br>Minimum 30 personnes avec salle privée',
-          'tosinghi.modal.platinum.duration.value': 'Jusqu\'à 2 heures',
-          'tosinghi.modal.platinum.booking.value': 'Minimum 14 jours à l\'avance<br>Minimum 30 personnes avec salle privée',
+          'tosinghi.modal.silver.duration.value': '2 heures extensibles (avec extension supplémentaire)',
+          'tosinghi.modal.silver.booking.value': 'Minimum 10 jours à l\'avance<br>Minimum requis pour salle privée exclusive',
+          'tosinghi.modal.gold.duration.value': '2 heures extensibles (avec extension supplémentaire)',
+          'tosinghi.modal.gold.booking.value': 'Minimum 10 jours à l\'avance<br>Minimum requis pour salle privée exclusive',
+          'tosinghi.modal.platinum.duration.value': '2 heures extensibles (avec extension supplémentaire)',
+          'tosinghi.modal.platinum.booking.value': 'Minimum 14 jours à l\'avance<br>Minimum requis pour salle privée exclusive',
           // Cocktail Toggle
           'tosinghi.cocktail.btn.list': 'Liste',
           'tosinghi.cocktail.btn.close': 'Fermer',
@@ -1967,30 +1851,33 @@
           'tosinghi.silver.desc': 'Aperitivo con pastelería salada, pizzas, panettone gastronómico, copa Buontalenti y bebidas seleccionadas.',
           'tosinghi.silver.food': '<strong>Food:</strong> Mini pizzas, sándwiches, pastelería salada, panettone gastronómico, copa Buontalenti',
           'tosinghi.silver.drink': '<strong>Bebidas:</strong> 1 bebida por persona — 2 cócteles alcohólicos, 1 sin alcohol, Prosecco, Agua',
-          'tosinghi.silver.duration': '<strong>Duración:</strong> Hasta 1h 30min',
-          'tosinghi.silver.booking': '<strong>Reserva:</strong> Mínimo 10 días de antelación, mínimo 30 personas con sala privada',
-          'tosinghi.silver.note': 'IVA incluido • Mínimo 30 personas',
+          'tosinghi.silver.duration': '<strong>Duración:</strong> 2 horas ampliables (con extensión extra)',
+          'tosinghi.silver.booking': '<strong>Reserva:</strong> Mínimo 10 días de antelación, mínimo requerido para sala privada exclusiva',
+          'tosinghi.silver.note': 'IVA incluido • Máx 45/50 personas',
           // Gold Package
           'tosinghi.gold.aria': 'Paquete Gold - Experiencia premium',
           'tosinghi.gold.price': '€30,00/persona',
           'tosinghi.gold.desc': 'Paquete premium con panettone gastronómico, finger food del Chef, porciones dulces o Buontalenti y bebidas seleccionadas.',
           'tosinghi.gold.food': '<strong>Food:</strong> Panettone gastronómico, 5 finger foods del Chef, porciones dulces o Buontalenti',
           'tosinghi.gold.drink': '<strong>Bebidas:</strong> 1 bebida por persona — 2 cócteles alcohólicos, 1 sin alcohol, Franciacorta, Agua',
-          'tosinghi.gold.duration': '<strong>Duración:</strong> Hasta 2 horas',
-          'tosinghi.gold.booking': '<strong>Reserva:</strong> Mínimo 10 días de antelación, mínimo 30 personas con sala privada',
-          'tosinghi.gold.note': 'IVA incluido • Mínimo 30 personas',
+          'tosinghi.gold.duration': '<strong>Duración:</strong> 2 horas ampliables (con extensión extra)',
+          'tosinghi.gold.booking': '<strong>Reserva:</strong> Mínimo 10 días de antelación, mínimo requerido para sala privada exclusiva',
+          'tosinghi.gold.note': 'IVA incluido • Máx 45/50 personas',
           // Platinum Package
           'tosinghi.platinum.aria': 'Paquete Platinum - Experiencia de lujo exclusiva',
           'tosinghi.platinum.price': '€40,00/persona',
           'tosinghi.platinum.desc': 'La experiencia exclusiva con finger food del Chef, porciones dulces, Champagne y servicio premium.',
           'tosinghi.platinum.food': '<strong>Food:</strong> 7 finger foods del Chef, porciones dulces, Mignon o Buontalenti',
           'tosinghi.platinum.drink': '<strong>Bebidas:</strong> 1 bebida por persona — 2 cócteles alcohólicos, 1 sin alcohol, Champagne, Agua',
-          'tosinghi.platinum.duration': '<strong>Duración:</strong> Hasta 2 horas',
-          'tosinghi.platinum.booking': '<strong>Reserva:</strong> Mínimo 14 días de antelación, mínimo 30 personas con sala privada',
-          'tosinghi.platinum.note': 'IVA incluido • Mínimo 30 personas',
+          'tosinghi.platinum.duration': '<strong>Duración:</strong> 2 horas ampliables (con extensión extra)',
+          'tosinghi.platinum.booking': '<strong>Reserva:</strong> Mínimo 14 días de antelación, mínimo requerido para sala privada exclusiva',
+          'tosinghi.platinum.note': 'IVA incluido • Máx 45/50 personas',
           // Terms
           'tosinghi.terms.title': 'Términos y Condiciones',
-          'tosinghi.terms.capacity': '<strong>Capacidad:</strong> Mínimo 30 personas, máximo 35 personas sentadas',
+          'tosinghi.terms.spending': '<strong>Gasto mínimo por paquete:</strong> Según el paquete elegido',
+          'tosinghi.terms.duration': '<strong>Duración:</strong> 2 horas ampliables (con extensión extra)',
+          'tosinghi.terms.booking': '<strong>Reserva:</strong> Mínimo requerido para sala privada exclusiva',
+          'tosinghi.terms.capacity': '<strong>Capacidad máxima:</strong> 45/50 personas',
           'tosinghi.terms.extradrink': '<strong>Bebidas extra:</strong> Precio completo, pago inmediato en caja',
           'tosinghi.terms.deposit': '<strong>Depósito:</strong> 50% en la confirmación mediante transferencia bancaria',
           'tosinghi.terms.balance': '<strong>Saldo:</strong> 3 días antes del evento mediante transferencia bancaria',
@@ -2015,8 +1902,8 @@
           'tosinghi.modal.silver.drink.item4': 'Agua',
           'tosinghi.modal.silver.drink.note': 'Para los cócteles se creará un menú como de costumbre, expuesto en la estación de bebidas',
           'tosinghi.modal.silver.details.title': 'Detalles',
-          'tosinghi.modal.silver.details.booking': 'Confirmación de reserva: mínimo 10 días antes de la fecha del evento, mínimo 30 personas con sala privada',
-          'tosinghi.modal.silver.details.duration': 'Duración del evento: hasta 1 hora y 30 minutos',
+          'tosinghi.modal.silver.details.booking': 'Confirmación de reserva: mínimo 10 días antes de la fecha del evento, mínimo requerido para sala privada exclusiva',
+          'tosinghi.modal.silver.details.duration': 'Duración del evento: 2 horas ampliables (con extensión extra)',
           // Modal Gold
           'tosinghi.modal.gold.title': 'PAQUETE GOLD',
           'tosinghi.modal.gold.subtitle': '€30,00 por persona (IVA incluido)',
@@ -2031,8 +1918,8 @@
           'tosinghi.modal.gold.drink.item4': 'Agua',
           'tosinghi.modal.gold.drink.note': 'Para los cócteles se creará un menú como de costumbre, expuesto en la estación de bebidas',
           'tosinghi.modal.gold.details.title': 'Detalles',
-          'tosinghi.modal.gold.details.booking': 'Confirmación de reserva: mínimo 10 días antes de la fecha del evento, mínimo 30 personas con sala privada',
-          'tosinghi.modal.gold.details.duration': 'Duración del evento: hasta 2 horas',
+          'tosinghi.modal.gold.details.booking': 'Confirmación de reserva: mínimo 10 días antes de la fecha del evento, mínimo requerido para sala privada exclusiva',
+          'tosinghi.modal.gold.details.duration': 'Duración del evento: 2 horas ampliables (con extensión extra)',
           // Modal Platinum
           'tosinghi.modal.platinum.title': 'PAQUETE PLATINUM',
           'tosinghi.modal.platinum.subtitle': '€40,00 por persona (IVA incluido)',
@@ -2046,8 +1933,8 @@
           'tosinghi.modal.platinum.drink.item4': 'Agua',
           'tosinghi.modal.platinum.drink.note': 'Para los cócteles se creará un menú como de costumbre, expuesto en la estación de bebidas',
           'tosinghi.modal.platinum.details.title': 'Detalles',
-          'tosinghi.modal.platinum.details.booking': 'Confirmación de reserva: mínimo 14 días antes de la fecha del evento, mínimo 30 personas con sala privada',
-          'tosinghi.modal.platinum.details.duration': 'Duración del evento: hasta 2 horas',
+          'tosinghi.modal.platinum.details.booking': 'Confirmación de reserva: mínimo 14 días antes de la fecha del evento, mínimo requerido para sala privada exclusiva',
+          'tosinghi.modal.platinum.details.duration': 'Duración del evento: 2 horas ampliables (con extensión extra)',
           // Modal Compact Labels
           'tosinghi.modal.label.food': 'Food',
           'tosinghi.modal.label.drink': 'Bebidas',
@@ -2055,27 +1942,34 @@
           // Modal Compact Values
           'tosinghi.modal.silver.food.compact': 'Mini pizzas<br>Sándwiches<br>Pastelería salada<br>Panettone gastronómico (1 cada 6-8 pers.)<br>Copa Buontalenti',
           'tosinghi.modal.silver.drink.compact': '2 cócteles alcohólicos<br>1 sin alcohol<br>Prosecco<br>Agua<br><small style="color:#90949a">Menú expuesto en la estación de bebidas</small>',
-          'tosinghi.modal.silver.details.compact': 'Reserva: min. 10 días antes • Min. 30 pers. con sala privada • Duración: hasta 1h30',
+          'tosinghi.modal.silver.details.compact': 'Reserva: min. 10 días antes • Min. requerido para sala exclusiva • Duración: 2h ampliables',
           'tosinghi.modal.gold.food.compact': 'Panettone gastronómico (1 cada 6-8 pers.)<br>5 finger foods del Chef<br>Porciones dulces o copa Buontalenti',
           'tosinghi.modal.gold.drink.compact': '2 cócteles alcohólicos<br>1 sin alcohol<br>Franciacorta<br>Agua<br><small style="color:#90949a">Menú expuesto en la estación de bebidas</small>',
-          'tosinghi.modal.gold.details.compact': 'Reserva: min. 10 días antes • Min. 30 pers. con sala privada • Duración: hasta 2h',
+          'tosinghi.modal.gold.details.compact': 'Reserva: min. 10 días antes • Min. requerido para sala exclusiva • Duración: 2h ampliables',
           'tosinghi.modal.platinum.food.compact': '7 finger foods del Chef<br>Porciones dulces, Mignon o copa Buontalenti',
           'tosinghi.modal.platinum.drink.compact': '2 cócteles alcohólicos<br>1 sin alcohol<br>Champagne (tipo a acordar)<br>Agua<br><small style="color:#90949a">Menú expuesto en la estación de bebidas</small>',
-          'tosinghi.modal.platinum.details.compact': 'Reserva: min. 14 días antes • Min. 30 pers. con sala privada • Duración: hasta 2h',
+          'tosinghi.modal.platinum.details.compact': 'Reserva: min. 14 días antes • Min. requerido para sala exclusiva • Duración: 2h ampliables',
           // Gallery
           'tosinghi.gallery.title': 'Galería',
           // CTA
           'tosinghi.cta.request': 'Solicitar Información',
+          // Food & Drink List Modals
+          'tosinghi.list.food.btn': 'Lista Food',
+          'tosinghi.list.drink.btn': 'Lista Bebidas',
+          'tosinghi.list.food.title': 'Lista Finger Food',
+          'tosinghi.list.food.subtitle': 'A cargo de nuestro Chef',
+          'tosinghi.list.drink.title': 'Lista de C\u00f3cteles',
+          'tosinghi.list.drink.subtitle': 'Nuestros c\u00f3cteles seleccionados',
           // Modal Spec Labels
           'tosinghi.modal.label.duration': 'Duración',
           'tosinghi.modal.label.booking': 'Reserva',
           // Modal Duration & Booking Values
-          'tosinghi.modal.silver.duration.value': 'Hasta 1h 30min',
-          'tosinghi.modal.silver.booking.value': 'Mínimo 10 días de antelación<br>Mínimo 30 personas con sala privada',
-          'tosinghi.modal.gold.duration.value': 'Hasta 2 horas',
-          'tosinghi.modal.gold.booking.value': 'Mínimo 10 días de antelación<br>Mínimo 30 personas con sala privada',
-          'tosinghi.modal.platinum.duration.value': 'Hasta 2 horas',
-          'tosinghi.modal.platinum.booking.value': 'Mínimo 14 días de antelación<br>Mínimo 30 personas con sala privada',
+          'tosinghi.modal.silver.duration.value': '2 horas ampliables (con extensión extra)',
+          'tosinghi.modal.silver.booking.value': 'Mínimo 10 días de antelación<br>Mínimo requerido para sala privada exclusiva',
+          'tosinghi.modal.gold.duration.value': '2 horas ampliables (con extensión extra)',
+          'tosinghi.modal.gold.booking.value': 'Mínimo 10 días de antelación<br>Mínimo requerido para sala privada exclusiva',
+          'tosinghi.modal.platinum.duration.value': '2 horas ampliables (con extensión extra)',
+          'tosinghi.modal.platinum.booking.value': 'Mínimo 14 días de antelación<br>Mínimo requerido para sala privada exclusiva',
           // Cocktail Toggle
           'tosinghi.cocktail.btn.list': 'Lista',
           'tosinghi.cocktail.btn.close': 'Cerrar',

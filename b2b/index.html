@@ -1752,6 +1752,15 @@
             <div class="fm-field"><label data-i18n="b2b.form.email"></label><input name="email" type="email" data-i18n-attr="placeholder:b2b.form.email_ph" required /></div>
             <div class="fm-field"><label data-i18n="b2b.form.telefono"></label><input name="telefono" type="tel" placeholder="+39 ..." data-i18n-attr="placeholder:b2b.form.telefono_ph" required /></div>
 
+            <!-- Preferenza di contatto -->
+            <div class="fm-field full">
+              <label data-i18n="b2b.form.contactPref">Preferenza di contatto *</label>
+              <div class="fm-checkbox-group" style="gap:16px;">
+                <label style="cursor:pointer;"><input type="radio" name="preferenza_contatto" value="telefono" checked style="width:16px;height:16px;accent-color:var(--badiani-blue);" /> <span data-i18n="b2b.form.contactPref.phone">Telefono</span></label>
+                <label style="cursor:pointer;"><input type="radio" name="preferenza_contatto" value="email" style="width:16px;height:16px;accent-color:var(--badiani-blue);" /> <span data-i18n="b2b.form.contactPref.email">Email</span></label>
+              </div>
+            </div>
+
             <!-- Nome Azienda (required) -->
             <div class="fm-field"><label data-i18n="b2b.form.azienda"></label><input name="azienda" type="text" data-i18n-attr="placeholder:b2b.form.azienda_ph" required /></div>
 
@@ -1997,6 +2006,9 @@
           'b2b.form.email': 'Email *',
           'b2b.form.email_ph': 'email@azienda.com',
           'b2b.form.telefono': 'Telefono *',
+          'b2b.form.contactPref': 'Preferenza di contatto *',
+          'b2b.form.contactPref.phone': 'Telefono',
+          'b2b.form.contactPref.email': 'Email',
           'b2b.form.azienda': 'Nome Azienda *',
           'b2b.form.azienda_ph': 'Ragione sociale',
           'b2b.form.tipo': 'Tipo Attivit\u00e0 *',
@@ -2260,6 +2272,9 @@
           'b2b.form.email': 'Email *',
           'b2b.form.email_ph': 'email@company.com',
           'b2b.form.telefono': 'Phone *',
+          'b2b.form.contactPref': 'Preferred contact method *',
+          'b2b.form.contactPref.phone': 'Phone',
+          'b2b.form.contactPref.email': 'Email',
           'b2b.form.azienda': 'Company Name *',
           'b2b.form.azienda_ph': 'Company name',
           'b2b.form.tipo': 'Business Type *',
@@ -2523,6 +2538,9 @@
           'b2b.form.email': 'Email *',
           'b2b.form.email_ph': 'email@entreprise.com',
           'b2b.form.telefono': 'Téléphone *',
+          'b2b.form.contactPref': 'Méthode de contact préférée *',
+          'b2b.form.contactPref.phone': 'Téléphone',
+          'b2b.form.contactPref.email': 'Email',
           'b2b.form.azienda': 'Nom de l’entreprise *',
           'b2b.form.azienda_ph': 'Raison sociale',
           'b2b.form.tipo': 'Type d’activité *',
@@ -2786,6 +2804,9 @@
           'b2b.form.email': 'Email *',
           'b2b.form.email_ph': 'email@empresa.com',
           'b2b.form.telefono': 'Teléfono *',
+          'b2b.form.contactPref': 'Método de contacto preferido *',
+          'b2b.form.contactPref.phone': 'Teléfono',
+          'b2b.form.contactPref.email': 'Email',
           'b2b.form.azienda': 'Nombre de la empresa *',
           'b2b.form.azienda_ph': 'Razón social',
           'b2b.form.tipo': 'Tipo de actividad *',
@@ -4378,6 +4399,46 @@
       document.querySelectorAll('.cta-button[data-i18n="b2b.modal.cta"]').forEach(function(btn) {
         btn.addEventListener('click', function(e) { e.preventDefault(); openB2BForm(); });
       });
+
+      // Form submit handler - builds email summary
+      var b2bForm = document.getElementById('b2bRequestForm');
+      if(b2bForm){
+        b2bForm.addEventListener('submit', function(e){
+          e.preventDefault();
+
+          var labels = {
+            nome: 'Nome', cognome: 'Cognome', email: 'Email',
+            telefono: 'Telefono', preferenza_contatto: 'Preferenza di contatto',
+            azienda: 'Nome Azienda', tipo_azienda: 'Tipo Attività',
+            partita_iva: 'Partita IVA', messaggio: 'Messaggio'
+          };
+
+          var lines = ['=== RICHIESTA INFORMAZIONI B2B ===', ''];
+          var fd = new FormData(b2bForm);
+          var seen = {};
+
+          for(var pair of fd.entries()){
+            var key = pair[0], val = pair[1];
+            if(!val || key === 'interessi[]') continue;
+            if(seen[key]) continue;
+            seen[key] = true;
+            var label = labels[key] || key;
+            lines.push(label + ': ' + val);
+          }
+
+          // Interessi
+          var interessi = fd.getAll('interessi[]');
+          if(interessi.length){
+            lines.push('Categorie di interesse: ' + interessi.join(', '));
+          }
+
+          lines.push('', '--- Fine richiesta ---');
+
+          var subject = encodeURIComponent('Richiesta Informazioni B2B - ' + (fd.get('nome') || '') + ' ' + (fd.get('cognome') || '') + ' - ' + (fd.get('azienda') || ''));
+          var body = encodeURIComponent(lines.join('\n'));
+          window.location.href = 'mailto:b2b@badiani1932.com?subject=' + subject + '&body=' + body;
+        });
+      }
     })();
   </script>
 </body>
