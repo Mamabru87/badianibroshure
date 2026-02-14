@@ -2,8 +2,16 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <title>Saletta Privata Tosinghi — Eventi Badiani</title>
+  <title>Saletta Privata Tosinghi — Badiani 1932 | Feste Private a Firenze</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Prenota la saletta privata Badiani in Via de' Tosinghi a Firenze. Pacchetti Silver, Gold e Platinum per feste private con gelato artigianale e finger food." />
+  <meta name="theme-color" content="#1e398d" />
+  <link rel="icon" href="../../assets/images/branding/logo.webp" type="image/webp" />
+  <link rel="canonical" href="https://www.badiani1932.com/eventi/saletta-privata-tosinghi/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Saletta Privata Tosinghi — Badiani 1932" />
+  <meta property="og:description" content="Feste private esclusive nella saletta Badiani a Firenze. Gelato, cocktail e finger food." />
+  <meta property="og:image" content="https://www.badiani1932.com/assets/images/branding/logo.webp" />
   <link rel="stylesheet" href="../../assets/badiani-common.css" />
   <style>
     /* Page-specific styles for Saletta Privata Tosinghi */
@@ -718,9 +726,10 @@
       color:#4a4f57;
       transition:border-color 0.3s;
     }
-    .form-modal__grid input:focus,
-    .form-modal__grid select:focus{
-      outline:none;
+    .form-modal__grid input:focus-visible,
+    .form-modal__grid select:focus-visible{
+      outline:2px solid var(--badiani-blue);
+      outline-offset:2px;
       border-color:var(--badiani-blue);
       box-shadow:0 0 0 3px rgba(30,57,141,0.08);
     }
@@ -861,8 +870,9 @@
 
   <!-- VIDEO HERO -->
   <section class="video-hero" onclick="this.classList.toggle('video-bright')">
-    <video autoplay muted loop playsinline preload="metadata">
+    <video autoplay muted loop playsinline preload="metadata" aria-hidden="true">
       <source src="../../assets/video/videotosinghi.mp4" type="video/mp4">
+      <track kind="descriptions" srclang="it" label="Descrizione video" default>
     </video>
     <div class="video-hero__content">
       <h1 class="video-hero__title" data-i18n="tosinghi.hero.title">Il tuo partner nella nostra saletta privata</h1>
@@ -1057,15 +1067,15 @@
       <div class="form-modal__body">
         <form action="mailto:eventi@badiani1932.com" method="post" enctype="text/plain">
           <div class="form-modal__grid">
-            <div class="fm-field"><label data-i18n="tosinghi.form.name.label">Nome *</label><input name="nome" type="text" data-i18n-attr="placeholder:tosinghi.form.name.placeholder" placeholder="Il tuo nome" required /></div>
-            <div class="fm-field"><label data-i18n="tosinghi.form.surname.label">Cognome *</label><input name="cognome" type="text" data-i18n-attr="placeholder:tosinghi.form.surname.placeholder" placeholder="Il tuo cognome" required /></div>
-            <div class="fm-field"><label data-i18n="tosinghi.form.type.label">Azienda o Privato *</label>
-              <select name="tipo" required><option value="" disabled selected data-i18n="tosinghi.form.type.placeholder">Seleziona...</option><option value="azienda" data-i18n="tosinghi.form.type.company">Azienda</option><option value="privato" data-i18n="tosinghi.form.type.private">Privato</option></select>
+            <div class="fm-field"><label for="tos-nome" data-i18n="tosinghi.form.name.label">Nome *</label><input id="tos-nome" name="nome" type="text" data-i18n-attr="placeholder:tosinghi.form.name.placeholder" placeholder="Il tuo nome" autocomplete="given-name" required /></div>
+            <div class="fm-field"><label for="tos-cognome" data-i18n="tosinghi.form.surname.label">Cognome *</label><input id="tos-cognome" name="cognome" type="text" data-i18n-attr="placeholder:tosinghi.form.surname.placeholder" placeholder="Il tuo cognome" autocomplete="family-name" required /></div>
+            <div class="fm-field"><label for="tos-tipo" data-i18n="tosinghi.form.type.label">Azienda o Privato *</label>
+              <select id="tos-tipo" name="tipo" required><option value="" disabled selected data-i18n="tosinghi.form.type.placeholder">Seleziona...</option><option value="azienda" data-i18n="tosinghi.form.type.company">Azienda</option><option value="privato" data-i18n="tosinghi.form.type.private">Privato</option></select>
             </div>
-            <div class="fm-field"><label data-i18n="tosinghi.form.phone.label">Telefono *</label><input name="telefono" type="tel" data-i18n-attr="placeholder:tosinghi.form.phone.placeholder" placeholder="+39 ..." required /></div>
-            <div class="fm-field"><label data-i18n="tosinghi.form.date.label">Data</label><input name="data" type="date" /></div>
-            <div class="fm-field"><label data-i18n="tosinghi.form.time.label">Orario</label><input name="orario" type="time" /></div>
-            <div class="fm-field"><label data-i18n="tosinghi.form.guests.label">Numero Persone</label><input name="persone" type="number" min="1" data-i18n-attr="placeholder:tosinghi.form.guests.placeholder" placeholder="Es. 50" /></div>
+            <div class="fm-field"><label for="tos-telefono" data-i18n="tosinghi.form.phone.label">Telefono *</label><input id="tos-telefono" name="telefono" type="tel" data-i18n-attr="placeholder:tosinghi.form.phone.placeholder" placeholder="+39 ..." autocomplete="tel" required /></div>
+            <div class="fm-field"><label for="tos-data" data-i18n="tosinghi.form.date.label">Data</label><input id="tos-data" name="data" type="date" /></div>
+            <div class="fm-field"><label for="tos-orario" data-i18n="tosinghi.form.time.label">Orario</label><input id="tos-orario" name="orario" type="time" /></div>
+            <div class="fm-field"><label for="tos-persone" data-i18n="tosinghi.form.guests.label">Numero Persone</label><input id="tos-persone" name="persone" type="number" min="1" data-i18n-attr="placeholder:tosinghi.form.guests.placeholder" placeholder="Es. 50" /></div>
             <div class="fm-field"><label data-i18n="tosinghi.form.extras.label">Opzioni Extra?</label>
               <div class="fm-radio-group"><label><input type="radio" name="extra" value="si" onchange="document.getElementById('extrasTosinghi').classList.add('visible')" /> <span data-i18n="tosinghi.form.extras.yes">Sì</span></label><label><input type="radio" name="extra" value="no" checked onchange="document.getElementById('extrasTosinghi').classList.remove('visible')" /> <span data-i18n="tosinghi.form.extras.no">No</span></label></div>
               <div class="fm-extras-panel" id="extrasTosinghi">
@@ -1088,7 +1098,7 @@
             </div>
           </div>
           <div class="form-modal__actions">
-            <label class="fm-privacy"><input type="checkbox" required /><span data-i18n-html="tosinghi.form.privacy">Ho letto e accetto la <a href="#" style="color:var(--badiani-blue);">privacy policy</a>.</span></label>
+            <label class="fm-privacy"><input type="checkbox" required /><span data-i18n-html="tosinghi.form.privacy">Ho letto e accetto la <a href="../../privacy.html" style="color:var(--badiani-blue);">privacy policy</a>.</span></label>
             <button type="submit" class="form-modal__submit"><svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg><span data-i18n="tosinghi.form.submit">Invia Richiesta</span></button>
           </div>
         </form>
@@ -1435,7 +1445,7 @@
           'tosinghi.form.event.external': 'Evento Esterno',
           'tosinghi.form.event.gelatovan': 'Gelato Van',
           'tosinghi.form.event.custom': 'Evento su Misura',
-          'tosinghi.form.privacy': 'Ho letto e accetto la <a href="#" style="color:var(--badiani-blue);">privacy policy</a>.',
+          'tosinghi.form.privacy': 'Ho letto e accetto la <a href="../../privacy.html" style="color:var(--badiani-blue);">privacy policy</a>.',
           'tosinghi.form.submit': 'Invia Richiesta'
         },
         en: {
@@ -1632,7 +1642,7 @@
           'tosinghi.form.event.external': 'External Event',
           'tosinghi.form.event.gelatovan': 'Gelato Van',
           'tosinghi.form.event.custom': 'Bespoke Event',
-          'tosinghi.form.privacy': 'I have read and accept the <a href="#" style="color:var(--badiani-blue);">privacy policy</a>.',
+          'tosinghi.form.privacy': 'I have read and accept the <a href="../../privacy.html" style="color:var(--badiani-blue);">privacy policy</a>.',
           'tosinghi.form.submit': 'Send Request'
         },
         fr: {
@@ -1829,7 +1839,7 @@
           'tosinghi.form.event.external': 'Événement Extérieur',
           'tosinghi.form.event.gelatovan': 'Gelato Van',
           'tosinghi.form.event.custom': 'Événement sur Mesure',
-          'tosinghi.form.privacy': 'J\'ai lu et j\'accepte la <a href="#" style="color:var(--badiani-blue);">politique de confidentialité</a>.',
+          'tosinghi.form.privacy': 'J\'ai lu et j\'accepte la <a href="../../privacy.html" style="color:var(--badiani-blue);">politique de confidentialité</a>.',
           'tosinghi.form.submit': 'Envoyer la Demande'
         },
         es: {
@@ -2011,7 +2021,7 @@
           'tosinghi.form.event.external': 'Evento Externo',
           'tosinghi.form.event.gelatovan': 'Gelato Van',
           'tosinghi.form.event.custom': 'Evento a Medida',
-          'tosinghi.form.privacy': 'He leído y acepto la <a href="#" style="color:var(--badiani-blue);">política de privacidad</a>.',
+          'tosinghi.form.privacy': 'He leído y acepto la <a href="../../privacy.html" style="color:var(--badiani-blue);">política de privacidad</a>.',
           'tosinghi.form.submit': 'Enviar Solicitud'
         }
       };
@@ -2087,5 +2097,24 @@
       applyTranslations();
     })();
   </script>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col footer-brand">
+        <a href="../../" class="footer-logo-link"><img src="../../assets/images/branding/logo.webp" alt="Badiani 1932" width="130" height="39" /></a>
+        <p class="footer-tagline">Gelato artigianale dal 1932. Firenze.</p>
+      </div>
+      <div class="footer-col"><h4>Navigazione</h4><ul><li><a href="../../">Home</a></li><li><a href="../">Eventi</a></li><li><a href="../../b2b/">B2B</a></li><li><a href="../../magazine/">Magazine</a></li></ul></div>
+      <div class="footer-col"><h4>Contatti</h4><ul><li><a href="mailto:eventi@badiani1932.com">eventi@badiani1932.com</a></li><li><a href="https://www.badiani1932.com" target="_blank" rel="noopener noreferrer">www.badiani1932.com</a></li></ul></div>
+      <div class="footer-col"><h4>Legale</h4><ul><li><a href="../../privacy.html">Privacy Policy</a></li><li><a href="../../cookie-policy.html">Cookie Policy</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2026 Badiani 1932. Tutti i diritti riservati.</p></div>
+  </footer>
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Informativa cookie">
+    <p class="cookie-banner__text">Questo sito utilizza cookie tecnici per garantire il corretto funzionamento. <a href="../../cookie-policy.html">Maggiori informazioni</a></p>
+    <div class="cookie-banner__actions"><button class="cookie-banner__btn cookie-banner__btn--accept" id="cookieAccept">Accetto</button><a href="../../cookie-policy.html" class="cookie-banner__btn cookie-banner__btn--info">Cookie Policy</a></div>
+  </div>
+  <script>(function(){var k='badianiCookieConsent',b=document.getElementById('cookieBanner'),a=document.getElementById('cookieAccept');if(!b||!a)return;try{if(localStorage.getItem(k)==='accepted'){b.classList.add('is-hidden');return;}}catch(e){}a.addEventListener('click',function(){try{localStorage.setItem(k,'accepted');}catch(e){}b.classList.add('is-hidden');});})();</script>
 </body>
 </html>

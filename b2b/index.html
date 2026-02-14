@@ -2,8 +2,17 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <title></title>
+  <title>B2B — Badiani 1932 | Gelato per Hotel, Catering e Ristorazione</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Soluzioni B2B di gelato artigianale Badiani 1932 per hotel, ristoranti, catering e gelaterie. Catalogo completo: vasche, pezzi duri, torte, coni e accessori." />
+  <meta name="theme-color" content="#1e398d" />
+  <link rel="icon" href="../assets/images/branding/logo.webp" type="image/webp" />
+  <link rel="canonical" href="https://www.badiani1932.com/b2b/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="B2B — Badiani 1932" />
+  <meta property="og:description" content="Gelato artigianale per hotel, ristoranti e catering. Catalogo B2B Badiani 1932." />
+  <meta property="og:image" content="https://www.badiani1932.com/assets/images/branding/logo.webp" />
+  <meta property="og:url" content="https://www.badiani1932.com/b2b/" />
   <link rel="stylesheet" href="../assets/badiani-common.css" />
   <style>
     /* Page-specific styles for B2B page */
@@ -2077,10 +2086,11 @@
       resize:vertical;
       min-height:80px;
     }
-    .b2b-form__grid input:focus,
-    .b2b-form__grid select:focus,
-    .b2b-form__grid textarea:focus{
-      outline:none;
+    .b2b-form__grid input:focus-visible,
+    .b2b-form__grid select:focus-visible,
+    .b2b-form__grid textarea:focus-visible{
+      outline:2px solid var(--badiani-blue);
+      outline-offset:2px;
       border-color:var(--badiani-blue);
       box-shadow:0 0 0 3px rgba(30,57,141,0.08);
     }
@@ -2281,12 +2291,12 @@
         <form id="b2bRequestForm" action="mailto:b2b@badiani1932.com" method="post" enctype="text/plain">
           <div class="b2b-form__grid">
             <!-- Nome / Cognome -->
-            <div class="fm-field"><label data-i18n="b2b.form.nome"></label><input name="nome" type="text" data-i18n-attr="placeholder:b2b.form.nome_ph" required /></div>
-            <div class="fm-field"><label data-i18n="b2b.form.cognome"></label><input name="cognome" type="text" data-i18n-attr="placeholder:b2b.form.cognome_ph" required /></div>
+            <div class="fm-field"><label for="b2b-nome" data-i18n="b2b.form.nome"></label><input id="b2b-nome" name="nome" type="text" data-i18n-attr="placeholder:b2b.form.nome_ph" autocomplete="given-name" required /></div>
+            <div class="fm-field"><label for="b2b-cognome" data-i18n="b2b.form.cognome"></label><input id="b2b-cognome" name="cognome" type="text" data-i18n-attr="placeholder:b2b.form.cognome_ph" autocomplete="family-name" required /></div>
 
             <!-- Email / Telefono -->
-            <div class="fm-field"><label data-i18n="b2b.form.email"></label><input name="email" type="email" data-i18n-attr="placeholder:b2b.form.email_ph" required /></div>
-            <div class="fm-field"><label data-i18n="b2b.form.telefono"></label><input name="telefono" type="tel" placeholder="+39 ..." data-i18n-attr="placeholder:b2b.form.telefono_ph" required /></div>
+            <div class="fm-field"><label for="b2b-email" data-i18n="b2b.form.email"></label><input id="b2b-email" name="email" type="email" data-i18n-attr="placeholder:b2b.form.email_ph" autocomplete="email" required /></div>
+            <div class="fm-field"><label for="b2b-telefono" data-i18n="b2b.form.telefono"></label><input id="b2b-telefono" name="telefono" type="tel" placeholder="+39 ..." data-i18n-attr="placeholder:b2b.form.telefono_ph" autocomplete="tel" required /></div>
 
             <!-- Preferenza di contatto -->
             <div class="fm-field full">
@@ -2298,11 +2308,11 @@
             </div>
 
             <!-- Nome Azienda (required) -->
-            <div class="fm-field"><label data-i18n="b2b.form.azienda"></label><input name="azienda" type="text" data-i18n-attr="placeholder:b2b.form.azienda_ph" required /></div>
+            <div class="fm-field"><label for="b2b-azienda" data-i18n="b2b.form.azienda"></label><input id="b2b-azienda" name="azienda" type="text" data-i18n-attr="placeholder:b2b.form.azienda_ph" autocomplete="organization" required /></div>
 
             <!-- Tipo Azienda -->
-            <div class="fm-field"><label data-i18n="b2b.form.tipo"></label>
-              <select name="tipo_azienda" required>
+            <div class="fm-field"><label for="b2b-tipo" data-i18n="b2b.form.tipo"></label>
+              <select id="b2b-tipo" name="tipo_azienda" required>
                 <option value="" disabled selected data-i18n="b2b.form.tipo_select"></option>
                 <option value="hotel" data-i18n="b2b.form.tipo_hotel"></option>
                 <option value="ristorante" data-i18n="b2b.form.tipo_ristorante"></option>
@@ -2315,7 +2325,7 @@
             </div>
 
             <!-- P.IVA / Dati Aziendali -->
-            <div class="fm-field full"><label data-i18n="b2b.form.piva"></label><input name="partita_iva" type="text" data-i18n-attr="placeholder:b2b.form.piva_ph" /></div>
+            <div class="fm-field full"><label for="b2b-piva" data-i18n="b2b.form.piva"></label><input id="b2b-piva" name="partita_iva" type="text" data-i18n-attr="placeholder:b2b.form.piva_ph" /></div>
 
             <!-- Categorie di interesse -->
             <div class="fm-field full">
@@ -2334,7 +2344,7 @@
             </div>
 
             <!-- Messaggio -->
-            <div class="fm-field full"><label data-i18n="b2b.form.messaggio"></label><textarea name="messaggio" data-i18n-attr="placeholder:b2b.form.messaggio_ph"></textarea></div>
+            <div class="fm-field full"><label for="b2b-messaggio" data-i18n="b2b.form.messaggio"></label><textarea id="b2b-messaggio" name="messaggio" data-i18n-attr="placeholder:b2b.form.messaggio_ph"></textarea></div>
           </div>
 
           <div class="b2b-form__actions">
@@ -2570,7 +2580,7 @@
           'b2b.form.int_contenitori': 'Contenitori',
           'b2b.form.messaggio': 'Messaggio',
           'b2b.form.messaggio_ph': 'Descrivi le tue esigenze o richieste...',
-          'b2b.form.privacy': 'Ho letto e accetto la <a href="#" style="color:var(--badiani-blue);">privacy policy</a>.',
+          'b2b.form.privacy': 'Ho letto e accetto la <a href="../privacy.html" style="color:var(--badiani-blue);">privacy policy</a>.',
           'b2b.form.submit': 'Invia Richiesta',
           'b2b.form.close': 'Chiudi',
           'b2b.form.telefono_ph': '+39 ...',
@@ -2842,7 +2852,7 @@
           'b2b.form.int_contenitori': 'Containers',
           'b2b.form.messaggio': 'Message',
           'b2b.form.messaggio_ph': 'Describe your needs or requests...',
-          'b2b.form.privacy': 'I have read and accept the <a href="#" style="color:var(--badiani-blue);">privacy policy</a>.',
+          'b2b.form.privacy': 'I have read and accept the <a href="../privacy.html" style="color:var(--badiani-blue);">privacy policy</a>.',
           'b2b.form.submit': 'Send Request',
           'b2b.form.close': 'Close',
           'b2b.form.telefono_ph': '+44 ...',
@@ -3114,7 +3124,7 @@
           'b2b.form.int_contenitori': 'Conteneurs',
           'b2b.form.messaggio': 'Message',
           'b2b.form.messaggio_ph': 'Décrivez vos besoins ou demandes...',
-          'b2b.form.privacy': 'J’ai lu et j’accepte la <a href="#" style="color:var(--badiani-blue);">politique de confidentialité</a>.',
+          'b2b.form.privacy': 'J’ai lu et j’accepte la <a href="../privacy.html" style="color:var(--badiani-blue);">politique de confidentialité</a>.',
           'b2b.form.submit': 'Envoyer la demande',
           'b2b.form.close': 'Fermer',
           'b2b.form.telefono_ph': '+33 ...',
@@ -3386,7 +3396,7 @@
           'b2b.form.int_contenitori': 'Contenedores',
           'b2b.form.messaggio': 'Mensaje',
           'b2b.form.messaggio_ph': 'Describe tus necesidades o solicitudes...',
-          'b2b.form.privacy': 'He leído y acepto la <a href="#" style="color:var(--badiani-blue);">política de privacidad</a>.',
+          'b2b.form.privacy': 'He leído y acepto la <a href=\"../privacy.html\" style=\"color:var(--badiani-blue);\">política de privacidad</a>.',
           'b2b.form.submit': 'Enviar solicitud',
           'b2b.form.close': 'Cerrar',
           'b2b.form.telefono_ph': '+34 ...',
@@ -5231,5 +5241,29 @@
       }
     })();
   </script>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col footer-brand">
+        <a href="../" class="footer-logo-link"><img src="../assets/images/branding/logo.webp" alt="Badiani 1932" width="130" height="39" /></a>
+        <p class="footer-tagline">Gelato artigianale dal 1932. Firenze.</p>
+      </div>
+      <div class="footer-col"><h4>Navigazione</h4><ul><li><a href="../">Home</a></li><li><a href="../eventi/">Eventi</a></li><li><a href="./">B2B</a></li><li><a href="../magazine/">Magazine</a></li></ul></div>
+      <div class="footer-col"><h4>Contatti</h4><ul><li><a href="mailto:eventi@badiani1932.com">eventi@badiani1932.com</a></li><li><a href="mailto:b2b@badiani1932.com">b2b@badiani1932.com</a></li><li><a href="https://www.badiani1932.com" target="_blank" rel="noopener noreferrer">www.badiani1932.com</a></li></ul></div>
+      <div class="footer-col"><h4>Legale</h4><ul><li><a href="../privacy.html">Privacy Policy</a></li><li><a href="../cookie-policy.html">Cookie Policy</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2026 Badiani 1932. Tutti i diritti riservati.</p></div>
+  </footer>
+
+  <!-- COOKIE BANNER -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Informativa cookie">
+    <p class="cookie-banner__text">Questo sito utilizza cookie tecnici per garantire il corretto funzionamento. <a href="../cookie-policy.html">Maggiori informazioni</a></p>
+    <div class="cookie-banner__actions">
+      <button class="cookie-banner__btn cookie-banner__btn--accept" id="cookieAccept">Accetto</button>
+      <a href="../cookie-policy.html" class="cookie-banner__btn cookie-banner__btn--info">Cookie Policy</a>
+    </div>
+  </div>
+  <script>(function(){var k='badianiCookieConsent',b=document.getElementById('cookieBanner'),a=document.getElementById('cookieAccept');if(!b||!a)return;try{if(localStorage.getItem(k)==='accepted'){b.classList.add('is-hidden');return;}}catch(e){}a.addEventListener('click',function(){try{localStorage.setItem(k,'accepted');}catch(e){}b.classList.add('is-hidden');});})();</script>
 </body>
 </html>

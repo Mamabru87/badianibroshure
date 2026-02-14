@@ -2,8 +2,17 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <title>Eventi — Badiani 1932</title>
+  <title>Eventi — Badiani 1932 | Feste Private e Su Misura</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Organizza eventi esclusivi con il gelato artigianale Badiani. Saletta privata, eventi esterni, gelato van e soluzioni aziendali personalizzate a Firenze." />
+  <meta name="theme-color" content="#1e398d" />
+  <link rel="icon" href="../assets/images/branding/logo.webp" type="image/webp" />
+  <link rel="canonical" href="https://www.badiani1932.com/eventi/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Eventi — Badiani 1932" />
+  <meta property="og:description" content="Feste private e eventi su misura con gelato artigianale Badiani dal 1932." />
+  <meta property="og:image" content="https://www.badiani1932.com/assets/images/branding/logo.webp" />
+  <meta property="og:url" content="https://www.badiani1932.com/eventi/" />
   <link rel="stylesheet" href="../assets/badiani-common.css" />
   <style>
     /* Page-specific styles for Eventi landing page */
@@ -158,9 +167,10 @@
       color:#4a4f57;
       transition:border-color 0.3s, box-shadow 0.3s;
     }
-    .request-form-grid input:focus,
-    .request-form-grid select:focus{
-      outline:none;
+    .request-form-grid input:focus-visible,
+    .request-form-grid select:focus-visible{
+      outline:2px solid var(--badiani-blue);
+      outline-offset:2px;
       border-color:var(--badiani-blue);
       box-shadow:0 0 0 3px rgba(30,57,141,0.1);
     }
@@ -892,7 +902,7 @@
             <div class="request-form-actions">
               <label class="privacy-row">
                 <input type="checkbox" required />
-                <span data-i18n-html="eventi.form.privacy">Ho letto e accetto la <a href="#" style="color:var(--badiani-blue);text-decoration:underline;">privacy policy</a>.</span>
+                <span data-i18n-html="eventi.form.privacy">Ho letto e accetto la <a href="../privacy.html" style="color:var(--badiani-blue);text-decoration:underline;">privacy policy</a>.</span>
               </label>
               <button type="submit" class="request-form-submit">
                 <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
@@ -1076,7 +1086,7 @@
           'eventi.form.eventInterest.external': 'Evento Esterno',
           'eventi.form.eventInterest.van': 'Gelato Van',
           'eventi.form.eventInterest.tailored': 'Evento Aziendale su Misura',
-          'eventi.form.privacy': 'Ho letto e accetto la <a href="#" style="color:var(--badiani-blue);text-decoration:underline;">privacy policy</a>.',
+          'eventi.form.privacy': 'Ho letto e accetto la <a href="../privacy.html" style="color:var(--badiani-blue);text-decoration:underline;">privacy policy</a>.',
           'eventi.form.submit': 'Invia Richiesta',
           'eventi.gallery.label': 'Portfolio',
           'eventi.gallery.title': 'Foto da eventi passati'
@@ -1185,7 +1195,7 @@
           'eventi.form.eventInterest.external': 'External Event',
           'eventi.form.eventInterest.van': 'Gelato Van',
           'eventi.form.eventInterest.tailored': 'Tailored Corporate Event',
-          'eventi.form.privacy': 'I have read and accept the <a href="#" style="color:var(--badiani-blue);text-decoration:underline;">privacy policy</a>.',
+          'eventi.form.privacy': 'I have read and accept the <a href="../privacy.html" style="color:var(--badiani-blue);text-decoration:underline;">privacy policy</a>.',
           'eventi.form.submit': 'Send Request',
           'eventi.gallery.label': 'Portfolio',
           'eventi.gallery.title': 'Photos from past events'
@@ -1294,7 +1304,7 @@
           'eventi.form.eventInterest.external': 'Événement Externe',
           'eventi.form.eventInterest.van': 'Van à Gelato',
           'eventi.form.eventInterest.tailored': 'Événement d\'Entreprise sur Mesure',
-          'eventi.form.privacy': 'J\'ai lu et j\'accepte la <a href="#" style="color:var(--badiani-blue);text-decoration:underline;">politique de confidentialité</a>.',
+          'eventi.form.privacy': 'J\'ai lu et j\'accepte la <a href="../privacy.html" style="color:var(--badiani-blue);text-decoration:underline;">politique de confidentialité</a>.',
           'eventi.form.submit': 'Envoyer la Demande',
           'eventi.gallery.label': 'Portfolio',
           'eventi.gallery.title': 'Photos d\'événements passés'
@@ -1403,7 +1413,7 @@
           'eventi.form.eventInterest.external': 'Evento Externo',
           'eventi.form.eventInterest.van': 'Gelato Van',
           'eventi.form.eventInterest.tailored': 'Evento Corporativo a Medida',
-          'eventi.form.privacy': 'He leído y acepto la <a href="#" style="color:var(--badiani-blue);text-decoration:underline;">política de privacidad</a>.',
+          'eventi.form.privacy': 'He leído y acepto la <a href="../privacy.html" style="color:var(--badiani-blue);text-decoration:underline;">política de privacidad</a>.',
           'eventi.form.submit': 'Enviar Solicitud',
           'eventi.gallery.label': 'Portfolio',
           'eventi.gallery.title': 'Fotos de eventos pasados'
@@ -1559,5 +1569,29 @@
       observer.observe(section);
     })();
   </script>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col footer-brand">
+        <a href="../" class="footer-logo-link"><img src="../assets/images/branding/logo.webp" alt="Badiani 1932" width="130" height="39" /></a>
+        <p class="footer-tagline">Gelato artigianale dal 1932. Firenze.</p>
+      </div>
+      <div class="footer-col"><h4>Navigazione</h4><ul><li><a href="../">Home</a></li><li><a href="./">Eventi</a></li><li><a href="../b2b/">B2B</a></li><li><a href="../magazine/">Magazine</a></li></ul></div>
+      <div class="footer-col"><h4>Contatti</h4><ul><li><a href="mailto:eventi@badiani1932.com">eventi@badiani1932.com</a></li><li><a href="mailto:b2b@badiani1932.com">b2b@badiani1932.com</a></li><li><a href="https://www.badiani1932.com" target="_blank" rel="noopener noreferrer">www.badiani1932.com</a></li></ul></div>
+      <div class="footer-col"><h4>Legale</h4><ul><li><a href="../privacy.html">Privacy Policy</a></li><li><a href="../cookie-policy.html">Cookie Policy</a></li></ul></div>
+    </div>
+    <div class="footer-bottom"><p>&copy; 2026 Badiani 1932. Tutti i diritti riservati.</p></div>
+  </footer>
+
+  <!-- COOKIE BANNER -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Informativa cookie">
+    <p class="cookie-banner__text">Questo sito utilizza cookie tecnici per garantire il corretto funzionamento. <a href="../cookie-policy.html">Maggiori informazioni</a></p>
+    <div class="cookie-banner__actions">
+      <button class="cookie-banner__btn cookie-banner__btn--accept" id="cookieAccept">Accetto</button>
+      <a href="../cookie-policy.html" class="cookie-banner__btn cookie-banner__btn--info">Cookie Policy</a>
+    </div>
+  </div>
+  <script>(function(){var k='badianiCookieConsent',b=document.getElementById('cookieBanner'),a=document.getElementById('cookieAccept');if(!b||!a)return;try{if(localStorage.getItem(k)==='accepted'){b.classList.add('is-hidden');return;}}catch(e){}a.addEventListener('click',function(){try{localStorage.setItem(k,'accepted');}catch(e){}b.classList.add('is-hidden');});})();</script>
 </body>
 </html>

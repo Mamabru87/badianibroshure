@@ -1,0 +1,10 @@
+# Badiani 1932 Brochure Site
+User-agent: *
+Allow: /
+
+Sitemap: https://www.badiani1932.com/sitemap.xml
+
+# Block access to source and script files
+Disallow: /_source/
+Disallow: /scripts/
+Disallow: /docs/

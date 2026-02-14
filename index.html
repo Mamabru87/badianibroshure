@@ -2,8 +2,31 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
-  <title></title>
+  <title>Badiani 1932 — Gelato Artigianale dal 1932 | Eventi &amp; B2B</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Badiani 1932: gelato artigianale fiorentino dal 1932. Organizza eventi esclusivi con il nostro gelato e scopri le soluzioni B2B per hotel, catering e ristorazione." />
+  <meta name="theme-color" content="#1e398d" />
+  <link rel="icon" href="assets/images/branding/logo.webp" type="image/webp" />
+  <link rel="canonical" href="https://www.badiani1932.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Badiani 1932 — Gelato Artigianale dal 1932" />
+  <meta property="og:description" content="Gelato artigianale fiorentino dal 1932. Eventi esclusivi e soluzioni B2B per hotel, catering e ristorazione." />
+  <meta property="og:image" content="https://www.badiani1932.com/assets/images/branding/logo.webp" />
+  <meta property="og:url" content="https://www.badiani1932.com/" />
+  <meta property="og:site_name" content="Badiani 1932" />
+  <meta property="og:locale" content="it_IT" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Badiani 1932 — Gelato Artigianale dal 1932" />
+  <meta name="twitter:description" content="Gelato artigianale fiorentino dal 1932. Eventi esclusivi e soluzioni B2B." />
+  <meta name="twitter:image" content="https://www.badiani1932.com/assets/images/branding/logo.webp" />
+
+  <!-- Preload critical font -->
+  <link rel="preload" href="assets/fonts/SuperGroteskB-CdMed.woff2" as="font" type="font/woff2" crossorigin />
+
   <link rel="stylesheet" href="./assets/badiani-common.css" />
   <style>
     /* Page-specific styles for homepage */
@@ -581,10 +604,11 @@
       resize:vertical;
       min-height:90px;
     }
-    .home-form-grid input:focus,
-    .home-form-grid select:focus,
-    .home-form-grid textarea:focus{
-      outline:none;
+    .home-form-grid input:focus-visible,
+    .home-form-grid select:focus-visible,
+    .home-form-grid textarea:focus-visible{
+      outline:2px solid var(--badiani-blue);
+      outline-offset:2px;
       border-color:var(--badiani-blue);
       box-shadow:0 0 0 3px rgba(30,57,141,0.1);
     }
@@ -702,8 +726,9 @@
 
   <!-- HERO: VIDEO + TITLE -->
   <section class="hero" id="hero">
-    <video autoplay muted loop playsinline preload="metadata">
+    <video autoplay muted loop playsinline preload="metadata" aria-hidden="true">
       <source src="assets/video/home-b2b.mp4" type="video/mp4">
+      <track kind="descriptions" srclang="it" label="Descrizione video" default>
     </video>
     <div class="hero-content">
       <h1 data-i18n="home.hero.title">Badiani Experience</h1>
@@ -856,7 +881,7 @@
           <div class="home-form-actions">
             <label class="hf-privacy">
               <input type="checkbox" required />
-              <span data-i18n-html="home.form.privacy">Ho letto e accetto la <a href="#" style="color:var(--badiani-blue);text-decoration:underline;">privacy policy</a>.</span>
+              <span data-i18n-html="home.form.privacy">Ho letto e accetto la <a href="privacy.html" style="color:var(--badiani-blue);text-decoration:underline;">privacy policy</a>.</span>
             </label>
             <button type="submit" class="home-form-submit">
               <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
@@ -868,8 +893,56 @@
     </div>
   </section>
 
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-col footer-brand">
+        <a href="./" class="footer-logo-link">
+          <img src="assets/images/branding/logo.webp" alt="Badiani 1932" width="130" height="39" />
+        </a>
+        <p class="footer-tagline">Gelato artigianale dal 1932. Firenze.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Navigazione</h4>
+        <ul>
+          <li><a href="./">Home</a></li>
+          <li><a href="eventi/">Eventi</a></li>
+          <li><a href="b2b/">B2B</a></li>
+          <li><a href="magazine/">Magazine</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contatti</h4>
+        <ul>
+          <li><a href="mailto:eventi@badiani1932.com">eventi@badiani1932.com</a></li>
+          <li><a href="mailto:b2b@badiani1932.com">b2b@badiani1932.com</a></li>
+          <li><a href="https://www.badiani1932.com" target="_blank" rel="noopener noreferrer">www.badiani1932.com</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Legale</h4>
+        <ul>
+          <li><a href="privacy.html">Privacy Policy</a></li>
+          <li><a href="cookie-policy.html">Cookie Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Badiani 1932. Tutti i diritti riservati.</p>
+    </div>
+  </footer>
 
-
+  <!-- COOKIE CONSENT BANNER -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Informativa cookie">
+    <p class="cookie-banner__text">
+      Questo sito utilizza cookie tecnici per garantire il corretto funzionamento. Nessun cookie di profilazione.
+      <a href="cookie-policy.html">Maggiori informazioni</a>
+    </p>
+    <div class="cookie-banner__actions">
+      <button class="cookie-banner__btn cookie-banner__btn--accept" id="cookieAccept">Accetto</button>
+      <a href="cookie-policy.html" class="cookie-banner__btn cookie-banner__btn--info">Cookie Policy</a>
+    </div>
+  </div>
 
   <script>
     (function(){
@@ -965,7 +1038,7 @@
           'home.form.interesse_altro': 'Altro',
           'home.form.messaggio': 'Messaggio',
           'home.form.messaggio_ph': 'Descrivi le tue esigenze o richieste...',
-          'home.form.privacy': 'Ho letto e accetto la <a href="#" style="color:var(--badiani-blue);text-decoration:underline;">privacy policy</a>.',
+          'home.form.privacy': 'Ho letto e accetto la <a href="privacy.html" style="color:var(--badiani-blue);text-decoration:underline;">privacy policy</a>.',
           'home.form.submit': 'Invia Richiesta'
         },
         en: {
@@ -1055,7 +1128,7 @@
           'home.form.interesse_altro': 'Other',
           'home.form.messaggio': 'Message',
           'home.form.messaggio_ph': 'Describe your needs or requests...',
-          'home.form.privacy': 'I have read and accept the <a href="#" style="color:var(--badiani-blue);text-decoration:underline;">privacy policy</a>.',
+          'home.form.privacy': 'I have read and accept the <a href="privacy.html" style="color:var(--badiani-blue);text-decoration:underline;">privacy policy</a>.',
           'home.form.submit': 'Send Request'
         },
         fr: {
@@ -1145,7 +1218,7 @@
           'home.form.interesse_altro': 'Autre',
           'home.form.messaggio': 'Message',
           'home.form.messaggio_ph': 'Décrivez vos besoins ou demandes...',
-          'home.form.privacy': 'J\'ai lu et j\'accepte la <a href="#" style="color:var(--badiani-blue);text-decoration:underline;">politique de confidentialité</a>.',
+          'home.form.privacy': 'J\'ai lu et j\'accepte la <a href="privacy.html" style="color:var(--badiani-blue);text-decoration:underline;">politique de confidentialité</a>.',
           'home.form.submit': 'Envoyer la Demande'
         },
         es: {
@@ -1235,7 +1308,7 @@
           'home.form.interesse_altro': 'Otro',
           'home.form.messaggio': 'Mensaje',
           'home.form.messaggio_ph': 'Describe tus necesidades o solicitudes...',
-          'home.form.privacy': 'He leído y acepto la <a href="#" style="color:var(--badiani-blue);text-decoration:underline;">política de privacidad</a>.',
+          'home.form.privacy': 'He leído y acepto la <a href="privacy.html" style="color:var(--badiani-blue);text-decoration:underline;">política de privacidad</a>.',
           'home.form.submit': 'Enviar Solicitud'
         }
       };
@@ -1354,6 +1427,52 @@
         var body = encodeURIComponent(lines.join('\n'));
         window.location.href = 'mailto:' + mailto + '?subject=' + subject + '&body=' + body;
       });
+    })();
+
+    /* Cookie consent banner */
+    (function(){
+      var COOKIE_KEY = 'badianiCookieConsent';
+      var banner = document.getElementById('cookieBanner');
+      var btn = document.getElementById('cookieAccept');
+      if(!banner || !btn) return;
+
+      try {
+        if(localStorage.getItem(COOKIE_KEY) === 'accepted'){
+          banner.classList.add('is-hidden');
+          return;
+        }
+      } catch(e){}
+
+      btn.addEventListener('click', function(){
+        try { localStorage.setItem(COOKIE_KEY, 'accepted'); } catch(e){}
+        banner.classList.add('is-hidden');
+      });
+    })();
+
+    /* JSON-LD Structured Data */
+    (function(){
+      var ld = {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Badiani 1932",
+        "url": "https://www.badiani1932.com",
+        "logo": "https://www.badiani1932.com/assets/images/branding/logo.webp",
+        "foundingDate": "1932",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Firenze",
+          "addressCountry": "IT"
+        },
+        "contactPoint": [
+          {"@type": "ContactPoint", "email": "eventi@badiani1932.com", "contactType": "customer service"},
+          {"@type": "ContactPoint", "email": "b2b@badiani1932.com", "contactType": "sales"}
+        ],
+        "sameAs": []
+      };
+      var s = document.createElement('script');
+      s.type = 'application/ld+json';
+      s.textContent = JSON.stringify(ld);
+      document.head.appendChild(s);
     })();
   </script>
 </body>
