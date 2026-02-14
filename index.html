@@ -705,7 +705,7 @@
 <body>
   <header class="topbar" data-i18n-attr="aria-label:topbar.label">
     <a href="./" class="topbar__logo">
-      <img src="assets/images/branding/logo.webp" alt="Badiani 1932" />
+      <img src="assets/images/branding/logo.webp" alt="Badiani 1932" width="1665" height="643" />
     </a>
     <div class="topbar__right">
       <nav class="topbar__nav">
@@ -721,8 +721,16 @@
           <option value="fr" data-i18n="lang.fr"></option>
         </select>
       </div>
+      <button class="topbar__hamburger" id="hamburgerBtn" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav">
+        <span></span>
+      </button>
     </div>
   </header>
+  <nav class="topbar__mobile-nav" id="mobileNav" aria-label="Menu mobile">
+    <a href="eventi/" data-i18n="nav.eventi">Eventi</a>
+    <a href="b2b/" data-i18n="nav.b2b">B2B</a>
+    <a href="magazine/" data-i18n="nav.magazine">Dicono di Noi</a>
+  </nav>
 
   <!-- HERO: VIDEO + TITLE -->
   <section class="hero" id="hero">
@@ -740,7 +748,7 @@
     <h2 data-i18n="home.choice.title">Scegli l'esperienza che ti serve</h2>
     <div class="choice-grid">
       <a class="choice-card" href="eventi/" data-i18n-attr="aria-label:home.choice.eventi.aria">
-        <img class="choice-card__img" src="assets/images/eventi/evento-esterno-2.png" alt="Eventi" loading="lazy" decoding="async" data-i18n-attr="alt:home.card.eventi.title" />
+        <img class="choice-card__img" src="assets/images/eventi/evento-esterno-2.png" alt="Eventi" loading="lazy" decoding="async" data-i18n-attr="alt:home.card.eventi.title" width="864" height="1184" />
         <div class="choice-card__overlay">
           <h3 class="choice-title" data-i18n="home.card.eventi.title">EVENTI</h3>
           <p class="choice-desc" data-i18n="home.choice.eventi.desc">Feste private ed eventi su misura</p>
@@ -748,7 +756,7 @@
         </div>
       </a>
       <a class="choice-card" href="b2b/" data-i18n-attr="aria-label:home.choice.b2b.aria">
-        <img class="choice-card__img" src="assets/images/categories/vasche.png" alt="B2B" loading="lazy" decoding="async" />
+        <img class="choice-card__img" src="assets/images/categories/vasche.png" alt="B2B" loading="lazy" decoding="async" width="712" height="659" />
         <div class="choice-card__overlay">
           <h3 class="choice-title">B2B</h3>
           <p class="choice-desc" data-i18n="home.choice.b2b.desc">Soluzioni gelato per catering, hotel</p>
@@ -820,7 +828,7 @@
   <!-- BADIANI NEL MONDO -->
   <section id="locations" class="global-presence">
     <div class="global-presence-bg" aria-hidden="true">
-      <img src="assets/worldwide.webp" alt="" loading="lazy" decoding="async">
+      <img src="assets/worldwide.webp" alt="" loading="lazy" decoding="async" width="1583" height="671">
     </div>
     <div class="global-presence-headline">
       <h2 class="world-means-title" aria-label="Badiani around the world means gelato">
@@ -1446,6 +1454,26 @@
       btn.addEventListener('click', function(){
         try { localStorage.setItem(COOKIE_KEY, 'accepted'); } catch(e){}
         banner.classList.add('is-hidden');
+      });
+    })();
+
+    /* Hamburger mobile menu toggle */
+    (function(){
+      var btn = document.getElementById('hamburgerBtn');
+      var nav = document.getElementById('mobileNav');
+      if(!btn || !nav) return;
+      btn.addEventListener('click', function(){
+        var open = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!open));
+        nav.classList.toggle('is-open');
+        document.body.style.overflow = open ? '' : 'hidden';
+      });
+      nav.querySelectorAll('a').forEach(function(a){
+        a.addEventListener('click', function(){
+          btn.setAttribute('aria-expanded','false');
+          nav.classList.remove('is-open');
+          document.body.style.overflow = '';
+        });
       });
     })();
 

@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
@@ -142,7 +142,7 @@
 <body>
   <header class="topbar" data-i18n-attr="aria-label:topbar.label">
     <a href="../" class="topbar__logo">
-      <img src="../assets/images/branding/logo.webp" alt="Badiani 1932" />
+      <img src="../assets/images/branding/logo.webp" alt="Badiani 1932" width="1665" height="643" />
     </a>
     <div class="topbar__right">
       <nav class="topbar__nav">
@@ -158,8 +158,16 @@
           <option value="fr" data-i18n="lang.fr"></option>
         </select>
       </div>
+      <button class="topbar__hamburger" id="hamburgerBtn" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav">
+        <span></span>
+      </button>
     </div>
   </header>
+  <nav class="topbar__mobile-nav" id="mobileNav" aria-label="Menu mobile">
+    <a href="../eventi/" data-i18n="nav.eventi">Eventi</a>
+    <a href="../b2b/" data-i18n="nav.b2b">B2B</a>
+    <a href="./" data-i18n="nav.magazine">Dicono di Noi</a>
+  </nav>
 
   <main class="page-shell">
 
@@ -485,7 +493,7 @@
         ],
         es: [
           'La histórica heladería florentina abre su 28º punto de venta en el Carrousel du Louvre de París.',
-          'Florencia se exporta al mundo gracias a la histórica heladería Badiani. Última apertura en el Louvre de París.',
+          'Florencia se exporta al mundo gracias a la histórica heladería Badiani. Êltima apertura en el Louvre de París.',
           'Badiani inaugura el primer punto de venta en la prestigiosa galería del Carrousel du Louvre de París.',
           'Paolo Pomposi premiado en el Gelato Festival 2015 por el sabor Dolcevita, a base de Buontalenti con avellanas y cacao.',
           'Final europea del Gelato Festival 2015: Pomposi conquista el título con la reinterpretación del Buontalenti.',
@@ -642,5 +650,6 @@
     </div>
   </div>
   <script>(function(){var k='badianiCookieConsent',b=document.getElementById('cookieBanner'),a=document.getElementById('cookieAccept');if(!b||!a)return;try{if(localStorage.getItem(k)==='accepted'){b.classList.add('is-hidden');return;}}catch(e){}a.addEventListener('click',function(){try{localStorage.setItem(k,'accepted');}catch(e){}b.classList.add('is-hidden');});})();</script>
+  <script>(function(){var b=document.getElementById('hamburgerBtn'),n=document.getElementById('mobileNav');if(!b||!n)return;b.addEventListener('click',function(){var o=b.getAttribute('aria-expanded')==='true';b.setAttribute('aria-expanded',String(!o));n.classList.toggle('is-open');document.body.style.overflow=o?'':'hidden';});n.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){b.setAttribute('aria-expanded','false');n.classList.remove('is-open');document.body.style.overflow='';});});})();</script>
 </body>
 </html>

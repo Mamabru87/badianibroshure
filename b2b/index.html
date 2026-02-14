@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿﻿﻿<!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
@@ -796,7 +796,7 @@
       border-color:var(--badiani-blue);
     }
     .gelato-vasche__content[hidden]{ display:none; }
-    /* ── Tipologia vasca gallery ── */
+    /* â”€â”€ Tipologia vasca gallery â”€â”€ */
     .tipologia-grid{
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
@@ -853,7 +853,7 @@
     }
 
 
-    /* ── Coni & Coppette gallery ── */
+    /* â”€â”€ Coni & Coppette gallery â”€â”€ */
     .coni-header-img{
       width:100%;
       border-radius:16px;
@@ -972,7 +972,7 @@
     }
 
 
-    /* ── Coppette interactive image map ── */
+    /* â”€â”€ Coppette interactive image map â”€â”€ */
     .coppette-section-title{
       font-size:16px;
       font-weight:700;
@@ -1152,7 +1152,7 @@
     }
 
 
-    /* ── Accessori gallery ── */
+    /* â”€â”€ Accessori gallery â”€â”€ */
     .accessori-grid{
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
@@ -1540,7 +1540,7 @@
       }
     }
 
-    /* ── Torte interactive image map ── */
+    /* â”€â”€ Torte interactive image map â”€â”€ */
     .torte-map-wrapper{
       position:relative;
       width:100%;
@@ -1719,13 +1719,13 @@
 
 
 
-    /* ── Card details fade-in animation ── */
+    /* â”€â”€ Card details fade-in animation â”€â”€ */
     @keyframes cardDetailsFadeIn{
       from{ opacity:0; transform:translateY(-6px); }
       to{ opacity:1; transform:translateY(0); }
     }
 
-    /* ── Contenitori interactive image map ── */
+    /* â”€â”€ Contenitori interactive image map â”€â”€ */
     .contenitori-map-wrapper{
       position:relative;
       width:100%;
@@ -2191,7 +2191,7 @@
 <body>
   <header class="topbar" data-i18n-attr="aria-label:topbar.label">
     <a href="../" class="topbar__logo">
-      <img src="../assets/images/branding/logo.webp" data-i18n-attr="alt:brand.alt" alt="" />
+      <img src="../assets/images/branding/logo.webp" data-i18n-attr="alt:brand.alt" alt="" width="1665" height="643" />
     </a>
     <div class="topbar__right">
       <nav class="topbar__nav" data-i18n-attr="aria-label:nav.label">
@@ -2207,9 +2207,16 @@
           <option value="fr" data-i18n="lang.fr"></option>
         </select>
       </div>
+      <button class="topbar__hamburger" id="hamburgerBtn" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav">
+        <span></span>
+      </button>
     </div>
   </header>
-
+  <nav class="topbar__mobile-nav" id="mobileNav" aria-label="Menu mobile">
+    <a href="../" data-i18n="nav.home">Home</a>
+    <a href="../eventi/" data-i18n="nav.eventi">Eventi</a>
+    <a href="../magazine/" data-i18n="nav.magazine">Dicono di Noi</a>
+  </nav>
   <main class="page-shell">
 
     <section class="page-title-section" style="text-align: center; padding: 2rem 1rem;">
@@ -2364,7 +2371,7 @@
           <button class="modal__info-btn" id="info" type="button" aria-label="Informazioni spedizione" title="Spedizione" data-i18n-attr="aria-label:b2b.modal.shipping.label;title:b2b.modal.shipping.title">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
           </button>
-          <button class="modal__close" type="button" data-i18n-attr="aria-label:b2b.modal.close">✕</button>
+          <button class="modal__close" type="button" data-i18n-attr="aria-label:b2b.modal.close">âœ•</button>
         </div>
       </div>
       <div class="modal__body">
@@ -2470,7 +2477,7 @@
 
   <div class="fullscreen-overlay" id="gelatoFullscreen" role="dialog" aria-modal="true" aria-label="Immagine gelato" data-i18n-attr="aria-label:b2b.fullscreen.label">
     <div class="fullscreen-content">
-      <button class="fullscreen-close" type="button" aria-label="Chiudi" data-i18n-attr="aria-label:b2b.fullscreen.close">✕</button>
+      <button class="fullscreen-close" type="button" aria-label="Chiudi" data-i18n-attr="aria-label:b2b.fullscreen.close">âœ•</button>
       <img id="gelatoFullscreenImage" alt="" />
     </div>
   </div>
@@ -3199,7 +3206,7 @@
           'gelato.flags.vegan': 'Vegan',
           'gelato.flags.glutenFree': 'Sans gluten',
           'gelato.flags.lactoseFree': 'Sans lactose',
-          'gelato.flags.containsEggs': 'Contient des œufs',
+          'gelato.flags.containsEggs': 'Contient des Å“ufs',
           'gelato.flags.containsNuts': 'Contient des fruits à coque',
           'gelato.flags.containsAlcohol': 'Contient de l’alcool',
           'gelato.flags.yes': 'Oui',
@@ -3260,7 +3267,7 @@
           'gelato.ingredients.nocciole': 'Noisettes',
           'gelato.ingredients.pistacchio': 'Pistache',
           'gelato.ingredients.mandorle': 'Amandes',
-          'gelato.ingredients.tuorlo': 'Jaune d’œuf',
+          'gelato.ingredients.tuorlo': 'Jaune d’Å“uf',
           'gelato.ingredients.vaniglia': 'Vanille',
           'gelato.ingredients.caffe': 'Café',
           'gelato.ingredients.mascarpone': 'Mascarpone (placeholder)',
@@ -3296,7 +3303,7 @@
           'gelato.ingredients.sesamo': 'Sésame',
           'gelato.ingredients.base-latte-acqua': 'Lait ou eau (base)',
           'gelato.allergens.latte': 'Lait',
-          'gelato.allergens.uova': 'Œufs',
+          'gelato.allergens.uova': 'Å’ufs',
           'gelato.allergens.frutta-guscio': 'Fruits à coque',
           'gelato.allergens.glutine': 'Gluten',
           'gelato.allergens.sesamo': 'Sésame'
@@ -4302,7 +4309,7 @@
         const grid = defaultContent ? defaultContent.querySelector('.pezziduri-grid') : null;
         const cards = defaultContent ? defaultContent.querySelectorAll('.pezziduri-card[data-pezziduri-id]') : [];
 
-        /* ── Set correct minHeight on the expanded card (same technique as gelato) ── */
+        /* â”€â”€ Set correct minHeight on the expanded card (same technique as gelato) â”€â”€ */
         if(grid){
           const expandedCard = grid.querySelector('.pezziduri-card.is-expanded');
           if(expandedCard){
@@ -4355,7 +4362,7 @@
         if(!rows || !rows.length) return '';
         const headerSrc = encodeURI(CONI_GROUP_IMAGE);
 
-        /* ── Coni cards (cone items only) ── */
+        /* â”€â”€ Coni cards (cone items only) â”€â”€ */
         const coniRows = rows.filter(([name]) => name.indexOf('Gluten free') === -1 && name.indexOf('Bicchierini') === -1);
         const coniCards = coniRows
           .map(([name, desc, qty]) => {
@@ -4366,7 +4373,7 @@
             const gf = getConiGfVariants()[name];
             const gfBlock = gf ? `
               <button class="coni-gf-btn" type="button" data-gf-toggle="${name}">
-                ${t('b2b.coni.gfVariant')} <span class="gf-chevron">▼</span>
+                ${t('b2b.coni.gfVariant')} <span class="gf-chevron">â–¼</span>
               </button>
               <div class="coni-gf-details" data-gf-details="${name}">
                 <strong>${gf.gfName}</strong><br>
@@ -4392,7 +4399,7 @@
           .filter(Boolean)
           .join('');
 
-        /* ── Coppette interactive image map (cups only) ── */
+        /* â”€â”€ Coppette interactive image map (cups only) â”€â”€ */
         const coppetteRows = rows.filter(([name]) => COPPETTE_ZONE_ORDER.indexOf(name) !== -1);
         const coppetteDataMap = {};
         coppetteRows.forEach(([name, desc, qty]) => { coppetteDataMap[name] = { desc, qty }; });
@@ -4651,7 +4658,7 @@
         gelatoDetail.innerHTML = `
           <div class=\"gelato-detail__header\">
             <div class=\"gelato-section-title\">${flavorLabel}</div>
-            <button class=\"gelato-detail__close\" type=\"button\">✕</button>
+            <button class=\"gelato-detail__close\" type=\"button\">âœ•</button>
           </div>
           <h4>${flavorLabel}</h4>
           ${description ? `<div>
@@ -4672,7 +4679,7 @@
               ${flags.map(([label, value]) => `
                 <div class="gelato-flag">
                   <span>${t(label)}</span>
-                  <strong>${value ? '✓' : '—'}</strong>
+                  <strong>${value ? 'âœ“' : '—'}</strong>
                 </div>
               `).join('')}
             </div>
@@ -4722,7 +4729,7 @@
               ${flags.map(([label, value]) => `
                 <div class="gelato-flag">
                   <span>${t(label)}</span>
-                  <strong>${value ? '✓' : '—'}</strong>
+                  <strong>${value ? 'âœ“' : '—'}</strong>
                 </div>
               `).join('')}
             </div>
@@ -4819,7 +4826,7 @@
         card.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
 
         /* Ensure the expanded card always has the correct height
-           (2 × normal-card row height + grid gap), regardless of
+           (2 Ã— normal-card row height + grid gap), regardless of
            its position in the grid. */
         if(isExpanded){
           const refCard = gelatoGrid.querySelector('.gelato-card:not(.is-expanded)');
@@ -5032,7 +5039,7 @@
         if(e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
       });
 
-      /* ── Shipping info popup ── */
+      /* â”€â”€ Shipping info popup â”€â”€ */
       (function initShippingPopup(){
         const infoBtn = document.getElementById('info');
         const shippingOverlay = document.createElement('div');
@@ -5041,7 +5048,7 @@
           <div class="shipping-popup">
             <div class="shipping-popup__header">
               <span class="shipping-popup__title">${t('b2b.modal.shipping.title')}</span>
-              <button class="shipping-popup__close" type="button" aria-label="${t('b2b.modal.close')}">✕</button>
+              <button class="shipping-popup__close" type="button" aria-label="${t('b2b.modal.close')}">âœ•</button>
             </div>
             <ul class="shipping-popup__list">
               ${getShippingInfo().map(item => `<li>${item}</li>`).join('')}
@@ -5265,5 +5272,6 @@
     </div>
   </div>
   <script>(function(){var k='badianiCookieConsent',b=document.getElementById('cookieBanner'),a=document.getElementById('cookieAccept');if(!b||!a)return;try{if(localStorage.getItem(k)==='accepted'){b.classList.add('is-hidden');return;}}catch(e){}a.addEventListener('click',function(){try{localStorage.setItem(k,'accepted');}catch(e){}b.classList.add('is-hidden');});})();</script>
+  <script>(function(){var b=document.getElementById('hamburgerBtn'),n=document.getElementById('mobileNav');if(!b||!n)return;b.addEventListener('click',function(){var o=b.getAttribute('aria-expanded')==='true';b.setAttribute('aria-expanded',String(!o));n.classList.toggle('is-open');document.body.style.overflow=o?'':'hidden';});n.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){b.setAttribute('aria-expanded','false');n.classList.remove('is-open');document.body.style.overflow='';});});})();</script>
 </body>
 </html>

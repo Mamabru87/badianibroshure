@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
@@ -136,7 +136,7 @@
       transform:translateY(-3px);
     }
     .use-cases-list li::before{
-      content:"✓";
+      content:"✔";
       color:var(--badiani-pink);
       font-weight:700;
       margin-right:8px;
@@ -215,20 +215,32 @@
 <body>
   <header class="topbar" data-i18n-attr="aria-label:topbar.label">
     <a href="../../" class="topbar__logo">
-      <img src="../../assets/images/branding/logo.webp" alt="Badiani 1932" />
+      <img src="../../assets/images/branding/logo.webp" alt="Badiani 1932" width="1665" height="643" />
     </a>
-    <nav class="topbar__nav">
-      <a href="../../" data-i18n="nav.home">Home</a>
-      <a href="../" data-i18n="nav.eventi">Eventi</a>
-      <a href="../../b2b/" data-i18n="nav.b2b">B2B</a>
-    </nav>
-    <select class="topbar__lang" data-i18n-attr="aria-label:lang.label" onchange="setLang(this.value)">
-      <option value="it" data-i18n="lang.it">IT</option>
-      <option value="en" data-i18n="lang.en">EN</option>
-      <option value="fr" data-i18n="lang.fr">FR</option>
-      <option value="es" data-i18n="lang.es">ES</option>
-    </select>
+    <div class="topbar__right">
+      <nav class="topbar__nav">
+        <a href="../../" data-i18n="nav.home">Home</a>
+        <a href="../" data-i18n="nav.eventi">Eventi</a>
+        <a href="../../b2b/" data-i18n="nav.b2b">B2B</a>
+      </nav>
+      <div class="topbar__lang">
+        <select class="topbar__select" data-i18n-attr="aria-label:lang.label" onchange="setLang(this.value)">
+          <option value="it" data-i18n="lang.it">IT</option>
+          <option value="en" data-i18n="lang.en">EN</option>
+          <option value="fr" data-i18n="lang.fr">FR</option>
+          <option value="es" data-i18n="lang.es">ES</option>
+        </select>
+      </div>
+      <button class="topbar__hamburger" id="hamburgerBtn" aria-label="Menu" aria-expanded="false" aria-controls="mobileNav">
+        <span></span>
+      </button>
+    </div>
   </header>
+  <nav class="topbar__mobile-nav" id="mobileNav" aria-label="Menu mobile">
+    <a href="../../" data-i18n="nav.home">Home</a>
+    <a href="../" data-i18n="nav.eventi">Eventi</a>
+    <a href="../../b2b/" data-i18n="nav.b2b">B2B</a>
+  </nav>
 
   <section class="hero">
     <h1 data-i18n="az.hero.title">Crea il tuo evento aziendale su misura</h1>
@@ -456,5 +468,6 @@
     <div class="cookie-banner__actions"><button class="cookie-banner__btn cookie-banner__btn--accept" id="cookieAccept">Accetto</button><a href="../../cookie-policy.html" class="cookie-banner__btn cookie-banner__btn--info">Cookie Policy</a></div>
   </div>
   <script>(function(){var k='badianiCookieConsent',b=document.getElementById('cookieBanner'),a=document.getElementById('cookieAccept');if(!b||!a)return;try{if(localStorage.getItem(k)==='accepted'){b.classList.add('is-hidden');return;}}catch(e){}a.addEventListener('click',function(){try{localStorage.setItem(k,'accepted');}catch(e){}b.classList.add('is-hidden');});})();</script>
+  <script>(function(){var b=document.getElementById('hamburgerBtn'),n=document.getElementById('mobileNav');if(!b||!n)return;b.addEventListener('click',function(){var o=b.getAttribute('aria-expanded')==='true';b.setAttribute('aria-expanded',String(!o));n.classList.toggle('is-open');document.body.style.overflow=o?'':'hidden';});n.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){b.setAttribute('aria-expanded','false');n.classList.remove('is-open');document.body.style.overflow='';});});})();</script>
 </body>
 </html>
