@@ -2371,7 +2371,7 @@
           <button class="modal__info-btn" id="info" type="button" aria-label="Informazioni spedizione" title="Spedizione" data-i18n-attr="aria-label:b2b.modal.shipping.label;title:b2b.modal.shipping.title">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
           </button>
-          <button class="modal__close" type="button" data-i18n-attr="aria-label:b2b.modal.close">âœ•</button>
+          <button class="modal__close" type="button" data-i18n-attr="aria-label:b2b.modal.close">✕</button>
         </div>
       </div>
       <div class="modal__body">
@@ -2477,7 +2477,7 @@
 
   <div class="fullscreen-overlay" id="gelatoFullscreen" role="dialog" aria-modal="true" aria-label="Immagine gelato" data-i18n-attr="aria-label:b2b.fullscreen.label">
     <div class="fullscreen-content">
-      <button class="fullscreen-close" type="button" aria-label="Chiudi" data-i18n-attr="aria-label:b2b.fullscreen.close">âœ•</button>
+      <button class="fullscreen-close" type="button" aria-label="Chiudi" data-i18n-attr="aria-label:b2b.fullscreen.close">✕</button>
       <img id="gelatoFullscreenImage" alt="" />
     </div>
   </div>
@@ -4052,7 +4052,7 @@
               <article class="pezziduri-card${isExpanded ? ' is-expanded' : ''}" data-pezziduri-id="${name}" role="button" tabindex="0" aria-expanded="${isExpanded ? 'true' : 'false'}">
                 <div class="pezziduri-media">
                   <img src="${imageSrc}" alt="${name}" loading="lazy" decoding="async" />
-                  <button class="card-zoom" type="button" aria-label="${t('b2b.zoom')}" data-zoom-src="${imageSrc}" data-zoom-alt="${name}">${zoomIcon}</button>
+                  <button class="card-zoom" type="button" aria-label="${t('b2b.zoom')}" data-zoom-src="${src}" data-zoom-alt="${name}">${zoomIcon}</button>
                 </div>
                 <div class="pezziduri-body">
                   <div class="pezziduri-title">${name}</div>
@@ -4658,7 +4658,7 @@
         gelatoDetail.innerHTML = `
           <div class=\"gelato-detail__header\">
             <div class=\"gelato-section-title\">${flavorLabel}</div>
-            <button class=\"gelato-detail__close\" type=\"button\">âœ•</button>
+            <button class=\"gelato-detail__close\" type=\"button\">✕</button>
           </div>
           <h4>${flavorLabel}</h4>
           ${description ? `<div>
@@ -4679,7 +4679,7 @@
               ${flags.map(([label, value]) => `
                 <div class="gelato-flag">
                   <span>${t(label)}</span>
-                  <strong>${value ? 'âœ“' : '—'}</strong>
+                  <strong>${value ? '✓' : '—'}</strong>
                 </div>
               `).join('')}
             </div>
@@ -4729,7 +4729,7 @@
               ${flags.map(([label, value]) => `
                 <div class="gelato-flag">
                   <span>${t(label)}</span>
-                  <strong>${value ? 'âœ“' : '—'}</strong>
+                  <strong>${value ? '✓' : '—'}</strong>
                 </div>
               `).join('')}
             </div>
@@ -4826,7 +4826,7 @@
         card.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
 
         /* Ensure the expanded card always has the correct height
-           (2 Ã— normal-card row height + grid gap), regardless of
+           (2 × normal-card row height + grid gap), regardless of
            its position in the grid. */
         if(isExpanded){
           const refCard = gelatoGrid.querySelector('.gelato-card:not(.is-expanded)');
@@ -5048,7 +5048,7 @@
           <div class="shipping-popup">
             <div class="shipping-popup__header">
               <span class="shipping-popup__title">${t('b2b.modal.shipping.title')}</span>
-              <button class="shipping-popup__close" type="button" aria-label="${t('b2b.modal.close')}">âœ•</button>
+              <button class="shipping-popup__close" type="button" aria-label="${t('b2b.modal.close')}">✕</button>
             </div>
             <ul class="shipping-popup__list">
               ${getShippingInfo().map(item => `<li>${item}</li>`).join('')}
@@ -5253,7 +5253,7 @@
   <footer class="site-footer">
     <div class="footer-inner">
       <div class="footer-col footer-brand">
-        <a href="../" class="footer-logo-link"><img src="../assets/images/branding/logo.webp" alt="Badiani 1932" width="130" height="39" /></a>
+        <a href="../" class="footer-logo-link"><img src="../assets/images/branding/logo-white.png" alt="Badiani 1932" width="1665" height="643" /></a>
         <p class="footer-tagline">Gelato artigianale dal 1932. Firenze.</p>
       </div>
       <div class="footer-col"><h4>Navigazione</h4><ul><li><a href="../">Home</a></li><li><a href="../eventi/">Eventi</a></li><li><a href="./">B2B</a></li><li><a href="../magazine/">Magazine</a></li></ul></div>
@@ -5271,7 +5271,7 @@
       <a href="../cookie-policy.html" class="cookie-banner__btn cookie-banner__btn--info">Cookie Policy</a>
     </div>
   </div>
-  <script>(function(){var k='badianiCookieConsent',b=document.getElementById('cookieBanner'),a=document.getElementById('cookieAccept');if(!b||!a)return;try{if(localStorage.getItem(k)==='accepted'){b.classList.add('is-hidden');return;}}catch(e){}a.addEventListener('click',function(){try{localStorage.setItem(k,'accepted');}catch(e){}b.classList.add('is-hidden');});})();</script>
+  <script>(function(){var k='badianiCookieConsent',b=document.getElementById('cookieBanner'),a=document.getElementById('cookieAccept');if(!b||!a)return;try{if(localStorage.getItem(k)==='accepted'){b.style.display='none';return;}}catch(e){}a.addEventListener('click',function(){try{localStorage.setItem(k,'accepted');}catch(e){}b.classList.add('is-hidden');setTimeout(function(){b.style.display='none';},500);});})();</script>
   <script>(function(){var b=document.getElementById('hamburgerBtn'),n=document.getElementById('mobileNav');if(!b||!n)return;b.addEventListener('click',function(){var o=b.getAttribute('aria-expanded')==='true';b.setAttribute('aria-expanded',String(!o));n.classList.toggle('is-open');document.body.style.overflow=o?'':'hidden';});n.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){b.setAttribute('aria-expanded','false');n.classList.remove('is-open');document.body.style.overflow='';});});})();</script>
 </body>
 </html>

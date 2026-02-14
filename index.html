@@ -906,7 +906,7 @@
     <div class="footer-inner">
       <div class="footer-col footer-brand">
         <a href="./" class="footer-logo-link">
-          <img src="assets/images/branding/logo.webp" alt="Badiani 1932" width="130" height="39" />
+          <img src="assets/images/branding/logo-white.png" alt="Badiani 1932" width="1665" height="643" />
         </a>
         <p class="footer-tagline">Gelato artigianale dal 1932. Firenze.</p>
       </div>
@@ -1446,7 +1446,7 @@
 
       try {
         if(localStorage.getItem(COOKIE_KEY) === 'accepted'){
-          banner.classList.add('is-hidden');
+          banner.style.display = 'none';
           return;
         }
       } catch(e){}
@@ -1454,6 +1454,7 @@
       btn.addEventListener('click', function(){
         try { localStorage.setItem(COOKIE_KEY, 'accepted'); } catch(e){}
         banner.classList.add('is-hidden');
+        setTimeout(function(){ banner.style.display = 'none'; }, 500);
       });
     })();
 

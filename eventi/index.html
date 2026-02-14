@@ -99,8 +99,8 @@
     .list{ padding-left:18px; display:grid; gap:8px; font-size:15px; color:#6a6b6e; }
     .dual-list{ display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:18px; }
     .gallery-grid{ display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:14px; }
-    .gallery-card{ background:#fff; border-radius:18px; overflow:hidden; box-shadow:0 10px 24px rgba(0,0,0,0.08); }
-    .gallery-card img{ width:100%; aspect-ratio:4 / 3; object-fit:cover; display:block; }
+    .gallery-card{ background:#fff; border-radius:18px; overflow:hidden; box-shadow:0 10px 24px rgba(0,0,0,0.08); aspect-ratio:4 / 3; }
+    .gallery-card img{ width:100%; height:100%; object-fit:cover; display:block; }
     .gallery-card span{ display:block; padding:10px 12px; font-size:13px; text-transform:uppercase; letter-spacing:1px; color:var(--badiani-blue); }
 
     .coming-soon{ display:inline-flex; align-items:center; gap:10px; background:var(--badiani-pink); color:#fff; padding:10px 18px; border-radius:999px; text-transform:uppercase; letter-spacing:2px; font-size:12px; font-weight:600; }
@@ -316,7 +316,7 @@
       max-width:900px;
     }
     .custom-event--gallery-section{
-      max-width:none;
+      max-width:1200px;
       margin-top:40px;
       margin-bottom:60px;
     }
@@ -449,6 +449,7 @@
       position:relative;
       box-shadow:0 8px 24px rgba(0,0,0,0.08);
       transition:transform 0.4s ease, box-shadow 0.4s ease;
+      aspect-ratio:1 / 1;
     }
     .custom-event__photo:hover{
       transform:translateY(-6px);
@@ -456,7 +457,7 @@
     }
     .custom-event__photo img{
       width:100%;
-      aspect-ratio:4 / 3;
+      height:100%;
       object-fit:cover;
       display:block;
       transition:transform 0.5s ease;
@@ -1581,7 +1582,7 @@
   <footer class="site-footer">
     <div class="footer-inner">
       <div class="footer-col footer-brand">
-        <a href="../" class="footer-logo-link"><img src="../assets/images/branding/logo.webp" alt="Badiani 1932" width="130" height="39" /></a>
+        <a href="../" class="footer-logo-link"><img src="../assets/images/branding/logo-white.png" alt="Badiani 1932" width="1665" height="643" /></a>
         <p class="footer-tagline">Gelato artigianale dal 1932. Firenze.</p>
       </div>
       <div class="footer-col"><h4>Navigazione</h4><ul><li><a href="../">Home</a></li><li><a href="./">Eventi</a></li><li><a href="../b2b/">B2B</a></li><li><a href="../magazine/">Magazine</a></li></ul></div>
@@ -1599,7 +1600,7 @@
       <a href="../cookie-policy.html" class="cookie-banner__btn cookie-banner__btn--info">Cookie Policy</a>
     </div>
   </div>
-  <script>(function(){var k='badianiCookieConsent',b=document.getElementById('cookieBanner'),a=document.getElementById('cookieAccept');if(!b||!a)return;try{if(localStorage.getItem(k)==='accepted'){b.classList.add('is-hidden');return;}}catch(e){}a.addEventListener('click',function(){try{localStorage.setItem(k,'accepted');}catch(e){}b.classList.add('is-hidden');});})();</script>
+  <script>(function(){var k='badianiCookieConsent',b=document.getElementById('cookieBanner'),a=document.getElementById('cookieAccept');if(!b||!a)return;try{if(localStorage.getItem(k)==='accepted'){b.style.display='none';return;}}catch(e){}a.addEventListener('click',function(){try{localStorage.setItem(k,'accepted');}catch(e){}b.classList.add('is-hidden');setTimeout(function(){b.style.display='none';},500);});})();</script>
   <script>(function(){var b=document.getElementById('hamburgerBtn'),n=document.getElementById('mobileNav');if(!b||!n)return;b.addEventListener('click',function(){var o=b.getAttribute('aria-expanded')==='true';b.setAttribute('aria-expanded',String(!o));n.classList.toggle('is-open');document.body.style.overflow=o?'':'hidden';});n.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){b.setAttribute('aria-expanded','false');n.classList.remove('is-open');document.body.style.overflow='';});});})();</script>
 </body>
 </html>
