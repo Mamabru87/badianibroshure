@@ -25,7 +25,50 @@
       background-size:cover;
     }
 
-    .page-shell{ padding:48px clamp(16px, 4vw, 80px) 80px; }
+    .page-shell{ padding:0 clamp(16px, 4vw, 80px) 80px; }
+    .page-hero{
+      position:relative;
+      min-height:28vh;
+      display:flex;
+      align-items:flex-end;
+      padding:32px 52px;
+      gap:24px;
+      margin:0 calc(-1 * clamp(16px, 4vw, 80px));
+    }
+    .page-hero__heading-group{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      justify-content:flex-end;
+      flex-shrink:0;
+    }
+    .page-hero__label{
+      display:block;
+      font-size:clamp(13px, 1.2vw, 16px);
+      text-transform:uppercase;
+      letter-spacing:3px;
+      font-weight:400;
+      color:rgba(255,255,255,0.75);
+      margin-bottom:8px;
+    }
+    .page-hero h1{
+      font-family:'SuperGroteskDigits','SuperGroteskB',sans-serif;
+      font-size:clamp(96px, 12vw, 160px);
+      font-weight:700;
+      letter-spacing:4px;
+      text-transform:uppercase;
+      line-height:0.9;
+      color:#fff;
+      text-shadow:0 2px 20px rgba(0,0,0,0.4);
+      flex-shrink:0;
+    }
+    .page-hero p{
+      font-size:clamp(14px, 1.2vw, 17px);
+      color:rgba(255,255,255,0.85);
+      line-height:1.5;
+      max-width:260px;
+      padding-bottom:8px;
+    }
     .hero{ background:var(--surface); border-radius:28px; padding:40px; box-shadow:0 18px 40px rgba(0,0,0,0.08); margin-bottom:48px; }
     .hero h1{ font-size:clamp(28px, 3.6vw, 46px); margin-bottom:12px; }
     .hero p{ font-size:clamp(16px, 1.5vw, 20px); color:#6a6b6e; max-width:780px; }
@@ -599,6 +642,21 @@
         font-size:clamp(14px, 4.2vw, 18px);
         line-height:1.55;
       }
+      .page-hero{
+        padding:24px 20px;
+        flex-direction:column;
+        align-items:flex-start;
+        gap:10px;
+        min-height:20vh;
+        margin:0 calc(-1 * 16px);
+      }
+      .page-hero h1{
+        font-size:clamp(48px, 12vw, 80px);
+        letter-spacing:2px;
+      }
+      .page-hero p{
+        max-width:none;
+      }
       .section-title{
         font-size:clamp(20px, 6vw, 26px);
         line-height:1.1;
@@ -711,10 +769,15 @@
   </nav>
 
   <main class="page-shell">
-    <h1 style="font-size:clamp(32px, 5vw, 56px); color:#fff; text-transform:uppercase; letter-spacing:3px; text-align:center; margin-bottom:40px; text-shadow:0 2px 12px rgba(0,0,0,0.3);" data-i18n="eventi.page.title">Eventi</h1>
+    <div class="page-hero">
+      <div class="page-hero__heading-group">
+        <span class="page-hero__label">Tipologie</span>
+        <h1 class="title-accent title-accent--light" data-i18n="eventi.page.title">EVENTI</h1>
+      </div>
+      <p data-i18n="eventi.hero.desc">Seleziona la tipologia di evento per scoprire i dettagli e richiedere un preventivo personalizzato.</p>
+    </div>
     
     <section data-i18n-attr="aria-label:eventi.types.label">
-      <span class="tag" style="margin-bottom:15px; display:inline-block;" data-i18n="eventi.types.tag">Tipologie</span>
       <div class="van-grid">
         <a class="van-card" href="./saletta-privata-tosinghi/" data-i18n-attr="aria-label:eventi.tosinghi.aria">
           <div class="van-card__media">

@@ -1,4 +1,4 @@
-﻿﻿﻿<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="it">
 <head>
   <meta charset="UTF-8" />
@@ -19,14 +19,57 @@
 
     body{
       background-color:#f5f6f8;
-      background-image:url('../assets/images/branding/eventi-bg.webp');
-      background-repeat:repeat-y;
+      background-image:url('../assets/images/branding/sfondo.webp');
+      background-repeat:no-repeat;
       background-position:top center;
-      background-size:100% auto;
+      background-size:cover;
     }
 
-    .page-shell{ padding:48px clamp(16px, 4vw, 80px) 80px; }
+    .page-shell{ padding:0 clamp(16px, 4vw, 80px) 80px; }
 
+    .page-hero{
+      position:relative;
+      min-height:28vh;
+      display:flex;
+      align-items:flex-end;
+      padding:32px 52px;
+      gap:24px;
+      margin:0 calc(-1 * clamp(16px, 4vw, 80px));
+    }
+    .page-hero__heading-group{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      justify-content:flex-end;
+      flex-shrink:0;
+    }
+    .page-hero__label{
+      display:block;
+      font-size:clamp(13px, 1.2vw, 16px);
+      text-transform:uppercase;
+      letter-spacing:3px;
+      font-weight:400;
+      color:rgba(255,255,255,0.75);
+      margin-bottom:8px;
+    }
+    .page-hero h1{
+      font-family:'SuperGroteskDigits','SuperGroteskB',sans-serif;
+      font-size:clamp(96px, 12vw, 160px);
+      font-weight:700;
+      letter-spacing:4px;
+      text-transform:uppercase;
+      line-height:0.9;
+      color:#fff;
+      text-shadow:0 2px 20px rgba(0,0,0,0.4);
+      flex-shrink:0;
+    }
+    .page-hero p{
+      font-size:clamp(14px, 1.2vw, 17px);
+      color:rgba(255,255,255,0.85);
+      line-height:1.5;
+      max-width:260px;
+      padding-bottom:8px;
+    }
 
     .hero{ background:var(--surface); border-radius:28px; padding:40px; box-shadow:0 18px 40px rgba(0,0,0,0.08); margin-bottom:48px; }
     .hero h1{ font-size:clamp(28px, 3.6vw, 46px); margin-bottom:12px; }
@@ -337,45 +380,57 @@
     }
     .modal__header{
       display:flex;
-      align-items:center;
-      justify-content:space-between;
-      padding:22px 28px;
+      align-items:stretch;
+      padding:0;
       border-bottom:1px solid rgba(30,57,141,0.08);
+      flex-shrink:0;
     }
-    .modal__title{ font-size:18px; letter-spacing:1px; text-transform:uppercase; color:var(--badiani-blue); }
+    .modal__title{ display:none; }
     .modal__close{
       border:none;
       background:transparent;
-      font-size:18px;
+      font-size:20px;
       cursor:pointer;
+      color:#9aa0a6;
+      width:48px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-shrink:0;
+      transition:color 0.2s, background 0.2s;
+      border-left:1px solid rgba(30,57,141,0.06);
+    }
+    .modal__close:hover{
       color:var(--badiani-blue);
+      background:rgba(30,57,141,0.04);
     }
     .modal__header-actions{
       display:flex;
-      align-items:center;
-      gap:14px;
+      align-items:stretch;
+      margin-left:auto;
+      flex-shrink:0;
     }
     .modal__info-btn{
       border:none;
       background:transparent;
       font-size:18px;
       cursor:pointer;
-      color:var(--badiani-blue);
-      width:32px;
-      height:32px;
+      color:#9aa0a6;
+      width:48px;
       display:flex;
       align-items:center;
       justify-content:center;
-      border-radius:50%;
-      transition:background .2s;
+      transition:color 0.2s, background 0.2s;
+      border-left:1px solid rgba(30,57,141,0.06);
       position:relative;
     }
     .modal__info-btn:hover{
-      background:rgba(30,57,141,0.08);
+      color:var(--badiani-blue);
+      background:rgba(30,57,141,0.04);
     }
     .modal__info-btn svg{
-      width:20px;
-      height:20px;
+      width:18px;
+      height:18px;
     }
     /* Shipping info popup */
     .shipping-popup-overlay{
@@ -448,39 +503,40 @@
     .shipping-popup__list li:last-child{
       margin-bottom:0;
     }
-    .modal__body{ padding:0; overflow:hidden; display:grid; grid-template-columns:220px 1fr; min-height:0; }
-    .modal__sidebar{
-      border-right:1px solid rgba(30,57,141,0.08);
-      background:#fafbfc;
-      padding:18px;
-      overflow:auto;
-      -webkit-overflow-scrolling:touch;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
+    .modal__body{ padding:0; overflow:hidden; display:flex; flex-direction:column; min-height:0; }
+    .modal__sidebar{ display:none; }
     .modal__nav{
       display:flex;
-      flex-direction:column;
-      gap:8px;
+      flex-direction:row;
+      gap:0;
+      overflow-x:auto;
+      -webkit-overflow-scrolling:touch;
+      scrollbar-width:none;
+      padding:0 8px;
     }
+    .modal__nav::-webkit-scrollbar{ display:none; }
     .modal__nav button{
-      text-align:left;
-      padding:8px 10px;
-      border-radius:10px;
-      border:1px solid transparent;
+      text-align:center;
+      padding:14px 18px;
+      border:none;
+      border-bottom:2px solid transparent;
       background:transparent;
-      font-size:12px;
+      font-size:13px;
       letter-spacing:1px;
       text-transform:uppercase;
-      color:#4a4f57;
+      color:#9aa0a6;
       cursor:pointer;
+      white-space:nowrap;
+      transition:color 0.2s, border-color 0.2s;
+      font-family:inherit;
+    }
+    .modal__nav button:hover{
+      color:#4a4f57;
     }
     .modal__nav button.is-active{
-      background:#fff;
-      border-color:rgba(30,57,141,0.18);
       color:var(--badiani-blue);
       font-weight:600;
+      border-bottom-color:var(--badiani-blue);
     }
     .modal__content{
       padding:24px 28px 28px;
@@ -488,6 +544,8 @@
       -webkit-overflow-scrolling:touch;
       display:grid;
       gap:24px;
+      flex:1;
+      min-height:0;
     }
     .modal__select{
       display:none;
@@ -796,7 +854,7 @@
       border-color:var(--badiani-blue);
     }
     .gelato-vasche__content[hidden]{ display:none; }
-    /* â”€â”€ Tipologia vasca gallery â”€â”€ */
+    /* ── Tipologia vasca gallery ── */
     .tipologia-grid{
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
@@ -853,7 +911,7 @@
     }
 
 
-    /* â”€â”€ Coni & Coppette gallery â”€â”€ */
+    /* ── Coni & Coppette gallery ── */
     .coni-header-img{
       width:100%;
       border-radius:16px;
@@ -972,7 +1030,7 @@
     }
 
 
-    /* â”€â”€ Coppette interactive image map â”€â”€ */
+    /* ── Coppette interactive image map ── */
     .coppette-section-title{
       font-size:16px;
       font-weight:700;
@@ -1152,7 +1210,7 @@
     }
 
 
-    /* â”€â”€ Accessori gallery â”€â”€ */
+    /* ── Accessori gallery ── */
     .accessori-grid{
       display:grid;
       grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
@@ -1540,7 +1598,7 @@
       }
     }
 
-    /* â”€â”€ Torte interactive image map â”€â”€ */
+    /* ── Torte interactive image map ── */
     .torte-map-wrapper{
       position:relative;
       width:100%;
@@ -1719,13 +1777,13 @@
 
 
 
-    /* â”€â”€ Card details fade-in animation â”€â”€ */
+    /* ── Card details fade-in animation ── */
     @keyframes cardDetailsFadeIn{
       from{ opacity:0; transform:translateY(-6px); }
       to{ opacity:1; transform:translateY(0); }
     }
 
-    /* â”€â”€ Contenitori interactive image map â”€â”€ */
+    /* ── Contenitori interactive image map ── */
     .contenitori-map-wrapper{
       position:relative;
       width:100%;
@@ -1897,9 +1955,6 @@
       }
     }
 
-    @media(max-width:840px){
-      .modal__body{ grid-template-columns:200px 1fr; }
-    }
     @media(max-width:720px){
       .modal{
         width:100%;
@@ -1909,21 +1964,17 @@
         margin-top:12px;
       }
       .gelato-card.is-expanded{ grid-column:span 2; grid-row:span 2; outline:2px solid var(--badiani-blue); outline-offset:2px; }
-      .modal__body{ grid-template-columns:1fr; }
-      .modal__sidebar{ border-right:none; border-bottom:1px solid rgba(30,57,141,0.08); }
-      .modal__nav{ display:none; }
       .gelato-detail,
       .gelato-card__details{ transition:none; }
 
-      /* Modal mobile: compatta come inspiration */
+      /* Modal mobile: compatta */
       .modal-overlay{ padding:42px 12px 22px; align-items:flex-start; }
-      .modal__header{ padding:16px 18px; }
-      .modal__title{ font-size:clamp(16px, 5.6vw, 22px); letter-spacing:0.8px; }
-      .modal__close{ font-size:22px; width:36px; height:36px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:rgba(30,57,141,0.08); }
-      .modal__info-btn{ width:36px; height:36px; border-radius:50%; background:rgba(30,57,141,0.08); }
-      .modal__body{ padding:0; }
-      .modal__sidebar{ padding:12px 14px; }
-      .modal__select{ display:block; }
+      .modal__header{ flex-wrap:wrap; }
+      .modal__nav{ padding:0 4px; order:3; width:100%; border-top:1px solid rgba(30,57,141,0.06); }
+      .modal__nav button{ padding:10px 12px; font-size:11px; }
+      .modal__header-actions{ border-left:none; }
+      .modal__close{ width:44px; }
+      .modal__info-btn{ width:44px; }
       .modal__content{ padding:16px 18px 18px; gap:16px; }
       .modal__section h4{ font-size:12px; margin-bottom:4px; letter-spacing:0.6px; }
       .modal__section p,
@@ -1975,7 +2026,21 @@
     }
     @media(max-width:768px){
       .hero{ padding:30px; }
-
+      .page-hero{
+        padding:24px 20px;
+        flex-direction:column;
+        align-items:flex-start;
+        gap:10px;
+        min-height:20vh;
+        margin:0 calc(-1 * 16px);
+      }
+      .page-hero h1{
+        font-size:clamp(48px, 12vw, 80px);
+        letter-spacing:2px;
+      }
+      .page-hero p{
+        max-width:none;
+      }
     }
 
     /* ========== B2B REQUEST FORM MODAL ========== */
@@ -2219,11 +2284,12 @@
   </nav>
   <main class="page-shell">
 
-    <section class="page-title-section" style="text-align: center; padding: 2rem 1rem;">
-      <h1 style="font-size: clamp(2.5rem, 6vw, 4rem); margin-bottom: 0.5rem; color:#fff; text-shadow:0 2px 10px rgba(0,0,0,0.3);" data-i18n="b2b.hero.title"></h1>
-      <p style="font-size: 1.1rem; opacity: 0.85; color:#fff; text-shadow:0 1px 6px rgba(0,0,0,0.2);" data-i18n="b2b.hero.subtitle"></p>
-      <p style="font-size: 0.95rem; opacity: 0.7; margin-top: 0.5rem; color:rgba(255,255,255,0.8); text-shadow:0 1px 4px rgba(0,0,0,0.2);" data-i18n="b2b.hero.note"></p>
-      <a class="cta-button" href="#" onclick="openB2BForm(); return false;" style="margin-top:1.5rem;" data-i18n="b2b.cta.button"></a>
+    <section class="page-hero">
+      <div class="page-hero__heading-group">
+        <span class="page-hero__label">Partnership</span>
+        <h1 class="title-accent title-accent--light" data-i18n="b2b.hero.title">B2B</h1>
+      </div>
+      <p data-i18n="b2b.hero.subtitle">Esperienze B2B su misura: dal corporate all'hospitality, un'unica regia per eventi, travel e partnership</p>
     </section>
 
     <section data-i18n-attr="aria-label:b2b.areas.label" style="margin-top:1.5rem;">
@@ -2367,17 +2433,17 @@
     <div class="modal">
       <div class="modal__header">
         <h3 class="modal__title" id="categoryModalTitle" data-i18n="b2b.modal.titleDefault"></h3>
+        <nav class="modal__nav" id="categoryNav" data-i18n-attr="aria-label:b2b.modal.nav"></nav>
         <div class="modal__header-actions">
           <button class="modal__info-btn" id="info" type="button" aria-label="Informazioni spedizione" title="Spedizione" data-i18n-attr="aria-label:b2b.modal.shipping.label;title:b2b.modal.shipping.title">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="1"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
           </button>
-          <button class="modal__close" type="button" data-i18n-attr="aria-label:b2b.modal.close">✕</button>
+          <button class="modal__close" type="button" data-i18n-attr="aria-label:b2b.modal.close">&#x2715;</button>
         </div>
       </div>
       <div class="modal__body">
         <aside class="modal__sidebar">
           <select class="modal__select" id="categorySelect" data-i18n-attr="aria-label:b2b.modal.select"></select>
-          <nav class="modal__nav" id="categoryNav" data-i18n-attr="aria-label:b2b.modal.nav"></nav>
         </aside>
         <div class="modal__content" id="categoryContent">
           <div class="gelato-showcase" id="gelatoShowcase">
@@ -2515,7 +2581,7 @@
           'footer.privacy': 'Privacy Policy',
           'footer.cookie': 'Cookie Policy',
           'b2b.hero.label': 'Hero B2B',
-          'b2b.hero.title': 'Soluzioni B2B per aziende, hotel e professionisti',
+          'b2b.hero.title': 'B2B',
           'b2b.hero.subtitle': 'Esperienze B2B su misura: dal corporate all\'hospitality, un\'unica regia per eventi, travel e partnership',
           'b2b.hero.note': 'Progetti personalizzabili · Collaborazioni su misura · Supporto dedicato',
           'b2b.target.label': 'A chi è dedicato',
@@ -2796,7 +2862,7 @@
           'footer.privacy': 'Privacy Policy',
           'footer.cookie': 'Cookie Policy',
           'b2b.hero.label': 'B2B hero',
-          'b2b.hero.title': 'B2B solutions for companies, hotels, and professionals',
+          'b2b.hero.title': 'B2B',
           'b2b.hero.subtitle': 'Tailor-made B2B experiences: from corporate to hospitality, a single direction for events, travel and partnerships',
           'b2b.hero.note': 'Customisable projects · Tailor-made collaborations · Dedicated support',
           'b2b.target.label': 'Who it is for',
@@ -3077,7 +3143,7 @@
           'footer.privacy': 'Politique de Confidentialité',
           'footer.cookie': 'Politique de Cookies',
           'b2b.hero.label': 'Hero B2B',
-          'b2b.hero.title': 'Solutions B2B pour entreprises, hôtels et professionnels',
+          'b2b.hero.title': 'B2B',
           'b2b.hero.subtitle': 'Expériences B2B sur mesure : du corporate à l’hospitalité, une direction unique pour événements, voyages et partenariats',
           'b2b.hero.note': 'Projets personnalisables · Collaborations sur mesure · Support dédié',
           'b2b.target.label': 'À qui c’est dédié',
@@ -3358,7 +3424,7 @@
           'footer.privacy': 'Política de Privacidad',
           'footer.cookie': 'Política de Cookies',
           'b2b.hero.label': 'Hero B2B',
-          'b2b.hero.title': 'Soluciones B2B para empresas, hoteles y profesionales',
+          'b2b.hero.title': 'B2B',
           'b2b.hero.subtitle': 'Experiencias B2B a medida: del corporate al hospitality, una única dirección para eventos, travel y partnerships',
           'b2b.hero.note': 'Proyectos personalizables · Colaboraciones a medida · Soporte dedicado',
           'b2b.target.label': 'A quién va dirigido',
@@ -4345,7 +4411,7 @@
         const grid = defaultContent ? defaultContent.querySelector('.pezziduri-grid') : null;
         const cards = defaultContent ? defaultContent.querySelectorAll('.pezziduri-card[data-pezziduri-id]') : [];
 
-        /* â”€â”€ Set correct minHeight on the expanded card (same technique as gelato) â”€â”€ */
+        /* ── Set correct minHeight on the expanded card (same technique as gelato) ── */
         if(grid){
           const expandedCard = grid.querySelector('.pezziduri-card.is-expanded');
           if(expandedCard){
@@ -4398,7 +4464,7 @@
         if(!rows || !rows.length) return '';
         const headerSrc = encodeURI(CONI_GROUP_IMAGE);
 
-        /* â”€â”€ Coni cards (cone items only) â”€â”€ */
+        /* ── Coni cards (cone items only) ── */
         const coniRows = rows.filter(([name]) => name.indexOf('Gluten free') === -1 && name.indexOf('Bicchierini') === -1);
         const coniCards = coniRows
           .map(([name, desc, qty]) => {
@@ -4409,7 +4475,7 @@
             const gf = getConiGfVariants()[name];
             const gfBlock = gf ? `
               <button class="coni-gf-btn" type="button" data-gf-toggle="${name}">
-                ${t('b2b.coni.gfVariant')} <span class="gf-chevron">â–¼</span>
+                ${t('b2b.coni.gfVariant')} <span class="gf-chevron">▼</span>
               </button>
               <div class="coni-gf-details" data-gf-details="${name}">
                 <strong>${gf.gfName}</strong><br>
@@ -4435,7 +4501,7 @@
           .filter(Boolean)
           .join('');
 
-        /* â”€â”€ Coppette interactive image map (cups only) â”€â”€ */
+        /* ── Coppette interactive image map (cups only) ── */
         const coppetteRows = rows.filter(([name]) => COPPETTE_ZONE_ORDER.indexOf(name) !== -1);
         const coppetteDataMap = {};
         coppetteRows.forEach(([name, desc, qty]) => { coppetteDataMap[name] = { desc, qty }; });
@@ -5075,7 +5141,7 @@
         if(e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
       });
 
-      /* â”€â”€ Shipping info popup â”€â”€ */
+      /* ── Shipping info popup ── */
       (function initShippingPopup(){
         const infoBtn = document.getElementById('info');
         const shippingOverlay = document.createElement('div');

@@ -127,6 +127,44 @@ h1, h2, h3 {
   color: var(--badiani-blue);
 }
 
+/* ===== Title Accent — decorative pink square ===== */
+.title-accent {
+  position: relative;
+  z-index: 1;
+  display: inline-block;
+}
+
+/* Pink square — sits behind the first letters.
+   Uses em units so it scales proportionally with the title font-size
+   and stays anchored to the same letter on any viewport. */
+.title-accent::before {
+  content: '';
+  position: absolute;
+  width: 0.52em;
+  height: 0.52em;
+  background: var(--badiani-pink);
+  left: -0.08em;
+  top: -0.02em;            /* alzato ~20px rispetto a prima */
+  z-index: -1;
+}
+
+/* Thin decorative line extending right from the square */
+.title-accent::after {
+  content: '';
+  position: absolute;
+  height: 1px;
+  background: rgba(30, 57, 141, 0.12);
+  top: -0.02em;            /* allineata al bordo superiore del quadrato */
+  left: 0.42em;
+  width: calc(100% - 0.42em + 1.5em);
+  z-index: -1;
+}
+
+/* On dark backgrounds, make the line lighter */
+.title-accent--light::after {
+  background: rgba(255, 255, 255, 0.15);
+}
+
 /* Topbar Component */
 .topbar {
   background: #fff;

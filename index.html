@@ -51,15 +51,18 @@
     .hero{
       position:relative;
       overflow:hidden;
-      text-align:center;
+      text-align:left;
       color:#fff;
       background:#000;
+      min-height:70vh;
     }
     .hero video{
       display:block;
       width:100%;
       height:auto;
-      filter:brightness(0.32);
+      min-height:100%;
+      object-fit:cover;
+      filter:brightness(0.72);
       transition: filter 0.8s cubic-bezier(0.4, 0, 0.2, 1), transform 1.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .hero.is-active video{
@@ -68,126 +71,205 @@
     }
     .hero-content{
       position:absolute;
-      top:50%; left:50%;
-      transform:translate(-50%,-50%);
+      bottom:0; left:0;
       z-index:2;
       width:100%;
-      max-width:900px;
-      padding:20px;
+      padding:48px 52px;
+      display:flex;
+      flex-direction:row;
+      align-items:flex-end;
+      justify-content:flex-start;
+      gap:24px;
       transition: opacity 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .hero.is-active .hero-content{
       opacity:0;
       pointer-events:none;
     }
+    .hero-content__heading-group{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-start;
+      justify-content:flex-end;
+      flex-shrink:0;
+    }
+    .hero-content__label{
+      display:block;
+      font-size:clamp(13px, 1.2vw, 16px);
+      text-transform:uppercase;
+      letter-spacing:3px;
+      font-weight:400;
+      color:rgba(255,255,255,0.75);
+      margin-bottom:8px;
+    }
     .hero-content h1{
       font-family:'SuperGroteskDigits', 'SuperGroteskB';
-      font-size:clamp(42px, 6.2vw, 86px);
+      font-size:clamp(96px, 12vw, 160px);
       font-weight:700;
-      letter-spacing:clamp(1px, 0.35vw, 5px);
+      letter-spacing:4px;
       text-transform:uppercase;
-      line-height:1.08;
+      line-height:0.9;
       color:#fff;
-      text-shadow:2px 2px 12px rgba(0,0,0,0.4);
+      text-shadow:0 2px 20px rgba(0,0,0,0.4);
+      flex-shrink:0;
     }
     .hero-subtitle{
-      font-size:clamp(14px, 1.8vw, 20px);
+      font-size:clamp(14px, 1.2vw, 17px);
       font-weight:300;
-      color:rgba(255,255,255,0.92);
-      line-height:1.6;
-      margin-top:18px;
+      color:rgba(255,255,255,0.85);
+      line-height:1.5;
       text-shadow:1px 1px 8px rgba(0,0,0,0.5);
-      max-width:700px;
-      margin-left:auto;
-      margin-right:auto;
+      max-width:260px;
+      padding-bottom:8px;
     }
 
-    .choice-grid{ display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:32px; max-width:960px; margin:0 auto; }
+    /* ===== SPLIT-SCREEN CHOICE SECTION ===== */
+    .choice-section{
+      padding:0;
+      text-align:left;
+      background:none;
+    }
+    .choice-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:0;
+      max-width:none;
+      margin:0;
+    }
     .choice-card{
       position:relative;
-      border-radius:24px;
       overflow:hidden;
       text-decoration:none;
       color:#fff;
-      aspect-ratio:1 / 1;
       display:flex;
-      flex-direction:column;
-      justify-content:flex-end;
-      box-shadow:0 20px 50px rgba(0,0,0,0.25);
-      transition:transform 0.4s ease, box-shadow 0.4s ease;
+      align-items:flex-end;
+      min-height:70vh;
+      cursor:pointer;
     }
-    .choice-card:hover{ transform:translateY(-8px); box-shadow:0 28px 60px rgba(0,0,0,0.35); }
+    .choice-card:hover{ transform:none; box-shadow:none; }
     .choice-card__img{
       position:absolute;
       inset:0;
       width:100%;
       height:100%;
       object-fit:cover;
-      transition:transform 0.6s ease;
+      transition:transform 0.7s cubic-bezier(0.4,0,0.2,1), filter 0.7s ease;
+      filter:brightness(0.72);
     }
-    .choice-card:hover .choice-card__img{ transform:scale(1.06); }
+    .choice-card:hover .choice-card__img{
+      transform:scale(1.06);
+      filter:brightness(0.6);
+    }
     .choice-card__overlay{
       position:relative;
-      z-index:1;
-      padding:32px;
-      background:linear-gradient(to top, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 60%, transparent 100%);
+      z-index:2;
+      padding:48px 52px;
+      background:none;
+      display:flex;
+      flex-direction:row;
+      align-items:flex-end;
+      gap:20px;
+      width:100%;
+    }
+    .choice-card__heading-group{
       display:flex;
       flex-direction:column;
-      gap:8px;
+      align-items:flex-start;
+      justify-content:flex-end;
+      flex-shrink:0;
     }
-    .choice-tag{ font-size:12px; letter-spacing:2px; text-transform:uppercase; color:var(--badiani-pink); font-weight:600; }
-    .choice-title{ font-size:clamp(22px, 3vw, 36px); color:#fff; text-transform:uppercase; letter-spacing:2px; }
-    .choice-desc{ font-size:15px; color:rgba(255,255,255,0.9); line-height:1.5; }
-    .choice-cta{
-      display:inline-block;
-      margin-top:8px;
-      font-size:13px;
-      letter-spacing:2px;
+    .choice-card__label{
+      display:block;
+      font-size:clamp(13px, 1.2vw, 16px);
       text-transform:uppercase;
-      font-weight:600;
-      color:#fff;
-      background:var(--badiani-pink);
-      padding:10px 24px;
-      border-radius:999px;
-      opacity:0;
-      transform:translateY(10px);
-      transition:opacity 0.35s ease, transform 0.35s ease;
-      width:fit-content;
+      letter-spacing:3px;
+      font-weight:400;
+      color:rgba(255,255,255,0.75);
+      margin-bottom:8px;
     }
-    .choice-card:hover .choice-cta{ opacity:1; transform:translateY(0); }
+    .choice-title{
+      font-family:'SuperGroteskDigits','SuperGroteskB',sans-serif;
+      font-size:clamp(96px, 12vw, 160px);
+      color:#fff;
+      text-transform:uppercase;
+      letter-spacing:4px;
+      font-weight:700;
+      line-height:0.9;
+      flex-shrink:0;
+      text-shadow:0 2px 20px rgba(0,0,0,0.4);
+    }
+    .choice-desc{
+      font-size:clamp(14px, 1.2vw, 17px);
+      color:rgba(255,255,255,0.85);
+      line-height:1.5;
+      max-width:220px;
+      padding-bottom:6px;
+    }
+    .choice-cta{ display:none; }
+
+    /* Vertical divider between halves */
+    .choice-grid .choice-card:first-child{
+      border-right:1px solid rgba(255,255,255,0.15);
+    }
 
     @media(max-width:768px){
       .page-shell{ padding:var(--space-lg) 18px; }
-      .choice-card{ padding:30px 22px; }
     }
     @media(max-width:900px){
       .hero{
         height:auto;
       }
+      .hero-content{
+        padding:32px 28px;
+        flex-direction:column;
+        align-items:flex-start;
+        gap:10px;
+      }
       .hero-content h1{
-        font-size:clamp(32px, 8.4vw, 44px);
-        letter-spacing:1px;
-        line-height:1.2;
+        font-size:clamp(48px, 12vw, 80px);
+        letter-spacing:2px;
+        line-height:0.9;
+      }
+      .hero-subtitle{
+        max-width:none;
+        text-align:left;
       }
 
-      .choice-section{ padding:24px 16px 28px; }
-      .choice-grid{ gap:14px; }
-      .choice-card{ aspect-ratio:4/3; }
-      .choice-card__overlay{ padding:20px; }
-      .choice-desc{ font-size:13px; }
-      .choice-cta{ opacity:1; transform:translateY(0); font-size:11px; padding:8px 18px; }
+      .choice-grid{
+        grid-template-columns:1fr;
+      }
+      .choice-card{
+        min-height:50vh;
+      }
+      .choice-card__overlay{
+        padding:32px 28px;
+      }
+      .choice-title{
+        font-size:clamp(72px, 14vw, 112px);
+      }
+      .choice-grid .choice-card:first-child{
+        border-right:none;
+        border-bottom:1px solid rgba(255,255,255,0.15);
+      }
       .todo-note{ display:none; }
 
       .video-note{ margin:10px auto 24px; }
     }
 
     @media(max-width:600px){
-      .choice-grid{ gap:10px; }
-      .choice-card{ aspect-ratio:3/2; }
-      .choice-card__overlay{ padding:16px; }
-      .choice-title{ font-size:clamp(18px, 5vw, 24px); }
-      .choice-desc{ font-size:12px; }
-      .choice-cta{ font-size:10px; letter-spacing:1.4px; padding:7px 14px; }
+      .choice-card{
+        min-height:40vh;
+      }
+      .choice-card__overlay{
+        padding:24px 20px;
+        flex-direction:column;
+        align-items:flex-start;
+        gap:8px;
+      }
+      .choice-title{
+        font-size:clamp(56px, 16vw, 96px);
+      }
+      .choice-desc{ font-size:13px; max-width:none; }
     }
 
     .video-note{
@@ -199,21 +281,6 @@
       margin:18px auto var(--space-lg);
     }
 
-    .choice-section{
-      padding:var(--space-xl) clamp(16px, 4vw, 80px);
-      text-align:center;
-      background-color:#1e398d;
-      background-image:url('assets/images/branding/sfondo.webp');
-      background-repeat:no-repeat;
-      background-position:top center;
-      background-size:cover;
-    }
-    .choice-section h2{
-      font-size:clamp(24px, 3vw, 38px);
-      margin-bottom:36px;
-      color:#fff;
-      text-shadow:0 2px 14px rgba(0,0,0,0.35);
-    }
     .todo-note{
       display:block;
       margin-top:8px;
@@ -225,312 +292,414 @@
 
 
 
-    /* SEZIONE STORIA CON SFONDO FIRENZE */
-    .buontalenti-story{
-      position: relative;
-      overflow: hidden;
-      background-color: #fff;
-      padding:var(--space-xl) 20px;
+    /* SEZIONE STORIA + GELATO — SPLIT-SCREEN (stile choice-grid) */
+    .story-section{
+      padding:0;
+      text-align:left;
+      background:none;
     }
-    .buontalenti-story::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: url('assets/images/branding/hero-bg.webp');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
-      opacity: 0.20;
-      pointer-events: none;
-      z-index: 0;
+    .story-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:0;
+      max-width:none;
+      margin:0;
     }
-    .story-inner{ max-width:1200px; margin:0 auto; position:relative; z-index:1; }
-    .story-header{ text-align:center; margin-bottom:50px; }
-    .story-title{
+    .story-card{
       position:relative;
-      display:inline-block;
-      font-size:clamp(28px, 4vw, 54px);
-      letter-spacing:1px;
-      text-transform:uppercase;
-      color:var(--badiani-blue);
-      margin-bottom:25px;
-      font-weight:700;
-      text-align:center;
+      overflow:hidden;
+      color:#fff;
+      display:flex;
+      align-items:flex-end;
+      min-height:70vh;
     }
-    .story-lead{ font-size:clamp(16px, 1.8vw, 22px); margin-bottom:40px; line-height:1.9; max-width:900px; margin-left:auto; margin-right:auto; font-weight:300; text-align:center; }
-    .highlight-pink{ background:var(--badiani-pink); color:#fff; padding:3px 10px; font-family:'SuperGroteskDigits', 'SuperGroteskC', 'SuperGroteskA', 'SuperGroteskB', sans-serif; font-weight:500; border-radius:3px; white-space:nowrap; text-transform:uppercase; font-variant-caps:normal; }
-    .story-timeline{ display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:36px; margin-top:50px; }
-    .timeline-item{ 
-      flex:1 1 300px;
-      max-width:420px;
-      padding:30px 24px; 
-      background:rgba(255,255,255,0.85);
-      backdrop-filter:blur(8px);
-      -webkit-backdrop-filter:blur(8px);
-      border-radius:19px; 
-      box-shadow:0 10px 40px rgba(0,0,0,0.08); 
-      transition:all 0.4s; 
-      text-align:center;
-    }
-    .timeline-item:hover{ transform:translateY(-8px); box-shadow:0 20px 50px rgba(240,103,166,0.2); }
-    .timeline-year{ font-size:clamp(36px, 4vw, 50px); font-weight:700; color:var(--badiani-pink); margin-bottom:12px; letter-spacing:2px; text-align:center; }
-    .timeline-item:nth-child(1) .timeline-year{ color:var(--badiani-blue); }
-    .timeline-item:nth-child(2) .timeline-year{ color:var(--badiani-pink); }
-    .timeline-item:nth-child(3) .timeline-year{ color:var(--badiani-yellow); }
-    .timeline-title{ font-size:clamp(18px, 1.8vw, 22px); font-weight:600; color:var(--badiani-blue); margin-bottom:14px; text-transform:uppercase; letter-spacing:1px; text-align:center; }
-    .timeline-desc{ font-size:clamp(15px, 1.5vw, 19px); line-height:1.7; color:var(--badiani-gray); font-weight:300; text-align:center; }
-
-    /* HERITAGE SECTION */
-    .heritage{
-      position: relative;
-      overflow: hidden;
-      background-color: #fff;
-      padding:var(--space-xl) 20px;
-      text-align:center;
-    }
-    .heritage::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background-image: url('assets/images/branding/sfondo.webp');
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: top center;
-      opacity: 0.25;
-      pointer-events: none;
-      z-index: 0;
-    }
-    .heritage > *{ position:relative; z-index:1; }
-    .heritage h2{
-      position:relative;
-      display:inline-block;
-      padding-left:0;
-      font-size:54px;
-      letter-spacing:1px;
-      text-transform:uppercase;
-      color:var(--badiani-blue);
-      margin-bottom:25px;
-      font-weight:700;
-      text-align:center;
-    }
-    .heritage h2::before{ display:none; }
-    .heritage-intro{ max-width:950px; margin:0 auto 45px; font-size:20px; line-height:1.9; font-weight:300; }
-    .stats{ display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:25px; max-width:1150px; margin:0 auto; }
-    .stat{ background:var(--badiani-blue); color:#fff; padding:50px 25px; border-radius:20px; transition:transform 0.3s; }
-    .stat:hover{ transform:translateY(-5px); }
-    .stat:nth-child(2){ background:var(--badiani-pink); }
-    .stat:nth-child(3){ background:var(--badiani-yellow); color:#fff; }
-    .stat:nth-child(4){ background:var(--badiani-cyan); color:#fff; }
-    .stat-num{ font-size:54px; font-weight:700; margin-bottom:12px; }
-    .stat-label{ font-size:16px; text-transform:uppercase; letter-spacing:2px; opacity:0.95; font-weight:500; }
-
-    /* GLOBAL PRESENCE - BADIANI NEL MONDO */
-    .global-presence{ width:100%; padding:0; line-height:1; background:#1f4495; position:relative; aspect-ratio: 8 / 3; overflow:hidden; }
-    .global-presence-bg{ position:absolute; inset:0; overflow:hidden; z-index:0; }
-    .global-presence-bg img{
+    .story-card__img{
+      position:absolute;
+      inset:0;
       width:100%;
       height:100%;
       object-fit:cover;
-      object-position:center bottom;
-      display:block;
-      user-select:none;
-      -webkit-user-select:none;
-      -webkit-user-drag:none;
-      pointer-events:none;
+      transition:transform 0.7s cubic-bezier(0.4,0,0.2,1), filter 0.7s ease;
+      filter:brightness(0.55);
     }
-    .global-presence::after{ display:none; }
-    .global-presence::before{
-      content:"";
-      position:absolute;
-      top:0;
-      left:0;
-      right:0;
-      height:28%;
-      background:linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.00) 100%);
+    .story-card:hover .story-card__img{
+      transform:none;
+      filter:brightness(0.45);
+    }
+    /* LA STORIA – immagine riempie il riquadro, no zoom */
+    .story-card--storia .story-card__img{
+      object-fit:cover;
+      object-position:center center;
+    }
+    .story-card--storia:hover .story-card__img{
+      filter:brightness(0.55);
+    }
+    /* GELATO – sfondo bianco, immagine a destra */
+    .story-card--gelato{ background:#ffffff; }
+    .story-card--gelato .story-card__img{
+      object-fit:contain;
+      object-position:calc(100% - 60px) center;
+      filter:brightness(1);
+    }
+    .story-card--gelato:hover .story-card__img{
+      transform:none;
+      filter:brightness(1);
+    }
+    .story-card--gelato .story-card__label{
+      color:var(--badiani-blue);
+    }
+    .story-card--gelato .story-card__title{
+      color:var(--badiani-blue);
+      text-shadow:none;
+    }
+    .story-card--gelato .story-card__desc{
+      color:var(--badiani-blue);
+    }
+    .story-card__overlay{
+      position:relative;
       z-index:2;
-      pointer-events:none;
+      padding:48px 52px;
+      width:100%;
     }
-    .global-presence > img{ display:none; }
-    .global-presence-headline{ position:absolute; top:7%; left:0; right:0; text-align:center; z-index:3; padding:0 18px; }
-    .global-presence-headline .world-means-title{
-      margin:0;
+    .story-card__label{
+      display:block;
+      font-size:clamp(13px, 1.2vw, 16px);
+      text-transform:uppercase;
+      letter-spacing:3px;
+      color:rgba(255,255,255,0.65);
+      margin-bottom:10px;
+      font-weight:400;
+    }
+    .story-card__title{
+      font-family:'SuperGroteskDigits','SuperGroteskB',sans-serif;
+      font-size:clamp(72px, 9vw, 140px);
       color:#fff;
       text-transform:uppercase;
-      line-height:0.95;
-      text-shadow:2px 2px 10px rgba(0,0,0,0.25);
-    }
-    .global-presence-headline .world-means-title .wmt-top{
-      display:block;
+      letter-spacing:4px;
       font-weight:700;
-      font-size:clamp(18px, 3.24vw, 45.6px);
-      letter-spacing:0.08em;
+      line-height:0.9;
+      margin-bottom:16px;
+      text-shadow:0 2px 20px rgba(0,0,0,0.4);
     }
-    .global-presence-headline .world-means-title .wmt-mid{
+    .story-card__desc{
+      font-size:clamp(14px, 1.2vw, 17px);
+      color:rgba(255,255,255,0.85);
+      line-height:1.7;
+      max-width:420px;
+      font-weight:300;
+    }
+    /* Vertical divider between halves */
+    .story-grid .story-card:first-child{
+      border-right:1px solid rgba(255,255,255,0.15);
+    }
+    .highlight-pink{ background:var(--badiani-pink); color:#fff; padding:3px 10px; font-family:'SuperGroteskDigits', 'SuperGroteskC', 'SuperGroteskA', 'SuperGroteskB', sans-serif; font-weight:500; border-radius:3px; white-space:nowrap; text-transform:uppercase; font-variant-caps:normal; }
+
+    /* ===== BADIANI NEL MONDO — unified split-screen ===== */
+    .world-section{ padding:0; text-align:left; background:none; }
+    .world-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:0;
+      max-width:none;
+      margin:0;
+    }
+    .world-card{
+      position:relative;
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      justify-content:flex-end;
+      min-height:70vh;
+      padding:clamp(36px, 4vw, 56px) clamp(32px, 4vw, 56px);
+    }
+    /* LEFT card — metrics (light) */
+    .world-card--metrics{
+      background:#f9f9fb;
+      color:var(--badiani-blue);
+      border-right:1px solid rgba(30,57,141,0.08);
+      justify-content:flex-start;
+      position:relative;
+      overflow:hidden;
+    }
+    .world-card--metrics > *{
+      position:relative;
+      z-index:1;
+    }
+    .world-card__label{
       display:block;
-      margin-top:14px;
+      font-size:clamp(13px, 1.2vw, 16px);
+      text-transform:uppercase;
+      letter-spacing:3px;
+      margin-bottom:10px;
       font-weight:400;
-      font-size:clamp(12px, 1.56vw, 30px);
-      letter-spacing:0.24em;
-      opacity:0.92;
     }
-    .global-presence-headline .world-means-title .wmt-bottom{
+    .world-card--metrics .world-card__label{
+      color:var(--badiani-gray);
+    }
+    .world-card__title{
+      font-family:'SuperGroteskDigits','SuperGroteskB',sans-serif;
+      font-size:clamp(72px, 11vw, 160px);
+      text-transform:uppercase;
+      letter-spacing:4px;
+      font-weight:700;
+      line-height:0.9;
+      margin-bottom:24px;
+    }
+    .world-card--metrics .world-card__title{
+      color:var(--badiani-blue);
+      max-width:55%;
+    }
+    .world-card__desc{
+      font-size:clamp(14px, 1.2vw, 17px);
+      line-height:1.7;
+      max-width:55%;
+      font-weight:300;
+      margin-bottom:clamp(28px, 3vw, 44px);
+    }
+    .world-card--metrics .world-card__desc{
+      color:var(--badiani-gray);
+    }
+    /* Stat cards inside metrics */
+    .stats{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:0;
+      border-top:1px solid rgba(30,57,141,0.10);
+      max-width:55%;
+    }
+    .stat{
+      background:transparent;
+      border:none;
+      border-bottom:1px solid rgba(30,57,141,0.10);
+      border-radius:0;
+      padding:clamp(24px, 2.5vw, 36px) clamp(8px, 1vw, 16px);
+      text-align:left;
+      transition:background 0.35s ease;
+      box-shadow:none;
+      position:relative;
+    }
+    .stat:nth-child(odd){
+      border-right:1px solid rgba(30,57,141,0.10);
+    }
+    .stat::after{
+      content:'';
+      position:absolute;
+      bottom:0;
+      left:0;
+      width:0;
+      height:2px;
+      background:var(--badiani-pink);
+      transition:width 0.4s cubic-bezier(0.4,0,0.2,1);
+    }
+    .stat:hover{
+      background:rgba(30,57,141,0.03);
+    }
+    .stat:hover::after{
+      width:100%;
+    }
+    .stat:focus-visible{
+      outline:2px solid var(--badiani-pink);
+      outline-offset:3px;
+    }
+    .stat-num{
+      font-family:'SuperGroteskDigits','SuperGroteskB',sans-serif;
+      font-size:clamp(36px, 4vw, 60px);
+      font-weight:700;
+      color:var(--badiani-blue);
+      line-height:1;
+      margin-bottom:8px;
+    }
+    .stat:nth-child(2) .stat-num{ color:var(--badiani-pink); }
+    .stat:nth-child(3) .stat-num{ color:var(--badiani-yellow); }
+    .stat:nth-child(4) .stat-num{ color:var(--badiani-cyan); }
+    .stat-label{
+      font-size:clamp(10px, 0.85vw, 12px);
+      text-transform:uppercase;
+      letter-spacing:2.5px;
+      color:var(--badiani-gray);
+      font-weight:500;
+      line-height:1.3;
+    }
+    /* RIGHT card — timeline (dark) */
+    .world-card--timeline{
+      background:var(--badiani-blue);
+      color:#fff;
+      justify-content:flex-start;
+      padding:clamp(48px, 6vw, 80px) 0 0 0;
+    }
+    .world-card__paolo{
+      position:absolute;
+      right:0;
+      bottom:0;
+      height:80%;
+      width:auto;
+      object-fit:contain;
+      object-position:right bottom;
+      pointer-events:none;
+      z-index:0;
+    }
+    .world-card--timeline > *{
+      position:relative;
+      z-index:1;
+    }
+    .world-card--timeline .world-card__label{
+      color:rgba(255,255,255,0.55);
+      padding-left:clamp(32px, 4vw, 56px);
+    }
+    .world-card--timeline .world-card__title{
+      color:#fff;
+      text-shadow:0 2px 20px rgba(0,0,0,0.25);
+      line-height:0.85;
+      margin-bottom:0;
+      white-space:nowrap;
+      padding-left:clamp(32px, 4vw, 56px);
+    }
+    .world-card--timeline .world-card__title.title-accent::before{
+      left:0.18em;
+    }
+    .world-card--timeline .world-card__title .wmt-small{
       display:block;
-      margin-top:10px;
-      font-weight:800;
-      font-size:clamp(56.16px, 9.828vw, 152.88px);
-      letter-spacing:0.06em;
+      font-size:0.3em;
+      letter-spacing:4px;
+      color:rgba(255,255,255,0.7);
+      font-weight:500;
+      margin-bottom:4px;
     }
-    .global-presence-arrows{ display:none; }
+    .world-card--timeline .world-card__title .wmt-gelato{
+      display:inline;
+      color:var(--badiani-pink);
+    }
+    /* GELATO big overlay + map wrapper */
+    .world-card__gelato-wrap{
+      position:relative;
+      flex:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width:100%;
+      overflow:hidden;
+    }
+    .world-card__gelato-big{
+      position:absolute;
+      z-index:2;
+      font-family:'SuperGroteskDigits','SuperGroteskB',sans-serif;
+      font-size:clamp(150px, 22vw, 330px);
+      font-weight:700;
+      text-transform:uppercase;
+      letter-spacing:6px;
+      color:var(--badiani-pink);
+      text-shadow:0 4px 30px rgba(0,0,0,0.3);
+      line-height:1;
+      top:0;
+    }
+    /* Worldwide map image */
+    .world-card__map{
+      width:100%;
+      max-width:100%;
+      height:auto;
+      margin-top:auto;
+      object-fit:contain;
+      padding:0;
+    }
+    /* Timeline stepper */
+    .timeline{
+      display:flex;
+      align-items:flex-start;
+      gap:0;
+      position:relative;
+    }
+    .timeline::before{
+      content:"";
+      position:absolute;
+      top:11px;
+      left:0;
+      right:0;
+      height:2px;
+      background:rgba(255,255,255,0.15);
+    }
+    .timeline-step{
+      flex:1;
+      position:relative;
+      text-align:left;
+      padding-right:16px;
+    }
+    .timeline-dot{
+      width:10px;
+      height:10px;
+      border-radius:50%;
+      background:var(--badiani-pink);
+      border:2px solid rgba(255,255,255,0.3);
+      position:relative;
+      z-index:1;
+      margin-bottom:16px;
+      transition:transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .timeline-step:hover .timeline-dot{
+      transform:scale(1.5);
+      box-shadow:0 0 16px rgba(240,103,166,0.5);
+    }
+    .timeline-year{
+      font-family:'SuperGroteskDigits','SuperGroteskB',sans-serif;
+      font-size:clamp(24px, 2.5vw, 40px);
+      font-weight:700;
+      color:#fff;
+      line-height:1;
+      margin-bottom:6px;
+      letter-spacing:1px;
+    }
+    .timeline-city{
+      font-size:clamp(10px, 0.9vw, 13px);
+      text-transform:uppercase;
+      letter-spacing:2.5px;
+      color:rgba(255,255,255,0.55);
+      font-weight:500;
+    }
 
     @media(max-width:900px){
-      /* Global Presence - mobile */
-      .global-presence{ 
-        aspect-ratio:auto; 
-        height:clamp(180px, 35vh, 280px);
-      }
-      .global-presence-bg img{ object-position:center bottom; }
-
-      /* Story timeline - mobile swipeable (match inspiration mobile) */
-      .buontalenti-story{ padding:24px 10px; overflow:visible; }
-      .story-header{ margin-bottom:14px; }
-      .story-title{
-        font-size:clamp(18px, 6.5vw, 26px);
-        padding-left:0;
-        display:inline-flex;
-        flex-wrap:wrap;
-        justify-content:center;
-        align-items:center;
+      /* World split - mobile stack */
+      .world-grid{ grid-template-columns:1fr; }
+      .world-card{ min-height:auto; padding:clamp(32px, 5vw, 48px) clamp(24px, 4vw, 36px); }
+      .world-card--metrics{ border-right:none; border-bottom:1px solid rgba(30,57,141,0.08); }
+      .world-card__title{ font-size:clamp(56px, 14vw, 100px); }
+      .stats{ gap:0; }
+      .stat{ padding:20px 14px; }
+      .stat-num{ font-size:clamp(24px, 6vw, 36px); }
+      .timeline{
+        flex-direction:column;
         gap:0;
-        text-align:center;
-        margin:0 auto 12px;
       }
-      .story-title::before{ display:none; }
-      .story-lead{
-        font-size:clamp(15px, 4.2vw, 17px);
-        line-height:1.5;
-        padding:0 6px;
-        margin-bottom:16px;
+      .timeline::before{
+        top:0; bottom:0;
+        left:4px;
+        width:2px;
+        height:auto;
+        right:auto;
       }
-      .buontalenti-story .highlight-pink{
-        padding:1px 3px;
-        margin:0 3px;
-        border-radius:0;
-        font-weight:500;
-        font-family:'SuperGroteskDigits', 'SuperGroteskC', 'SuperGroteskA', 'SuperGroteskB', sans-serif;
-        font-variant-caps:normal;
+      .timeline-step{
+        padding:0 0 24px 32px;
       }
-      .story-timeline{
-        display:flex;
-        gap:10px;
-        overflow-x:auto;
-        padding:6px 10px 10px;
-        margin-left:-10px;
-        margin-right:-10px;
-        margin-top:10px;
-        scroll-snap-type:x mandatory;
-        scroll-padding-left:10px;
-        -webkit-overflow-scrolling: touch;
-      }
-      .story-timeline::-webkit-scrollbar{ display:none; }
-      .timeline-item{
-        flex:0 0 70vw;
-        max-width:280px;
-        min-width:200px;
-        padding:12px 10px;
-        scroll-snap-align:start;
-        border-left-width:0;
-        border-left:0;
-        border-radius:12px;
-        box-shadow:0 6px 18px rgba(0,0,0,0.08);
-        background:rgba(255,255,255,0.55);
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
-        text-align:center;
-        cursor:pointer;
-      }
-      .timeline-year{ font-size:clamp(20px, 7vw, 30px); margin-bottom:4px; letter-spacing:0.5px; text-align:center; }
-      .timeline-title{ font-size:clamp(15px, 4.2vw, 17px); margin-bottom:4px; text-align:center; }
-      .timeline-desc{
-        font-size:clamp(13px, 3.6vw, 16px);
-        line-height:1.35;
-        display:block;
-        overflow:visible;
-        text-align:center;
-        word-break:break-word;
-        hyphens:auto;
-        padding-left:6px;
-        padding-right:6px;
+      .timeline-dot{
+        position:absolute;
+        left:0;
+        top:4px;
       }
 
-      /* Heritage (BADIANI NEL MONDO) - compact mobile layout */
-      .heritage{ padding:24px 12px; }
-      .heritage h2{
-        margin-bottom:8px;
-        padding-left:0;
-        text-align:center;
-      }
-      .heritage p{ font-size:clamp(15px, 4vw, 17px); line-height:1.5; }
-      .heritage-intro{ margin:0 auto 12px; }
-      .stats{
-        grid-template-columns: repeat(4, 1fr);
-        gap: 4px;
-        max-width: 100%;
-        width: 100%;
-        margin: 0 auto;
-        padding: 0;
-      }
-      .stat{
-        padding: 8px 4px;
-        border-radius: 4px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 3px;
-        min-height: 0;
-        aspect-ratio: 1/1;
-        position: relative;
-        overflow: hidden;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        border: 1px solid rgba(255,255,255,0.3);
-      }
-      .stat::before{
-        content:"";
-        position:absolute;
-        inset:0;
-        background:linear-gradient(135deg, rgba(255,255,255,0.22), rgba(255,255,255,0.02));
-        opacity:0.9;
-        pointer-events:none;
-      }
-      .stat > *{ position:relative; z-index:1; }
-      .stat-num{
-        font-size: clamp(18px, 5vw, 24px);
-        margin-bottom: 0;
-        line-height: 1;
-        font-weight: 700;
-      }
-      .stat-label{
-        font-size: clamp(10px, 2.8vw, 13px);
-        letter-spacing: 0.3px;
-        line-height: 1.15;
-        text-align: center;
-        max-width: 100%;
-        display: -webkit-box;
-        -webkit-box-orient:vertical;
-        -webkit-line-clamp:2;
-        line-clamp:2;
-        overflow:hidden;
-      }
-      .stat:hover{ transform:none; }
+      /* Story split - mobile stack */
+      .story-grid{ grid-template-columns:1fr; }
+      .story-card{ min-height:50vh; }
+      .story-card__overlay{ padding:32px 28px; }
+      .story-card__title{ font-size:clamp(56px, 14vw, 100px); }
+      .story-card__desc{ font-size:clamp(13px, 3.8vw, 15px); line-height:1.5; max-width:none; }
+      .story-card__label{ letter-spacing:2px; margin-bottom:6px; }
+      .story-grid .story-card:first-child{ border-right:none; border-bottom:1px solid rgba(255,255,255,0.15); }
+      .story-card .highlight-pink{ padding:1px 4px; border-radius:2px; }
+
     }
 
     @media(max-width:600px){
-      .global-presence{ aspect-ratio: 4 / 3; background-size:cover; }
-    }
-
-    @media(max-width:400px){
-      .stat{ min-height:70px; padding:12px 24px; aspect-ratio:2.5/1; }
-      .stat-num{ font-size:clamp(17px, 6.8vw, 24px); }
+      .stats{ grid-template-columns:1fr 1fr; gap:0; }
+      .stat{ padding:16px 12px; }
+      .stat-num{ font-size:clamp(22px, 7vw, 32px); }
     }
 
     /* ========== HOME REQUEST INFO FORM ========== */
@@ -739,103 +908,107 @@
       <track kind="descriptions" srclang="it" label="Descrizione video" default>
     </video>
     <div class="hero-content">
-      <h1 data-i18n="home.hero.title">Badiani Experience</h1>
-      <p class="hero-subtitle" data-i18n-html="home.hero.subtitle">Un momento iconico che accende l'evento.<br>Gelato artigianale, bello da vedere e buonissimo da vivere.<br>Personalizziamo format, setup e servizio in base alla tua occasione.</p>
+      <div class="hero-content__heading-group">
+        <span class="hero-content__label">Benvenuti</span>
+        <h1 class="title-accent title-accent--light" data-i18n="home.hero.title">Badiani Experience</h1>
+      </div>
+      <p class="hero-subtitle" data-i18n-html="home.hero.subtitle">Gelato artigianale, bello da vedere e buonissimo da vivere.<br>Personalizziamo format, setup e servizio in base alla tua occasione.</p>
     </div>
   </section>
 
   <section class="choice-section" data-i18n-attr="aria-label:home.choice.label">
-    <h2 data-i18n="home.choice.title">Scegli l'esperienza che ti serve</h2>
     <div class="choice-grid">
       <a class="choice-card" href="eventi/" data-i18n-attr="aria-label:home.choice.eventi.aria">
         <img class="choice-card__img" src="assets/images/eventi/evento-esterno-2.png" alt="Eventi" loading="lazy" decoding="async" data-i18n-attr="alt:home.card.eventi.title" width="864" height="1184" />
         <div class="choice-card__overlay">
-          <h3 class="choice-title" data-i18n="home.card.eventi.title">EVENTI</h3>
+          <div class="choice-card__heading-group">
+            <span class="choice-card__label">Tipologie</span>
+            <h3 class="choice-title title-accent title-accent--light" data-i18n="home.card.eventi.title">EVENTI</h3>
+          </div>
           <p class="choice-desc" data-i18n="home.choice.eventi.desc">Feste private ed eventi su misura</p>
-          <span class="choice-cta" data-i18n="home.choice.cta">Scopri</span>
         </div>
       </a>
       <a class="choice-card" href="b2b/" data-i18n-attr="aria-label:home.choice.b2b.aria">
         <img class="choice-card__img" src="assets/images/categories/vasche.png" alt="B2B" loading="lazy" decoding="async" width="712" height="659" />
         <div class="choice-card__overlay">
-          <h3 class="choice-title">B2B</h3>
+          <div class="choice-card__heading-group">
+            <span class="choice-card__label">Partnership</span>
+            <h3 class="choice-title title-accent title-accent--light">B2B</h3>
+          </div>
           <p class="choice-desc" data-i18n="home.choice.b2b.desc">Soluzioni gelato per catering, hotel</p>
-          <span class="choice-cta" data-i18n="home.choice.cta">Scopri</span>
         </div>
       </a>
     </div>
   </section>
 
 
-  <!-- STORIA DI BADIANI -->
-  <section id="story" class="buontalenti-story">
-    <div class="story-inner">
-      <div class="story-header">
-        <h2 class="story-title" data-i18n="story.title">BADIANI LA STORIA</h2>
-        <p class="story-lead" data-i18n-html="story.lead">
-          Negli anni '60, a Firenze, Badiani dedicò un gusto speciale a <span class="highlight-pink">Bernardo Buontalenti</span>, l'architetto rinascimentale al quale la tradizione attribuisce la nascita del <span class="highlight-pink">gelato</span> nel XVI secolo.
+  <!-- STORIA DI BADIANI + GELATO (split-screen) -->
+  <section id="story" class="story-section">
+    <div class="story-grid">
+      <div class="story-card story-card--storia">
+        <img class="story-card__img" src="assets/images/branding/lastoria.jpeg" alt="Badiani 1932 Firenze" loading="lazy" decoding="async" />
+        <div class="story-card__overlay">
+          <span class="story-card__label" data-i18n="story.label">Badiani</span>
+          <h2 class="story-card__title title-accent title-accent--light" data-i18n="story.title">LA STORIA</h2>
+          <p class="story-card__desc" data-i18n-html="story.text">
+            Nell'estate del <span class="highlight-pink">1932</span>, il gelatiere Idilio Badiani apre la sua prima gelateria a Firenze. Nel 1993 il brand viene acquisito da <span class="highlight-pink">Orazio Pomposi</span> che, insieme ai figli Paolo e Patrizio, porta Badiani a nuovi traguardi attraverso innovazione e creatività. Il gusto più celebre, il <span class="highlight-pink">Buontalenti</span>, resta il simbolo della tradizione fiorentina. Dal 2015 Badiani è anche a Londra con negozi e laboratorio dedicato, guidata dal Gelato Maker <span class="highlight-pink">Paolo Pomposi</span>.
+          </p>
+        </div>
+      </div>
+      <div class="story-card story-card--gelato">
+        <img class="story-card__img" src="assets/images/branding/GELATOSTORY.png" alt="La storia del gelato" loading="lazy" decoding="async" />
+        <div class="story-card__overlay">
+          <span class="story-card__label" data-i18n="gelato.subtitle">La cultura del Buontalenti</span>
+          <h2 class="story-card__title title-accent" data-i18n="gelato.title">GELATO</h2>
+          <p class="story-card__desc" data-i18n-html="gelato.text">
+            A metà del <span class="highlight-pink">Cinquecento</span>, Cosimo I de' Medici incaricò <span class="highlight-pink">Bernardo Buontalenti</span> di stupire una delegazione spagnola con festeggiamenti mai visti. L'architetto e genio creativo ideò una crema ghiacciata arricchita con lo zucchero, preziosa spezia dalle Americhe appena scoperte. Fu poi <span class="highlight-pink">Caterina de' Medici</span>, reggente di Francia, a portare i pasticceri fiorentini a corte, diffondendo il gelato in tutta Europa.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BADIANI NEL MONDO — split-screen (metrics + timeline) -->
+  <section id="heritage" class="world-section">
+    <div class="world-grid">
+      <!-- LEFT: Metrics -->
+      <div class="world-card world-card--metrics">
+        <img class="world-card__paolo" src="assets/paolo%20pomposi.png" alt="Paolo Pomposi" loading="lazy" decoding="async" />
+        <span class="world-card__label" data-i18n="heritage.stat.quality">Qualità Italiana</span>
+        <h2 class="world-card__title title-accent" data-i18n="heritage.title">BADIANI NEL MONDO SIGNIFICA GELATO</h2>
+        <p class="world-card__desc" data-i18n-html="heritage.intro">
+          Nata a <span class="highlight-pink">Firenze nel 1932</span>, Badiani è uno dei produttori di gelato più prestigiosi al mondo. Dalla culla del gelato, abbiamo costruito una presenza internazionale in cinque paesi su tre continenti.
         </p>
-      </div>
-
-      <div class="story-timeline">
-        <div class="timeline-item">
-          <div class="timeline-year">1500</div>
-          <div class="timeline-title" data-i18n="story.tl.title.origin">L'Origine</div>
-          <p class="timeline-desc" data-i18n-html="story.tl.desc.origin">Bernardo Buontalenti inventa il gelato nella <span class="highlight-pink">Firenze Rinascimentale</span>, creando una delizia ghiacciata per la corte dei Medici.</p>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-year">1960</div>
-          <div class="timeline-title" data-i18n="story.tl.title.tribute">L'Omaggio</div>
-          <p class="timeline-desc" data-i18n-html="story.tl.desc.tribute">Badiani crea la crema "Buontalenti" con <span class="highlight-pink">4 semplici ingredienti</span> (panna, latte, zucchero, uova) in onore dell'inventore.</p>
-        </div>
-
-        <div class="timeline-item">
-          <div class="timeline-year" data-i18n="story.tl.year.today">OGGI</div>
-          <div class="timeline-title" data-i18n="story.tl.title.legacy">L'Eredità</div>
-          <p class="timeline-desc" data-i18n-html="story.tl.desc.legacy">Il Barattolo Gelato porta questo iconico gusto fiorentino nella <span class="highlight-pink">distribuzione premium</span> in tutto il mondo.</p>
+        <div class="stats">
+          <div class="stat" tabindex="0">
+            <div class="stat-num">1932</div>
+            <div class="stat-label" data-i18n="heritage.stat.founded">Fondata a Firenze</div>
+          </div>
+          <div class="stat" tabindex="0">
+            <div class="stat-num">30+</div>
+            <div class="stat-label" data-i18n="heritage.stat.stores">Negozi nel Mondo</div>
+          </div>
+          <div class="stat" tabindex="0">
+            <div class="stat-num">100%</div>
+            <div class="stat-label" data-i18n="heritage.stat.quality">Qualità Italiana</div>
+          </div>
+          <div class="stat" tabindex="0">
+            <div class="stat-num">5</div>
+            <div class="stat-label" data-i18n="heritage.stat.countries">Paesi</div>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- HERITAGE - ECCELLENZA -->
-  <section id="heritage" class="heritage">
-    <h2 data-i18n="heritage.title">BADIANI NEL MONDO</h2>
-    <p class="heritage-intro" data-i18n-html="heritage.intro">
-      Nata a <span class="highlight-pink">Firenze nel 1932</span>, Badiani è uno dei produttori di gelato più prestigiosi al mondo. Dalla culla del gelato, abbiamo costruito una presenza internazionale in cinque paesi su tre continenti.
-    </p>
-    <div class="stats">
-      <div class="stat">
-        <div class="stat-num">1932</div>
-        <div class="stat-label" data-i18n="heritage.stat.founded">Fondata a Firenze</div>
+      <!-- RIGHT: Worldwide -->
+      <div id="locations" class="world-card world-card--timeline">
+        <span class="world-card__label">Badiani Nel Mondo</span>
+        <h2 class="world-card__title title-accent title-accent--light">
+          Significa
+        </h2>
+        <div class="world-card__gelato-wrap">
+          <span class="world-card__gelato-big">Gelato</span>
+          <img class="world-card__map" src="assets/worldwide.webp" alt="Badiani nel mondo" loading="lazy" decoding="async" />
+        </div>
       </div>
-      <div class="stat">
-        <div class="stat-num">30+</div>
-        <div class="stat-label" data-i18n="heritage.stat.stores">Negozi nel Mondo</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">100%</div>
-        <div class="stat-label" data-i18n="heritage.stat.quality">Qualità Italiana</div>
-      </div>
-      <div class="stat">
-        <div class="stat-num">5</div>
-        <div class="stat-label" data-i18n="heritage.stat.countries">Paesi</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- BADIANI NEL MONDO -->
-  <section id="locations" class="global-presence">
-    <div class="global-presence-bg" aria-hidden="true">
-      <img src="assets/worldwide.webp" alt="" loading="lazy" decoding="async" width="1583" height="671">
-    </div>
-    <div class="global-presence-headline">
-      <h2 class="world-means-title" aria-label="Badiani around the world means gelato">
-        <span class="wmt-top" data-i18n="global.top">Badiani Nel Mondo</span>
-        <span class="wmt-mid" data-i18n="global.mid">Significa</span>
-        <span class="wmt-bottom">Gelato</span>
-      </h2>
     </div>
   </section>
 
@@ -981,7 +1154,7 @@
           'footer.cookie': 'Cookie Policy',
           'home.hero.label': 'Hero home',
           'home.hero.title': 'Badiani Experience',
-          'home.hero.subtitle': 'Un momento iconico che accende l\'evento.<br>Gelato artigianale, bello da vedere e buonissimo da vivere.<br>Personalizziamo format, setup e servizio in base alla tua occasione.',
+          'home.hero.subtitle': 'Gelato artigianale, bello da vedere e buonissimo da vivere.<br>Personalizziamo format, setup e servizio in base alla tua occasione.',
           'home.hero.note': 'TODO: alternativa titolo "Esperienze Badiani?" o "Gelato su misura?"',
           'home.video.label': 'Video laboratorio',
           'home.video.caption': 'Paolo in laboratorio produzione del Buontalenti',
@@ -1017,15 +1190,12 @@
           'home.card.cta': 'Entra',
           'home.card.eventi.aria': 'Vai alla pagina Eventi',
           'home.card.b2b.aria': 'Vai alla pagina B2B',
-          'story.title': 'BADIANI LA STORIA',
-          'story.lead': 'Negli anni \'60, a Firenze, Badiani dedicò un gusto speciale a <span class="highlight-pink">Bernardo Buontalenti</span>, l\'architetto rinascimentale al quale la tradizione attribuisce la nascita del <span class="highlight-pink">gelato</span> nel XVI secolo.',
-          'story.tl.title.origin': 'L\'Origine',
-          'story.tl.desc.origin': 'Bernardo Buontalenti inventa il gelato nella <span class="highlight-pink">Firenze Rinascimentale</span>, creando una delizia ghiacciata per la corte dei Medici.',
-          'story.tl.title.tribute': 'L\'Omaggio',
-          'story.tl.desc.tribute': 'Badiani crea la crema "Buontalenti" con <span class="highlight-pink">4 semplici ingredienti</span> (panna, latte, zucchero, uova) in onore dell\'inventore.',
-          'story.tl.year.today': 'OGGI',
-          'story.tl.title.legacy': 'L\'Eredità',
-          'story.tl.desc.legacy': 'Il Barattolo Gelato porta questo iconico gusto fiorentino nella <span class="highlight-pink">distribuzione premium</span> in tutto il mondo.',
+          'story.label': 'Badiani',
+          'story.title': 'LA STORIA',
+          'story.text': 'Nell\'estate del <span class="highlight-pink">1932</span>, il gelatiere Idilio Badiani apre la sua prima gelateria a Firenze. Nel 1993 il brand viene acquisito da <span class="highlight-pink">Orazio Pomposi</span> che, insieme ai figli Paolo e Patrizio, porta Badiani a nuovi traguardi attraverso innovazione e creatività. Il gusto più celebre, il <span class="highlight-pink">Buontalenti</span>, resta il simbolo della tradizione fiorentina. Dal 2015 Badiani è anche a Londra con negozi e laboratorio dedicato, guidata dal Gelato Maker <span class="highlight-pink">Paolo Pomposi</span>.',
+          'gelato.subtitle': 'La cultura del Buontalenti',
+          'gelato.title': 'GELATO',
+          'gelato.text': 'A metà del <span class="highlight-pink">Cinquecento</span>, Cosimo I de\' Medici incaricò <span class="highlight-pink">Bernardo Buontalenti</span> di stupire una delegazione spagnola con festeggiamenti mai visti. L\'architetto e genio creativo ideò una crema ghiacciata arricchita con lo zucchero, preziosa spezia dalle Americhe appena scoperte. Fu poi <span class="highlight-pink">Caterina de\' Medici</span>, reggente di Francia, a portare i pasticceri fiorentini a corte, diffondendo il gelato in tutta Europa.',
           'heritage.title': 'BADIANI NEL MONDO',
           'heritage.intro': 'Nata a <span class="highlight-pink">Firenze nel 1932</span>, Badiani è uno dei produttori di gelato più prestigiosi al mondo. Dalla culla del gelato, abbiamo costruito una presenza internazionale in cinque paesi su tre continenti.',
           'heritage.stat.founded': 'Fondata a Firenze',
@@ -1034,6 +1204,11 @@
           'heritage.stat.countries': 'Paesi',
           'global.top': 'Badiani Nel Mondo',
           'global.mid': 'Significa',
+          'global.tl.florence': 'Firenze',
+          'global.tl.england': 'Inghilterra',
+          'global.tl.spain': 'Spagna',
+          'global.tl.japan': 'Giappone',
+          'global.tl.france': 'Francia',
           'home.form.label': 'Richiedi informazioni',
           'home.form.title': 'Richiedi Informazioni',
           'home.form.subtitle': 'Compila il modulo e ti ricontatteremo',
@@ -1080,7 +1255,7 @@
           'footer.cookie': 'Cookie Policy',
           'home.hero.label': 'Hero home',
           'home.hero.title': 'Badiani Experience',
-          'home.hero.subtitle': 'An iconic moment that lights up the event.<br>Artisan gelato, beautiful to see and delicious to experience.<br>We customize format, setup and service based on your occasion.',
+          'home.hero.subtitle': 'Artisan gelato, beautiful to see and delicious to experience.<br>We customize format, setup and service based on your occasion.',
           'home.hero.note': 'TODO: alternativa titolo "Esperienze Badiani?" o "Gelato su misura?"',
           'home.video.label': 'Video laboratorio',
           'home.video.caption': 'Paolo in laboratorio produzione del Buontalenti',
@@ -1116,15 +1291,12 @@
           'home.card.cta': 'Enter',
           'home.card.eventi.aria': 'Go to Events page',
           'home.card.b2b.aria': 'Go to B2B page',
-          'story.title': 'BADIANI THE HISTORY',
-          'story.lead': 'In the 1960s, in Florence, Badiani dedicated a special flavour to <span class="highlight-pink">Bernardo Buontalenti</span>, the Renaissance architect to whom tradition attributes the birth of <span class="highlight-pink">gelato</span> in the 16th century.',
-          'story.tl.title.origin': 'The Origin',
-          'story.tl.desc.origin': 'Bernardo Buontalenti invents gelato in <span class="highlight-pink">Renaissance Florence</span>, creating a frozen delicacy for the Medici court.',
-          'story.tl.title.tribute': 'The Tribute',
-          'story.tl.desc.tribute': 'Badiani creates the "Buontalenti" cream with <span class="highlight-pink">4 simple ingredients</span> (cream, milk, sugar, eggs) honouring the inventor.',
-          'story.tl.year.today': 'TODAY',
-          'story.tl.title.legacy': 'The Legacy',
-          'story.tl.desc.legacy': 'Il Barattolo Gelato brings this iconic Florentine flavour to <span class="highlight-pink">premium retail</span> worldwide.',
+          'story.label': 'Badiani',
+          'story.title': 'THE HISTORY',
+          'story.text': 'In the summer of <span class="highlight-pink">1932</span>, gelato maker Idilio Badiani opened his first gelateria in Florence. In 1993 the brand was acquired by <span class="highlight-pink">Orazio Pomposi</span> who, together with his sons Paolo and Patrizio, took Badiani to new heights through innovation and creativity. The most celebrated flavour, <span class="highlight-pink">Buontalenti</span>, remains the symbol of Florentine tradition. Since 2015 Badiani has expanded to London with shops and a dedicated lab, led by Gelato Maker <span class="highlight-pink">Paolo Pomposi</span>.',
+          'gelato.subtitle': 'The culture of Buontalenti',
+          'gelato.title': 'GELATO',
+          'gelato.text': 'In the mid-<span class="highlight-pink">16th century</span>, Cosimo I de\' Medici commissioned <span class="highlight-pink">Bernardo Buontalenti</span> to astonish a Spanish delegation with unprecedented festivities. The architect and creative genius devised an iced cream enriched with sugar, a precious spice from the newly discovered Americas. It was then <span class="highlight-pink">Catherine de\' Medici</span>, regent of France, who brought Florentine pastry chefs to court, spreading gelato across Europe.',
           'heritage.title': 'BADIANI WORLDWIDE',
           'heritage.intro': 'Born in <span class="highlight-pink">Florence in 1932</span>, Badiani is one of the world\'s most prestigious gelato producers. From the birthplace of gelato, we have built an international presence spanning five countries across three continents.',
           'heritage.stat.founded': 'Founded in Florence',
@@ -1133,6 +1305,11 @@
           'heritage.stat.countries': 'Countries',
           'global.top': 'Badiani Around The World',
           'global.mid': 'Means',
+          'global.tl.florence': 'Florence',
+          'global.tl.england': 'England',
+          'global.tl.spain': 'Spain',
+          'global.tl.japan': 'Japan',
+          'global.tl.france': 'France',
           'home.form.label': 'Request information',
           'home.form.title': 'Request Information',
           'home.form.subtitle': 'Fill in the form and we will get back to you',
@@ -1179,7 +1356,7 @@
           'footer.cookie': 'Politique de Cookies',
           'home.hero.label': 'Hero home',
           'home.hero.title': 'Badiani Experience',
-          'home.hero.subtitle': 'Un moment iconique qui illumine l\'événement.<br>Gelato artisanal, beau à voir et délicieux à vivre.<br>Nous personnalisons le format, le setup et le service selon votre occasion.',
+          'home.hero.subtitle': 'Gelato artisanal, beau à voir et délicieux à vivre.<br>Nous personnalisons le format, le setup et le service selon votre occasion.',
           'home.hero.note': 'TODO: alternativa titolo "Esperienze Badiani?" o "Gelato su misura?"',
           'home.video.label': 'Video laboratorio',
           'home.video.caption': 'Paolo in laboratorio produzione del Buontalenti',
@@ -1215,15 +1392,12 @@
           'home.card.cta': 'Entrer',
           'home.card.eventi.aria': 'Aller à la page Événements',
           'home.card.b2b.aria': 'Aller à la page B2B',
-          'story.title': 'BADIANI L\'HISTOIRE',
-          'story.lead': 'Dans les années 1960, à Florence, Badiani a dédié un parfum spécial à <span class="highlight-pink">Bernardo Buontalenti</span>, l\'architecte de la Renaissance auquel la tradition attribue la naissance du <span class="highlight-pink">gelato</span> au XVIe siècle.',
-          'story.tl.title.origin': 'L\'Origine',
-          'story.tl.desc.origin': 'Bernardo Buontalenti invente le gelato dans la <span class="highlight-pink">Florence de la Renaissance</span>, créant une gourmandise glacée pour la cour des Médicis.',
-          'story.tl.title.tribute': 'L\'Hommage',
-          'story.tl.desc.tribute': 'Badiani crée la crème « Buontalenti » avec <span class="highlight-pink">4 ingrédients simples</span> (crème, lait, sucre, œufs) pour honorer l\'inventeur.',
-          'story.tl.year.today': 'AUJOURD\'HUI',
-          'story.tl.title.legacy': 'L\'Héritage',
-          'story.tl.desc.legacy': 'Il Barattolo Gelato apporte ce parfum florentin iconique au <span class="highlight-pink">retail premium</span> dans le monde entier.',
+          'story.label': 'Badiani',
+          'story.title': 'L\'HISTOIRE',
+          'story.text': 'Durant l\'été <span class="highlight-pink">1932</span>, le glacier Idilio Badiani ouvre sa première gelateria à Florence. En 1993, la marque est reprise par <span class="highlight-pink">Orazio Pomposi</span> qui, avec ses fils Paolo et Patrizio, propulse Badiani vers de nouveaux sommets grâce à l\'innovation et la créativité. Le parfum le plus célèbre, le <span class="highlight-pink">Buontalenti</span>, reste le symbole de la tradition florentine. Depuis 2015, Badiani est aussi à Londres avec des boutiques et un laboratoire dédié, dirigé par le Gelato Maker <span class="highlight-pink">Paolo Pomposi</span>.',
+          'gelato.subtitle': 'La culture du Buontalenti',
+          'gelato.title': 'GELATO',
+          'gelato.text': 'Au milieu du <span class="highlight-pink">XVIe siècle</span>, Cosme Ier de Médicis chargea <span class="highlight-pink">Bernardo Buontalenti</span> d\'éblouir une délégation espagnole avec des festivités inédites. L\'architecte et génie créatif imagina une crème glacée enrichie de sucre, épice précieuse des Amériques tout juste découvertes. C\'est ensuite <span class="highlight-pink">Catherine de Médicis</span>, régente de France, qui fit venir les pâtissiers florentins à la cour, diffusant le gelato dans toute l\'Europe.',
           'heritage.title': 'BADIANI DANS LE MONDE',
           'heritage.intro': 'Née à <span class="highlight-pink">Florence en 1932</span>, Badiani est l\'un des producteurs de gelato les plus prestigieux au monde. Depuis le berceau du gelato, nous avons bâti une présence internationale dans cinq pays sur trois continents.',
           'heritage.stat.founded': 'Fondée à Florence',
@@ -1232,6 +1406,11 @@
           'heritage.stat.countries': 'Pays',
           'global.top': 'Badiani Dans Le Monde',
           'global.mid': 'Signifie',
+          'global.tl.florence': 'Florence',
+          'global.tl.england': 'Angleterre',
+          'global.tl.spain': 'Espagne',
+          'global.tl.japan': 'Japon',
+          'global.tl.france': 'France',
           'home.form.label': 'Demander des informations',
           'home.form.title': 'Demander des Informations',
           'home.form.subtitle': 'Remplissez le formulaire et nous vous recontacterons',
@@ -1278,7 +1457,7 @@
           'footer.cookie': 'Política de Cookies',
           'home.hero.label': 'Hero home',
           'home.hero.title': 'Badiani Experience',
-          'home.hero.subtitle': 'Un momento icónico que enciende el evento.<br>Helado artesanal, hermoso de ver y delicioso de vivir.<br>Personalizamos formato, montaje y servicio según tu ocasión.',
+          'home.hero.subtitle': 'Helado artesanal, hermoso de ver y delicioso de vivir.<br>Personalizamos formato, montaje y servicio según tu ocasión.',
           'home.hero.note': 'TODO: alternativa titolo "Esperienze Badiani?" o "Gelato su misura?"',
           'home.video.label': 'Video laboratorio',
           'home.video.caption': 'Paolo in laboratorio produzione del Buontalenti',
@@ -1314,15 +1493,12 @@
           'home.card.cta': 'Entrar',
           'home.card.eventi.aria': 'Ir a la página de Eventos',
           'home.card.b2b.aria': 'Ir a la página B2B',
-          'story.title': 'BADIANI LA HISTORIA',
-          'story.lead': 'En los años 60, en Florencia, Badiani dedicó un sabor especial a <span class="highlight-pink">Bernardo Buontalenti</span>, el arquitecto renacentista al que la tradición atribuye el nacimiento del <span class="highlight-pink">helado</span> en el siglo XVI.',
-          'story.tl.title.origin': 'El Origen',
-          'story.tl.desc.origin': 'Bernardo Buontalenti inventa el helado en la <span class="highlight-pink">Florencia Renacentista</span>, creando un manjar helado para la corte de los Médici.',
-          'story.tl.title.tribute': 'El Homenaje',
-          'story.tl.desc.tribute': 'Badiani crea la crema "Buontalenti" con <span class="highlight-pink">4 ingredientes simples</span> (nata, leche, azúcar, huevos) en honor al inventor.',
-          'story.tl.year.today': 'HOY',
-          'story.tl.title.legacy': 'El Legado',
-          'story.tl.desc.legacy': 'Il Barattolo Gelato lleva este icónico sabor florentino a la <span class="highlight-pink">distribución premium</span> en todo el mundo.',
+          'story.label': 'Badiani',
+          'story.title': 'LA HISTORIA',
+          'story.text': 'En el verano de <span class="highlight-pink">1932</span>, el heladero Idilio Badiani abre su primera heladería en Florencia. En 1993, la marca es adquirida por <span class="highlight-pink">Orazio Pomposi</span> quien, junto a sus hijos Paolo y Patrizio, lleva a Badiani a nuevas metas a través de la innovación y la creatividad. El sabor más célebre, el <span class="highlight-pink">Buontalenti</span>, sigue siendo el símbolo de la tradición florentina. Desde 2015, Badiani está también en Londres con tiendas y laboratorio propio, liderada por el Gelato Maker <span class="highlight-pink">Paolo Pomposi</span>.',
+          'gelato.subtitle': 'La cultura del Buontalenti',
+          'gelato.title': 'GELATO',
+          'gelato.text': 'A mediados del <span class="highlight-pink">siglo XVI</span>, Cosimo I de\' Medici encargó a <span class="highlight-pink">Bernardo Buontalenti</span> sorprender a una delegación española con festejos nunca vistos. El arquitecto y genio creativo ideó una crema helada enriquecida con azúcar, preciada especia de las Américas recién descubiertas. Fue luego <span class="highlight-pink">Catalina de Médici</span>, regente de Francia, quien llevó a los pasteleros florentinos a la corte, difundiendo el helado por toda Europa.',
           'heritage.title': 'BADIANI EN EL MUNDO',
           'heritage.intro': 'Nacida en <span class="highlight-pink">Florencia en 1932</span>, Badiani es uno de los productores de helado más prestigiosos del mundo. Desde la cuna del helado, hemos construido una presencia internacional en cinco países en tres continentes.',
           'heritage.stat.founded': 'Fundada en Florencia',
@@ -1331,6 +1507,11 @@
           'heritage.stat.countries': 'Países',
           'global.top': 'Badiani En El Mundo',
           'global.mid': 'Significa',
+          'global.tl.florence': 'Florencia',
+          'global.tl.england': 'Inglaterra',
+          'global.tl.spain': 'España',
+          'global.tl.japan': 'Japón',
+          'global.tl.france': 'Francia',
           'home.form.label': 'Solicitar información',
           'home.form.title': 'Solicitar Información',
           'home.form.subtitle': 'Completa el formulario y te contactaremos',

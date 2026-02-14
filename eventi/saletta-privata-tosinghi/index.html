@@ -27,12 +27,10 @@
     /* ===== VIDEO HERO ===== */
     .video-hero{
       position:relative;
-      height:72vh;
-      min-height:500px;
+      min-height:70vh;
       overflow:hidden;
-      display:grid;
-      place-items:center;
-      text-align:center;
+      display:flex;
+      align-items:flex-end;
       color:#fff;
       background:#000;
     }
@@ -42,7 +40,7 @@
       width:100%; height:100%;
       object-fit:cover;
       object-position:center center;
-      filter:brightness(0.35);
+      filter:brightness(0.72);
       transition: filter 0.8s cubic-bezier(0.4,0,0.2,1), transform 1.2s cubic-bezier(0.4,0,0.2,1);
     }
     .video-hero.video-bright video{
@@ -53,8 +51,10 @@
       position:relative;
       z-index:2;
       width:100%;
-      max-width:900px;
-      padding:20px;
+      display:flex;
+      align-items:flex-end;
+      gap:24px;
+      padding:48px 52px;
       transition: opacity 0.6s cubic-bezier(0.4,0,0.2,1);
     }
     .video-hero.video-bright .video-hero__content{
@@ -63,36 +63,48 @@
     }
     .video-hero__title{
       font-family:'SuperGroteskDigits','SuperGroteskB',sans-serif;
-      font-size:clamp(30px, 5vw, 64px);
+      font-size:clamp(72px, 10vw, 140px);
       font-weight:700;
-      letter-spacing:clamp(1px, 0.3vw, 4px);
+      letter-spacing:4px;
       text-transform:uppercase;
-      line-height:1.1;
+      line-height:0.9;
       color:#fff;
-      text-shadow:2px 2px 14px rgba(0,0,0,0.5);
-      margin-bottom:16px;
+      text-shadow:0 2px 20px rgba(0,0,0,0.4);
+      flex-shrink:0;
     }
     .video-hero__sub{
-      font-size:clamp(16px, 2vw, 26px);
-      color:rgba(255,255,255,0.9);
-      font-weight:400;
-      letter-spacing:1.5px;
-      text-transform:uppercase;
-      text-shadow:1px 1px 8px rgba(0,0,0,0.4);
+      font-size:clamp(14px, 1.2vw, 17px);
+      color:rgba(255,255,255,0.85);
+      line-height:1.5;
+      max-width:260px;
+      padding-bottom:8px;
+    }
+    .video-hero__cta{
+      margin-left:auto;
+      flex-shrink:0;
+      align-self:flex-end;
+      padding-bottom:8px;
     }
     @media(max-width:900px){
       .video-hero{
-        height:auto;
         min-height:44vh;
-        padding:36px 15px 32px;
+      }
+      .video-hero__content{
+        flex-direction:column;
+        align-items:flex-start;
+        padding:32px 20px;
+        gap:12px;
       }
       .video-hero__title{
-        font-size:clamp(24px, 7vw, 38px);
-        letter-spacing:1px;
-        line-height:1.2;
+        font-size:clamp(48px, 12vw, 80px);
+        letter-spacing:2px;
       }
       .video-hero__sub{
-        font-size:clamp(14px, 3.5vw, 20px);
+        font-size:clamp(13px, 3vw, 16px);
+        max-width:100%;
+      }
+      .video-hero__cta{
+        margin-left:0;
       }
     }
 
@@ -243,13 +255,31 @@
       align-items:stretch;
     }
     .package-card{
+      position:relative;
       background:var(--surface);
       border-radius:20px;
-      overflow:hidden;
+      overflow:visible;
       box-shadow:0 8px 28px rgba(0,0,0,0.10);
       display:flex;
       flex-direction:column;
       transition:box-shadow 0.3s ease;
+    }
+    .package-card .popular-badge{
+      position:absolute;
+      top:-16px;
+      left:50%;
+      transform:translateX(-50%);
+      background:var(--badiani-pink);
+      color:#fff;
+      font-size:13px;
+      font-weight:700;
+      letter-spacing:1.2px;
+      text-transform:uppercase;
+      padding:5px 22px;
+      border-radius:30px;
+      white-space:nowrap;
+      z-index:3;
+      box-shadow:0 3px 10px rgba(240,103,166,0.35);
     }
     .package-card:hover{
       box-shadow:0 14px 40px rgba(0,0,0,0.14);
@@ -262,6 +292,7 @@
       padding:24px 22px;
       text-align:center;
       color:#fff;
+      border-radius:20px 20px 0 0;
     }
     .package-name{
       font-size:clamp(20px, 2.2vw, 28px);
@@ -884,19 +915,21 @@
       <track kind="descriptions" srclang="it" label="Descrizione video" default>
     </video>
     <div class="video-hero__content">
-      <h1 class="video-hero__title" data-i18n="tosinghi.hero.title">Il tuo partner nella nostra saletta privata</h1>
-      <p class="video-hero__sub" data-i18n="tosinghi.hero.sub">Scegli il tuo pacchetto</p>
-      <button type="button" class="modal-request-btn" onclick="event.stopPropagation(); openRequestForm('Saletta Privata Tosinghi')" style="margin-top:24px; background:var(--badiani-pink); box-shadow:0 8px 24px rgba(240,103,166,0.35);">
-        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-        <span data-i18n="tosinghi.cta.request">Richiedi Informazioni</span>
-      </button>
+      <h1 class="video-hero__title title-accent title-accent--light" data-i18n="tosinghi.hero.title">SALETTA TOSINGHI</h1>
+      <p class="video-hero__sub" data-i18n="tosinghi.hero.sub">Scegli il tuo pacchetto per la nostra saletta privata</p>
+      <div class="video-hero__cta">
+        <button type="button" class="modal-request-btn" onclick="event.stopPropagation(); openRequestForm('Saletta Privata Tosinghi')" style="background:var(--badiani-pink); box-shadow:0 8px 24px rgba(240,103,166,0.35);">
+          <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          <span data-i18n="tosinghi.cta.request">Richiedi Informazioni</span>
+        </button>
+      </div>
     </div>
   </section>
 
   <main class="page-shell">
 
   <section class="section">
-    <h2 class="section-title" data-i18n="tosinghi.packages.title">Pacchetti Disponibili</h2>
+    <h2 class="section-title title-accent" data-i18n="tosinghi.packages.title">Pacchetti Disponibili</h2>
 
     <div class="packages-grid">
 
@@ -937,6 +970,7 @@
 
       <!-- ==================== GOLD ==================== -->
       <article class="package-card gold" tabindex="0" data-i18n-attr="aria-label:tosinghi.gold.aria">
+        <span class="popular-badge" data-i18n="tosinghi.gold.popular">Più Popolare</span>
         <div class="package-header">
           <h3 class="package-name">GOLD</h3>
           <p class="package-price" data-i18n="tosinghi.gold.price">&euro;30,00/persona</p>
@@ -1030,7 +1064,7 @@
   </section>
 
   <section class="gallery-section">
-    <h2 class="gallery-title" data-i18n="tosinghi.gallery.title">Galleria</h2>
+    <h2 class="gallery-title title-accent" data-i18n="tosinghi.gallery.title">Galleria</h2>
     <div class="gallery-grid">
       <div class="gallery-item" onclick="openLightbox(0)"><img src="../foto%20eventi/1.jpg" alt="Saletta Tosinghi" loading="lazy" decoding="async" width="4000" height="2668" /></div>
       <div class="gallery-item" onclick="openLightbox(1)"><img src="../foto%20eventi/2.jpg" alt="Saletta Tosinghi" loading="lazy" decoding="async" width="4000" height="2668" /></div>
@@ -1279,8 +1313,8 @@
           'footer.legale': 'Legale',
           'footer.privacy': 'Privacy Policy',
           'footer.cookie': 'Cookie Policy',
-          'tosinghi.hero.title': 'Il tuo partner nella nostra saletta privata',
-          'tosinghi.hero.sub': 'Scegli il tuo pacchetto',
+          'tosinghi.hero.title': 'SALETTA TOSINGHI',
+          'tosinghi.hero.sub': 'Scegli il tuo pacchetto per la nostra saletta privata',
           'tosinghi.packages.title': 'Pacchetti Disponibili',
           // Silver Package
           'tosinghi.silver.aria': 'Pacchetto Silver - Aperitivo classico',
@@ -1292,6 +1326,7 @@
           'tosinghi.silver.booking': '<strong>Prenotazione:</strong> Minimo 10 giorni prima, minimo richiesto per saletta in esclusiva',
           'tosinghi.silver.note': 'IVA inclusa • Max 45/50 persone',
           // Gold Package
+          'tosinghi.gold.popular': 'Più Popolare',
           'tosinghi.gold.aria': 'Pacchetto Gold - Esperienza premium',
           'tosinghi.gold.price': '€30,00/persona',
           'tosinghi.gold.desc': 'Pacchetto premium con panettone gastronomico, finger food dello Chef, monoporzioni dolci o Buontalenti e bevande selezionate.',
@@ -1485,8 +1520,8 @@
           'footer.legale': 'Legal',
           'footer.privacy': 'Privacy Policy',
           'footer.cookie': 'Cookie Policy',
-          'tosinghi.hero.title': 'Your partner in our private room',
-          'tosinghi.hero.sub': 'Choose your package',
+          'tosinghi.hero.title': 'TOSINGHI ROOM',
+          'tosinghi.hero.sub': 'Choose your package for our private room',
           'tosinghi.packages.title': 'Available Packages',
           // Silver Package
           'tosinghi.silver.aria': 'Silver Package - Classic aperitif',
@@ -1498,6 +1533,7 @@
           'tosinghi.silver.booking': '<strong>Booking:</strong> Minimum 10 days in advance, minimum required for exclusive private room',
           'tosinghi.silver.note': 'VAT included • Max 45/50 guests',
           // Gold Package
+          'tosinghi.gold.popular': 'Most Popular',
           'tosinghi.gold.aria': 'Gold Package - Premium experience',
           'tosinghi.gold.price': '€30.00/person',
           'tosinghi.gold.desc': 'Premium package with savoury panettone, Chef\'s finger food, sweet portions or Buontalenti and selected beverages.',
@@ -1691,8 +1727,8 @@
           'footer.legale': 'Mentions Légales',
           'footer.privacy': 'Politique de Confidentialité',
           'footer.cookie': 'Politique de Cookies',
-          'tosinghi.hero.title': 'Votre partenaire dans notre salle privée',
-          'tosinghi.hero.sub': 'Choisissez votre forfait',
+          'tosinghi.hero.title': 'SALLE TOSINGHI',
+          'tosinghi.hero.sub': 'Choisissez votre forfait pour notre salle privée',
           'tosinghi.packages.title': 'Forfaits Disponibles',
           // Silver Package
           'tosinghi.silver.aria': 'Forfait Silver - Apéritif classique',
@@ -1704,6 +1740,7 @@
           'tosinghi.silver.booking': '<strong>Réservation:</strong> Minimum 10 jours à l\'avance, minimum requis pour salle privée exclusive',
           'tosinghi.silver.note': 'TVA incluse • Max 45/50 personnes',
           // Gold Package
+          'tosinghi.gold.popular': 'Le Plus Populaire',
           'tosinghi.gold.aria': 'Forfait Gold - Expérience premium',
           'tosinghi.gold.price': '€30,00/personne',
           'tosinghi.gold.desc': 'Forfait premium avec panettone gastronomique, finger food du Chef, portions sucrées ou Buontalenti et boissons sélectionnées.',
@@ -1897,8 +1934,8 @@
           'footer.legale': 'Legal',
           'footer.privacy': 'Política de Privacidad',
           'footer.cookie': 'Política de Cookies',
-          'tosinghi.hero.title': 'Tu socio en nuestra sala privada',
-          'tosinghi.hero.sub': 'Elige tu paquete',
+          'tosinghi.hero.title': 'SALA TOSINGHI',
+          'tosinghi.hero.sub': 'Elige tu paquete para nuestra sala privada',
           'tosinghi.packages.title': 'Paquetes Disponibles',
           // Silver Package
           'tosinghi.silver.aria': 'Paquete Silver - Aperitivo clásico',
@@ -1910,6 +1947,7 @@
           'tosinghi.silver.booking': '<strong>Reserva:</strong> Mínimo 10 días de antelación, mínimo requerido para sala privada exclusiva',
           'tosinghi.silver.note': 'IVA incluido • Máx 45/50 personas',
           // Gold Package
+          'tosinghi.gold.popular': 'Más Popular',
           'tosinghi.gold.aria': 'Paquete Gold - Experiencia premium',
           'tosinghi.gold.price': '€30,00/persona',
           'tosinghi.gold.desc': 'Paquete premium con panettone gastronómico, finger food del Chef, porciones dulces o Buontalenti y bebidas seleccionadas.',

@@ -30,19 +30,48 @@
 
     .page-shell{ padding:48px clamp(16px, 4vw, 80px) 80px; }
 
-    .page-title{
-      font-size:clamp(32px, 5vw, 56px);
-      color:#fff;
-      text-transform:uppercase;
-      letter-spacing:3px;
-      text-align:center;
-      margin-bottom:12px;
-      text-shadow:0 2px 12px rgba(0,0,0,0.3);
+    .page-hero{
+      position:relative;
+      min-height:40vh;
+      display:flex;
+      align-items:flex-end;
+      padding:48px 52px;
+      gap:24px;
     }
-    .page-subtitle{
-      font-size:clamp(16px, 1.8vw, 22px);
-      color:rgba(255,255,255,0.9);
-      text-align:center;
+    .page-hero h1{
+      font-family:'SuperGroteskDigits','SuperGroteskB',sans-serif;
+      font-size:clamp(72px, 10vw, 140px);
+      font-weight:700;
+      letter-spacing:4px;
+      text-transform:uppercase;
+      line-height:0.9;
+      color:#fff;
+      text-shadow:0 2px 20px rgba(0,0,0,0.4);
+      flex-shrink:0;
+    }
+    .page-hero p{
+      font-size:clamp(14px, 1.2vw, 17px);
+      color:rgba(255,255,255,0.85);
+      line-height:1.5;
+      max-width:260px;
+      padding-bottom:8px;
+    }
+    @media(max-width:900px){
+      .page-hero{
+        padding:32px 28px;
+        flex-direction:column;
+        align-items:flex-start;
+        gap:10px;
+        min-height:28vh;
+      }
+      .page-hero h1{
+        font-size:clamp(48px, 12vw, 80px);
+        letter-spacing:2px;
+      }
+      .page-hero p{
+        max-width:none;
+      }
+    }
       max-width:700px;
       margin:0 auto 40px;
       text-shadow:0 1px 8px rgba(0,0,0,0.25);
@@ -716,8 +745,10 @@
   </nav>
 
   <main class="page-shell">
-    <h1 class="page-title" data-i18n="external.hero.title">Evento Esterno</h1>
-    <p class="page-subtitle" data-i18n="external.hero.desc">Porta Badiani al tuo evento con soluzioni mobili eleganti e versatili</p>
+    <div class="page-hero">
+      <h1 class="title-accent title-accent--light" data-i18n="external.hero.title">EVENTO ESTERNO</h1>
+      <p data-i18n="external.hero.desc">Porta Badiani al tuo evento con soluzioni mobili eleganti e versatili</p>
+    </div>
 
     <div style="text-align:center; margin:24px auto 48px;">
       <button type="button" class="modal-request-btn" onclick="openRequestForm('Evento Esterno')" style="margin-top:0;">
@@ -727,7 +758,7 @@
     </div>
 
   <section class="section">
-    <h2 class="section-title" data-i18n="external.solutions.title">Soluzioni Disponibili</h2>
+    <h2 class="section-title title-accent" data-i18n="external.solutions.title">Soluzioni Disponibili</h2>
 
     <div class="options-grid">
       <!-- COOL BOX -->
