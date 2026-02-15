@@ -334,16 +334,29 @@
     .story-card--storia:hover .story-card__img{
       filter:brightness(0.55);
     }
-    /* GELATO – sfondo bianco, immagine a destra */
-    .story-card--gelato{ background:#ffffff; }
+    /* GELATO – sfondo bianco, testo a sinistra, immagine a destra */
+    .story-card--gelato{
+      background:#ffffff;
+      align-items:stretch;
+    }
     .story-card--gelato .story-card__img{
+      position:absolute;
+      inset:auto 0 0 auto;
+      width:42%;
+      height:calc(85% + 100px);
       object-fit:contain;
-      object-position:calc(100% - 60px) center;
+      object-position:center bottom;
       filter:brightness(1);
     }
     .story-card--gelato:hover .story-card__img{
       transform:none;
       filter:brightness(1);
+    }
+    .story-card--gelato .story-card__overlay{
+      max-width:58%;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
     }
     .story-card--gelato .story-card__label{
       color:var(--badiani-blue);
@@ -409,7 +422,7 @@
       display:flex;
       flex-direction:column;
       justify-content:flex-end;
-      min-height:70vh;
+      min-height:clamp(340px, 70vh, 800px);
       padding:clamp(36px, 4vw, 56px) clamp(32px, 4vw, 56px);
     }
     /* LEFT card — metrics (light) */
@@ -419,7 +432,7 @@
       border-right:1px solid rgba(30,57,141,0.08);
       justify-content:flex-start;
       position:relative;
-      overflow:hidden;
+      overflow:visible;
     }
     .world-card--metrics > *{
       position:relative;
@@ -427,14 +440,14 @@
     }
     .world-card__paolo{
       position:absolute;
-      right:0;
+      right:-15%;
       bottom:0;
-      height:80%;
-      width:auto;
+      height:83%;
+      max-width:none;
       object-fit:contain;
       object-position:right bottom;
       pointer-events:none;
-      z-index:0;
+      z-index:2;
     }
     .world-card__label{
       display:block;
@@ -537,6 +550,7 @@
       color:#fff;
       justify-content:flex-start;
       padding:clamp(48px, 6vw, 80px) 0 0 0;
+      overflow:hidden;
     }
     .world-card--timeline .world-card__label{
       color:rgba(255,255,255,0.55);
@@ -547,8 +561,8 @@
       text-shadow:0 2px 20px rgba(0,0,0,0.25);
       line-height:0.85;
       margin-bottom:0;
-      white-space:nowrap;
       padding-left:clamp(32px, 4vw, 56px);
+      max-width:100%;
     }
     .world-card--timeline .world-card__title.title-accent::before{
       left:0.18em;
@@ -567,7 +581,7 @@
       position:absolute;
       z-index:2;
       font-family:'SuperGroteskDigits','SuperGroteskB',sans-serif;
-      font-size:clamp(150px, 22vw, 330px);
+      font-size:clamp(60px, 18vw, 330px);
       font-weight:700;
       text-transform:uppercase;
       letter-spacing:6px;
@@ -575,6 +589,7 @@
       text-shadow:0 4px 30px rgba(0,0,0,0.3);
       line-height:1;
       top:0;
+      white-space:nowrap;
     }
     .world-card__map{
       width:100%;
@@ -641,18 +656,15 @@
     }
 
     @media(max-width:900px){
-      /* World split - mobile stack */
+      /* World split - stack vertically, keep internal layout identical to desktop */
       .world-grid{ grid-template-columns:1fr; }
-      .world-card{ min-height:auto; padding:clamp(32px, 5vw, 48px) clamp(24px, 4vw, 36px); }
-      .world-card--metrics{ border-right:none; border-bottom:1px solid rgba(30,57,141,0.08); }
-      .world-card__title{ font-size:clamp(56px, 14vw, 100px); }
-      .world-card__paolo{ height:50%; }
-      .world-card--metrics .world-card__title,
-      .world-card__desc,
-      .stats{ max-width:100%; }
-      .stats{ gap:0; }
-      .stat{ padding:16px 14px; border-radius:12px; }
-      .stat-num{ font-size:clamp(24px, 6vw, 36px); }
+      .world-card--metrics{ border-right:none; border-bottom:1px solid rgba(30,57,141,0.08); overflow:hidden; }
+      .world-card__paolo{ height:95%; right:0; }
+      /* Full width text when cards are stacked */
+      .world-card--metrics .world-card__title{ max-width:100%; }
+      .world-card__desc{ max-width:100%; }
+      .stats{ max-width:100%; grid-template-columns:1fr; }
+      .stat:nth-child(odd){ border-right:none; }
       .timeline{
         flex-direction:column;
         gap:0;
@@ -683,19 +695,17 @@
       .story-grid .story-card:first-child{ border-right:none; border-bottom:1px solid rgba(255,255,255,0.15); }
       .story-card .highlight-pink{ padding:1px 4px; border-radius:2px; }
       .story-card--gelato .story-card__img{
-        object-position:calc(100% - 20px) center;
-        max-height:70%;
+        width:50%;
+        height:70%;
+        object-position:center bottom;
       }
 
     }
 
     @media(max-width:600px){
-      .stats{ grid-template-columns:1fr 1fr; gap:0; }
-      .stat{ padding:14px 12px; }
-      .stat-num{ font-size:clamp(22px, 7vw, 32px); }
-      .world-card__paolo{ height:35%; }
       .story-card--gelato .story-card__img{
-        max-height:55%;
+        width:45%;
+        height:60%;
       }
     }
 
